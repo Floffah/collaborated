@@ -1,0 +1,6 @@
+{
+  "name": "collaborated",
+  "workspaces": ["core/*", "packages/*"],
+  "private": true,
+  "license": "GPL-3.0"
+}

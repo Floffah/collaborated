@@ -1,0 +1,6 @@
+{
+  "name": "@collaborated/interact",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A javascript/typescript library for interacting with the Collaborated API"
+}
