@@ -1,1 +1,0 @@
-import{ThemeProvider as o}from"../../../web_modules/styled-components.js";import{getTheme as t}from"../colours/theme.js";import*as r from"../../../web_modules/react.js";export default function m(e){return r.createElement(o,{theme:t()},e())}

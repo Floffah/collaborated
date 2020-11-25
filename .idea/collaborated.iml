@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/core/server/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/core/web/build" />
       <excludeFolder url="file://$MODULE_DIR$/core/web/build/web_modules" />
       <excludeFolder url="file://$MODULE_DIR$/packages/interact/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/interact/types" />

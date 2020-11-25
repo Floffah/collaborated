@@ -1,5 +1,6 @@
 ./ideas.md
 packages/**/types
+build
 
 # Logs
 logs

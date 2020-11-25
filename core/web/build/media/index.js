@@ -1,1 +1,0 @@
-import t from"./ui/ui.js";import{Client as i}from"../web_modules/@collaborated/interact.js";import"./ui/environment.css.proxy.js";let e=!1;document.addEventListener("readystatechange",()=>{e||(e=!0,window.client=new i,t())});
