@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["D:\\projects\\unfinished\\cappbetter\\core\\web\\src\\ui\\ui.tsx"],
+  "sourcesContent": ["import {render} from \"react-dom\";\r\nimport Body from \"./components/containers/Body\";\r\nimport * as React from \"react\";\r\nimport {LoginPage} from \"./components/containers/LoginPage\";\r\nimport styled from \"styled-components\";\r\n\r\nexport default function ui() {\r\n    if(!!localStorage.getItem(\"access\")) {\r\n        render(<Body/>, document.getElementById(\"root\"));\r\n    } else {\r\n        render(<LoginPage/>, document.getElementById(\"root\"));\r\n    }\r\n}\r\n\r\nexport const RootContainer = styled.div`\r\nposition: fixed;\r\nwidth: 100%;\r\nheight: 100%;\r\nleft: 0;\r\nright: 0;\r\nbackground-color: ${props => props.theme.page.bg};\r\nmargin: 0;\r\n`\r\n"],
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AAEA;AACI,MAAG,CAAC,CAAC,aAAa,QAAQ;AACtB,WAAO,oCAAC,OAAD,OAAS,SAAS,eAAe;AAAA;AAExC,WAAO,oCAAC,YAAD,OAAc,SAAS,eAAe;AAAA;AAAA;AAI9C,aAAM,gBAAgB,OAAO;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,oBAMhB,WAAS,MAAM,MAAM,KAAK;AAAA;AAAA;",
+  "names": []
+}

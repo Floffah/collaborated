@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["D:\\projects\\unfinished\\cappbetter\\core\\web\\src\\ui\\components\\containers\\Body.tsx"],
+  "sourcesContent": ["import * as React from \"react\";\r\nimport styled, {ThemeProvider} from \"styled-components\";\r\nimport {HomeOutlined} from \"@ant-design/icons\";\r\nimport {ColourTheme, getTheme} from \"../../colours/theme\";\r\nimport {RootContainer} from \"../../ui\";\r\n\r\nexport default class Body extends React.Component<any, {theme: ColourTheme}> {\r\n    constructor(p:any) {\r\n        super(p);\r\n\r\n        this.state = {\r\n            theme: getTheme()\r\n        }\r\n    }\r\n\r\n    render() {\r\n        return <ThemeProvider theme={this.state.theme}>\r\n            <RootContainer>\r\n                <NavBar>\r\n                    <HomeOutlined/>\r\n                </NavBar>\r\n            </RootContainer>\r\n        </ThemeProvider>\r\n    }\r\n}\r\n\r\nconst NavBar = styled.div`\r\n    position: fixed;\r\n    right: 0;\r\n    top: 0;\r\n    width: 60px;\r\n    height: 100%;\r\n    background-color: ${props => props.theme.navbar.bg};\r\n`\r\n"],
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AAJA,kCAMkC,MAAM;AAAA,EACpC,YAAY;AACR,UAAM;AAEN,SAAK,QAAQ;AAAA,MACT,OAAO;AAAA;AAAA;AAAA,EAIf;AACI,WAAO,oCAAC,eAAD;AAAA,MAAe,OAAO,KAAK,MAAM;AAAA,OACpC,oCAAC,eAAD,MACI,oCAAC,QAAD,MACI,oCAAC,cAAD;AAAA;AAAA;AAOpB,eAAe,OAAO;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,wBAME,WAAS,MAAM,MAAM,OAAO;AAAA;",
+  "names": []
+}

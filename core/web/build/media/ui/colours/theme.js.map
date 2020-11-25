@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["D:\\projects\\unfinished\\cappbetter\\core\\web\\src\\ui\\colours\\theme.ts"],
+  "sourcesContent": ["import {darkTheme} from \"./dark\";\r\n\r\nexport function getTheme(theme?: string): ColourTheme {\r\n    let find = theme || localStorage.getItem(\"capp:theme\") || \"dark\";\r\n    if (find === \"dark\") {\r\n        return darkTheme();\r\n    }// else if(find === \"night\") {\r\n    //     return nightTheme();\r\n    // }\r\n    return darkTheme();\r\n}\r\n\r\nexport interface ColourTheme {\r\n    name: string,\r\n\r\n    navbar: {\r\n        bg: string\r\n    },\r\n\r\n    page: {\r\n        bg: string\r\n    },\r\n\r\n    login: {\r\n        bg: string,\r\n        header: {\r\n            color: string,\r\n            bg: string\r\n        },\r\n        input: {\r\n            bg: string,\r\n            color: string,\r\n        }\r\n    }\r\n}\r\n"],
+  "mappings": "AAAA;AAEO,yBAAkB;AACrB,aAAW,SAAS,aAAa,QAAQ,iBAAiB;AAC1D,MAAI,SAAS;AACT,WAAO;AAAA;AAIX,SAAO;AAAA;",
+  "names": []
+}

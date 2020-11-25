@@ -1,6 +1,10 @@
 {
   "name": "collaborated",
-  "workspaces": ["core/*", "packages/*"],
+  "workspaces": ["core/*", "packages/*", "scripts"],
   "private": true,
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "scripts": {
+    "terminals": "yarn workspace scripts terminals",
+    "docs": "yarn workspace web docs"
+  }
 }

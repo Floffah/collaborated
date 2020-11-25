@@ -1,3 +1,6 @@
+./ideas.md
+packages/**/types
+
 # Logs
 logs
 *.log

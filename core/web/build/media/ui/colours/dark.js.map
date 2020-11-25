@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["D:\\projects\\unfinished\\cappbetter\\core\\web\\src\\ui\\colours\\dark.ts"],
+  "sourcesContent": ["import {ColourTheme} from \"./theme\";\r\n\r\nexport function darkTheme():ColourTheme {\r\n    return {\r\n        name: \"Dark\",\r\n\r\n        navbar: {\r\n            bg: \"#000000\"//gray13\r\n        },\r\n\r\n        page: {\r\n            bg: \"#141414\"//gray12\r\n        },\r\n\r\n        login: {\r\n            bg: \"#1f1f1f\",//gray11\r\n            header: {\r\n                color: \"#d9d9d9\",\r\n                bg: \"#262626\"//gray10\r\n            },\r\n            input: {\r\n                bg: \"#141414\", //gray12\r\n                color: \"#f5f5f5\" //gray3\r\n            }\r\n        }\r\n    }\r\n}\r\n"],
+  "mappings": "AAEO;AACH,SAAO;AAAA,IACH,MAAM;AAAA,IAEN,QAAQ;AAAA,MACJ,IAAI;AAAA;AAAA,IAGR,MAAM;AAAA,MACF,IAAI;AAAA;AAAA,IAGR,OAAO;AAAA,MACH,IAAI;AAAA,MACJ,QAAQ;AAAA,QACJ,OAAO;AAAA,QACP,IAAI;AAAA;AAAA,MAER,OAAO;AAAA,QACH,IAAI;AAAA,QACJ,OAAO;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

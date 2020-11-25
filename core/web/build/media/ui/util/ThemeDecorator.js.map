@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["D:\\projects\\unfinished\\cappbetter\\core\\web\\src\\ui\\util\\ThemeDecorator.tsx"],
+  "sourcesContent": ["import {ThemeProvider} from \"styled-components\";\r\nimport {getTheme} from \"../colours/theme\";\r\nimport * as React from \"react\";\r\n\r\nexport default function ThemeDecorator(storyFn: any) {\r\n    return <ThemeProvider theme={getTheme()}>{storyFn()}</ThemeProvider>\r\n}\r\n"],
+  "mappings": "AAAA;AACA;AACA;AAEA,uCAAuC;AACnC,SAAO,oCAAC,eAAD;AAAA,IAAe,OAAO;AAAA,KAAa;AAAA;",
+  "names": []
+}

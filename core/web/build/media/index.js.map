@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["D:\\projects\\unfinished\\cappbetter\\core\\web\\src\\index.ts"],
+  "sourcesContent": ["import ui from \"./ui/ui\";\r\nimport {Client} from \"@collaborated/interact\";\r\nimport \"./ui/environment.css\"\r\n\r\nlet readied = false;\r\ndocument.addEventListener(\"readystatechange\", () => {\r\n    if(!readied) {\r\n        readied = true;\r\n        window[\"client\"] = new Client();\r\n        ui();\r\n    }\r\n});\r\n"],
+  "mappings": "AAAA;AACA;AACA;AAEA,IAAI,UAAU;AACd,SAAS,iBAAiB,oBAAoB;AAC1C,MAAG,CAAC;AACA,cAAU;AACV,WAAO,YAAY,IAAI;AACvB;AAAA;AAAA;",
+  "names": []
+}
