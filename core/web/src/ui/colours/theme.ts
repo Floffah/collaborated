@@ -12,6 +12,7 @@ export function getTheme(theme?: string): ColourTheme {
 
 export interface ColourTheme {
     name: string,
+    font: string,
 
     navbar: {
         bg: string
@@ -33,6 +34,8 @@ export interface ColourTheme {
         bg: string,
         color: string,
         placeholder: string,
-        error: string
+        error: string,
+        hover: string,
+        errhover: string,
     }
 }

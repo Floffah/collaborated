@@ -9,17 +9,19 @@ export default class Login extends React.Component {
                 <p>Login</p>
             </LoginHeader>
             <LoginBody>
-                <TextInput/>
+                <TextInput width={500} height={35} fontSize={20} notEmpty errorLabel/>
             </LoginBody>
         </LoginContainer>
     }
 }
 
 const LoginBody = styled.div`
-position: relative;
-height: calc(100% - 55px);
-width: 100%;
-top: 55px;
+    position: relative;
+    height: calc(100% - 55px);
+    width: 100%;
+    top: 55px;
+    margin-left: 40px;
+    margin-top: 40px;
 `
 
 const LoginHeader = styled.div`

@@ -33,10 +33,20 @@ export interface TextInputProps {
     mode?: "text" | "search" | "tel" | "url" | "email" | "number" | "password",
     notEmpty?: boolean,
     placeholder?: string,
+    width?: number,
+    height?: number,
+    fontSize?: number,
+    errorLabel?: boolean
 }
 
 interface TextInputState {
-    value: string
+    value: string,
+    errors: InputErrors[]
+}
+
+enum InputErrors {
+    Empty = "Cannot be empty.",
+    EmailFormat = "Must be an email. (Example: example@example.com)"
 }
 
 export default class TextInput extends React.Component<TextInputProps, TextInputState> {
@@ -44,7 +54,8 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
         super(p);
 
         this.state = {
-            value: ""
+            value: "",
+            errors: []
         }
     }
 
@@ -55,23 +66,53 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
     }
 
     render() {
-        let final = <TextBasedInput
-            type={this.props.mode || "text"}
-            onChange={(e) => this.handleChange(e)}
-            autoComplete={this.props.autoComplete || "off"}
-            value={this.state.value}
-            placeholder={this.props.placeholder || "text"}
+        let needsExtra = false;
+        if(this.state.value === "" && !!this.props.notEmpty && !this.state.errors.includes(InputErrors.Empty)) {
+            this.state.errors.push(InputErrors.Empty);
+        } else if(this.state.errors.includes(InputErrors.Empty)) {
+            this.state.errors.splice(this.state.errors.indexOf(InputErrors.Empty), 1)
+        }
+        let iprops = {
+            type: this.props.mode || "text",
+            onChange: (e: ChangeEvent<HTMLInputElement>) => this.handleChange(e),
+            autoComplete: this.props.autoComplete || "off",
+            value: this.state.value,
+            placeholder: this.props.placeholder || "text",
 
-            err={this.state.value === "" && !!this.props.notEmpty}
-        />
+            err: this.state.errors.length >= 1,
+            iwidth: this.props.width || 200,
+            iheight: this.props.height || 30,
+            ifontSize: this.props.fontSize || 15,
+        }
+        if (this.props.errorLabel) {
+            needsExtra = true;
+        }
+        if (needsExtra) {
+            let contained: JSX.Element[] = [
+                <BaseInput key={0} {...iprops}/>
+            ];
 
-        return final;
+            if(this.props.errorLabel) {
+                contained.push(<ErrorLabel>{this.state.errors.length >= 1 ? this.state.errors[0] : ""}</ErrorLabel>)
+            }
+
+            return <InputContainer>{contained}</InputContainer>
+        } else {
+            return <BaseInput {...iprops}/>;
+        }
     }
 }
 
-const BaseInput = styled.input<{err:boolean}>`
-    width: 200px;
-    height: 30px;
+const ErrorLabel = styled.p`
+    font-family: ${props => props.theme.font};
+    color: ${props => props.theme.input.error};
+    margin: 0;
+    font-size: 15px;
+`
+
+export const BaseInput = styled.input<{ err: boolean, iwidth?: number, iheight?: number, ifontSize?: number }>`
+    width: ${props => props.iwidth}px;
+    height: ${props => props.iheight}px;
     
     padding: 2px;
     padding-right: 7px;
@@ -79,7 +120,8 @@ const BaseInput = styled.input<{err:boolean}>`
     
     background-color: ${props => props.theme.input.bg};
     color: ${props => props.theme.input.color};
-    font-size: 15px;
+    font-size: ${props => props.ifontSize}px;
+    font-family: ${props => props.theme.font};
     
     outline: none;
     border-radius: 2px;
@@ -90,9 +132,12 @@ const BaseInput = styled.input<{err:boolean}>`
     &::placeholder {
         color: ${props => props.theme.input.placeholder}
     }
+    
+    &:hover {
+        border: 1px solid ${props => props.err ? props.theme.input.errhover : props.theme.input.hover}
+    }
 `
 
-
-const TextBasedInput = styled(BaseInput)`
+export const InputContainer = styled.div`
 
 `
