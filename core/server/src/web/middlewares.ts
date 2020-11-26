@@ -2,11 +2,12 @@ import CachedMap from "../util/CachedMap";
 import {NextFunction, Request, Response} from "express";
 import {lstatSync, readdirSync, readFileSync} from "fs";
 import {resolve} from "path";
+import Logger from "../util/Logger";
 
-export function staticCached(path: string) {
+export function staticCached(path: string, logger: Logger) {
     let cache = new CachedMap<string>();
 
-    console.log("caching...");
+    logger.info("caching served files...");
 
     function scan(path: string, prev: string) {
         for(let pth of readdirSync(path)) {
@@ -22,7 +23,7 @@ export function staticCached(path: string) {
     }
     scan(path, "/");
 
-    console.log("cached.");
+    logger.info("cached served files.");
 
     return (req: Request, res: Response, next: NextFunction) => {
         if(cache.has(req.path)) {
