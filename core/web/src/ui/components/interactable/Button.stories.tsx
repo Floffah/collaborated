@@ -1,5 +1,5 @@
-import {Meta} from "@storybook/react"
-import React from "react"
+import {Meta} from "@storybook/react";
+import * as React from "react";
 import Button from "./Button"
 
 export default {
@@ -7,4 +7,4 @@ export default {
     component: Button
 } as Meta
 
-export const Default = (args:any) => <Button {...args}></Button>
+export const Default = (args:any) => <Button {...args}>Button</Button>

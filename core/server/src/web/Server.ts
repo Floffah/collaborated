@@ -4,8 +4,9 @@ import {staticCached} from "./middlewares";
 import {resolve} from "path";
 import API from "./API";
 import Logger from "../util/Logger";
-import {Connection, createConnection} from "typeorm";
+import {Connection, ConnectionOptions, createConnection} from "typeorm";
 import {GatewayConnection, User} from "../db/Models";
+import {Interprocess} from "../comms/Interprocess";
 
 export default class Server {
     app: Application
@@ -13,17 +14,18 @@ export default class Server {
     api: API
     logger: Logger = new Logger();
     db: Connection
+    ip: Interprocess
 
     init() {
         this.logger.info("Connecting to database...");
         createConnection({
-            type: "postgres",
-            host: "ec2-176-34-114-78.eu-west-1.compute.amazonaws.com",
-            database: "d9vius48l50fp2",
-            username: "mkqrnsuqoxkcgt",
-            port: 5432,
-            password: "2eb132ed200c9a3990636f50d7b8b786be16680cdfe15461b93e41b7c6bb5dc8",
-            url: "postgres://mkqrnsuqoxkcgt:2eb132ed200c9a3990636f50d7b8b786be16680cdfe15461b93e41b7c6bb5dc8@ec2-176-34-114-78.eu-west-1.compute.amazonaws.com:5432/d9vius48l50fp2",
+            type: process.env.dbtype,
+            host: process.env.dbhost,
+            database: process.env.dbdatabase,
+            username: process.env.dbusername,
+            port: parseInt(<string>process.env.dbport),
+            password: process.env.dbpassword,
+            url: process.env.dburl,
 
             entities: [User, GatewayConnection],
             entityPrefix: "capp_",
@@ -35,7 +37,7 @@ export default class Server {
                 requestCert: true,
                 rejectUnauthorized: process.env.mode !== "dev",
             }
-        }).then(c => {
+        } as ConnectionOptions).then(c => {
             this.logger.info(`Database connection made. (insecure ssl ${process.env.mode === "dev" ? "on" : "off"})`)
             this.db = c;
             this.start();
@@ -45,19 +47,22 @@ export default class Server {
     start() {
         this.logger.info("Starting...");
 
-        this.app = express();
-        this.server = createServer(this.app);
+        this.ip = new Interprocess(this);
+        this.ip.init(() => {
+            this.app = express();
+            this.server = createServer(this.app);
 
-        if (!process.argv.includes("--dev")) {
-            this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger));
-        }
+            if (!process.argv.includes("--dev")) {
+                this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger));
+            }
 
-        if(!process.argv.includes("--disable-api")) {
-            this.api = new API(this);
-            this.api.init();
-        }
+            if(!process.argv.includes("--disable-api")) {
+                this.api = new API(this);
+                this.api.init();
+            }
 
-        this.server.listen(80);
-        this.logger.info("Started on port 80");
+            this.server.listen(80);
+            this.logger.info("Started on port 80");
+        });
     }
 }
