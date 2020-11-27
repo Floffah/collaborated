@@ -16,11 +16,11 @@ export interface ColourTheme {
 
     navbar: {
         bg: string
-    },
+    }
 
     page: {
         bg: string
-    },
+    }
 
     login: {
         bg: string,
@@ -28,6 +28,11 @@ export interface ColourTheme {
             color: string,
             bg: string
         },
+    }
+
+    button: {
+        color: string,
+        bg: string,
     }
 
     input: {

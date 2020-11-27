@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import TextInput from "../input/TextInput";
+import TextInput, {InputContainer} from "../input/TextInput";
 
 export default class Login extends React.Component {
     render() {
@@ -9,8 +9,8 @@ export default class Login extends React.Component {
                 <p>Login</p>
             </LoginHeader>
             <LoginBody>
-                <TextInput placeholder="Username" width={500} height={35} fontSize={20} notEmpty errorLabel/>
-                <TextInput placeholder="Password" mode="password" width={500} height={35} fontSize={20} notEmpty errorLabel/>
+                <TextInput placeholder="Username" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
+                <TextInput placeholder="Password" mode="password" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
             </LoginBody>
         </LoginContainer>
     }
@@ -23,6 +23,10 @@ const LoginBody = styled.div`
     top: 55px;
     margin-left: 40px;
     margin-top: 40px;
+    
+    ${InputContainer} {
+        margin-top: 0px;
+    }
 `
 
 const LoginHeader = styled.div`
@@ -51,8 +55,8 @@ const LoginContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 400px;
     background-color: ${props => props.theme.login.bg};
     border-radius: 5px;
     padding: 20px;

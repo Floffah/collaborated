@@ -36,12 +36,14 @@ export interface TextInputProps {
     width?: number,
     height?: number,
     fontSize?: number,
-    errorLabel?: boolean
+    errorLabel?: boolean,
+    errorWait?: boolean
 }
 
 interface TextInputState {
     value: string,
-    errors: InputErrors[]
+    errors: InputErrors[],
+    renders: number
 }
 
 enum InputErrors {
@@ -50,12 +52,15 @@ enum InputErrors {
 }
 
 export default class TextInput extends React.Component<TextInputProps, TextInputState> {
+    renders: number = 0;
+
     constructor(p: TextInputProps) {
         super(p);
 
         this.state = {
             value: "",
-            errors: []
+            errors: [],
+            renders: 0
         }
     }
 
@@ -67,7 +72,7 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
 
     render() {
         let needsExtra = false;
-        if(this.state.value === "" && !!this.props.notEmpty && !this.state.errors.includes(InputErrors.Empty)) {
+        if(this.state.value === "" && !!this.props.notEmpty && !this.state.errors.includes(InputErrors.Empty) && (!this.props.errorWait || (this.props.errorWait && this.renders > 1))) {
             this.state.errors.push(InputErrors.Empty);
         } else if(this.state.errors.includes(InputErrors.Empty)) {
             this.state.errors.splice(this.state.errors.indexOf(InputErrors.Empty), 1)
@@ -93,11 +98,13 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
             ];
 
             if(this.props.errorLabel) {
-                contained.push(<ErrorLabel>{this.state.errors.length >= 1 ? this.state.errors[0] : ""}</ErrorLabel>)
+                contained.push(<ErrorLabel>{this.state.errors.length >= 1 ? this.state.errors[0] : "⠀"}</ErrorLabel>)
             }
 
+            this.renders++;
             return <InputContainer>{contained}</InputContainer>
         } else {
+            this.renders++;
             return <BaseInput {...iprops}/>;
         }
     }

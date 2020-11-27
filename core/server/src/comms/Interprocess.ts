@@ -17,6 +17,7 @@ export class Interprocess {
     }
 
     init(done?: () => void) {
+        this.server.logger.info("Connecting to Redis server...");
         this.sub = createClient({
             host: process.env.rdhost,
             port: parseInt(<string>process.env.rdport),

@@ -20,6 +20,12 @@ export function darkTheme():ColourTheme {
                 bg: "#262626"//gray10
             },
         },
+
+        button: {
+            color: "",
+            bg: ""
+        },
+
         input: {
             bg: "#141414", //gray12
             color: "#f5f5f5", //gray3

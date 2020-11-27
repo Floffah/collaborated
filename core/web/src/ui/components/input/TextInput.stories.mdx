@@ -1,0 +1,38 @@
+import {Meta, Canvas, Story} from "@storybook/addon-docs";
+import TextInput from "./TextInput";
+
+<Meta title="Components/Input/TextInput" component={TextInput}/>
+
+# Text Input
+The text input is very flexible and has some cool features but this comes at a cost which I will talk about.
+
+export const Template = (args) => <TextInput {...args}/>
+
+A very simple input would look like this. It renders a single input element with no extra processing.
+
+<Story name="Text" args={{}}>{Template.bind({})}</Story>
+
+But then we can take it further and although this renders the same thing, if there is nothing in the input, it will have a red border! You can also pass `errorWait` as true to make it only turn red once the user has altered the value in some way.
+
+<Story name="Not Empty" args={{
+    notEmpty: true
+}}>{Template.bind({})}</Story>
+
+This starts becoming useful when we need to make inputs like usernames. You can't log in if you don't have a username!
+
+<Story name="Username Example" args={{
+    notEmpty: true,
+    placeholder: "Username",
+    autoComplete: "username",
+    mode: "text"
+}}>{Template.bind({})}</Story>
+
+This will also work with things like emails because there is another property called errorLabel which acts the same way as the border except obviously is a bit of text that tells you why its gone red.
+
+<Story name="Email Example" args={{
+    notEmpty: true,
+    placeholder: "Email",
+    autoComplete: "email",
+    mode: "email",
+    errorLabel: true
+}}>{Template.bind({})}</Story>
