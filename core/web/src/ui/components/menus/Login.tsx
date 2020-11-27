@@ -9,7 +9,8 @@ export default class Login extends React.Component {
                 <p>Login</p>
             </LoginHeader>
             <LoginBody>
-                <TextInput width={500} height={35} fontSize={20} notEmpty errorLabel/>
+                <TextInput placeholder="Username" width={500} height={35} fontSize={20} notEmpty errorLabel/>
+                <TextInput placeholder="Password" mode="password" width={500} height={35} fontSize={20} notEmpty errorLabel/>
             </LoginBody>
         </LoginContainer>
     }
