@@ -1,38 +1,70 @@
-import {Meta, Canvas, Story} from "@storybook/addon-docs";
+import {ArgsTable, Canvas, Meta, Story, Primary, PRIMARY_STORY} from "@storybook/addon-docs/blocks";
 import TextInput from "./TextInput";
+import {ThemeProvider} from "styled-components";
+import {getTheme} from "../../colours/theme";
 
 <Meta title="Components/Input/TextInput" component={TextInput}/>
 
 # Text Input
-The text input is very flexible and has some cool features but this comes at a cost which I will talk about.
+The text input is very flexible input area that has some cool and useful features.
+
+## Usage
 
 export const Template = (args) => <TextInput {...args}/>
 
 A very simple input would look like this. It renders a single input element with no extra processing.
 
-<Story name="Text" args={{}}>{Template.bind({})}</Story>
+<Canvas>
+    <Story name="Text" args={{}}>{(args) => <TextInput {...args}/>}</Story>
+</Canvas>
 
 But then we can take it further and although this renders the same thing, if there is nothing in the input, it will have a red border! You can also pass `errorWait` as true to make it only turn red once the user has altered the value in some way.
 
-<Story name="Not Empty" args={{
-    notEmpty: true
-}}>{Template.bind({})}</Story>
+<Canvas>
+    <Story name="Not Empty" args={{
+        notEmpty: true
+    }}>
+        {(args) => <TextInput {...args}/>}
+    </Story>
+</Canvas>
+
 
 This starts becoming useful when we need to make inputs like usernames. You can't log in if you don't have a username!
 
-<Story name="Username Example" args={{
-    notEmpty: true,
-    placeholder: "Username",
-    autoComplete: "username",
-    mode: "text"
-}}>{Template.bind({})}</Story>
+<Canvas withToolbar>
+    <Story name="Username Example" args={{
+        notEmpty: true,
+        placeholder: "Username",
+        autoComplete: "username",
+        mode: "text"
+    }}>
+        {(args) => <TextInput {...args}/>}
+    </Story>
+</Canvas>
 
 This will also work with things like emails because there is another property called errorLabel which acts the same way as the border except obviously is a bit of text that tells you why its gone red.
 
-<Story name="Email Example" args={{
-    notEmpty: true,
-    placeholder: "Email",
-    autoComplete: "email",
-    mode: "email",
-    errorLabel: true
-}}>{Template.bind({})}</Story>
+<Canvas>
+    <Story name="Email Example" args={{
+        notEmpty: true,
+        placeholder: "Email",
+        autoComplete: "email",
+        mode: "email",
+        errorLabel: true
+    }}>
+        {(args) => <TextInput {...args}/>}
+    </Story>
+</Canvas>
+
+When you start playing around with error labels and different types of inputs (things like dates, passwords, etc), you have to make sure that is what you want to use and when it comes to styling, you take into account the fact that the component will not render just an input element at this point, instead it will render a container with multiple parts to it.
+For example, this is what might be rendered:
+```html
+<div class="sc-hKgILt cTJgxF">
+    <input type="text" autocomplete="off" placeholder="Username" class="sc-dlfnbm glCHZo" value="Some Username">
+    <p class="sc-gsTCUz fieBBG">Cannot be empty.</p>
+</div>
+```
+That code snippet was taken directly from a use case which is why it has styled-components classes in it.
+
+## API
+<ArgsTable of={TextInput}/>

@@ -53,6 +53,7 @@ enum InputErrors {
 
 export default class TextInput extends React.Component<TextInputProps, TextInputState> {
     renders: number = 0;
+    static defaultProps: TextInputProps;
 
     constructor(p: TextInputProps) {
         super(p);
@@ -108,6 +109,18 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
             return <BaseInput {...iprops}/>;
         }
     }
+}
+
+TextInput.defaultProps = {
+    autoComplete: "off",
+    mode: "text",
+    notEmpty: false,
+    placeholder: "text",
+    width: 200,
+    height: 30,
+    fontSize: 15,
+    errorLabel: false,
+    errorWait: false,
 }
 
 const ErrorLabel = styled.p`

@@ -1,7 +1,6 @@
 module.exports = {
     "stories": [
-        "../src/**/*.stories.mdx",
-        "../src/**/*.stories.@(js|jsx|ts|tsx)"
+        "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
     ],
     "addons": [
         "@storybook/addon-essentials",
@@ -10,6 +9,5 @@ module.exports = {
         "@storybook/addon-a11y",
         "storybook-mobile",
         "themeprovider-storybook/register",
-        //"storybook-addon-playroom"// playground currently disabled until they add support for webpack 5 and react 17
     ],
 }

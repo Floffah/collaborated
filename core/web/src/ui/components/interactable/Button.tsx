@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 interface ButtonProps {
-
+    type: "default"|"primary"
 }
 
 export default class Button extends React.Component<any, ButtonProps> {
