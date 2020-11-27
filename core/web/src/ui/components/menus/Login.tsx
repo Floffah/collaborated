@@ -2,10 +2,18 @@ import * as React from "react";
 import styled from "styled-components";
 import TextInput, {InputContainer} from "../input/TextInput";
 
-export default class Login extends React.Component {
+export interface LoginProps {
+    float?: boolean
+}
+
+export default class Login extends React.Component<LoginProps, any> {
+    static defaultProps: LoginProps = {
+        float: false
+    };
+
     render() {
-        return <LoginContainer>
-            <LoginHeader>
+        return <LoginContainer float={this.props.float || false}>
+            <LoginHeader float={this.props.float || false}>
                 <p>Login</p>
             </LoginHeader>
             <LoginBody>
@@ -29,10 +37,10 @@ const LoginBody = styled.div`
     }
 `
 
-const LoginHeader = styled.div`
+const LoginHeader = styled.div<{float: boolean}>`
     background-color: ${props => props.theme.login.header.bg};
     margin: 0;
-    position: fixed;
+    position: ${props => props.float ? "fixed" : "absolute"};
     top: 0;
     left: 0;
     width: calc(100% - 20px);
@@ -47,14 +55,15 @@ const LoginHeader = styled.div`
         font-size: 40px;
         text-align: center;
         font-weight: 400;
+        font-family: ${props => props.theme.font};
     }
 `
 
-const LoginContainer = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+const LoginContainer = styled.div<{float:boolean}>`
+    position: ${props => props.float ? "fixed" : "relative"};
+    ${props => props.float ? "top: 50%;" : ""}
+    ${props => props.float ? "left: 50%;" : ""}
+    ${props => props.float ? "transform: translate(-50%, -50%);" : ""}
     width: 500px;
     height: 400px;
     background-color: ${props => props.theme.login.bg};

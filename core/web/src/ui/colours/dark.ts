@@ -22,8 +22,18 @@ export function darkTheme():ColourTheme {
         },
 
         button: {
-            color: "",
-            bg: ""
+            color: "#f5f5f5",//gray3
+            bg: "#141414",//gray12
+            hover: "#262626",//gray10
+            active: "#000000",//gray13
+            focus: "#65b7f3",
+
+            primary: {
+                //color: "#b7e3fa",//blue10
+                bg: "#177ddc",//blue6
+                hover: "#3c9ae8",//blue7
+                active:"#1765ad"//blue5
+            }
         },
 
         input: {

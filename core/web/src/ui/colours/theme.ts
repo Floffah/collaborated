@@ -4,9 +4,7 @@ export function getTheme(theme?: string): ColourTheme {
     let find = theme || localStorage.getItem("capp:theme") || "dark";
     if (find === "dark") {
         return darkTheme();
-    }// else if(find === "night") {
-    //     return nightTheme();
-    // }
+    }
     return darkTheme();
 }
 
@@ -33,6 +31,16 @@ export interface ColourTheme {
     button: {
         color: string,
         bg: string,
+        hover: string,
+        active?:string
+        focus: string,
+
+        primary: {
+            color?: string,
+            bg: string,
+            hover:string,
+            active?:string
+        }
     }
 
     input: {
