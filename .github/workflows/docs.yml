@@ -2,9 +2,6 @@ name: "Docs"
 
 on:
   push:
-    paths-ignore:
-      - core/web/src/ui/*.css
-      - core/web/src/ui/ui.tsx
     paths:
       - core/web/src/ui/**
 
