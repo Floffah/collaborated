@@ -46,7 +46,7 @@ const SepLink = styled.a`
     cursor: pointer;
     user-select: none;
     margin: 5px;
-    font: ${props => props.theme.font};
+    font-family: ${props => props.theme.font};
 `
 
 const Sep = styled.hr`
