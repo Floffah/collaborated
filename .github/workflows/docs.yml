@@ -19,3 +19,11 @@ jobs:
           node-version: '12'
       - run: yarn
       - run: yarn docs
+      - uses: EndBug/add-and-commit@v5
+        with:
+          add: 'docs'
+          author_name: 'github-actions[bot]'
+          author_email: 'github-actions[bot]@users.noreply.github.com'
+          message: '(gh-actions) storybook build'
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
