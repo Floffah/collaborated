@@ -21,6 +21,16 @@ export function darkTheme():ColourTheme {
             },
         },
 
+        checkbox: {
+            bg: "#177ddc",
+            color: "#ffffff",
+            border: {
+                on: "#164c7e",
+                off: "#d9d9d9",
+                offhover: "#8dcff8"
+            }
+        },
+
         button: {
             color: "#f5f5f5",//gray3
             bg: "#141414",//gray12

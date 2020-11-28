@@ -10,7 +10,7 @@ export class LoginPage extends React.Component<any> {
     render() {
         return <ThemeProvider theme={theme}>
             <StyledParticles options={particleopts}/>
-            <Login/>
+            <Login float={true}/>
         </ThemeProvider>
     }
 }

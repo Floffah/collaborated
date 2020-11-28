@@ -1,8 +1,9 @@
 import * as React from "react";
 import styled, {ThemeProvider} from "styled-components";
-import {HomeOutlined} from "@ant-design/icons";
 import {ColourTheme, getTheme} from "../../colours/theme";
 import {RootContainer} from "../../ui";
+import Icon from "@mdi/react";
+import {mdiHome} from "@mdi/js";
 
 export default class Body extends React.Component<any, {theme: ColourTheme}> {
     constructor(p:any) {
@@ -17,7 +18,7 @@ export default class Body extends React.Component<any, {theme: ColourTheme}> {
         return <ThemeProvider theme={this.state.theme}>
             <RootContainer>
                 <NavBar>
-                    <HomeOutlined/>
+                    <Icon path={mdiHome}/>
                 </NavBar>
             </RootContainer>
         </ThemeProvider>

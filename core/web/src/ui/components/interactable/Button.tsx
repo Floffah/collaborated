@@ -4,7 +4,8 @@ import styled from "styled-components"
 interface ButtonProps {
     type?: "default"|"primary",
     onClick?: () => void,
-    size?: "small"|"medium"|"large"
+    size?: "small"|"medium"|"large",
+    className?: string,
 }
 
 export default class Button extends React.Component<ButtonProps, any> {
@@ -18,7 +19,8 @@ export default class Button extends React.Component<ButtonProps, any> {
         let defprop = {
             onClick: () => !!this.props.onClick ? this.props.onClick() : undefined,
             isize: 13,
-            ipadding: "5px 15px 5px 15px"
+            ipadding: "5px 15px 5px 15px",
+            className: this.props.className
         }
         if(this.props.size === "medium") {
             defprop.isize = 15;

@@ -109,7 +109,7 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
             ];
 
             if(this.props.errorLabel) {
-                contained.push(<ErrorLabel>{this.state.errors.length >= 1 ? this.state.errors[0] : "⠀"}</ErrorLabel>)
+                contained.push(<ErrorLabel key={1}>{this.state.errors.length >= 1 ? this.state.errors[0] : "⠀"}</ErrorLabel>)
             }
 
             this.renders++;

@@ -1203,6 +1203,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@mdi/js@^5.8.55":
+  version "5.8.55"
+  resolved "https://registry.yarnpkg.com/@mdi/js/-/js-5.8.55.tgz#630bc5fafd8b1d2f6e63489a9ab170177559e41b"
+  integrity sha512-2bvln56SW6V/nSDC/0/NTu1bMF/CgSyZox8mcWbAPWElBN3UYIrukKDUckEER8ifr8X2YJl1RLKQqi7T7qLzmg==
+
 "@mdi/react@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@mdi/react/-/react-1.4.0.tgz#7f6bad1bd8801226d0e5bad91659b215ce68a93f"
@@ -1503,7 +1508,7 @@
     core-js "^3.0.1"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-docs@6.1.8":
+"@storybook/addon-docs@6.1.8", "@storybook/addon-docs@^6.1.8":
   version "6.1.8"
   resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-6.1.8.tgz#4c189b54fdb3d7cef35f9da34e091c21aec29107"
   integrity sha512-I5hem6hPCSYfQyA6jjRdUJR8N4J5u+vojTmAxAg6duyM8T8QFvSVggezBRd+sN77QoGTp4In0/bg6OZi1wvSvw==

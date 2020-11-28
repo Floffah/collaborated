@@ -28,6 +28,16 @@ export interface ColourTheme {
         },
     }
 
+    checkbox: {
+        bg: string,
+        color: string,
+        border: {
+            on: string,
+            off: string,
+            offhover: string,
+        }
+    }
+
     button: {
         color: string,
         bg: string,

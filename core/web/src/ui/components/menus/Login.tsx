@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import TextInput, {InputContainer} from "../input/TextInput";
+import Button from "../interactable/Button";
 
 export interface LoginProps {
     float?: boolean
@@ -19,10 +20,29 @@ export default class Login extends React.Component<LoginProps, any> {
             <LoginBody>
                 <TextInput placeholder="Username" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
                 <TextInput placeholder="Password" mode="password" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
+
+                <ButtonGroup>
+                    <ButtonPartOne size="medium" type="primary">Register</ButtonPartOne>
+                    <ButtonPartTwo size="medium" type="primary">Log In</ButtonPartTwo>
+                </ButtonGroup>
             </LoginBody>
         </LoginContainer>
     }
 }
+
+const ButtonGroup = styled.div`
+`
+
+const ButtonPartOne = styled(Button)`
+    width: 203px;
+    margin-right: 5px;
+    position: relative;
+`
+const ButtonPartTwo = styled(Button)`
+    width: 203px;
+    margin-left: 5px;
+    position: relative;
+`
 
 const LoginBody = styled.div`
     position: relative;
