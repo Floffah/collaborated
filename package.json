@@ -5,6 +5,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "terminals": "yarn workspace scripts terminals",
-    "docs": "yarn workspace web docs"
+    "docs": "yarn workspace web docs",
+    "docsync": "git fetch && git pull && git push"
   }
 }

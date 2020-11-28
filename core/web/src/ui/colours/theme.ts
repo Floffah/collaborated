@@ -26,6 +26,8 @@ export interface ColourTheme {
             color: string,
             bg: string
         },
+        sepcolor: string,
+        linkcolor: string,
     }
 
     checkbox: {

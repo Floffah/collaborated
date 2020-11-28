@@ -113,7 +113,7 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
             }
 
             this.renders++;
-            return <InputContainer>{contained}</InputContainer>
+            return <InputContainer iwidth={this.props.width} iheight={this.props.height}>{contained}</InputContainer>
         } else {
             this.renders++;
             return <BaseInput {...iprops}/>;
@@ -128,9 +128,11 @@ const ErrorLabel = styled.p`
     font-size: 15px;
 `
 
-export const BaseInput = styled.input<{ err: boolean, iwidth?: number, iheight?: number, ifontSize?: number }>`
-    width: ${props => props.iwidth}px;
+export const BaseInput = styled.input<{ err: boolean, iwidth: number, iheight: number, ifontSize?: number }>`
+    width: ${props => props.iwidth - 16}px;
     height: ${props => props.iheight}px;
+    max-width: ${props => props.iwidth - 16}px;
+    max-height: ${props => props.iheight}px;
     
     padding: 2px;
     padding-right: 7px;
@@ -156,6 +158,7 @@ export const BaseInput = styled.input<{ err: boolean, iwidth?: number, iheight?:
     }
 `
 
-export const InputContainer = styled.div`
-
+export const InputContainer = styled.div<{iwidth?: number, iheight?: number}>`
+    width: ${props => props.iwidth || "auto"}px;
+    height: ${props => props.iheight || "auto"}px;
 `

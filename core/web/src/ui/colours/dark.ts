@@ -19,15 +19,17 @@ export function darkTheme():ColourTheme {
                 color: "#d9d9d9",
                 bg: "#262626"//gray10
             },
+            sepcolor: "#434343",//gray9
+            linkcolor: "#177ddc",//blue6
         },
 
         checkbox: {
-            bg: "#177ddc",
-            color: "#ffffff",
+            bg: "#177ddc",//blue6
+            color: "#ffffff",//gray1
             border: {
-                on: "#164c7e",
-                off: "#d9d9d9",
-                offhover: "#8dcff8"
+                on: "#164c7e",//blue4
+                off: "#d9d9d9",//gray5
+                offhover: "#8dcff8"//blue9
             }
         },
 
@@ -36,7 +38,7 @@ export function darkTheme():ColourTheme {
             bg: "#141414",//gray12
             hover: "#262626",//gray10
             active: "#000000",//gray13
-            focus: "#65b7f3",
+            focus: "#65b7f3",//blue8
 
             primary: {
                 //color: "#b7e3fa",//blue10
@@ -52,7 +54,7 @@ export function darkTheme():ColourTheme {
             placeholder: "#595959", //gray8
             error: "#a61d24", //red5
             hover: "#112a45", //blue2
-            errhover: "#d32029"
+            errhover: "#d32029"//red6
         }
     }
 }

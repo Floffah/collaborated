@@ -25,35 +25,67 @@ export default class Login extends React.Component<LoginProps, any> {
                     <ButtonPartOne size="medium" type="primary">Register</ButtonPartOne>
                     <ButtonPartTwo size="medium" type="primary">Log In</ButtonPartTwo>
                 </ButtonGroup>
+
+                <Sep/>
+
+                <div>
+                    <SepLink>Why should I use Collaborated?</SepLink>
+                    <SepLink>What is your privacy policy?</SepLink>
+                    <SepLink>What is your terms of service?</SepLink>
+                </div>
             </LoginBody>
         </LoginContainer>
     }
 }
 
+const SepLink = styled.a`
+    display: block;
+    text-align: center;
+    width: 400px;
+    color: ${props => props.theme.login.linkcolor};
+    cursor: pointer;
+    user-select: none;
+    margin: 5px;
+`
+
+const Sep = styled.hr`
+    width: 360px;
+    height: 1px;
+    position: relative;
+    border-width: 0;
+    color: ${props => props.theme.login.sepcolor};
+    background-color: ${props => props.theme.login.sepcolor};
+    margin: 0;
+    margin-left: 20px;
+    margin-top: 27px;
+    margin-bottom: 27px;
+`
+
 const ButtonGroup = styled.div`
+    position: relative;
+    margin-top: 27px;
 `
 
 const ButtonPartOne = styled(Button)`
-    width: 203px;
+    width: 195px;
     margin-right: 5px;
     position: relative;
 `
 const ButtonPartTwo = styled(Button)`
-    width: 203px;
+    width: 195px;
     margin-left: 5px;
     position: relative;
 `
 
 const LoginBody = styled.div`
-    position: relative;
+    position: absolute;
     height: calc(100% - 55px);
-    width: 100%;
     top: 55px;
-    margin-left: 40px;
-    margin-top: 40px;
+    left: 67px;
+    top: 92px;
     
     ${InputContainer} {
-        margin-top: 0px;
+        margin-top: 27px;
     }
 `
 
