@@ -1,5 +1,7 @@
 import ax, {AxiosError, AxiosResponse} from "axios";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
+import WebSocket from "ws";
+import {SocketManager} from "../api/SocketManager";
 
 interface ClientOptions {
 
@@ -8,6 +10,10 @@ interface ClientOptions {
 export default class Client {
     authenticated: boolean = false
     opts: ClientOptions
+
+    socket: SocketManager
+
+    #access: string
 
     url = "http://localhost/api/v1"
 
@@ -57,7 +63,8 @@ export default class Client {
                 access: opts.access,
                 listen: ["*"]
             }).then((d) => {
-                console.log(JSON.stringify(d.data));
+                this.#access = opts.access;
+                this.socket = new SocketManager(d.data.data.me.gateway.url, d.data.data.me.gateway.guid, this.#access);
             }).catch(reason => {
                 throw reason;
             });

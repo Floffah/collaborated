@@ -7,6 +7,12 @@ export class User {
 
     @Column({length: 512})
     access: string
+
+    @Column()
+    username: string
+
+    @Column()
+    email: string
 }
 
 @Entity()

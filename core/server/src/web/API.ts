@@ -26,7 +26,22 @@ export default class API {
         }));
         this.server.logger.info("Built GraphQL schema");
 
-        this.ws = new WSServer({server: this.server.server, path: "/api/v1/gateway"});
+        this.ws = new WSServer({
+            server: this.server.server,
+            path: "/api/v1/gateway",
+            perMessageDeflate: {
+                zlibDeflateOptions: {
+                    chunkSize: 1024,
+                    memLevel: 7,
+                    level: 3,
+                },
+                zlibInflateOptions: {
+                    chunkSize: 10 * 1024
+                },
+                concurrencyLimit: 10,
+                threshold: 1024
+            }
+        });
         this.ws.on("listening", () => {
             this.server.logger.info("Gateway websocket listening on path /api/v1/gateway");
         });
@@ -38,22 +53,36 @@ export default class API {
         let session;
 
         socket.on("message", (data: string) => {
-            if(isJson(data)) {
+            if (isJson(data)) {
                 let msg = JSON.parse(data);
-                if(!authed) {
+                if (!authed) {
                     // authenticating
-                    if("type" in msg && msg.type === "auth" && "guid" in msg && "access" in msg) {
-                        this.server.db.manager.findOne<GatewayConnection>(GatewayConnection, {
+                    if ("type" in msg && msg.type === "auth" && "guid" in msg && "access" in msg) {
+                        this.server.db.getRepository(GatewayConnection).findOne({
                             guid: msg.guid
+                        }, {
+                            loadEagerRelations: true,
+                            relations: ["user"]
                         }).then((gate) => {
-                            if(gate) {
-                                if(gate.user.access === msg.access) {
-                                    session = new GatewaySession(socket, gate);
+                            console.log(JSON.stringify(gate));
+                            if (!!gate) {
+                                if (!!gate.user && !!gate.user.id) {
+                                    if (gate.user.access === msg.access) {
+                                        session = new GatewaySession(socket, gate);
+                                    } else {
+                                        socket.send(JSON.stringify({
+                                            type: "error",
+                                            error: GatewayErrors.AuthDetailMismatch,
+                                            errorName: GatewayErrors[GatewayErrors.AuthDetailMismatch]
+                                        }), () => {
+                                            socket.close()
+                                        });
+                                    }
                                 } else {
                                     socket.send(JSON.stringify({
                                         type: "error",
-                                        error: GatewayErrors.AuthDetailMismatch,
-                                        errorName: GatewayErrors[GatewayErrors.AuthDetailMismatch]
+                                        error: GatewayErrors.CouldNotFetchUser,
+                                        errorName: GatewayErrors[GatewayErrors.CouldNotFetchUser]
                                     }), () => {
                                         socket.close()
                                     });
@@ -89,9 +118,11 @@ enum GatewayErrors {
     InvalidAuthDetails,
     IncorrectAuthDetails,
     AuthDetailMismatch,
+    CouldNotFetchUser,
+    NonExistantAccessCode
 }
 
-function isJson(str: string):boolean {
+function isJson(str: string): boolean {
     try {
         JSON.parse(str);
     } catch (e) {

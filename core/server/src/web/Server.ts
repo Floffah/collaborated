@@ -7,6 +7,7 @@ import Logger from "../util/Logger";
 import {Connection, ConnectionOptions, createConnection} from "typeorm";
 import {GatewayConnection, User} from "../db/Models";
 import {Interprocess} from "../comms/Interprocess";
+import {randomBytes} from "crypto";
 
 export default class Server {
     app: Application
@@ -56,13 +57,20 @@ export default class Server {
                 this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger));
             }
 
-            if(!process.argv.includes("--disable-api")) {
+            if (!process.argv.includes("--disable-api")) {
                 this.api = new API(this);
                 this.api.init();
             }
 
             this.server.listen(80);
             this.logger.info("Started on port 80");
+
+            // let admin = new User();
+            // admin.id = 1;
+            // admin.access = randomBytes(parseInt(<string>process.env.accesslength)/2).toString("hex");
+            // admin.username = "floffah"
+            // admin.email = "therealfloffah@gmail.com"
+            // this.db.manager.save<User>(admin);
         });
     }
 }
