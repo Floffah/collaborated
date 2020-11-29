@@ -3,12 +3,14 @@ import Body from "./components/containers/Body";
 import * as React from "react";
 import {LoginPage} from "./components/containers/LoginPage";
 import styled from "styled-components";
+import {AppContainer} from "../AppContainer";
+import {AppContextProvider} from "../util/AppContext";
 
-export default function ui() {
-    if(!!localStorage.getItem("access")) {
-        render(<Body/>, document.getElementById("root"));
+export default function ui(appc: AppContainer) {
+    if (!!localStorage.getItem("access")) {
+        render(<AppContextProvider appcontainer={appc}><Body/></AppContextProvider>, document.getElementById("root"));
     } else {
-        render(<LoginPage/>, document.getElementById("root"));
+        render(<AppContextProvider appcontainer={appc}><LoginPage/></AppContextProvider>, document.getElementById("root"));
     }
 }
 

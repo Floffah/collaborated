@@ -14,6 +14,12 @@ export default class Client {
         this.opts = opts;
     }
 
+    /**
+     * Send a query to the graphql api.
+     * Should not be used outside of the interact library
+     * @param query the query that will be executed
+     * @param variables variables that will be passed to graphql
+     */
     _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any>> {
         return ax.post(this.url, JSON.stringify({query, variables}), {
             method: "POST",
@@ -24,6 +30,10 @@ export default class Client {
         })
     }
 
+    /**
+     * Authenticate with the gateway using your client application's access token.
+     * @param opts - login information
+     */
     login(opts: LoginOptions) {
         if ("access" in opts) {
             this._query(`query Login($access: String, $listen: !String) { me(access: $access) { gateway(listen: $listen) { url guid } } }`, {

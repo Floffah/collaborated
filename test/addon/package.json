@@ -1,0 +1,9 @@
+{
+  "name": "test-addon",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "terminals": "node ."
+  },
+  "main": "dist/index.js"
+}

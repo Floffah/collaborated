@@ -1,17 +1,15 @@
 import * as React from "react";
-import styled, {ThemeProvider} from "styled-components";
+import styled from "styled-components";
 import {getTheme} from "../../colours/theme";
 import Login from "../menus/Login";
 import Particles from "react-tsparticles";
 
-let theme = getTheme();
-
 export class LoginPage extends React.Component<any> {
     render() {
-        return <ThemeProvider theme={theme}>
+        return <>
             <StyledParticles options={particleopts}/>
             <Login float={true}/>
-        </ThemeProvider>
+        </>
     }
 }
 
@@ -85,7 +83,7 @@ const particleopts = {
                 enable: true,
                 value_area: 800,
             },
-            value: 100,
+            value: 150,
         },
         opacity: {
             value: 0.5,

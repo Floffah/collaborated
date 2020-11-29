@@ -1,12 +1,13 @@
 import ui from "./ui/ui";
-import {Client} from "@collaborated/interact";
 import "./ui/environment.css"
+import {AppContainer} from "./AppContainer";
 
 let readied = false;
 document.addEventListener("readystatechange", () => {
     if(!readied) {
         readied = true;
-        window["client"] = new Client();
-        ui();
+        const appc = new AppContainer(true);
+        window["appc"] = appc;
+        ui(appc);
     }
 });

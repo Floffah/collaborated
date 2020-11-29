@@ -29,9 +29,8 @@ export default class Login extends React.Component<LoginProps, any> {
                 <Sep/>
 
                 <div>
-                    <SepLink>Why should I use Collaborated?</SepLink>
-                    <SepLink>What is your privacy policy?</SepLink>
-                    <SepLink>What is your terms of service?</SepLink>
+                    <SepLink>Privacy Policy</SepLink>
+                    <SepLink>Terms of Service</SepLink>
                 </div>
             </LoginBody>
         </LoginContainer>
