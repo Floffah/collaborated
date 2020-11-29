@@ -24,23 +24,32 @@ export class Interprocess {
             password: process.env.rdpassword,
             url: process.env.rdurl,
         });
+
+        let sub1 = false,sub2 = false;
+
         this.sub.on("ready", () => {
-            this.pub = createClient({
-                host: process.env.rdhost,
-                port: parseInt(<string>process.env.rdport),
-                password: process.env.rdpassword,
-                url: process.env.rdurl,
-            });
-            this.pub.on("ready", () => {
-                this.server.logger.info("Connected to Redis server");
-                if (process.env.ipmode === "master") {
-                    this.master = true;
-                    this.sub.subscribe("capp:master", () => this.ipmoded(done))
-                } else {
-                    this.sub.subscribe("capp:slave",() => this.ipmoded(done));
-                }
-                this.sub.on("message", (channel, msg) => this.message(channel, msg));
-            });
+            if(!sub1) {
+                sub1 = true;
+                this.pub = createClient({
+                    host: process.env.rdhost,
+                    port: parseInt(<string>process.env.rdport),
+                    password: process.env.rdpassword,
+                    url: process.env.rdurl,
+                });
+                this.pub.on("ready", () => {
+                    if(!sub2) {
+                        sub2 = true;
+                        this.server.logger.info("Connected to Redis server");
+                        if (process.env.ipmode === "master") {
+                            this.master = true;
+                            this.sub.subscribe("capp:master", () => this.ipmoded(done))
+                        } else {
+                            this.sub.subscribe("capp:slave",() => this.ipmoded(done));
+                        }
+                        this.sub.on("message", (channel, msg) => this.message(channel, msg));
+                    }
+                });
+            }
         });
     }
 

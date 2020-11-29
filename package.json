@@ -1,6 +1,6 @@
 {
   "name": "collaborated",
-  "workspaces": ["core/*", "packages/*", "scripts"],
+  "workspaces": ["core/*", "packages/*", "scripts", "test/*"],
   "private": true,
   "license": "GPL-3.0",
   "scripts": {

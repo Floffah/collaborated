@@ -6,7 +6,7 @@ cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd w
 cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace web start-storybook -p 6006; `; // playground currently disabled until they add support for webpack 5 and react 17
 cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace server tsc -w; `
 cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace @collaborated/interact tsc -w; `
-cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace @test-addon tsc -w; `
+cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace test-addon tsc -w; `
 if(process.argv.includes("--cmd")) {
     cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} cmd\n`;
 } else {

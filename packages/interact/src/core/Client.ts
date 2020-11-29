@@ -1,4 +1,5 @@
-import ax, {AxiosResponse} from "axios";
+import ax, {AxiosError, AxiosResponse} from "axios";
+import {createGraphQLError, GraphQLToError} from "../util/errors";
 
 interface ClientOptions {
 
@@ -21,13 +22,29 @@ export default class Client {
      * @param variables variables that will be passed to graphql
      */
     _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any>> {
-        return ax.post(this.url, JSON.stringify({query, variables}), {
-            method: "POST",
-            headers: {
-                'Content-Type': "application/json",
-                'Accept': "application/json"
-            }
-        })
+        return new Promise((resolve, reject) => {
+            ax.post(this.url, JSON.stringify({query, variables}), {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json",
+                    'Accept': "application/json"
+                },
+            }).then((d) => {
+                if("data" in d) {
+                    if("errors" in d.data) {
+                        reject(GraphQLToError(createGraphQLError(d.data, query)));
+                    } else {
+                        resolve(d);
+                    }
+                } else {
+                    resolve(d);
+                }
+            }).catch((reason:AxiosError) => {
+                if(reason.response) {
+                    reject(GraphQLToError(createGraphQLError(reason.response.data, query)));
+                }
+            });
+        });
     }
 
     /**
@@ -36,10 +53,14 @@ export default class Client {
      */
     login(opts: LoginOptions) {
         if ("access" in opts) {
-            this._query(`query Login($access: String, $listen: !String) { me(access: $access) { gateway(listen: $listen) { url guid } } }`, {
+            this._query(`query Login($access: String, $listen: [String]) { me(access: $access) { gateway(listen: $listen) { url guid } } }`, {
                 access: opts.access,
                 listen: ["*"]
-            })
+            }).then((d) => {
+                console.log(JSON.stringify(d.data));
+            }).catch(reason => {
+                throw reason;
+            });
         }
     }
 }
