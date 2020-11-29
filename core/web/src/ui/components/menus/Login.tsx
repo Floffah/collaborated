@@ -2,6 +2,9 @@ import * as React from "react";
 import styled from "styled-components";
 import TextInput, {InputContainer} from "../input/TextInput";
 import Button from "../interactable/Button";
+import {AppContext} from "../../../util/AppContext";
+import {AppContainer} from "../../../AppContainer";
+import { Popup } from "../containers/Popups";
 
 export interface LoginProps {
     float?: boolean
@@ -11,6 +14,20 @@ export default class Login extends React.Component<LoginProps, any> {
     static defaultProps: LoginProps = {
         float: false
     };
+    static contextType = AppContext
+    appc: AppContainer;
+
+    componentDidMount() {
+        this.appc = (this.context as AppContainer);
+    }
+
+    openPage(name: "privacy"|"terms") {
+        if(name === "privacy") {
+            this.appc.openPopup(<Popup>
+                <p>We private</p>
+            </Popup>)
+        }
+    }
 
     render() {
         return <LoginContainer float={this.props.float || false}>
@@ -29,8 +46,8 @@ export default class Login extends React.Component<LoginProps, any> {
                 <Sep/>
 
                 <div>
-                    <SepLink>Privacy Policy</SepLink>
-                    <SepLink>Terms of Service</SepLink>
+                    <SepLink onClick={() => this.openPage("privacy")}>Privacy Policy</SepLink>
+                    <SepLink onClick={() => this.openPage("terms")}>Terms of Service</SepLink>
                 </div>
             </LoginBody>
         </LoginContainer>

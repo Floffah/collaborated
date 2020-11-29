@@ -3,12 +3,14 @@ import styled from "styled-components";
 import {getTheme} from "../../colours/theme";
 import Login from "../menus/Login";
 import Particles from "react-tsparticles";
+import {PopupContainer} from "./Popups";
 
 export class LoginPage extends React.Component<any> {
     render() {
         return <>
             <StyledParticles options={particleopts}/>
             <Login float={true}/>
+            <PopupContainer/>
         </>
     }
 }
