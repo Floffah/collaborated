@@ -1,6 +1,6 @@
 {
   "name": "scripts",
-  "version": "0.0.1-beta-1",
+  "version": "0.0.1-alpha1",
   "private": true,
   "scripts": {
     "terminals": "node terminals.js"

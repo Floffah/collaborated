@@ -1,6 +1,6 @@
 {
   "name": "@collaborated/interact",
-  "version": "0.0.1-beta-1",
+  "version": "0.0.1-alpha1",
   "private": false,
   "description": "A javascript/typescript library for interacting with the Collaborated API",
   "main": "dist/index.js",
