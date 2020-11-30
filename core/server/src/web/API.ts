@@ -5,13 +5,15 @@ import WebSocket, {Server as WSServer} from "ws"
 import Server from "./Server";
 import GatewaySession from "./GatewaySession";
 import {GatewayConnection} from "../db/Models";
+import {Not} from "typeorm";
+import {forWait} from "../util/arrays";
 
 export default class API {
     server: Server
     route: Router
     ws: WSServer
 
-    sessions: Map<string, GatewaySession> = new Map();
+    sessions: Map<number, GatewaySession> = new Map();
 
     constructor(server: Server) {
         this.server = server;
@@ -46,11 +48,42 @@ export default class API {
             this.server.logger.info("Gateway websocket listening on path /api/v1/gateway");
         });
         this.ws.on("connection", socket => this.connection(socket));
+
+        this.flush()
+        setInterval(() => this.flush(), 60000);
+    }
+
+    flush() {
+        this.server.db.getRepository(GatewayConnection).find({where: {authed: Not(true)}, select: ["guid"]}).then(gates => {
+            forWait(gates, (gate, next) => {
+                this.server.db.manager.delete<GatewayConnection>(GatewayConnection, gate).then(() => {
+                    next();
+                })
+            });
+        });
     }
 
     connection(socket: WebSocket) {
         let authed = false;
-        let session;
+        let session: GatewaySession;
+
+        setTimeout(() => {
+            if(!authed) {
+                socket.send(JSON.stringify({
+                    type: "error",
+                    error: GatewayErrors.AuthenticationTimeOut,
+                    errorName: GatewayErrors[GatewayErrors.AuthenticationTimeOut]
+                }), () => {
+                    socket.close();
+                });
+            }
+        }, 10000);
+
+        socket.on("close", () => {
+            if(session) {
+                session.rid();
+            }
+        });
 
         socket.on("message", (data: string) => {
             if (isJson(data)) {
@@ -68,7 +101,9 @@ export default class API {
                             if (!!gate) {
                                 if (!!gate.user && !!gate.user.id) {
                                     if (gate.user.access === msg.access) {
-                                        session = new GatewaySession(socket, gate);
+                                        session = new GatewaySession(socket, gate, this);
+                                        this.sessions.set(gate.guid, session);
+                                        authed = true;
                                     } else {
                                         socket.send(JSON.stringify({
                                             type: "error",
@@ -119,7 +154,7 @@ enum GatewayErrors {
     IncorrectAuthDetails,
     AuthDetailMismatch,
     CouldNotFetchUser,
-    NonExistantAccessCode
+    AuthenticationTimeOut
 }
 
 function isJson(str: string): boolean {

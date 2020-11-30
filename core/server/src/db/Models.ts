@@ -5,14 +5,15 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({length: 512})
-    access: string
-
     @Column()
     username: string
 
     @Column()
     email: string
+
+
+    @Column({length: 512})
+    access: string
 }
 
 @Entity()
@@ -23,4 +24,7 @@ export class GatewayConnection {
     @OneToOne(() => User)
     @JoinColumn()
     user: User
+
+    @Column({nullable: true, default: false})
+    authed: boolean
 }
