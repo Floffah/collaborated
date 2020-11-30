@@ -1,6 +1,5 @@
 import ax, {AxiosError, AxiosResponse} from "axios";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
-import WebSocket from "ws";
 import {SocketManager} from "../api/SocketManager";
 
 interface ClientOptions {

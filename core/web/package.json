@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha1",
   "private": true,
   "description": "Collaborated front-end",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@collaborated/interact": "0.0.1",
+    "@collaborated/interact": "^0.0.1-alpha1",
     "@mdi/js": "^5.8.55",
     "@mdi/react": "^1.4.0",
     "@popperjs/core": "^2.5.4",

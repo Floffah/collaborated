@@ -1,11 +1,19 @@
 {
   "name": "collaborated",
-  "workspaces": ["core/*", "packages/*", "scripts", "test/*"],
+  "workspaces": [
+    "core/*",
+    "packages/*",
+    "scripts",
+    "test/*"
+  ],
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
     "terminals": "yarn workspace scripts terminals",
     "docs": "yarn workspace web docs",
     "docsync": "git fetch && git pull && git push"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
   }
 }

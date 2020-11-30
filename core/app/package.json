@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha1",
   "private": true,
   "description": "Collaborated desktop application"
 }

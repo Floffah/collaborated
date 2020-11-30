@@ -7,6 +7,7 @@ import GatewaySession from "./GatewaySession";
 import {GatewayConnection} from "../db/Models";
 import {Not} from "typeorm";
 import {forWait} from "../util/arrays";
+import EventPush from "./EventPush";
 
 export default class API {
     server: Server
@@ -14,6 +15,8 @@ export default class API {
     ws: WSServer
 
     sessions: Map<number, GatewaySession> = new Map();
+
+    events: EventPush
 
     constructor(server: Server) {
         this.server = server;
@@ -44,6 +47,7 @@ export default class API {
                 threshold: 1024
             }
         });
+        this.events = new EventPush(this);
         this.ws.on("listening", () => {
             this.server.logger.info("Gateway websocket listening on path /api/v1/gateway");
         });

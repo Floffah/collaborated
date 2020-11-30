@@ -7,7 +7,7 @@ import Logger from "../util/Logger";
 import {Connection, ConnectionOptions, createConnection} from "typeorm";
 import {GatewayConnection, User} from "../db/Models";
 import {Interprocess} from "../comms/Interprocess";
-import {randomBytes} from "crypto";
+//import {randomBytes} from "crypto";
 
 export default class Server {
     app: Application
