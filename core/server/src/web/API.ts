@@ -51,6 +51,7 @@ export default class API {
     connection(socket: WebSocket) {
         let authed = false;
         let session;
+        session;
 
         socket.on("message", (data: string) => {
             if (isJson(data)) {
