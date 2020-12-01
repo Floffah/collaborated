@@ -1,5 +1,13 @@
 import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 
+export class User_Settings {
+    @Column({nullable: true})
+    left_handed: boolean
+
+    @Column({default: "dark"})
+    theme: string
+}
+
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
@@ -11,9 +19,11 @@ export class User {
     @Column()
     email: string
 
-
     @Column({length: 512})
     access: string
+
+    @Column(() => User_Settings)
+    settings: User_Settings
 }
 
 @Entity()
