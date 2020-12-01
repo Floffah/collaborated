@@ -67,6 +67,17 @@ export default class Client {
             }).catch(reason => {
                 throw reason;
             });
+        } else if("email" in opts && "password" in opts) {
+            this._query(`query Login($password: String, $email: String) { getAccess(email: $email, password: $password) }`, {
+                email: opts.email,
+                password: opts.password
+            }).then(d => {
+                this.login({access: d.data.data.getAccess})
+            }).catch(reason => {
+                throw reason;
+            })
+        } else {
+            throw new Error("Incorrect detail combination");
         }
     }
 }
@@ -74,7 +85,7 @@ export default class Client {
 type LoginOptions = DetailLoginOptions | AccessLoginOptions;
 
 interface DetailLoginOptions {
-    username: string
+    email: string
     password: string
 }
 
