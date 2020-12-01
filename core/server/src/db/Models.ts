@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 
 export class User_Settings {
-    @Column({nullable: true})
+    @Column({default: false})
     left_handed: boolean
 
     @Column({default: "dark"})
@@ -19,11 +19,14 @@ export class User {
     @Column()
     email: string
 
-    @Column({length: 512})
-    access: string
+    @Column()
+    password: string
 
     @Column(() => User_Settings)
     settings: User_Settings
+
+    @Column({length: 512, nullable: true})
+    access: string
 }
 
 @Entity()

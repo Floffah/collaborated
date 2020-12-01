@@ -46,7 +46,7 @@ export default function query(api: API) {
                                 if(user) {
                                     user.access = randomBytes(api.server.cfg.val.info.accesslength/2).toString("hex")
                                     api.server.db.getRepository(User).save(user).then(user => {
-                                        resolve(user);
+                                        resolve(user.access);
                                     });
                                 } else {
                                     reject("Could not find user matchine those details.")

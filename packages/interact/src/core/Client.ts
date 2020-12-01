@@ -1,12 +1,18 @@
 import ax, {AxiosError, AxiosResponse} from "axios";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
 import {SocketManager} from "../api/SocketManager";
+import {EventEmitter} from "events";
 
 interface ClientOptions {
 
 }
 
-export default class Client {
+export declare interface Client {
+    on(event: "ready", listener: () => void): this;
+    on(event: string, listener: Function): this;
+}
+
+export class Client extends EventEmitter {
     authenticated: boolean = false
     opts: ClientOptions
 
@@ -17,6 +23,7 @@ export default class Client {
     url = "http://localhost/api/v1"
 
     constructor(opts: ClientOptions) {
+        super();
         this.opts = opts;
     }
 
@@ -63,7 +70,7 @@ export default class Client {
                 listen: ["*"]
             }).then((d) => {
                 this.#access = opts.access;
-                this.socket = new SocketManager(d.data.data.me.gateway.url, d.data.data.me.gateway.guid, this.#access);
+                this.socket = new SocketManager(d.data.data.me.gateway.url, d.data.data.me.gateway.guid, this.#access, this);
             }).catch(reason => {
                 throw reason;
             });
@@ -91,4 +98,31 @@ interface DetailLoginOptions {
 
 interface AccessLoginOptions {
     access: string
+}
+
+export type Incoming = IncomingError | IncomingMessage
+
+export interface IncomingError {
+    type: "error",
+    error: GatewayErrors,
+    errorName: string,
+}
+
+export interface IncomingMessage {
+    type: "message",
+    message: string,
+    messageid: GatewayMessageTypes
+    data: any,
+}
+
+export enum GatewayMessageTypes {
+    Authenticated,
+}
+
+export enum GatewayErrors {
+    InvalidAuthDetails,
+    IncorrectAuthDetails,
+    AuthDetailMismatch,
+    CouldNotFetchUser,
+    AuthenticationTimeOut
 }

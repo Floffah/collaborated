@@ -3,7 +3,7 @@ import {graphqlHTTP} from "express-graphql";
 import query from "./schema/query";
 import WebSocket, {Server as WSServer} from "ws"
 import Server from "./Server";
-import GatewaySession from "./GatewaySession";
+import GatewaySession, {GatewayMessageTypes} from "./GatewaySession";
 import {GatewayConnection} from "../db/Models";
 import {Not} from "typeorm";
 import {forWait} from "../util/arrays";
@@ -53,12 +53,12 @@ export default class API {
         });
         this.ws.on("connection", socket => this.connection(socket));
 
-        this.flush()
+        this.flush(true)
         setInterval(() => this.flush(), 60000);
     }
 
-    flush() {
-        this.server.db.getRepository(GatewayConnection).find({where: {authed: Not(true)}, select: ["guid"]}).then(gates => {
+    flush(authed?: boolean) {
+        this.server.db.getRepository(GatewayConnection).find({where: {authed: !!authed ? true : Not(true)}, select: ["guid"]}).then(gates => {
             forWait(gates, (gate, next) => {
                 this.server.db.manager.delete<GatewayConnection>(GatewayConnection, gate).then(() => {
                     next();
@@ -110,6 +110,7 @@ export default class API {
                                             session = new GatewaySession(socket, gat3, this);
                                             this.sessions.set(gat3.guid, session);
                                             authed = true;
+                                            session.message(GatewayMessageTypes.Authenticated);
                                         });
                                     } else {
                                         socket.send(JSON.stringify({
@@ -156,7 +157,7 @@ export default class API {
     }
 }
 
-enum GatewayErrors {
+export enum GatewayErrors {
     InvalidAuthDetails,
     IncorrectAuthDetails,
     AuthDetailMismatch,

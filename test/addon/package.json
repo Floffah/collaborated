@@ -8,5 +8,8 @@
   "main": "dist/index.js",
   "dependencies": {
     "@collaborated/interact": "^0.0.1-alpha1"
+  },
+  "devDependencies": {
+    "source-map-support": "^0.5.19"
   }
 }

@@ -1,4 +1,5 @@
 import WebSocket, {Data} from "ws";
+import {Client, GatewayMessageTypes, Incoming} from "../core/Client";
 
 export class SocketManager {
     ws: WebSocket
@@ -6,10 +7,13 @@ export class SocketManager {
 
     #access: string;
 
-    constructor(url: string, guid: number, access: string) {
+    client: Client;
+
+    constructor(url: string, guid: number, access: string, client: Client) {
         this.ws = new WebSocket(url);
         this.guid = guid;
         this.#access = access;
+        this.client = client;
 
         this.ws.on("open", () => this.connected());
         this.ws.on("message", data => this.message(data))
@@ -23,7 +27,16 @@ export class SocketManager {
     }
 
     message(data: Data) {
-        console.log(data);
+        if(typeof data === "string") {
+            let dat:Incoming = JSON.parse(data);
+            if("type" in dat) {
+                if(dat.type === "message") {
+                    if(dat.messageid == GatewayMessageTypes.Authenticated) {
+                        this.client.emit("ready");
+                    }
+                }
+            }
+        }
     }
 
     sendMessage(msg: MessageTypes, data: {[k: string]: any}): Promise<void> {

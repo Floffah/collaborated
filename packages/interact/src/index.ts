@@ -1,3 +1,3 @@
-import Client from "./core/Client";
+import {Client} from "./core/Client";
 
 export {Client}

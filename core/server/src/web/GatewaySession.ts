@@ -13,10 +13,23 @@ export default class GatewaySession {
         this.api = api;
     }
 
+    message(type: GatewayMessageTypes, data?: any) {
+        this.socket.send(JSON.stringify({
+            type: "message",
+            message: GatewayMessageTypes[type],
+            messageid: type,
+            data
+        }));
+    }
+
     rid() {
         let guid = this.gate.guid;
         this.api.server.db.getRepository(GatewayConnection).delete(this.gate).then(() => {
             this.api.sessions.delete(guid);
         });
     }
+}
+
+export enum GatewayMessageTypes {
+    Authenticated,
 }

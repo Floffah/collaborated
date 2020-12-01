@@ -78,6 +78,7 @@ export default class Server {
             // admin.access = randomBytes(this.cfg.val.info.accesslength/2).toString("hex");
             // admin.username = "floffah"
             // admin.email = "therealfloffah@gmail.com"
+            // admin.password = "testpass123"
             // this.db.manager.save<User>(admin);
         });
     }

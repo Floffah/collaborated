@@ -28,7 +28,7 @@ export function createGraphQLError(error: GraphQLErrorData, query?: string):{mes
         msg = msg.replace("Syntax Error: ", "");
         type = "SyntaxError";
     }
-    if(query) {
+    if(!!query) {
         let emsg = "";
         emsg += msg + "\n";
 
