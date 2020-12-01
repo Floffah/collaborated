@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - core/web/src/ui/**
+      - core/web/src/docs/**
 
 jobs:
   build:
