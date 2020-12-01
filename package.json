@@ -11,7 +11,9 @@
   "scripts": {
     "terminals": "yarn workspace scripts terminals",
     "docs": "yarn workspace web docs",
-    "docsync": "git fetch && git pull && git push"
+    "docsync": "git fetch && git pull && git push",
+    "buildts": "yarn workspace server tsc && yarn workspace @collaborated/interact tsc && yarn workspace test-addon tsc",
+    "buildall": "yarn buildts && yarn docs && yarn workspace web snowpack build"
   },
   "devDependencies": {
     "lerna": "^3.22.1"

@@ -13,13 +13,14 @@ export function query_me(api: API) {
                     listen: {type: GraphQLList(GraphQLString), description: "The events you want to listen for."}
                 },
                 description: "Create a new gateway",
-                resolve(s: { user: User }) {
+                resolve(s: { user: User, listen: string[] }) {
                     return new Promise((resolve, _reject) => {
                         api.server.db.manager.findOne<GatewayConnection>(GatewayConnection, {
                             user: s.user
                         }).then(gt => {
                             let gate = new GatewayConnection()
                             gate.user = s.user;
+                            gate.listen = s.listen;
                             if (gt) {
                                 gate.guid = gt.guid;
                             }

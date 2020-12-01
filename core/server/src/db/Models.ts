@@ -37,4 +37,7 @@ export class GatewayConnection {
 
     @Column({nullable: true, default: false})
     authed: boolean
+
+    @Column({default: []})
+    listen: string[]
 }
