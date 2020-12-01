@@ -19,10 +19,10 @@ export class Interprocess {
     init(done?: () => void) {
         this.server.logger.info("Connecting to Redis server...");
         this.sub = createClient({
-            host: process.env.rdhost,
-            port: parseInt(<string>process.env.rdport),
-            password: process.env.rdpassword,
-            url: process.env.rdurl,
+            host: this.server.cfg.val.redis.host,
+            port: this.server.cfg.val.redis.port,
+            password: this.server.cfg.val.redis.password,
+            url: this.server.cfg.val.redis.url,
         });
 
         let sub1 = false,sub2 = false;
@@ -31,16 +31,16 @@ export class Interprocess {
             if(!sub1) {
                 sub1 = true;
                 this.pub = createClient({
-                    host: process.env.rdhost,
-                    port: parseInt(<string>process.env.rdport),
-                    password: process.env.rdpassword,
-                    url: process.env.rdurl,
+                    host: this.server.cfg.val.redis.host,
+                    port: this.server.cfg.val.redis.port,
+                    password: this.server.cfg.val.redis.password,
+                    url: this.server.cfg.val.redis.url,
                 });
                 this.pub.on("ready", () => {
                     if(!sub2) {
                         sub2 = true;
                         this.server.logger.info("Connected to Redis server");
-                        if (process.env.ipmode === "master") {
+                        if (this.server.cfg.val.environment.ipmode === "master") {
                             this.master = true;
                             this.sub.subscribe("capp:master", () => this.ipmoded(done))
                         } else {
@@ -103,7 +103,7 @@ export class Interprocess {
         if (this.master) {
             this.send(ChannelType.Slave, MessageType.WhoAvailable);
         }
-        this.server.logger.info(`Subscribed to ${process.env.ipmode} ipmode on redis server`);
+        this.server.logger.info(`Subscribed to ${this.server.cfg.val.environment.ipmode} ipmode on redis server`);
         if (done) done();
     }
 }

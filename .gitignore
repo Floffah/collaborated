@@ -1,6 +1,7 @@
 ideas.md
 packages/**/types
 build
+core/server/data
 
 # Logs
 logs

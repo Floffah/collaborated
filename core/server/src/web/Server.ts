@@ -7,7 +7,8 @@ import Logger from "../util/Logger";
 import {Connection, ConnectionOptions, createConnection} from "typeorm";
 import {GatewayConnection, User} from "../db/Models";
 import {Interprocess} from "../comms/Interprocess";
-//import {randomBytes} from "crypto";
+import Configuration from "../util/Configuration";
+import {existsSync, mkdirSync} from "fs";
 
 export default class Server {
     app: Application
@@ -16,30 +17,37 @@ export default class Server {
     logger: Logger = new Logger();
     db: Connection
     ip: Interprocess
+    cfg: Configuration
 
     init() {
+        if(!existsSync(resolve(__dirname, "../../data"))) {
+            mkdirSync(resolve(__dirname, "../../data"));
+        }
+
+        this.cfg = new Configuration(resolve(__dirname, "../../data"));
+
         this.logger.info("Connecting to database...");
         createConnection({
-            type: process.env.dbtype,
-            host: process.env.dbhost,
-            database: process.env.dbdatabase,
-            username: process.env.dbusername,
-            port: parseInt(<string>process.env.dbport),
-            password: process.env.dbpassword,
-            url: process.env.dburl,
+            type: this.cfg.val.database.type,
+            host: this.cfg.val.database.host,
+            database: this.cfg.val.database.database,
+            username: this.cfg.val.database.username,
+            port: this.cfg.val.database.port,
+            password: this.cfg.val.database.password,
+            url: this.cfg.val.database.url,
 
             entities: [User, GatewayConnection],
             entityPrefix: "capp_",
             synchronize: true,
-            logging: process.env.mode === "dev" ? "all" : ["error", "warn", "migration"],
+            logging: this.cfg.val.environment.mode === "dev" ? "all" : ["error", "warn", "migration"],
             logger: "advanced-console",
 
             ssl: {
                 requestCert: true,
-                rejectUnauthorized: process.env.mode !== "dev",
+                rejectUnauthorized: this.cfg.val.environment.mode !== "dev",
             }
         } as ConnectionOptions).then(c => {
-            this.logger.info(`Database connection made. (insecure ssl ${process.env.mode === "dev" ? "on" : "off"})`)
+            this.logger.info(`Database connection made. (insecure ssl ${this.cfg.val.environment.mode === "dev" ? "on" : "off"})`)
             this.db = c;
             this.start();
         });
@@ -67,7 +75,7 @@ export default class Server {
 
             // let admin = new User();
             // admin.id = 1;
-            // admin.access = randomBytes(parseInt(<string>process.env.accesslength)/2).toString("hex");
+            // admin.access = randomBytes(this.cfg.val.info.accesslength/2).toString("hex");
             // admin.username = "floffah"
             // admin.email = "therealfloffah@gmail.com"
             // this.db.manager.save<User>(admin);

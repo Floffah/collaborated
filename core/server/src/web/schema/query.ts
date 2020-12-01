@@ -44,7 +44,7 @@ export default function query(api: API) {
                                 }
                             }).then(user => {
                                 if(user) {
-                                    user.access = randomBytes(parseInt(<string>process.env.access)/2).toString("hex")
+                                    user.access = randomBytes(api.server.cfg.val.info.accesslength/2).toString("hex")
                                     api.server.db.getRepository(User).save(user).then(user => {
                                         resolve(user);
                                     });
