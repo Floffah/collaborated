@@ -105,9 +105,12 @@ export default class API {
                             if (!!gate) {
                                 if (!!gate.user && !!gate.user.id) {
                                     if (gate.user.access === msg.access) {
-                                        session = new GatewaySession(socket, gate, this);
-                                        this.sessions.set(gate.guid, session);
-                                        authed = true;
+                                        gate.authed = true;
+                                        this.server.db.getRepository(GatewayConnection).save(gate).then(gat3 => {
+                                            session = new GatewaySession(socket, gat3, this);
+                                            this.sessions.set(gat3.guid, session);
+                                            authed = true;
+                                        });
                                     } else {
                                         socket.send(JSON.stringify({
                                             type: "error",
