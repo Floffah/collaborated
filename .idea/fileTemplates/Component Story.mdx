@@ -1,0 +1,13 @@
+import ${NAME} from "./${NAME}";
+import {ArgsTable, Canvas, Meta, Story} from "@storybook/addon-docs/blocks";
+
+<Meta title="${NAME}" component={${NAME}}/>
+
+# ${NAME}
+This is a component.
+
+#[[## Usage]]#
+#if($USAGE != "") $USAGE #else You use it like this #end
+#[[## API]]#
+
+<ArgsTable of={${NAME}}/>

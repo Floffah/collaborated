@@ -8,6 +8,7 @@ module.exports = {
     installOptions: {
         treeshake: true,
         installTypes: true,
+        polyfillNode: true,
     },
     buildOptions: {
         sourceMaps: true,
