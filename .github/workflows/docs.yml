@@ -5,6 +5,7 @@ on:
     paths:
       - core/web/src/ui/**
       - core/web/src/docs/**
+      - .github/workflows/**
 
 jobs:
   build:
@@ -17,6 +18,7 @@ jobs:
           node-version: '12'
       - run: yarn
       - run: yarn docs
+      - run: echo capp.floffah.dev > docs/CNAME
       - uses: EndBug/add-and-commit@v5
         with:
           add: 'docs'
