@@ -5,6 +5,7 @@ on:
     paths:
       - core/web/src/ui/**
       - core/web/src/docs/**
+      - .github/workflows/**
 
 jobs:
   build:
