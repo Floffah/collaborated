@@ -1,8 +1,8 @@
 import Axios from "axios";
 import { app, App, BrowserWindow, Tray } from "electron";
 import { resolve } from "path";
-import { getTrayMenu } from "src/menus/trays";
-import InternalServer from "src/polyfill/InternalServer";
+import {getTrayMenu} from "../menus/trays";
+import InternalServer from "../polyfill/InternalServer";
 
 export default class AppManager {
     constructor() {
@@ -27,7 +27,7 @@ export default class AppManager {
         Axios.get("http://localhost:8080").then((_d) => {
             this.devmode = true;
             console.log("Devmode");
-            this.load("http://localhost:8080");
+            this.start("http://localhost:8080");
         }).catch((_e) => {
             this.devmode = false;
             console.log("Prodmode")
@@ -47,9 +47,25 @@ export default class AppManager {
         });
     }
 
-    start() {
+    start(url?: string) {
+        console.log(resolve(__dirname, "preload.ts"));
         this.win = new BrowserWindow({
-
+            frame: false,
+            minWidth: 500,
+            minHeight: 400,
+            center: true,
+            width: 600,
+            height: 500,
+            show: false,
+            webPreferences: {
+                nodeIntegration: false,
+                nodeIntegrationInSubFrames: false,
+                nodeIntegrationInWorker: true,
+                enableRemoteModule: true,
+                preload: resolve(__dirname, "preload.js"),
+                offscreen: false,
+                contextIsolation: true,
+            }
         });
 
         if(this.offline) {
@@ -57,7 +73,9 @@ export default class AppManager {
             this.is.init();
             this.win.loadURL("http://localhost:" + this.is.port);
         } else {
-            this.win.loadURL("http://localhost:80");
+            this.win.loadURL(url || "http://localhost:80");
         }
+
+        this.win.on("ready-to-show", () => this.win.show());
     }
 }

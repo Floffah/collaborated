@@ -1,7 +1,7 @@
 import express, {Application, static as estatic} from "express"
 import { createServer, Server } from "http"
 import { AddressInfo } from "net"
-import AppManager from "src/app/AppManager"
+import AppManager from "../app/AppManager";
 
 export default class InternalServer {
     port: number = 0

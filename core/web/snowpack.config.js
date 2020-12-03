@@ -12,6 +12,6 @@ module.exports = {
     },
     buildOptions: {
         sourceMaps: true,
-        baseUrl: "./"
+        baseUrl: "./",
     }
 }

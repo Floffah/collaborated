@@ -1,5 +1,5 @@
 import { Menu } from "electron";
-import AppManager from "src/app/AppManager";
+import AppManager from "../app/AppManager";
 
 export function getTrayMenu(app: AppManager):Menu {
     return Menu.buildFromTemplate([

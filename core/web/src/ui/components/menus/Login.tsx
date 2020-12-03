@@ -41,7 +41,7 @@ export default class Login extends React.Component<LoginProps, any> {
                 <TextInput placeholder="Password" mode="password" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
 
                 <ButtonGroup>
-                    <Tooltip message="Currently disabled" position={PopOverPos.TopRight}>
+                    <Tooltip message="Currently disabled" position={PopOverPos.Top}>
                         <ButtonPartOne size="medium" type="primary">Register</ButtonPartOne>
                     </Tooltip>
                     <ButtonPartTwo size="medium" type="primary">Log In</ButtonPartTwo>

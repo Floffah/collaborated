@@ -13,6 +13,7 @@
       <excludeFolder url="file://$MODULE_DIR$/test/addon/dist" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/core/server/data" />
+      <excludeFolder url="file://$MODULE_DIR$/core/app/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

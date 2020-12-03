@@ -1,6 +1,6 @@
-import { Column, Entity, JoinTable, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./Clients";
-import { Group } from "./Groups";
+import {Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {User} from "./Clients";
+import {Group} from "./Groups";
 
 @Entity()
 export class Project {
@@ -11,7 +11,7 @@ export class Project {
     name: string
 
     @OneToOne(() => User)
-    @JoinTable()
+    @JoinColumn()
     owner: User
 
     @OneToMany(() => Group, group => group.project, {

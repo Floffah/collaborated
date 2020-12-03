@@ -9,8 +9,8 @@ import {GatewayConnection, User} from "../db/Clients";
 import {Interprocess} from "../comms/Interprocess";
 import Configuration from "../util/Configuration";
 import {existsSync, mkdirSync} from "fs";
-import { Group } from "src/db/Groups";
-import { Project } from "src/db/Projects";
+import {Group} from "../db/Groups";
+import {Project} from "../db/Projects";
 
 export default class Server {
     app: Application

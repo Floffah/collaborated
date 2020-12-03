@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import { User } from "./Clients";
 import { Project } from "./Projects"
 
@@ -11,6 +11,7 @@ export class Group {
     name: string
 
     @OneToOne(() => User)
+    @JoinColumn()
     administrator: User
 
     @ManyToMany(() => User, user => user.groups, {

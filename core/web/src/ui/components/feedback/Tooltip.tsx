@@ -16,7 +16,7 @@ interface TooltipState {
 export class Tooltip extends React.Component<TooltipProps, TooltipState> {
     static defaultProps: TooltipProps = {
         message: "This is a tooltip",
-        position: PopOverPos.Auto
+        position: PopOverPos.Top
     }
 
     constructor(p: TooltipProps) {
@@ -27,17 +27,24 @@ export class Tooltip extends React.Component<TooltipProps, TooltipState> {
         }
     }
 
-    render() {
-        let content = <TooltipMessage message={this.props.message}/>
+    componentDidMount() {
+        this.forceUpdate();
+    }
 
-        return <PopOver content={content} position={this.props.position || PopOverPos.Auto}>
+    cref: RefObject<HTMLDivElement> = React.createRef();
+
+    render() {
+        let content = <TooltipMessage contentRef={this.cref} message={this.props.message}/>
+
+        return <PopOver content={content} position={this.props.position} contentRect={this.cref.current?.getBoundingClientRect()}>
             {this.props.children}
         </PopOver>
     }
 }
 
 export interface TooltipMProps {
-    message: string
+    message: string,
+    contentRef?: RefObject<HTMLDivElement>
 }
 
 interface TooltipMState {
@@ -83,7 +90,7 @@ export class TooltipMessage extends React.Component<TooltipMProps, TooltipMState
     }
 
     render() {
-        return <TMEnclosure pwidth={this.state.cwidth || "auto"}>
+        return <TMEnclosure ref={this.props.contentRef || undefined} pwidth={this.state.cwidth || "auto"}>
             <TMContainer ref={this.cref}>
                 <TMMessage ref={this.mref}>{this.props.message}</TMMessage>
             </TMContainer>
