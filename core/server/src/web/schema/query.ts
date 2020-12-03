@@ -1,7 +1,7 @@
 import API from "../API";
 import {GraphQLObjectType, GraphQLSchema, GraphQLString} from "graphql"
 import {query_me} from "./me";
-import {User} from "../../db/Models";
+import {User} from "../../db/Clients";
 import { randomBytes } from "crypto";
 
 export default function query(api: API) {

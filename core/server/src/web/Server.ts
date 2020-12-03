@@ -5,10 +5,12 @@ import {resolve} from "path";
 import API from "./API";
 import Logger from "../util/Logger";
 import {Connection, ConnectionOptions, createConnection} from "typeorm";
-import {GatewayConnection, User} from "../db/Models";
+import {GatewayConnection, User} from "../db/Clients";
 import {Interprocess} from "../comms/Interprocess";
 import Configuration from "../util/Configuration";
 import {existsSync, mkdirSync} from "fs";
+import { Group } from "src/db/Groups";
+import { Project } from "src/db/Projects";
 
 export default class Server {
     app: Application
@@ -36,7 +38,7 @@ export default class Server {
             password: this.cfg.val.database.password,
             url: this.cfg.val.database.url,
 
-            entities: [User, GatewayConnection],
+            entities: [User, GatewayConnection, Group, Project],
             entityPrefix: "capp_",
             synchronize: true,
             logging: this.cfg.val.environment.mode === "dev" ? "all" : ["error", "warn", "migration"],

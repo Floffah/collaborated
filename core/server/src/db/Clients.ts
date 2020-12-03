@@ -1,4 +1,5 @@
-import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Group } from "./Groups";
 
 export class User_Settings {
     @Column({default: false})
@@ -21,6 +22,9 @@ export class User {
 
     @Column()
     password: string
+
+    @ManyToMany(() => Group, group => group.users)
+    groups: Group[]
 
     @Column(() => User_Settings)
     settings: User_Settings
