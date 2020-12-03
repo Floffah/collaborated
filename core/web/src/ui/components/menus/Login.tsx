@@ -4,7 +4,9 @@ import TextInput, {InputContainer} from "../input/TextInput";
 import Button from "../interactable/Button";
 import {AppContext} from "../../../util/AppContext";
 import {AppContainer} from "../../../AppContainer";
-import { Popup } from "../containers/Popups";
+import {Popup} from "../containers/Popups";
+import {Tooltip} from "../feedback/Tooltip";
+import {PopOverPos} from "../containers/PopupUtil";
 
 export interface LoginProps {
     float?: boolean
@@ -39,7 +41,9 @@ export default class Login extends React.Component<LoginProps, any> {
                 <TextInput placeholder="Password" mode="password" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
 
                 <ButtonGroup>
-                    <ButtonPartOne size="medium" type="primary">Register</ButtonPartOne>
+                    <Tooltip message="Currently disabled" position={PopOverPos.TopRight}>
+                        <ButtonPartOne size="medium" type="primary">Register</ButtonPartOne>
+                    </Tooltip>
                     <ButtonPartTwo size="medium" type="primary">Log In</ButtonPartTwo>
                 </ButtonGroup>
 
@@ -66,16 +70,13 @@ const SepLink = styled.a`
 `
 
 const Sep = styled.hr`
-    width: 360px;
-    height: 1px;
-    position: relative;
-    border-width: 0;
-    color: ${props => props.theme.login.sepcolor};
-    background-color: ${props => props.theme.login.sepcolor};
-    margin: 0;
-    margin-left: 20px;
-    margin-top: 27px;
-    margin-bottom: 27px;
+  width: 360px;
+  height: 1px;
+  position: relative;
+  border-width: 0;
+  color: ${props => props.theme.login.sepcolor};
+  background-color: ${props => props.theme.login.sepcolor};
+  margin: 27px 0 27px 20px;
 `
 
 const ButtonGroup = styled.div`
@@ -97,7 +98,6 @@ const ButtonPartTwo = styled(Button)`
 const LoginBody = styled.div`
     position: absolute;
     height: calc(100% - 55px);
-    top: 55px;
     left: 67px;
     top: 92px;
     

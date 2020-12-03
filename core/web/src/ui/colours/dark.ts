@@ -55,6 +55,11 @@ export function darkTheme():ColourTheme {
             error: "#a61d24", //red5
             hover: "#112a45", //blue2
             errhover: "#d32029"//red6
+        },
+
+        tooltip: {
+            color: "#ffffff",//gray1
+            bg: "#141414"//gray12
         }
     }
 }

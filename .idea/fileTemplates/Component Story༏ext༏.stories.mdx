@@ -8,6 +8,14 @@ This is a component.
 
 #[[## Usage]]#
 #if($USAGE != "") $USAGE #else You use it like this #end
+
+<Canvas>
+    <Story
+        name="default"
+        args={{}}
+    >args => <${NAME} {...args}/>}</Story>
+</Canvas>
+
 #[[## API]]#
 
 <ArgsTable of={${NAME}}/>

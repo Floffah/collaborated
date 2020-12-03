@@ -1,5 +1,7 @@
 import * as React from "react";
 import {createPopper, flip, Instance, Placement} from "@popperjs/core";
+import * as ReactDOM from "react-dom";
+import styled from "styled-components";
 
 export enum PopOverPos {
     TopLeft = "top-start",
@@ -31,8 +33,18 @@ interface PopOverState {
     visible: boolean
 }
 
+function getPopupRoot() {
+    let root = document.getElementById("capp-popups");
+    if (root === null) {
+        root = document.createElement("div");
+        root.setAttribute("id", "capp-popups")
+        document.body.appendChild(root);
+    }
+    return root;
+}
+
 export class PopOver extends React.Component<PopOverProps, PopOverState> {
-    static defaultProps:PopOverProps = {
+    static defaultProps: PopOverProps = {
         defaultVisible: true,
         content: <p>Hi</p>,
         position: PopOverPos.Top,
@@ -40,11 +52,11 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
         autoShow: true,
     }
 
-    constructor(p:PopOverProps) {
+    constructor(p: PopOverProps) {
         super(p);
     }
 
-    state:PopOverState = {
+    state: PopOverState = {
         visible: !!this.props.defaultVisible
     }
 
@@ -54,20 +66,20 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
 
     componentDidMount() {
         let shouldflip = false;
-        if(this.props.fit == true) shouldflip = true;
-        if(this.props.fit == undefined) shouldflip = true;
+        if (this.props.fit == true) shouldflip = true;
+        if (this.props.fit == undefined) shouldflip = true;
 
         let modifiers = [];
-        if(shouldflip) modifiers.push(flip);
+        if (shouldflip) modifiers.push(flip);
 
-        this.popper = createPopper(this.pref.current as HTMLElement, this.tref.current as HTMLElement, {
+        this.popper = createPopper(this.tref.current as HTMLElement, this.pref.current as HTMLElement, {
             placement: this.props.position as string as Placement,
-            modifiers: modifiers
+            //modifiers: modifiers
         });
     }
 
     componentDidUpdate(prevProps: Readonly<PopOverProps>, prevState: Readonly<PopOverState>, snapshot?: any) {
-        if(!!this.popper) this.popper.forceUpdate();
+        if (!!this.popper) this.popper.forceUpdate();
     }
 
     onClick() {
@@ -78,12 +90,20 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
 
     render() {
         return <React.Fragment>
-            <div ref={this.tref} onClick={() => this.onClick()}>
+            <Children ref={this.tref} onClick={() => this.onClick()}>
                 {this.props.children}
-            </div>
-            <div ref={this.pref}>
+            </Children>
+            <RootPopup ref={this.pref}>
                 {this.props.content || <p>Hi</p>}
-            </div>
+            </RootPopup>
         </React.Fragment>
     }
 }
+
+const Children = styled.div`
+  display: inline-block;
+`
+
+const RootPopup = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>((props, ref) => {
+    return ReactDOM.createPortal(<div ref={ref}>{props.children}</div>, getPopupRoot());
+})

@@ -63,4 +63,9 @@ export interface ColourTheme {
         hover: string,
         errhover: string,
     }
+
+    tooltip: {
+        color: string
+        bg: string
+    }
 }

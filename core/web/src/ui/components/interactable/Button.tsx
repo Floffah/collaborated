@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import {ComponentProps} from "../../util/typings";
 
 interface ButtonProps {
     type?: "default"|"primary",
@@ -8,33 +9,31 @@ interface ButtonProps {
     className?: string,
 }
 
-export default class Button extends React.Component<ButtonProps, any> {
-    static defaultProps: ButtonProps = {
-        type: "default",
-        onClick: undefined,
-        size: "small"
-    };
-
-    render() {
+export default function Button(props: ComponentProps<ButtonProps>) {
         let defprop = {
-            onClick: () => !!this.props.onClick ? this.props.onClick() : undefined,
+            onClick: () => !!props.onClick ? props.onClick() : undefined,
             isize: 13,
             ipadding: "5px 15px 5px 15px",
-            className: this.props.className
+            className: props.className
         }
-        if(this.props.size === "medium") {
+        if(props.size === "medium") {
             defprop.isize = 15;
             defprop.ipadding = "7px 17px 7px 17px";
-        } else if(this.props.size === "large") {
+        } else if(props.size === "large") {
             defprop.isize = 17;
             defprop.ipadding = "8px 22px 8px 22px";
         }
 
-        if(this.props.type === "primary") {
-            return <PrimaryButton {...defprop}>{this.props.children}</PrimaryButton>
+        if(props.type === "primary") {
+            return <PrimaryButton {...defprop}>{props.children}</PrimaryButton>
         }
-        return <DefaultButton {...defprop}>{this.props.children}</DefaultButton>
-    }
+        return <DefaultButton {...defprop}>{props.children}</DefaultButton>
+}
+
+Button.defaultProps = {
+    type: "default",
+    onClick: undefined,
+    size: "small"
 }
 
 const BaseButton = styled.button<{isize:number,ipadding:string}>`
