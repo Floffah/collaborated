@@ -7,6 +7,7 @@ if(!process.argv.includes("--builds")) {
     cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace web start-storybook -p 6006; `;
 }
 cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace server tsc -w; `
+cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace app tsc -w; `
 cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace @collaborated/interact tsc -w; `
 cmd += `new-tab --startingDirectory ${path.resolve(__dirname, '../')} yarn.cmd workspace test-addon tsc -w; `
 if(process.argv.includes("--cmd")) {

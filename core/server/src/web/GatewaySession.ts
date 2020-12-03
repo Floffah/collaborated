@@ -1,5 +1,5 @@
 import WebSocket from "ws";
-import {GatewayConnection} from "../db/Models";
+import {GatewayConnection} from "../db/Clients";
 import API from "./API";
 
 export default class GatewaySession {

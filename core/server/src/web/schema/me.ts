@@ -1,6 +1,6 @@
 import API from "../API";
 import {GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString} from "graphql";
-import {GatewayConnection, User} from "../../db/Models";
+import {GatewayConnection, User} from "../../db/Clients";
 
 export function query_me(api: API) {
     return new GraphQLObjectType({

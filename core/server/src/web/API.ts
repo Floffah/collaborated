@@ -4,7 +4,7 @@ import query from "./schema/query";
 import WebSocket, {Server as WSServer} from "ws"
 import Server from "./Server";
 import GatewaySession, {GatewayMessageTypes} from "./GatewaySession";
-import {GatewayConnection} from "../db/Models";
+import {GatewayConnection} from "../db/Clients";
 import {Not} from "typeorm";
 import {forWait} from "../util/arrays";
 import EventPush from "./EventPush";

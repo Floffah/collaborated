@@ -4,8 +4,12 @@ import {lstatSync, readdirSync, readFileSync} from "fs";
 import {resolve} from "path";
 import Logger from "../util/Logger";
 
-export function staticCached(path: string, logger: Logger) {
+export function staticCached(path: string, logger: Logger, indexes?: boolean) {
     let cache = new CachedMap<string>();
+    let indexing = indexes;
+    if(indexes === undefined) {
+        indexing = true;
+    }
 
     logger.info("caching served files...");
 
@@ -37,7 +41,7 @@ export function staticCached(path: string, logger: Logger) {
             }
             console.log(req.path, mime);
             res.status(200).header("Content-type", mime).send(cache.get(req.path));
-        } else if((req.path.endsWith("/") && cache.has(req.path + "index.html"))) {
+        } else if(indexing && (req.path.endsWith("/") && cache.has(req.path + "index.html"))) {
             res.status(200).send(cache.get(req.path + "index.html"));
         } else {
             next();
