@@ -12,12 +12,26 @@ export interface LoginProps {
     float?: boolean
 }
 
-export default class Login extends React.Component<LoginProps, any> {
+export interface LoginState {
+    email: string,
+    pswd: string
+}
+
+export default class Login extends React.Component<LoginProps, LoginState> {
     static defaultProps: LoginProps = {
         float: false
     };
     static contextType = AppContext
     appc: AppContainer;
+
+    constructor(p:any) {
+        super(p);
+
+        this.state = {
+            email: "",
+            pswd: "",
+        }
+    }
 
     componentDidMount() {
         this.appc = (this.context as AppContainer);
@@ -31,20 +45,36 @@ export default class Login extends React.Component<LoginProps, any> {
         }
     }
 
+    submit() {
+        console.log(this.state.email, this.state.pswd);
+        this.appc.startClient(this.state.email, this.state.pswd);
+    }
+
+    echange(val:string) {
+        this.setState({
+            email: val
+        })
+    }
+    pchange(val:string) {
+        this.setState({
+            pswd: val
+        })
+    }
+
     render() {
         return <LoginContainer float={this.props.float || false}>
             <LoginHeader float={this.props.float || false}>
                 <p>Login</p>
             </LoginHeader>
             <LoginBody>
-                <TextInput placeholder="Username" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
-                <TextInput placeholder="Password" mode="password" width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
+                <TextInput onSubmit={() => this.submit()} placeholder="Email" mode="email" onChange={val => this.echange(val)} width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
+                <TextInput onSubmit={() => this.submit()} placeholder="Password" mode="password" onChange={val => this.pchange(val)} width={400} height={35} fontSize={17} notEmpty errorLabel errorWait/>
 
                 <ButtonGroup>
                     <Tooltip message="Currently disabled" position={PopOverPos.Top}>
                         <ButtonPartOne size="medium" type="primary">Register</ButtonPartOne>
                     </Tooltip>
-                    <ButtonPartTwo size="medium" type="primary">Log In</ButtonPartTwo>
+                    <ButtonPartTwo size="medium" type="primary" onClick={() => this.submit()}>Log In</ButtonPartTwo>
                 </ButtonGroup>
 
                 <Sep/>

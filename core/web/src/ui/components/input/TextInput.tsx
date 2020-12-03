@@ -37,7 +37,9 @@ export interface TextInputProps {
     height?: number,
     fontSize?: number,
     errorLabel?: boolean,
-    errorWait?: boolean
+    errorWait?: boolean,
+    onChange?: (val:string) => void,
+    onSubmit?: () => void,
 }
 
 interface TextInputState {
@@ -78,6 +80,10 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
     handleChange(e: ChangeEvent<HTMLInputElement>) {
         this.setState({
             value: e.target.value
+        }, () => {
+            if(!!this.props.onChange) {
+                this.props.onChange(this.state.value);
+            }
         });
     }
 
@@ -94,6 +100,7 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
             autoComplete: this.props.autoComplete || "off",
             value: this.state.value,
             placeholder: this.props.placeholder || "text",
+            onSubmit: () => (!!this.props.onSubmit ? this.props.onSubmit : (() => {}))(),
 
             err: this.state.errors.length >= 1,
             iwidth: this.props.width || 200,

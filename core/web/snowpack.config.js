@@ -9,6 +9,10 @@ module.exports = {
         treeshake: true,
         installTypes: true,
         polyfillNode: true,
+        packageLookupFields: ["@collaborated/interact"]
+    },
+    devOptions: {
+        open: "none"
     },
     buildOptions: {
         sourceMaps: true,

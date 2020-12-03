@@ -36,7 +36,8 @@ export class Tooltip extends React.Component<TooltipProps, TooltipState> {
     render() {
         let content = <TooltipMessage contentRef={this.cref} message={this.props.message}/>
 
-        return <PopOver content={content} position={this.props.position} contentRect={this.cref.current?.getBoundingClientRect()}>
+        return <PopOver content={content} defaultVisible={false} position={this.props.position}
+                        contentRect={this.cref.current?.getBoundingClientRect()}>
             {this.props.children}
         </PopOver>
     }
@@ -79,7 +80,7 @@ export class TooltipMessage extends React.Component<TooltipMProps, TooltipMState
     calcWidth() {
         let temp = document.createElement("canvas");
         let ctx = temp.getContext("2d");
-        if(ctx) {
+        if (ctx) {
             ctx.font = theme.font;
             this.setState({
                 cwidth: this.mref.current?.getBoundingClientRect().width as number + 10,//ctx.measureText(this.props.message).width
@@ -99,7 +100,7 @@ export class TooltipMessage extends React.Component<TooltipMProps, TooltipMState
     }
 }
 
-const TMArrow = styled.div<{ptop: number, pleft: number}>`
+const TMArrow = styled.div<{ ptop: number, pleft: number }>`
   content: "";
   width: 0;
   height: 0;
@@ -122,14 +123,14 @@ const TMMessage = styled.p`
   height: auto;
 `
 
-const TMEnclosure = styled.div<{pwidth: number|string}>`
+const TMEnclosure = styled.div<{ pwidth: number | string }>`
   position: fixed;
   color: ${props => props.theme.tooltip.color};
   width: ${props => props.pwidth}px;
   font-family: ${props => props.theme.font};
   font-size: 15px;
   z-index: 1000;
-  
+
   ${TMContainer} {
     width: ${props => props.pwidth};
   }

@@ -84,9 +84,9 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
 
         if ([PopOverPos.Top, PopOverPos.TopLeft, PopOverPos.TopRight].includes(ppos)) {
             left = this.tref.current?.getBoundingClientRect().left || 0;
-            if(ppos === PopOverPos.TopLeft) {
+            if (ppos === PopOverPos.TopLeft) {
                 left += (this.tref.current?.getBoundingClientRect().width || 0) * 0.24
-            } else if(ppos === PopOverPos.TopRight) {
+            } else if (ppos === PopOverPos.TopRight) {
                 left += (this.tref.current?.getBoundingClientRect().width || 0) * 0.74
             } else {
                 left += (this.tref.current?.getBoundingClientRect().width || 0) * 0.49
@@ -115,22 +115,32 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
     }
 
     onClick() {
-        this.setState({
-            visible: !this.state.visible
-        });
+        if(!this.state.visible) {
+            this.setState({
+                visible: true
+            });
+        }
+    }
+
+    onBlur() {
+        if(this.state.visible) {
+            this.setState({
+                visible: false
+            });
+        }
     }
 
     render() {
         let left = this.state.left;
         let top = this.state.top;
 
-        if(this.tref.current !== null && this.pref.current !== null) {
+        if (this.tref.current !== null && this.pref.current !== null) {
             left = this.calcLeft();
             top = this.calcTop();
         }
 
         return <React.Fragment>
-            <Children ref={this.tref} onClick={() => this.onClick()}>
+            <Children ref={this.tref} onClick={() => this.onClick()} onBlur={() => this.onBlur()}>
                 {this.props.children}
             </Children>
             <RootPopup ref={this.pref} top={top} left={left} visible={this.state.visible}>
@@ -145,12 +155,16 @@ const Children = styled.div`
 `
 
 const RPS = styled.div<{ top: number, left: number, visible: boolean }>`
+  transition: opacity 0.1s;
   position: fixed;
   top: ${props => props.top}px;
   left: ${props => props.left}px;
-  display: ${props => props.visible ? "block" : "none"};
+  //display: $\{props => props.visible ? "block" : "none"};
+  opacity: ${props => props.visible ? 1 : 0};
+  pointer-events: ${props => props.visible ? "all" : "none"};
 `
 
 const RootPopup = React.forwardRef<HTMLDivElement, { children: React.ReactNode, top: number, left: number, visible: boolean }>((props, ref) => {
-    return ReactDOM.createPortal(<RPS ref={ref} top={props.top} left={props.left} visible={props.visible}>{props.children}</RPS>, getPopupRoot());
+    return ReactDOM.createPortal(<RPS ref={ref} top={props.top} left={props.left}
+                                      visible={props.visible}>{props.children}</RPS>, getPopupRoot());
 })

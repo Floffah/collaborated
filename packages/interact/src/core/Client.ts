@@ -1,4 +1,4 @@
-import ax, {AxiosError, AxiosResponse} from "axios";
+import ax, {AxiosError, AxiosInstance, AxiosResponse} from "axios";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
 import {SocketManager} from "../api/SocketManager";
 import {EventEmitter} from "events";
@@ -17,6 +17,7 @@ export class Client extends EventEmitter {
     opts: ClientOptions
 
     socket: SocketManager
+    ax: AxiosInstance
 
     #access: string
 
@@ -25,6 +26,20 @@ export class Client extends EventEmitter {
     constructor(opts: ClientOptions) {
         super();
         this.opts = opts;
+
+        this.ax = ax.create({
+            headers: {
+                'Content-Type': "application/json",
+                'Accept': "application/json",
+                'Access-Control-Allow-Origin': "*",
+                // 'Access-Control-Allow-Methods': "GET, POST",
+                // 'Access-Control-Allow-Headers': "Accept, Content-Type",
+                'Cache-Control': "no-cache"
+            },
+            baseURL: this.url,
+            withCredentials: true,
+            transformRequest: [(data) => JSON.stringify(data.data)],
+        })
     }
 
     /**
@@ -35,12 +50,18 @@ export class Client extends EventEmitter {
      */
     _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any>> {
         return new Promise((resolve, reject) => {
-            ax.post(this.url, JSON.stringify({query, variables}), {
+            ax.post(this.url, JSON.stringify({query, variables}),{
                 method: "POST",
+                data: JSON.stringify({query, variables}),
                 headers: {
                     'Content-Type': "application/json",
-                    'Accept': "application/json"
+                    'Accept': "application/json",
+                    'Access-Control-Allow-Origin': "*",
+                    // 'Access-Control-Allow-Methods': "GET, POST",
+                    // 'Access-Control-Allow-Headers': "Accept, Content-Type",
+                    'Cache-Control': "no-cache"
                 },
+                responseType: "json",
             }).then((d) => {
                 if("data" in d) {
                     if("errors" in d.data) {
@@ -53,7 +74,10 @@ export class Client extends EventEmitter {
                 }
             }).catch((reason:AxiosError) => {
                 if(reason.response) {
+                    console.log(reason.response.data);
                     reject(GraphQLToError(createGraphQLError(reason.response.data, query)));
+                } else {
+                    console.log(reason);
                 }
             });
         });

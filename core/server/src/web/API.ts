@@ -8,6 +8,8 @@ import {GatewayConnection} from "../db/Clients";
 import {Not} from "typeorm";
 import {forWait} from "../util/arrays";
 import EventPush from "./EventPush";
+import {GraphQLSchema} from "graphql";
+import cors from "cors";
 
 export default class API {
     server: Server
@@ -18,6 +20,8 @@ export default class API {
 
     events: EventPush
 
+    schema: GraphQLSchema = query(this)
+
     constructor(server: Server) {
         this.server = server;
     }
@@ -25,9 +29,12 @@ export default class API {
     init() {
         this.route = Router()
         this.server.app.use("/api/v1", this.route);
+
+        this.route.use(cors());
+
         this.route.use("/", graphqlHTTP({
-            schema: query(this),
-            graphiql: true
+            schema: this.schema,
+            graphiql: true,
         }));
         this.server.logger.info("Built GraphQL schema");
 
@@ -58,7 +65,10 @@ export default class API {
     }
 
     flush(authed?: boolean) {
-        this.server.db.getRepository(GatewayConnection).find({where: {authed: !!authed ? true : Not(true)}, select: ["guid"]}).then(gates => {
+        this.server.db.getRepository(GatewayConnection).find({
+            where: {authed: !!authed ? true : Not(true)},
+            select: ["guid"]
+        }).then(gates => {
             forWait(gates, (gate, next) => {
                 this.server.db.manager.delete<GatewayConnection>(GatewayConnection, gate).then(() => {
                     next();
@@ -72,7 +82,7 @@ export default class API {
         let session: GatewaySession;
 
         setTimeout(() => {
-            if(!authed) {
+            if (!authed) {
                 socket.send(JSON.stringify({
                     type: "error",
                     error: GatewayErrors.AuthenticationTimeOut,
@@ -84,7 +94,7 @@ export default class API {
         }, 10000);
 
         socket.on("close", () => {
-            if(session) {
+            if (session) {
                 session.rid();
             }
         });

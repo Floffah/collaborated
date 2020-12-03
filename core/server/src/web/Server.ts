@@ -64,7 +64,7 @@ export default class Server {
             this.server = createServer(this.app);
 
             if (!process.argv.includes("--dev") && !process.argv.includes("--maintenance")) {
-                this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger, false));
+                this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger));
             }
 
             if (!process.argv.includes("--disable-api") && !process.argv.includes("--maintenance")) {

@@ -17,6 +17,11 @@ export class AppContainer {
         }
     }
 
+    startClient(email: string, password: string) {
+        this.client = new Client({});
+        this.client.login({email,password});
+    }
+
     handlePopups(handler: (content: JSX.Element) => void) {
         this.popupHandler = handler;
     }
