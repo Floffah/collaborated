@@ -63,11 +63,11 @@ export default class Server {
             this.app = express();
             this.server = createServer(this.app);
 
-            if (!process.argv.includes("--dev")) {
-                this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger));
+            if (!process.argv.includes("--dev") && !process.argv.includes("--maintenance")) {
+                this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger, false));
             }
 
-            if (!process.argv.includes("--disable-api")) {
+            if (!process.argv.includes("--disable-api") && !process.argv.includes("--maintenance")) {
                 this.api = new API(this);
                 this.api.init();
             }
