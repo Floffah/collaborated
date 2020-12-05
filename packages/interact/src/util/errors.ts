@@ -1,17 +1,17 @@
-
-export interface GraphQLErrorData {
-    errors: {
-        message: string,
-        locations: {line: number, column: number}[],
-        path: string[]
-    }[],
-    data: {[k: string]: any};
-}
+export type GraphQLErrorData = {
+    [key in "errors" | "graphqlErrors"]: {
+        message: string;
+        locations: { line: number; column: number; }[];
+        path: string[];
+    }[];
+} & {
+    data: { [k: string]: any; };
+};
 
 export type GraphQLErrors = "unknown"|"ServerError"|"SyntaxError"
 
 export function createGraphQLError(error: GraphQLErrorData, query?: string):{message:string, type:GraphQLErrors} {
-    let err = error.errors[0];
+    let err = error.errors[0] || error.graphqlErrors[0];
     let msg = err.message;
     let type: GraphQLErrors = "unknown";
     if(msg.startsWith("Unexpected error value")) {

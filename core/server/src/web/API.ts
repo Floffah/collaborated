@@ -8,7 +8,7 @@ import {GatewayConnection} from "../db/Clients";
 import {Not} from "typeorm";
 import {forWait} from "../util/arrays";
 import EventPush from "./EventPush";
-import {GraphQLSchema} from "graphql";
+import {execute, GraphQLError, GraphQLSchema, parse, Source} from "graphql";
 import cors from "cors";
 
 export default class API {
@@ -100,33 +100,42 @@ export default class API {
         });
 
         socket.on("message", (data: string) => {
-            if (isJson(data)) {
-                let msg = JSON.parse(data);
-                if (!authed) {
-                    // authenticating
-                    if ("type" in msg && msg.type === "auth" && "guid" in msg && "access" in msg) {
-                        this.server.db.getRepository(GatewayConnection).findOne({
-                            guid: msg.guid
-                        }, {
-                            loadEagerRelations: true,
-                            relations: ["user"]
-                        }).then((gate) => {
-                            console.log(JSON.stringify(gate));
-                            if (!!gate) {
-                                if (!!gate.user && !!gate.user.id) {
-                                    if (gate.user.access === msg.access) {
-                                        gate.authed = true;
-                                        this.server.db.getRepository(GatewayConnection).save(gate).then(gat3 => {
-                                            session = new GatewaySession(socket, gat3, this);
-                                            this.sessions.set(gat3.guid, session);
-                                            authed = true;
-                                            session.message(GatewayMessageTypes.Authenticated);
-                                        });
+                if (isJson(data)) {
+                    let msg = JSON.parse(data);
+                    if (!authed) {
+                        // authenticating
+                        if ("type" in msg && msg.type === "auth" && "guid" in msg && "access" in msg) {
+                            this.server.db.getRepository(GatewayConnection).findOne({
+                                guid: msg.guid
+                            }, {
+                                loadEagerRelations: true,
+                                relations: ["user"]
+                            }).then((gate) => {
+                                console.log(JSON.stringify(gate));
+                                if (!!gate) {
+                                    if (!!gate.user && !!gate.user.id) {
+                                        if (gate.user.access === msg.access) {
+                                            gate.authed = true;
+                                            this.server.db.getRepository(GatewayConnection).save(gate).then(gat3 => {
+                                                session = new GatewaySession(socket, gat3, this);
+                                                this.sessions.set(gat3.guid, session);
+                                                authed = true;
+                                                session.message(GatewayMessageTypes.Authenticated);
+                                            });
+                                        } else {
+                                            socket.send(JSON.stringify({
+                                                type: "error",
+                                                error: GatewayErrors.AuthDetailMismatch,
+                                                errorName: GatewayErrors[GatewayErrors.AuthDetailMismatch]
+                                            }), () => {
+                                                socket.close()
+                                            });
+                                        }
                                     } else {
                                         socket.send(JSON.stringify({
                                             type: "error",
-                                            error: GatewayErrors.AuthDetailMismatch,
-                                            errorName: GatewayErrors[GatewayErrors.AuthDetailMismatch]
+                                            error: GatewayErrors.CouldNotFetchUser,
+                                            errorName: GatewayErrors[GatewayErrors.CouldNotFetchUser]
                                         }), () => {
                                             socket.close()
                                         });
@@ -134,36 +143,62 @@ export default class API {
                                 } else {
                                     socket.send(JSON.stringify({
                                         type: "error",
-                                        error: GatewayErrors.CouldNotFetchUser,
-                                        errorName: GatewayErrors[GatewayErrors.CouldNotFetchUser]
+                                        error: GatewayErrors.IncorrectAuthDetails,
+                                        errorName: GatewayErrors[GatewayErrors.IncorrectAuthDetails]
                                     }), () => {
                                         socket.close()
                                     });
                                 }
-                            } else {
-                                socket.send(JSON.stringify({
-                                    type: "error",
-                                    error: GatewayErrors.IncorrectAuthDetails,
-                                    errorName: GatewayErrors[GatewayErrors.IncorrectAuthDetails]
-                                }), () => {
-                                    socket.close()
-                                });
-                            }
-                        });
+                            });
+                        } else {
+                            socket.send(JSON.stringify({
+                                type: "error",
+                                error: GatewayErrors.InvalidAuthDetails,
+                                errorName: GatewayErrors[GatewayErrors.InvalidAuthDetails]
+                            }), () => {
+                                socket.close();
+                            });
+                        }
                     } else {
-                        socket.send(JSON.stringify({
-                            type: "error",
-                            error: GatewayErrors.InvalidAuthDetails,
-                            errorName: GatewayErrors[GatewayErrors.InvalidAuthDetails]
-                        }), () => {
-                            socket.close();
-                        });
+                        // post-authenticated
+                        if ("type" in msg) {
+                            let respond: {
+                                type: "results"|"unknown"
+                                errors?: GraphQLError[],
+                                qid?: any,
+                                data?: any
+                            } = {type:"unknown"}
+                            if (msg.type === "query" && "query" in msg && typeof msg.query === "string") {
+                                respond.type = "results";
+                                let doc, worked = true;
+                                try {
+                                    doc = parse(new Source(msg.query, "Gateway request"))
+                                } catch (syntaxError: unknown) {
+                                    respond.errors = [syntaxError as GraphQLError];
+                                    if ("qid" in msg) {
+                                        respond.qid = msg.qid;
+                                    }
+                                    worked = false;
+                                }
+                                if (worked && !!doc) {
+                                    execute({
+                                        schema: this.schema,
+                                        document: doc,
+                                        variableValues: "variables" in msg ? msg.variables : undefined,
+                                        operationName: "operationName" in msg ? msg.operationName : undefined,
+                                        contextValue: msg,
+                                    });
+                                }
+                            }
+
+                            if(respond.type !== "unknown") {
+                                socket.send(JSON.stringify(respond));
+                            }
+                        }
                     }
-                } else {
-                    // post-authenticated
                 }
             }
-        })
+        )
     }
 }
 

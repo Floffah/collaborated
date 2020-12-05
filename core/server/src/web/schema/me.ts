@@ -1,9 +1,10 @@
 import API from "../API";
 import {GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString} from "graphql";
 import {GatewayConnection, User} from "../../db/Clients";
+import {query_me_projects} from "./projects";
 
 export function query_me(api: API) {
-    return new GraphQLObjectType({
+    return new GraphQLObjectType<{ user: User }>({
         name: "me",
         description: "GraphQL Object for interacting with your own user.",
         fields: {
@@ -13,14 +14,14 @@ export function query_me(api: API) {
                     listen: {type: GraphQLList(GraphQLString), description: "The events you want to listen for."}
                 },
                 description: "Create a new gateway",
-                resolve(s: { user: User, listen: string[] }) {
+                resolve(s, args) {
                     return new Promise((resolve, _reject) => {
                         api.server.db.manager.findOne<GatewayConnection>(GatewayConnection, {
                             user: s.user
                         }).then(gt => {
                             let gate = new GatewayConnection()
                             gate.user = s.user;
-                            gate.listen = s.listen;
+                            gate.listen = args.listen;
                             if (gt) {
                                 gate.guid = gt.guid;
                             }
@@ -29,6 +30,13 @@ export function query_me(api: API) {
                             });
                         });
                     });
+                }
+            },
+            projects: {
+                type: query_me_projects(api),
+                description: "Field for interacting with projects relating to your user",
+                resolve(s) {
+                    return {user: s.user}
                 }
             }
         }
