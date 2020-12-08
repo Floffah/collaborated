@@ -9,6 +9,9 @@ export class SocketManager {
 
     client: Client;
 
+    lqid = 0;
+    qidfs: Map<number, (msg:any) => void> = new Map()
+
     constructor(url: string, guid: number, access: string, client: Client) {
         this.ws = new WebSocket(url);
         this.guid = guid;
@@ -17,6 +20,22 @@ export class SocketManager {
 
         this.ws.on("open", () => this.connected());
         this.ws.on("message", data => this.message(data))
+    }
+
+    _gateQuery(query: string, variables?: { [k: string]: any }) {
+        return new Promise((resolve, reject) => {
+            let qid = this.lqid + 1
+            this.sendMessage(MessageTypes.Query, {query, variables, qid}).then(() => {
+                this.qidfs.set(qid, (msg) => {
+                    let data = msg;
+                    if(typeof msg !== "object") {
+                        data = JSON.stringify(msg);
+                    }
+                    resolve({data});
+                });
+                this.lqid = qid;
+            });
+        })
     }
 
     connected() {
@@ -33,6 +52,10 @@ export class SocketManager {
                 if(dat.type === "message") {
                     if(dat.messageid == GatewayMessageTypes.Authenticated) {
                         this.client.emit("ready");
+                    } else if(dat.messageid = GatewayMessageTypes.Return) {
+                        if("qid" in dat && dat.qid in this.qidfs) {
+                            (this.qidfs.get(dat.qid) as (msg:any) => void)(dat.data)
+                        }
                     }
                 }
             }
@@ -56,5 +79,6 @@ export class SocketManager {
 }
 
 enum MessageTypes {
-    Authenticate = "auth"
+    Authenticate = "auth",
+    Query = "query",
 }
