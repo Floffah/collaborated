@@ -48,7 +48,7 @@ export class Client extends EventEmitter {
      * @param query the query that will be executed
      * @param variables variables that will be passed to graphql
      */
-    _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any>> {
+    _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any>|{data: any}> {
         return new Promise((resolve, reject) => {
             ax.post(this.url, JSON.stringify({query, variables}),{
                 method: "POST",
@@ -134,7 +134,7 @@ interface AccessLoginOptions {
     access: string
 }
 
-export type Incoming = IncomingError | IncomingMessage
+export type Incoming = IncomingError | IncomingMessage | IncomingQueryReturn
 
 export interface IncomingError {
     type: "error",
@@ -149,8 +149,17 @@ export interface IncomingMessage {
     data: any,
 }
 
+export interface IncomingQueryReturn {
+    type: "message",
+    message: string,
+    messageid: GatewayMessageTypes,
+    data: any,
+    qid: number,
+}
+
 export enum GatewayMessageTypes {
     Authenticated,
+    Return,
 }
 
 export enum GatewayErrors {

@@ -1,5 +1,5 @@
 import WebSocket, {Data} from "ws";
-import {Client, GatewayMessageTypes, Incoming, isJson} from "../core/Client";
+import {Client, GatewayMessageTypes, Incoming} from "../core/Client";
 
 export class SocketManager {
     ws: WebSocket
@@ -9,8 +9,8 @@ export class SocketManager {
 
     client: Client;
 
-    qid = 0
-    qs: ((msg: string) => void)[] = []
+    lqid = 0;
+    qidfs: Map<number, (msg: any) => void> = new Map()
 
     constructor(url: string, guid: number, access: string, client: Client) {
         this.ws = new WebSocket(url);
@@ -22,6 +22,22 @@ export class SocketManager {
         this.ws.on("message", data => this.message(data))
     }
 
+    _gateQuery(query: string, variables?: { [k: string]: any }) {
+        return new Promise((resolve, _reject) => {
+            let qid = this.lqid + 1
+            this.sendMessage(MessageTypes.Query, {query, variables, qid}).then(() => {
+                this.qidfs.set(qid, (msg) => {
+                    let data = msg;
+                    if (typeof msg !== "object") {
+                        data = JSON.stringify(msg);
+                    }
+                    resolve({data});
+                });
+                this.lqid = qid;
+            });
+        })
+    }
+
     connected() {
         this.sendMessage(MessageTypes.Authenticate, {
             guid: this.guid,
@@ -29,42 +45,30 @@ export class SocketManager {
         });
     }
 
-    _gateQuery(query: string, variables?: { [k: string]: any }) {
-        return new Promise((resolve, reject) => {
-            let qid = this.qid + 1;
-            this.qid = qid;
-            this.ws.send(JSON.stringify({query, variables, qid}));
-            this.qs.push(umsg => {
-                if(isJson(umsg)) {
-                    let msg = JSON.parse(umsg);
-                    if("type" in msg && msg.type === "results") {
-
-                    }
-                }
-            });
-        });
-    }
-
     message(data: Data) {
-        if(typeof data === "string") {
-            let dat:Incoming = JSON.parse(data);
-            if("type" in dat) {
-                if(dat.type === "message") {
-                    if(dat.messageid == GatewayMessageTypes.Authenticated) {
+        if (typeof data === "string") {
+            let dat: Incoming = JSON.parse(data);
+            if ("type" in dat) {
+                if (dat.type === "message") {
+                    if (dat.messageid == GatewayMessageTypes.Authenticated) {
                         this.client.emit("ready");
+                    } else if (dat.messageid == GatewayMessageTypes.Return) {
+                        if ("qid" in dat && dat.qid in this.qidfs) {
+                            (this.qidfs.get(dat.qid) as (msg: any) => void)(dat.data)
+                        }
                     }
                 }
             }
         }
     }
 
-    sendMessage(msg: MessageTypes, data: {[k: string]: any}): Promise<void> {
+    sendMessage(msg: MessageTypes, data: { [k: string]: any }): Promise<void> {
         return new Promise((resolve, reject) => {
             this.ws.send(JSON.stringify({
-                type:msg,
+                type: msg,
                 ...data,
             }), err => {
-                if(err) {
+                if (err) {
                     reject(err);
                 } else {
                     resolve();
@@ -75,5 +79,6 @@ export class SocketManager {
 }
 
 enum MessageTypes {
-    Authenticate = "auth"
+    Authenticate = "auth",
+    Query = "query",
 }
