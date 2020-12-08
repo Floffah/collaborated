@@ -113,6 +113,16 @@ export class Client extends EventEmitter {
     }
 }
 
+export function isJson(str: string): boolean {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+
 type LoginOptions = DetailLoginOptions | AccessLoginOptions;
 
 interface DetailLoginOptions {

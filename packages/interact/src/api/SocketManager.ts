@@ -1,5 +1,5 @@
 import WebSocket, {Data} from "ws";
-import {Client, GatewayMessageTypes, Incoming} from "../core/Client";
+import {Client, GatewayMessageTypes, Incoming, isJson} from "../core/Client";
 
 export class SocketManager {
     ws: WebSocket
@@ -8,6 +8,9 @@ export class SocketManager {
     #access: string;
 
     client: Client;
+
+    qid = 0
+    qs: ((msg: string) => void)[] = []
 
     constructor(url: string, guid: number, access: string, client: Client) {
         this.ws = new WebSocket(url);
@@ -23,6 +26,22 @@ export class SocketManager {
         this.sendMessage(MessageTypes.Authenticate, {
             guid: this.guid,
             access: this.#access
+        });
+    }
+
+    _gateQuery(query: string, variables?: { [k: string]: any }) {
+        return new Promise((resolve, reject) => {
+            let qid = this.qid + 1;
+            this.qid = qid;
+            this.ws.send(JSON.stringify({query, variables, qid}));
+            this.qs.push(umsg => {
+                if(isJson(umsg)) {
+                    let msg = JSON.parse(umsg);
+                    if("type" in msg && msg.type === "results") {
+
+                    }
+                }
+            });
         });
     }
 
