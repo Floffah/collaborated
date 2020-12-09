@@ -49,38 +49,42 @@ export class Client extends EventEmitter {
      * @param variables variables that will be passed to graphql
      */
     _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any>|{data: any}> {
+        if(!this.socket) {
         return new Promise((resolve, reject) => {
-            ax.post(this.url, JSON.stringify({query, variables}),{
-                method: "POST",
-                data: JSON.stringify({query, variables}),
-                headers: {
-                    'Content-Type': "application/json",
-                    'Accept': "application/json",
-                    'Access-Control-Allow-Origin': "*",
-                    // 'Access-Control-Allow-Methods': "GET, POST",
-                    // 'Access-Control-Allow-Headers': "Accept, Content-Type",
-                    'Cache-Control': "no-cache"
-                },
-                responseType: "json",
-            }).then((d) => {
-                if("data" in d) {
-                    if("errors" in d.data) {
-                        reject(GraphQLToError(createGraphQLError(d.data, query)));
+                ax.post(this.url, JSON.stringify({query, variables}),{
+                    method: "POST",
+                    data: JSON.stringify({query, variables}),
+                    headers: {
+                        'Content-Type': "application/json",
+                        'Accept': "application/json",
+                        'Access-Control-Allow-Origin': "*",
+                        // 'Access-Control-Allow-Methods': "GET, POST",
+                        // 'Access-Control-Allow-Headers': "Accept, Content-Type",
+                        'Cache-Control': "no-cache"
+                    },
+                    responseType: "json",
+                }).then((d) => {
+                    if("data" in d) {
+                        if("errors" in d.data) {
+                            reject(GraphQLToError(createGraphQLError(d.data, query)));
+                        } else {
+                            resolve(d);
+                        }
                     } else {
                         resolve(d);
                     }
-                } else {
-                    resolve(d);
-                }
-            }).catch((reason:AxiosError) => {
-                if(reason.response) {
-                    console.log(reason.response.data);
-                    reject(GraphQLToError(createGraphQLError(reason.response.data, query)));
-                } else {
-                    console.log(reason);
-                }
-            });
+                }).catch((reason:AxiosError) => {
+                    if(reason.response) {
+                        console.log(reason.response.data);
+                        reject(GraphQLToError(createGraphQLError(reason.response.data, query)));
+                    } else {
+                        console.log(reason);
+                    }
+                });
         });
+        } else {
+            return this.socket._gateQuery(query, variables);
+        }
     }
 
     /**

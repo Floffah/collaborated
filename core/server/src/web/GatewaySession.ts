@@ -33,4 +33,5 @@ export default class GatewaySession {
 
 export enum GatewayMessageTypes {
     Authenticated,
+    Shutdown,
 }

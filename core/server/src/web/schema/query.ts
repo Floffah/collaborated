@@ -54,6 +54,13 @@ export default function query(api: API) {
                             });
                         });
                     }
+                },
+                ping: {
+                    type: GraphQLString,
+                    description: "For round-trip calculation purposes.",
+                    resolve() {
+                        return "pong"
+                    }
                 }
             }
         })

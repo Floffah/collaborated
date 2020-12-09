@@ -4,13 +4,13 @@ import {staticCached} from "./middlewares";
 import {resolve} from "path";
 import API from "./API";
 import Logger from "../util/Logger";
-import {Connection, ConnectionOptions, createConnection} from "typeorm";
-import {GatewayConnection, User} from "../db/Clients";
+import {Connection} from "typeorm";
 import {Interprocess} from "../comms/Interprocess";
 import Configuration from "../util/Configuration";
 import {existsSync, mkdirSync} from "fs";
-import {Group} from "../db/Groups";
-import {Project} from "../db/Projects";
+import DatabaseManager from "../db/DatabaseManager";
+import {terminal, Terminal} from "terminal-kit";
+import {createInterface} from "readline";
 
 export default class Server {
     app: Application
@@ -20,40 +20,53 @@ export default class Server {
     db: Connection
     ip: Interprocess
     cfg: Configuration
+    dbm: DatabaseManager
+    term: Terminal = terminal
 
     init() {
-        if(!existsSync(resolve(__dirname, "../../data"))) {
+        if (!existsSync(resolve(__dirname, "../../data"))) {
             mkdirSync(resolve(__dirname, "../../data"));
         }
 
         this.cfg = new Configuration(resolve(__dirname, "../../data"));
 
-        this.logger.info("Connecting to database...");
-        createConnection({
-            type: this.cfg.val.database.type,
-            host: this.cfg.val.database.host,
-            database: this.cfg.val.database.database,
-            username: this.cfg.val.database.username,
-            port: this.cfg.val.database.port,
-            password: this.cfg.val.database.password,
-            url: this.cfg.val.database.url,
+        this.term.on("key", (n: string, m: any[], d: { isCharacter: boolean; codepoint: number; code: number | Buffer; }) => this.key(n, m, d))
+        this.cliutil();
+        this.term.grabInput(false);
 
-            entities: [User, GatewayConnection, Group, Project],
-            entityPrefix: "capp_",
-            synchronize: true,
-            logging: this.cfg.val.environment.mode === "dev" ? "all" : ["error", "warn", "migration"],
-            logger: "advanced-console",
-
-            ssl: {
-                requestCert: true,
-                rejectUnauthorized: this.cfg.val.environment.mode !== "dev",
-            }
-        } as ConnectionOptions).then(c => {
-            this.logger.info(`Database connection made. (insecure ssl ${this.cfg.val.environment.mode === "dev" ? "on" : "off"})`)
-            this.db = c;
-            this.start();
+        this.dbm = new DatabaseManager(this);
+        this.dbm.init().then(() => {
+            this.logger.info(`Database initialized.`)
+            this.logger.warn("Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.")
+            this.start()
         });
     }
+
+    cliutil() {
+        let r = createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+        r.on("SIGINT", () => this.shutdown());
+        process.on("SIGINT", () => this.shutdown());
+    }
+
+    shutdown() {
+        this.logger.warn("Shutting down...");
+        this.api.stop().then(() => {
+            this.server.close(() => {
+                process.exit();
+            });
+        });
+    }
+
+    key(name: string, match: any[], dat: { isCharacter: boolean, codepoint: number, code: number | Buffer }) {
+        console.log(name, match, dat);
+        if(name === "CTRL_C") {
+            this.shutdown()
+        }
+    }
+
 
     start() {
         this.logger.info("Starting...");

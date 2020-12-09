@@ -34,7 +34,7 @@ export default class Configuration {
                 accesslength: 512
             },
             database: {
-                type: "postgres",
+                type: "mongodb",
                 host: "example.com",
                 database: "example",
                 username: "example_user",
@@ -62,7 +62,7 @@ interface Config {
         accesslength: number
     },
     database: {
-        type: "postgres",
+        type: "postgres"|"mongodb",
         host: string,
         database: string,
         username: string,

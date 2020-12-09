@@ -22,7 +22,7 @@ export class SocketManager {
         this.ws.on("message", data => this.message(data))
     }
 
-    _gateQuery(query: string, variables?: { [k: string]: any }) {
+    _gateQuery(query: string, variables?: { [k: string]: any }): Promise<{ data: any }> {
         return new Promise((resolve, _reject) => {
             let qid = this.lqid + 1
             this.sendMessage(MessageTypes.Query, {query, variables, qid}).then(() => {
