@@ -14,6 +14,10 @@ export default class DatabaseManager {
         this.server = server;
     }
 
+    stop():Promise<any> {
+        return this.main.close()
+    }
+
     init(): Promise<void> {
         return new Promise(resolve => {
             this.mainConnection().then(db => {
