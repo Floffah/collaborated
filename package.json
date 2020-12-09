@@ -14,9 +14,10 @@
     "docsync": "git fetch && git pull && git push",
     "buildts": "yarn workspace server tsc && yarn workspace @collaborated/interact tsc && yarn workspace test-addon tsc && yarn workspace app tsc-w",
     "buildall": "yarn buildts && yarn docs && yarn workspace web snowpack build",
-    "unpushed":  "git log origin/master..HEAD"
+    "unpushed": "git log origin/master..HEAD"
   },
   "devDependencies": {
     "lerna": "^3.22.1"
-  }
+  },
+  "version": "0.0.0"
 }
