@@ -2,7 +2,7 @@ import API from "../API";
 import {GraphQLObjectType, GraphQLSchema, GraphQLString} from "graphql"
 import {query_me} from "./me";
 import {User} from "../../db/Clients";
-import { randomBytes } from "crypto";
+import {randomBytes} from "crypto";
 
 export default function query(api: API) {
     return new GraphQLSchema({
@@ -16,10 +16,15 @@ export default function query(api: API) {
                     args: {
                         access: {type: GraphQLString, description: "Your user's access code"}
                     },
-                    resolve(_, {access}: any) {
+                    resolve(_, {access}: any, c) {
                         return new Promise((resolve, reject) => {
-                            api.server.db.manager.findOne<User>(User, {access}).then(user => {
-                                if(user) {
+                            console.log(c);
+                            let ac = access;
+                            if (typeof c === "object" && "access" in c) {
+                                ac = c.access;
+                            }
+                            api.server.db.getRepository<User>(User).findOne( {access: ac}).then(user => {
+                                if (user) {
                                     resolve({user})
                                 } else {
                                     reject("Incorrect access code.");
@@ -43,8 +48,8 @@ export default function query(api: API) {
                                     password
                                 }
                             }).then(user => {
-                                if(user) {
-                                    user.access = randomBytes(api.server.cfg.val.info.accesslength/2).toString("hex")
+                                if (user) {
+                                    user.access = randomBytes(api.server.cfg.val.info.accesslength / 2).toString("hex")
                                     api.server.db.getRepository(User).save(user).then(user => {
                                         resolve(user.access);
                                     });

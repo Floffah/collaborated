@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./Clients";
 import {Group} from "./Groups";
 
@@ -10,7 +10,7 @@ export class Project {
     @Column()
     name: string
 
-    @OneToMany(() => User, user => user.projectsOwned)
+    @ManyToOne(() => User, user => user.projectsOwned)
     @JoinColumn()
     owner: User
 

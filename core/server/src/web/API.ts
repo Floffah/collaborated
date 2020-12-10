@@ -8,7 +8,7 @@ import {GatewayConnection} from "../db/Clients";
 import {Not} from "typeorm";
 import {forWait} from "../util/arrays";
 import EventPush from "./EventPush";
-import {execute, GraphQLError, GraphQLSchema, parse, Source} from "graphql";
+import {execute, ExecutionResult, GraphQLError, GraphQLSchema, parse, Source, validate} from "graphql";
 import cors from "cors";
 import {RequestLog} from "../db/Utils";
 
@@ -29,11 +29,11 @@ export default class API {
         this.server = server;
     }
 
-    stop():Promise<void> {
+    stop(): Promise<void> {
         clearInterval(this.flushint);
         return new Promise((resolve, reject) => {
             this.server.logger.info("Clearing sessions")
-            for(let sesh of this.sessions.keys()) {
+            for (let sesh of this.sessions.keys()) {
                 let session = <GatewaySession>this.sessions.get(sesh);
                 session.message(GatewayMessageTypes.Shutdown);
                 session.socket.close();
@@ -154,7 +154,7 @@ export default class API {
                                     if (gate.user.access === msg.access) {
                                         gate.authed = true;
                                         this.server.db.getRepository(GatewayConnection).save(gate).then(gat3 => {
-                                            session = new GatewaySession(socket, gat3, this);
+                                            session = new GatewaySession(socket, gat3, this, gate.user.access);
                                             this.sessions.set(gat3.guid, session);
                                             authed = true;
                                             session.message(GatewayMessageTypes.Authenticated);
@@ -199,43 +199,60 @@ export default class API {
                 } else {
                     // post-authenticated
                     if ("type" in msg) {
-                        let respond: {
-                            type: "results" | "unknown"
-                            errors?: GraphQLError[],
-                            qid?: any,
-                            data?: any
-                        } = {type: "unknown"}
-                        if (msg.type === "query" && "query" in msg && typeof msg.query === "string") {
-                            respond.type = "results";
-                            let doc, worked = true;
-                            try {
-                                doc = parse(new Source(msg.query, "Gateway request"))
-                            } catch (syntaxError: unknown) {
-                                respond.errors = [syntaxError as GraphQLError];
+                        new Promise<Response>((resolve) => {
+                            let respond: Response = {type: "unknown"}
+                            if (msg.type === "query" && "query" in msg && typeof msg.query === "string") {
+                                respond.type = "results";
+                                let doc, worked = true;
+                                try {
+                                    doc = parse(new Source(msg.query, "Gateway request"))
+                                } catch (syntaxError: unknown) {
+                                    respond.errors = [syntaxError as GraphQLError];
+                                    respond.salvageable = true;
+                                    worked = false;
+                                }
                                 if ("qid" in msg) {
                                     respond.qid = msg.qid;
                                 }
-                                worked = false;
+                                if (worked && !!doc) {
+                                    let errs = validate(this.schema, doc);
+                                    if (errs.length > 0) {
+                                        respond.errors = <GraphQLError[]>errs;
+                                        respond.salvageable = true;
+                                    }
+                                    (execute({
+                                        schema: this.schema,
+                                        document: doc,
+                                        variableValues: "variables" in msg ? msg.variables : undefined,
+                                        operationName: "operationName" in msg ? msg.operationName : undefined,
+                                        contextValue: {access: session.access},
+                                    }) as Promise<ExecutionResult<{ [p: string]: any }, { [p: string]: any }>>).then((res) => {
+                                        respond = {
+                                            ...respond,
+                                            ...res
+                                        } as unknown as Response
+                                        resolve(respond);
+                                    });
+                                } else {
+                                    resolve(respond);
+                                }
                             }
-                            if (worked && !!doc) {
-                                execute({
-                                    schema: this.schema,
-                                    document: doc,
-                                    variableValues: "variables" in msg ? msg.variables : undefined,
-                                    operationName: "operationName" in msg ? msg.operationName : undefined,
-                                    contextValue: msg,
-                                });
-                            }
-                        }
-
-                        if (respond.type !== "unknown") {
+                        }).then((respond) => {
                             socket.send(JSON.stringify(respond));
-                        }
+                        });
                     }
                 }
             }
         })
     }
+}
+
+interface Response {
+    type: "results" | "unknown"
+    errors?: GraphQLError[],
+    qid?: any,
+    data?: any,
+    salvageable?: boolean,
 }
 
 export enum GatewayErrors {

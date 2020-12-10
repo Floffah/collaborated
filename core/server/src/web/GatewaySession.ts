@@ -6,11 +6,13 @@ export default class GatewaySession {
     socket: WebSocket
     gate: GatewayConnection
     api: API
+    access: string
 
-    constructor(socket: WebSocket, gate: GatewayConnection, api: API) {
+    constructor(socket: WebSocket, gate: GatewayConnection, api: API, access: string) {
         this.socket = socket;
         this.gate = gate;
         this.api = api;
+        this.access = access;
     }
 
     message(type: GatewayMessageTypes, data?: any) {

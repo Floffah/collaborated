@@ -3,7 +3,7 @@ import {Client} from "@collaborated/interact";
 export default class TestAddon extends Client {
     constructor() {
         super({
-
+            debug: true,
         });
 
         this.on("ready", () => this.ready());
@@ -11,6 +11,7 @@ export default class TestAddon extends Client {
 
     ready() {
         console.log("is bonk");
+        this.projects.create("test123")
     }
 
     init() {

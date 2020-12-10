@@ -1,5 +1,8 @@
 import WebSocket, {Data} from "ws";
 import {Client, GatewayMessageTypes, Incoming} from "../core/Client";
+import chalk from "chalk";
+import Projects from "../store/Projects";
+import {createGraphQLError, GraphQLToError} from "../util/errors";
 
 export class SocketManager {
     ws: WebSocket
@@ -23,15 +26,26 @@ export class SocketManager {
     }
 
     _gateQuery(query: string, variables?: { [k: string]: any }): Promise<{ data: any }> {
-        return new Promise((resolve, _reject) => {
+        return new Promise((resolve, reject) => {
             let qid = this.lqid + 1
+            let start = Date.now()
+            if(this.client.opts.debug) {
+                console.log(chalk`{blue GATEWAY MESSAGE WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH QID ${qid}}`);
+            }
             this.sendMessage(MessageTypes.Query, {query, variables, qid}).then(() => {
                 this.qidfs.set(qid, (msg) => {
-                    let data = msg;
-                    if (typeof msg !== "object") {
-                        data = JSON.stringify(msg);
+                    if("errors" in msg) {
+                        reject(GraphQLToError(createGraphQLError(msg, query)))
+                    } else if("data" in msg) {
+                        let data = msg.data;
+                        if (typeof msg !== "object") {
+                            data = JSON.stringify(msg);
+                        }
+                        if(this.client.opts.debug) {
+                            console.log(chalk`{blue GATEWAY MESSAGE QUERY RETURN} {gray ${JSON.stringify(data)}} {blue WITH QID ${qid} IN ${Date.now() - start}ms}`);
+                        }
+                        resolve({data});
                     }
-                    resolve({data});
                 });
                 this.lqid = qid;
             });
@@ -49,13 +63,15 @@ export class SocketManager {
         if (typeof data === "string") {
             let dat: Incoming = JSON.parse(data);
             if ("type" in dat) {
+                console.log(JSON.stringify(dat));
                 if (dat.type === "message") {
                     if (dat.messageid == GatewayMessageTypes.Authenticated) {
+                        this.client.projects = new Projects(this.client);
                         this.client.emit("ready");
-                    } else if (dat.messageid == GatewayMessageTypes.Return) {
-                        if ("qid" in dat && dat.qid in this.qidfs) {
-                            (this.qidfs.get(dat.qid) as (msg: any) => void)(dat.data)
-                        }
+                    }
+                } else if(dat.type === "results") {
+                    if ("qid" in dat && this.qidfs.has(dat.qid)) {
+                        (this.qidfs.get(dat.qid) as (msg: any) => void)(dat)
                     }
                 }
             }

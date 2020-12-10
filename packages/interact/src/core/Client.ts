@@ -2,13 +2,16 @@ import ax, {AxiosError, AxiosInstance, AxiosResponse} from "axios";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
 import {SocketManager} from "../api/SocketManager";
 import {EventEmitter} from "events";
+import chalk from "chalk";
+import Projects from "../store/Projects";
 
 interface ClientOptions {
-
+    debug?: boolean;
 }
 
 export declare interface Client {
     on(event: "ready", listener: () => void): this;
+
     on(event: string, listener: Function): this;
 }
 
@@ -22,6 +25,8 @@ export class Client extends EventEmitter {
     #access: string
 
     url = "http://localhost/api/v1"
+
+    projects: Projects
 
     constructor(opts: ClientOptions) {
         super();
@@ -48,10 +53,14 @@ export class Client extends EventEmitter {
      * @param query the query that will be executed
      * @param variables variables that will be passed to graphql
      */
-    _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any>|{data: any}> {
-        if(!this.socket) {
-        return new Promise((resolve, reject) => {
-                ax.post(this.url, JSON.stringify({query, variables}),{
+    _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any> | { data: any }> {
+        if (!this.socket) {
+            return new Promise((resolve, reject) => {
+                if(this.opts.debug) {
+                    console.log(chalk`{blue REQUEST WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH NO QID}`)
+                }
+                let start = Date.now()
+                ax.post(this.url, JSON.stringify({query, variables}), {
                     method: "POST",
                     data: JSON.stringify({query, variables}),
                     headers: {
@@ -64,24 +73,27 @@ export class Client extends EventEmitter {
                     },
                     responseType: "json",
                 }).then((d) => {
-                    if("data" in d) {
-                        if("errors" in d.data) {
+                    if ("data" in d) {
+                        if ("errors" in d.data) {
                             reject(GraphQLToError(createGraphQLError(d.data, query)));
                         } else {
                             resolve(d);
+                            if(this.opts.debug) {
+                                console.log(chalk`{blue REQUEST QUERY RETURN} {gray \{}...{gray \}} {blue WITH NO QID IN ${Date.now() - start}ms}`);
+                            }
                         }
                     } else {
                         resolve(d);
                     }
-                }).catch((reason:AxiosError) => {
-                    if(reason.response) {
+                }).catch((reason: AxiosError) => {
+                    if (reason.response) {
                         console.log(reason.response.data);
                         reject(GraphQLToError(createGraphQLError(reason.response.data, query)));
                     } else {
                         console.log(reason);
                     }
                 });
-        });
+            });
         } else {
             return this.socket._gateQuery(query, variables);
         }
@@ -102,7 +114,7 @@ export class Client extends EventEmitter {
             }).catch(reason => {
                 throw reason;
             });
-        } else if("email" in opts && "password" in opts) {
+        } else if ("email" in opts && "password" in opts) {
             this._query(`query Login($password: String, $email: String) { getAccess(email: $email, password: $password) }`, {
                 email: opts.email,
                 password: opts.password
@@ -154,10 +166,11 @@ export interface IncomingMessage {
 }
 
 export interface IncomingQueryReturn {
-    type: "message",
+    type: "results",
     message: string,
     messageid: GatewayMessageTypes,
     data: any,
+    errors: any[],
     qid: number,
 }
 
