@@ -6,3 +6,7 @@ In this repository, issues should only be created for bug reports. If you have a
 ```js
 // TODO: write readme
 ```
+
+## Links
+[Storybook](https://capp.floffah.dev)<br>
+[UI Preview](https://preview.capp.floffah.dev) (this isn't usually connected to any api)
