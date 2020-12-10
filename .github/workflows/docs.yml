@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: '12'
       - run: yarn
+      - run: yarn buildts
       - run: yarn docs
       - run: echo capp.floffah.dev > docs/CNAME
       - uses: EndBug/add-and-commit@v5
