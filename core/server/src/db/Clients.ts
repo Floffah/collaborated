@@ -35,6 +35,9 @@ export class User {
     @ManyToMany(() => Group, group => group.users)
     groups: Group[]
 
+    @ManyToMany(() => Project, proj => proj.members)
+    projects: Project[]
+
     @OneToMany(() => Project, proj => proj.owner)
     projectsOwned: Project[]
 
