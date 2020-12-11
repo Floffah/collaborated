@@ -1,4 +1,4 @@
-import {Column, Entity, Generated, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { Project } from "./Projects";
 
 @Entity()

@@ -3,7 +3,6 @@ import {GraphQLBoolean, GraphQLInt, GraphQLObjectType, GraphQLString} from "grap
 import {User} from "../../db/Clients";
 import {Project} from "../../db/Projects";
 import { Invite } from "src/db/Utils";
-import { rejects } from "assert";
 
 export function query_me_projects(api: API) {
     return new GraphQLObjectType<{ user: User }, any>({
