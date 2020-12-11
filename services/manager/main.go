@@ -1,11 +1,8 @@
 package main
 
-import (
-	"flag"
-	"manager/inst"
-)
+import app2 "manager/inst/app"
 
 func main() {
-	devMode := flag.NewFlagSet("dev", flag.ExitOnError)
-    inst.CheckForInst()
+	app := app2.NewApp()
+	app.Preflight()
 }
