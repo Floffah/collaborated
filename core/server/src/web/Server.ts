@@ -55,8 +55,9 @@ export default class Server {
         this.logger.warn("Shutting down...");
         this.api.stop().then(() => {
             this.server.close(() => {
-                this.dbm.stop()
-                process.exit();
+                this.dbm.stop().then(() => {
+                    process.exit();
+                });
             });
         });
     }

@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Generated, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Project } from "./Projects";
 
 @Entity()
 export class RequestLog {
@@ -13,4 +14,16 @@ export class RequestLog {
 
     @Column()
     amount: number
+}
+
+@Entity()
+export class Invite {
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column()
+    invite: string
+
+    @ManyToOne(() => Project, proj => proj.invites, {nullable: true})
+    project: Project
 }

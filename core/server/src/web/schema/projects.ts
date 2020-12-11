@@ -1,7 +1,9 @@
 import API from "../API";
-import {GraphQLInt, GraphQLObjectType, GraphQLString} from "graphql";
+import {GraphQLBoolean, GraphQLInt, GraphQLObjectType, GraphQLString} from "graphql";
 import {User} from "../../db/Clients";
 import {Project} from "../../db/Projects";
+import { Invite } from "src/db/Utils";
+import { rejects } from "assert";
 
 export function query_me_projects(api: API) {
     return new GraphQLObjectType<{ user: User }, any>({
@@ -39,6 +41,28 @@ export function query_me_projects(api: API) {
                             }
                         }
                     });
+                }
+            },
+            join: {
+                type: GraphQLBoolean,
+                description: "Join a project by invite",
+                args: {
+                    invite: {type: GraphQLString, description: "The invite to the project"}
+                },
+                resolve(s, args) {
+                    return new Promise((resolve, reject) => {
+                    api.server.db.getRepository<Invite>(Invite).findOne({relations: ["project"], loadEagerRelations: true, where: {invite: args.invite}}).then(i => {
+                        if(!i) {
+                            reject("Invalid invite")
+                        } else {
+                            let proj = i.project
+                            proj.members.push(s.user);
+                            api.server.db.getRepository<Project>(Project).save(proj).then(() => {
+                                resolve(true)
+                            });
+                        }
+                    })
+                });
                 }
             }
         }
