@@ -4,6 +4,7 @@ import {SocketManager} from "../api/SocketManager";
 import {EventEmitter} from "events";
 import chalk from "chalk";
 import Projects from "../store/Projects";
+import buildQuery from "../api/gql";
 
 interface ClientOptions {
     debug?: boolean;
@@ -31,6 +32,20 @@ export class Client extends EventEmitter {
     constructor(opts: ClientOptions) {
         super();
         this.opts = opts;
+
+        console.log(buildQuery({
+            fields: {
+                this: {
+                    fields: {
+                        is: {}
+                    }
+                },
+                a: {}
+            },
+            variables: {
+                test: "ok"
+            }
+        }))
 
         this.ax = ax.create({
             headers: {
