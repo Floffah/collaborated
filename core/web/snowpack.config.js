@@ -8,8 +8,7 @@ module.exports = {
     installOptions: {
         treeshake: true,
         installTypes: true,
-        polyfillNode: true,
-        packageLookupFields: ["@collaborated/interact"]
+        polyfillNode: true
     },
     devOptions: {
         open: "none"

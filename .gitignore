@@ -2,6 +2,7 @@ ideas.md
 packages/**/types
 build
 core/server/data
+manager.exe
 
 # Logs
 logs

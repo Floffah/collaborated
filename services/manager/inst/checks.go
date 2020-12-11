@@ -1,0 +1,5 @@
+package inst
+
+func CheckForInst() {
+
+}
