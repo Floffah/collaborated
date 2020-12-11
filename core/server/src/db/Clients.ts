@@ -1,5 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import { Group } from "./Groups";
+import {Column, Entity, JoinColumn, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Group} from "./Groups";
 import {Project} from "./Projects";
 
 export class User_Settings {
@@ -35,7 +35,7 @@ export class User {
     @ManyToMany(() => Group, group => group.users)
     groups: Group[]
 
-    @ManyToOne(() => Project, group => group.owner)
+    @OneToMany(() => Project, proj => proj.owner)
     projectsOwned: Project[]
 
     @Column(() => User_Settings)
