@@ -5,6 +5,7 @@
   "description": "Collaborated back-end",
   "main": "dist/index.js",
   "dependencies": {
+    "@floffah/node-memwatch": "^3.0.0",
     "@types/terminal-kit": "^1.28.2",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",

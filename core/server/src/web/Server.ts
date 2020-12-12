@@ -7,10 +7,12 @@ import Logger from "../util/Logger";
 import {Connection} from "typeorm";
 import {Interprocess} from "../comms/Interprocess";
 import Configuration from "../util/Configuration";
-import {existsSync, mkdirSync} from "fs";
+import {existsSync, mkdirSync, writeFileSync} from "fs";
 import DatabaseManager from "../db/DatabaseManager";
 import {terminal, Terminal} from "terminal-kit";
 import {createInterface} from "readline";
+
+const memwatch = require("@floffah/memwatch")
 
 export default class Server {
     app: Application
@@ -22,8 +24,11 @@ export default class Server {
     cfg: Configuration
     dbm: DatabaseManager
     term: Terminal = terminal
+    hds: any[] = []
 
     init() {
+        this.hds[0] = new memwatch.HeapDiff();
+
         if (!existsSync(resolve(__dirname, "../../data"))) {
             mkdirSync(resolve(__dirname, "../../data"));
         }
@@ -40,6 +45,18 @@ export default class Server {
             this.logger.warn("Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.")
             this.start()
         });
+    }
+
+
+    key(name: string, match: any[], dat: { isCharacter: boolean, codepoint: number, code: number | Buffer }) {
+        console.log(name, match, dat);
+        if(name === "M") {
+            this.shutdown()
+        }
+    }
+
+    doMemDiff() {
+
     }
 
     cliutil() {
@@ -62,13 +79,6 @@ export default class Server {
         });
     }
 
-    key(name: string, match: any[], dat: { isCharacter: boolean, codepoint: number, code: number | Buffer }) {
-        console.log(name, match, dat);
-        if(name === "CTRL_C") {
-            this.shutdown()
-        }
-    }
-
 
     start() {
         this.logger.info("Starting...");
@@ -88,6 +98,10 @@ export default class Server {
             }
 
             this.server.listen(80);
+
+            let diff = this.hds[0].end()
+            writeFileSync(resolve(this.cfg.rootpath, "startup.diff.json"), JSON.stringify(diff, null, 4), "utf8");
+
             this.logger.info("Started on port 80");
 
             // let admin = new User();
