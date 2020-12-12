@@ -12,7 +12,7 @@ import DatabaseManager from "../db/DatabaseManager";
 import {terminal, Terminal} from "terminal-kit";
 import {createInterface} from "readline";
 
-const memwatch = require("@floffah/memwatch")
+const memwatch = require("@floffah/node-memwatch")
 
 export default class Server {
     app: Application
@@ -25,6 +25,7 @@ export default class Server {
     dbm: DatabaseManager
     term: Terminal = terminal
     hds: any[] = []
+    started = false
 
     init() {
         this.hds[0] = new memwatch.HeapDiff();
@@ -37,7 +38,7 @@ export default class Server {
 
         this.term.on("key", (n: string, m: any[], d: { isCharacter: boolean; codepoint: number; code: number | Buffer; }) => this.key(n, m, d))
         this.cliutil();
-        this.term.grabInput(false);
+        this.term.grabInput(true);
 
         this.dbm = new DatabaseManager(this);
         this.dbm.init().then(() => {
@@ -48,15 +49,21 @@ export default class Server {
     }
 
 
-    key(name: string, match: any[], dat: { isCharacter: boolean, codepoint: number, code: number | Buffer }) {
-        console.log(name, match, dat);
-        if(name === "M") {
-            this.shutdown()
+    key(name: string, _match: any[], _dat: { isCharacter: boolean, codepoint: number, code: number | Buffer }) {
+        if(name.toLowerCase() === "m") {
+            this.doMemDiff()
         }
     }
 
     doMemDiff() {
-
+        if(this.hds.length > 0) {
+            let diff = this.hds[0].end()
+            writeFileSync(resolve(this.cfg.rootpath, "diff.json"), JSON.stringify(diff, null, 4), "utf8");
+            this.logger.warn("Saved heap diff to " + resolve(this.cfg.rootpath, "diff.json"));
+        } else {
+            this.hds[0] = new memwatch.HeapDiff();
+            this.logger.warn("Took heap snapshot. Press M again to save a heap diff");
+        }
     }
 
     cliutil() {
@@ -101,6 +108,8 @@ export default class Server {
 
             let diff = this.hds[0].end()
             writeFileSync(resolve(this.cfg.rootpath, "startup.diff.json"), JSON.stringify(diff, null, 4), "utf8");
+            this.hds = []
+            this.started = true;
 
             this.logger.info("Started on port 80");
 

@@ -4,7 +4,7 @@ import {GatewayConnection, User} from "./Clients";
 import {Group} from "./Groups";
 import {Project} from "./Projects";
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
-import {RequestLog} from "./Utils";
+import {Invite, RequestLog} from "./Utils";
 
 export default class DatabaseManager {
     server: Server
@@ -40,7 +40,7 @@ export default class DatabaseManager {
             //url: this.server.cfg.val.database.url,
             //url: `mongodb://${this.server.cfg.val.database.username}:${this.server.cfg.val.database.password}@${this.server.cfg.val.database.host}/${this.server.cfg.val.database.database}?retryWrites=true&w=majority`,
 
-            entities: [User, GatewayConnection, Group, Project, RequestLog],
+            entities: [User, GatewayConnection, Group, Project, RequestLog, Invite],
             entityPrefix: "capp_",
             synchronize: true,
             logging: this.server.cfg.val.environment.mode === "dev" ? "all" : ["error", "warn", "migration"],
