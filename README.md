@@ -10,5 +10,7 @@ In this repository, issues should only be created for bug reports. If you have a
 ```
 
 ## Links
-[Storybook](https://capp.floffah.dev)<br>
+[All docs](https://capp.floffah.dev/?path=/story/developers-contents--page) <br>
+[Setting up a development environment](https://capp.floffah.dev/?path=/story/developers-contributors-development-environment--page) <br>
+[Storybook](https://capp.floffah.dev) <br>
 [UI Preview](https://preview.capp.floffah.dev) (this isn't usually connected to any api)
