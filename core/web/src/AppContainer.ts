@@ -9,6 +9,7 @@ export class AppContainer {
     theme:ColourTheme;
 
     popupHandler: (content: JSX.Element) => void = () => {};
+    notifHandler: (content: JSX.Element) => void = () => {};
 
     constructor(used: boolean) {
         this.used = used;
@@ -26,7 +27,15 @@ export class AppContainer {
         this.popupHandler = handler;
     }
 
+    handleNotifs(handler: (content: JSX.Element) => void) {
+        this.notifHandler = handler;
+    }
+
     openPopup(content: JSX.Element) {
         this.popupHandler(content);
+    }
+
+    showNotif(content: JSX.Element) {
+        this.notifHandler(content);
     }
 }

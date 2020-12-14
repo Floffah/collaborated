@@ -33,10 +33,10 @@ interface PopOverState {
 }
 
 function getPopupRoot() {
-    let root = document.getElementById("capp-popups");
+    let root = document.getElementById("capp_popups");
     if (root === null) {
         root = document.createElement("div");
-        root.setAttribute("id", "capp-popups")
+        root.setAttribute("id", "capp_popups")
         document.body.appendChild(root);
     }
     return root;
