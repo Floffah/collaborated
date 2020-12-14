@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom"
 import styled from "styled-components";
 
 interface NotifProps {
-
+    type?: "info"|"warn"
 }
 
 interface NotifState {
@@ -22,7 +22,7 @@ function getNotifContainer() {
 
 export default class Notification extends React.Component<NotifProps,NotifState> {
     static defaultProps: NotifProps = {
-        children: <p>notification</p>
+        type: "info",
     }
     
     constructor(p:NotifProps) {
@@ -30,9 +30,13 @@ export default class Notification extends React.Component<NotifProps,NotifState>
     }
 
     render() {
-        return ReactDOM.createPortal(<NotifContainer>
+        let EL = InfoNotif
+        if(this.props.type === "warn") {
+            EL = WarnNotif
+        }
+        return ReactDOM.createPortal(<EL>
             {this.props.children}
-        </NotifContainer>, getNotifContainer())
+        </EL>, getNotifContainer())
     }
 }
 
@@ -41,4 +45,12 @@ const NotifContainer = styled.div`
     right: 10px;
     top: 10px;
     padding: 5px;
+`
+
+const InfoNotif = styled(NotifContainer)`
+    background: ${props => props.theme.notifs.info.bg}
+`
+
+const WarnNotif = styled(NotifContainer)`
+    background: ${props => props.theme.notifs.warn.bg}
 `
