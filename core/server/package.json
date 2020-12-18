@@ -5,6 +5,7 @@
   "description": "Collaborated back-end",
   "main": "dist/index.js",
   "dependencies": {
+    "@collaborated/common": "0.0.1-alpha1",
     "@floffah/node-memwatch": "^3.0.0",
     "@types/terminal-kit": "^1.28.2",
     "chalk": "^4.1.0",

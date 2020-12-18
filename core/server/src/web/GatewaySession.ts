@@ -1,6 +1,7 @@
 import WebSocket from "ws";
 import {GatewayConnection} from "../db/Clients";
 import API from "./API";
+import {GatewayServerMessageTypes} from "@collaborated/common/src/types/APITypes";
 
 export default class GatewaySession {
     socket: WebSocket
@@ -15,10 +16,10 @@ export default class GatewaySession {
         this.access = access;
     }
 
-    message(type: GatewayMessageTypes, data?: any) {
+    message(type: GatewayServerMessageTypes, data?: any) {
         this.socket.send(JSON.stringify({
             type: "message",
-            message: GatewayMessageTypes[type],
+            message: GatewayServerMessageTypes[type],
             messageid: type,
             data
         }));
@@ -30,10 +31,4 @@ export default class GatewaySession {
             this.api.sessions.delete(guid);
         });
     }
-}
-
-
-export enum GatewayMessageTypes {
-    Authenticated,
-    Shutdown,
 }

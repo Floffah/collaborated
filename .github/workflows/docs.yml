@@ -24,12 +24,14 @@ jobs:
         name: Build the docs
       - run: echo capp.floffah.dev > docs/CNAME
         name: Make sure the cname file is there
-      - uses: EndBug/add-and-commit@v5
-        name: Commit new docs
-        with:
-          add: 'docs'
-          author_name: 'github-actions[bot]'
-          author_email: 'github-actions[bot]@users.noreply.github.com'
-          message: '(gh-actions) storybook build'
+#      - uses: EndBug/add-and-commit@v5
+#        name: Commit new docs
+#        with:
+#          add: 'docs'
+#          author_name: 'github-actions[bot]'
+#          author_email: 'github-actions[bot]@users.noreply.github.com'
+#          message: '(gh-actions) storybook build'
+      - run: yarn docsend
+        name: "Send docs to gh-pages and push to repo"
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,6 +3,7 @@ import {Client, GatewayMessageTypes, Incoming} from "../core/Client";
 import chalk from "chalk";
 import Projects from "../store/Projects";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
+import {GatewayClientMessageTypes} from "@collaborated/common/src/types/APITypes";
 
 export class SocketManager {
     ws: WebSocket
@@ -32,7 +33,7 @@ export class SocketManager {
             if(this.client.opts.debug) {
                 console.log(chalk`{blue GATEWAY MESSAGE WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH QID ${qid}}`);
             }
-            this.sendMessage(MessageTypes.Query, {query, variables, qid}).then(() => {
+            this.sendMessage(GatewayClientMessageTypes.Query, {query, variables, qid}).then(() => {
                 this.qidfs.set(qid, (msg) => {
                     if("errors" in msg) {
                         reject(GraphQLToError(createGraphQLError(msg, query)))
@@ -53,7 +54,7 @@ export class SocketManager {
     }
 
     connected() {
-        this.sendMessage(MessageTypes.Authenticate, {
+        this.sendMessage(GatewayClientMessageTypes.Authenticate, {
             guid: this.guid,
             access: this.#access
         });
@@ -78,7 +79,7 @@ export class SocketManager {
         }
     }
 
-    sendMessage(msg: MessageTypes, data: { [k: string]: any }): Promise<void> {
+    sendMessage(msg: GatewayClientMessageTypes, data: { [k: string]: any }): Promise<void> {
         return new Promise((resolve, reject) => {
             this.ws.send(JSON.stringify({
                 type: msg,
@@ -92,9 +93,4 @@ export class SocketManager {
             });
         });
     }
-}
-
-enum MessageTypes {
-    Authenticate = "auth",
-    Query = "query",
 }

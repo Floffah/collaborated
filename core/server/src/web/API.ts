@@ -3,7 +3,7 @@ import {graphqlHTTP} from "express-graphql";
 import query from "./schema/query";
 import WebSocket, {Server as WSServer} from "ws"
 import Server from "./Server";
-import GatewaySession, {GatewayMessageTypes} from "./GatewaySession";
+import GatewaySession from "./GatewaySession";
 import {GatewayConnection} from "../db/Clients";
 import {Not} from "typeorm";
 import {forWait} from "../util/arrays";
@@ -11,6 +11,7 @@ import EventPush from "./EventPush";
 import {execute, ExecutionResult, GraphQLError, GraphQLSchema, parse, Source, validate} from "graphql";
 import cors from "cors";
 import {RequestLog} from "../db/Utils";
+import {GatewayErrors, GatewayServerMessageTypes, ServerResponse} from "@collaborated/common/src/types/APITypes";
 
 export default class API {
     server: Server
@@ -35,7 +36,7 @@ export default class API {
             this.server.logger.info("Clearing sessions")
             for (let sesh of this.sessions.keys()) {
                 let session = <GatewaySession>this.sessions.get(sesh);
-                session.message(GatewayMessageTypes.Shutdown);
+                session.message(GatewayServerMessageTypes.Shutdown);
                 session.socket.close();
             }
             this.flush(true);
@@ -157,7 +158,7 @@ export default class API {
                                             session = new GatewaySession(socket, gat3, this, gate.user.access);
                                             this.sessions.set(gat3.guid, session);
                                             authed = true;
-                                            session.message(GatewayMessageTypes.Authenticated);
+                                            session.message(GatewayServerMessageTypes.Authenticated);
                                         });
                                     } else {
                                         socket.send(JSON.stringify({
@@ -199,8 +200,8 @@ export default class API {
                 } else {
                     // post-authenticated
                     if ("type" in msg) {
-                        new Promise<Response>((resolve) => {
-                            let respond: Response = {type: "unknown"}
+                        new Promise<ServerResponse>((resolve) => {
+                            let respond: ServerResponse = {type: "unknown"}
                             if (msg.type === "query" && "query" in msg && typeof msg.query === "string") {
                                 respond.type = "results";
                                 let doc, worked = true;
@@ -230,7 +231,7 @@ export default class API {
                                         respond = {
                                             ...respond,
                                             ...res
-                                        } as unknown as Response
+                                        } as unknown as ServerResponse
                                         resolve(respond);
                                     });
                                 } else {
@@ -245,22 +246,6 @@ export default class API {
             }
         })
     }
-}
-
-interface Response {
-    type: "results" | "unknown"
-    errors?: GraphQLError[],
-    qid?: any,
-    data?: any,
-    salvageable?: boolean,
-}
-
-export enum GatewayErrors {
-    InvalidAuthDetails,
-    IncorrectAuthDetails,
-    AuthDetailMismatch,
-    CouldNotFetchUser,
-    AuthenticationTimeOut
 }
 
 function isJson(str: string): boolean {
