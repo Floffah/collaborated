@@ -1,0 +1,17 @@
+import Notification from "./Notifications"
+import {ArgsTable, Canvas, Meta, Story} from "@storybook/addon-docs/blocks"; import {PopOverPos} from "../containers/PopupUtil";
+
+<Meta title="Component Library/Feedback/Notification" component={Notification}/>
+
+# Notification
+The component that is used by the appcontainer to show notifications to the user
+
+## Usage
+You use it like this
+
+<Canvas>
+    <Story name="info" args={{}}>{(args) => <Notification {...args}><p>hi</p></Notification>}</Story>
+</Canvas>
+
+## API
+<ArgsTable of={Notification}/>
