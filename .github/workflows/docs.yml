@@ -31,7 +31,11 @@ jobs:
 #          author_name: 'github-actions[bot]'
 #          author_email: 'github-actions[bot]@users.noreply.github.com'
 #          message: '(gh-actions) storybook build'
-      - run: yarn docsend
-        name: "Send docs to gh-pages and push to repo"
+      - run: git add docs && git subtree push --prefix docs origin gh-pages
+        name: "Send docs to gh-pages"
+      - run: git rm -r --cached docs
+        name: untrack docs on master but keep gh-pages
+      - run: git push
+        name: Push changes
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
