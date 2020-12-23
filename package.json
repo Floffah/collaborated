@@ -12,7 +12,7 @@
     "terminals": "yarn workspace scripts terminals",
     "docs": "yarn workspace web docs",
     "docsync": "git fetch && git pull && git push",
-    "buildts": "yarn workspace server tsc && yarn workspace @collaborated/interact tsc && yarn workspace test-addon tsc && yarn workspace app tsc",
+    "buildts": "yarn workspace @collaborated/common && yarn workspace @collaborated/interact tsc && yarn workspace test-addon tsc && yarn workspace server tsc && yarn workspace app tsc",
     "buildall": "yarn buildts && yarn docs && yarn workspace web snowpack build",
     "unpushed":  "git log origin/master..HEAD",
     "netlifydeploy":  "yarn && yarn workspace @collaborated/interact tsc && yarn workspace web snowpack build",
