@@ -3,7 +3,7 @@ import {Client, GatewayMessageTypes, Incoming} from "../core/Client";
 import chalk from "chalk";
 import Projects from "../store/Projects";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
-import {GatewayClientMessageTypes} from "@collaborated/common/src/types/APITypes";
+import {GatewayClientMessageTypes} from "@collaborated/common";
 
 export class SocketManager {
     ws: WebSocket

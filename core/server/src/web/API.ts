@@ -11,7 +11,8 @@ import EventPush from "./EventPush";
 import {execute, ExecutionResult, GraphQLError, GraphQLSchema, parse, Source, validate} from "graphql";
 import cors from "cors";
 import {RequestLog} from "../db/Utils";
-import {GatewayErrors, GatewayServerMessageTypes, ServerResponse} from "@collaborated/common/src/types/APITypes";
+import {GatewayErrors, GatewayServerMessageTypes, ServerResponse} from "@collaborated/common";
+import Timeout = NodeJS.Timeout;
 
 export default class API {
     server: Server
@@ -24,7 +25,7 @@ export default class API {
 
     schema: GraphQLSchema = query(this)
 
-    flushint: number;
+    flushint: Timeout;
 
     constructor(server: Server) {
         this.server = server;

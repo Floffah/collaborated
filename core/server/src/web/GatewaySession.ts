@@ -1,7 +1,7 @@
 import WebSocket from "ws";
 import {GatewayConnection} from "../db/Clients";
 import API from "./API";
-import {GatewayServerMessageTypes} from "@collaborated/common/src/types/APITypes";
+import {GatewayServerMessageTypes} from "@collaborated/common";
 
 export default class GatewaySession {
     socket: WebSocket
