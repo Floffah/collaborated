@@ -27,6 +27,9 @@ export default class Server {
     hds: any[] = []
     started = false
 
+    dev: boolean = false;
+    maintenance: boolean = false;
+
     init() {
         this.hds[0] = new memwatch.HeapDiff();
 
@@ -35,6 +38,12 @@ export default class Server {
         }
 
         this.cfg = new Configuration(resolve(__dirname, "../../data"));
+        if(process.argv.includes("--dev") || this.cfg.val.environment.mode === "dev") {
+            this.dev = true;
+        }
+        if(process.argv.includes("--maintenance") || this.cfg.val.environment.maintenance === "true") {
+            this.maintenance = true;
+        }
 
         this.term.on("key", (n: string, m: any[], d: { isCharacter: boolean; codepoint: number; code: number | Buffer; }) => this.key(n, m, d))
         this.cliutil();
@@ -43,7 +52,15 @@ export default class Server {
         this.dbm = new DatabaseManager(this);
         this.dbm.init().then(() => {
             this.logger.info(`Database initialized.`)
-            this.logger.warn("Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.")
+            if(this.dev) {
+                this.logger.warn("Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.");
+                if(this.maintenance) {
+                    this.logger.fatal("Do not mix dev mode and maintenance mode.");
+                    process.exit();
+                }
+            } else if(this.maintenance) {
+                this.logger.err("WATCH OUT! The server is running in maintenance mode. Nothing will work as expected! Only use this when servers or dependencies are updating.");
+            }
             this.start()
         });
     }
@@ -95,11 +112,11 @@ export default class Server {
             this.app = express();
             this.server = createServer(this.app);
 
-            if (!process.argv.includes("--dev") && !process.argv.includes("--maintenance")) {
+            if (!this.dev) {
                 this.app.use(staticCached(resolve(__dirname, "../../../web/build"), this.logger));
             }
 
-            if (!process.argv.includes("--disable-api") && !process.argv.includes("--maintenance")) {
+            if (!this.maintenance) {
                 this.api = new API(this);
                 this.api.init();
             }

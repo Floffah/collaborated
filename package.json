@@ -16,7 +16,11 @@
     "buildall": "yarn buildts && yarn docs && yarn workspace web snowpack build",
     "unpushed":  "git log origin/master..HEAD",
     "netlifydeploy":  "yarn && yarn workspace @collaborated/interact tsc && yarn workspace web snowpack build",
-    "docsend":  "git add docs && git subtree push --prefix docs origin gh-pages && git push"
+    "docsend":  "git add docs && git subtree push --prefix docs origin gh-pages && git push",
+    "mbuildlinux": "cd services/manager && go build -v -x -o ../../../capp main.go && cd ../../",
+    "mbuildwin": "cd services/manager && go build -v -x -o ../../../capp.exe main.go && cd ../../",
+    "manager": "yarn mbuildwin && cd ../ && \"./capp.exe\"",
+    "firstmbuild": "go install -v -x -a -i && yarn manager"
   },
   "devDependencies": {
     "lerna": "^3.22.1"

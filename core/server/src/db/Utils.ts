@@ -1,16 +1,13 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import { Project } from "./Projects";
 
 @Entity()
 export class RequestLog {
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryColumn()
+    origin: string
 
     @Column()
     system: "api"
-
-    @Column({nullable: true})
-    origin: string
 
     @Column()
     amount: number

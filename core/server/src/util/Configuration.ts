@@ -28,7 +28,8 @@ export default class Configuration {
             environment: {
                 mode: "dev",
                 ipmode: "master",
-                ipname: "master_1"
+                ipname: "master_1",
+                maintenance: "false",
             },
             info: {
                 accesslength: 512
@@ -57,6 +58,7 @@ interface Config {
         mode: "dev"|"prod",
         ipmode: "master"|"slave",
         ipname: string,
+        maintenance: "true"|"false"
     },
     info: {
         accesslength: number

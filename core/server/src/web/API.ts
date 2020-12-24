@@ -55,10 +55,11 @@ export default class API {
         this.route = Router()
         this.server.app.use("/api/v1", this.route);
 
-        this.route.use((req, _res, next) => {
-            next();
-            let origin = req.get("host") || req.get("origin") || null
+        this.route.use(cors());
+        this.route.use((req, res, next) => {
+            let origin = req.get("host") || req.get("origin") || null;
             if (!!origin) {
+                next();
                 this.server.db.getRepository<RequestLog>(RequestLog).findOne({origin: origin}).then(reqs2 => {
                     let reqs = new RequestLog();
                     reqs.system = "api"
@@ -67,9 +68,10 @@ export default class API {
                     reqs.amount = !!reqs2 ? reqs2.amount + 1 : 1
                     this.server.db.getRepository<RequestLog>(RequestLog).save(reqs);
                 });
+            } else {
+                res.status(400).json({error: "Must send host or origin header."});
             }
-        })
-        this.route.use(cors());
+        });
 
         this.route.use("/", graphqlHTTP({
             schema: this.schema,
