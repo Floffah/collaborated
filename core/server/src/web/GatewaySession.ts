@@ -69,6 +69,7 @@ export default class GatewaySession {
                                         this.api.sessions.set(gat3.guid, this);
                                         this.gate = gat3;
                                         this.authed = true;
+                                        this.access = gat3.user.access;
                                         this.sendMessage(GatewayServerMessageTypes.Authenticated);
                                     });
                                 } else {

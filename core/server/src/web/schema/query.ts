@@ -6,7 +6,7 @@ import {randomBytes} from "crypto";
 
 export default function query(api: API) {
     return new GraphQLSchema({
-        query: new GraphQLObjectType({
+        query: new GraphQLObjectType<any, {access?: string}>({
             name: "query",
             description: "Root query",
             fields: {
@@ -16,10 +16,10 @@ export default function query(api: API) {
                     args: {
                         access: {type: GraphQLString, description: "Your user's access code"}
                     },
-                    resolve(_, {access}: any, c) {
+                    resolve(_, a, c) {
                         return new Promise((resolve, reject) => {
                             console.log(c);
-                            let ac = access;
+                            let ac = a.access;
                             if (typeof c === "object" && "access" in c) {
                                 ac = c.access;
                             }

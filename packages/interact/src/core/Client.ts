@@ -72,7 +72,7 @@ export class Client extends EventEmitter {
         if (!this.socket) {
             return new Promise((resolve, reject) => {
                 if(this.opts.debug) {
-                    console.log(chalk`{blue REQUEST WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH NO QID}`)
+                    console.log(chalk`{red -} {blue REQUEST WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH NO QID}`)
                 }
                 let start = Date.now()
                 ax.post(this.url, JSON.stringify({query, variables}), {
@@ -94,7 +94,7 @@ export class Client extends EventEmitter {
                         } else {
                             resolve(d);
                             if(this.opts.debug) {
-                                console.log(chalk`{blue REQUEST QUERY RETURN} {gray \{}...{gray \}} {blue WITH NO QID IN ${Date.now() - start}ms}`);
+                                console.log(chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(d.data)}} {blue WITH NO QID IN ${Date.now() - start}ms}`);
                             }
                         }
                     } else {

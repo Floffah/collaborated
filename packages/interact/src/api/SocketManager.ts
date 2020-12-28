@@ -31,7 +31,7 @@ export class SocketManager {
             let qid = this.lqid + 1
             let start = Date.now()
             if(this.client.opts.debug) {
-                console.log(chalk`{blue GATEWAY MESSAGE WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH QID ${qid}}`);
+                console.log(chalk`{red -} {blue GATEWAY MESSAGE WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH QID ${qid}}`);
             }
             this.sendMessage(GatewayClientMessageTypes.Query, {query, variables, qid}).then(() => {
                 this.qidfs.set(qid, (msg) => {
@@ -43,7 +43,7 @@ export class SocketManager {
                             data = JSON.stringify(msg);
                         }
                         if(this.client.opts.debug) {
-                            console.log(chalk`{blue GATEWAY MESSAGE QUERY RETURN} {gray ${JSON.stringify(data)}} {blue WITH QID ${qid} IN ${Date.now() - start}ms}`);
+                            console.log(chalk`{green -} {blue GATEWAY MESSAGE QUERY RETURN} {gray ${JSON.stringify(data)}} {blue WITH QID ${qid} IN ${Date.now() - start}ms}`);
                         }
                         resolve({data});
                     }
@@ -61,11 +61,10 @@ export class SocketManager {
     }
 
     message(data: Data) {
-        console.log(data);
         if (typeof data === "string") {
             let dat: Incoming = JSON.parse(data);
             if ("type" in dat) {
-                console.log(JSON.stringify(dat));
+                //console.log(JSON.stringify(dat));
                 if (dat.type === "message") {
                     if (dat.messageid == GatewayMessageTypes.Authenticated) {
                         this.client.projects = new Projects(this.client);
