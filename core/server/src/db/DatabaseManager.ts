@@ -43,7 +43,7 @@ export default class DatabaseManager {
             entities: [User, GatewayConnection, Group, Project, RequestLog, Invite],
             entityPrefix: "capp_",
             synchronize: true,
-            logging: this.server.cfg.val.environment.mode === "dev" ? "all" : ["error", "warn", "migration"],
+            logging: this.server.cfg.val.environment.mode === "dev" && !process.argv.includes("--no-db-log") ? "all" : ["error", "warn", "migration"],
             logger: "advanced-console",
             // ssl: true,
             // useUnifiedTopology: true,

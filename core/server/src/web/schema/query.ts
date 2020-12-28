@@ -18,7 +18,6 @@ export default function query(api: API) {
                     },
                     resolve(_, a, c) {
                         return new Promise((resolve, reject) => {
-                            console.log(c);
                             let ac = a.access;
                             if (typeof c === "object" && "access" in c) {
                                 ac = c.access;

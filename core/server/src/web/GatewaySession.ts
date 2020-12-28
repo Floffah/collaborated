@@ -1,7 +1,12 @@
 import WebSocket from "ws";
 import {GatewayConnection} from "../db/Clients";
 import API, {isJson} from "./API";
-import {GatewayErrors, GatewayServerMessageTypes, ServerResponse} from "@collaborated/common";
+import {
+    GatewayClientMessageTypes,
+    GatewayErrors,
+    GatewayServerMessageTypes,
+    ServerResponse
+} from "@collaborated/common";
 import {execute, ExecutionResult, GraphQLError, parse, Source, validate} from "graphql";
 
 export default class GatewaySession {
@@ -42,25 +47,22 @@ export default class GatewaySession {
     }
 
     onClose() {
-        if(this.gate) {
+        if (this.gate) {
             this.rid();
         }
     }
 
-    onMessage(data:string) {
-        console.log(data);
+    onMessage(data: string) {
         if (isJson(data)) {
             let msg = JSON.parse(data);
             if (!this.authed) {
-                // authenticating
-                if ("type" in msg && msg.type === "auth" && "guid" in msg && "access" in msg) {
+                if (typeof msg.type === "string" && msg.type === GatewayClientMessageTypes.Authenticate && typeof msg.guid === "number" && typeof msg.access === "string") {
                     this.api.server.db.getRepository(GatewayConnection).findOne({
                         guid: msg.guid
                     }, {
                         loadEagerRelations: true,
                         relations: ["user"]
                     }).then((gate) => {
-                        console.log(JSON.stringify(gate));
                         if (!!gate) {
                             if (!!gate.user && !!gate.user.id) {
                                 if (gate.user.access === msg.access) {
@@ -87,10 +89,10 @@ export default class GatewaySession {
                 }
             } else {
                 // post-authenticated
-                if ("type" in msg) {
+                if (typeof msg.type === "string") {
                     new Promise<ServerResponse>((resolve) => {
                         let respond: ServerResponse = {type: "unknown"}
-                        if (msg.type === "query" && "query" in msg && typeof msg.query === "string") {
+                        if (msg.type === "query" && typeof msg.query === "string") {
                             respond.type = "results";
                             let doc, worked = true;
                             try {
@@ -100,7 +102,7 @@ export default class GatewaySession {
                                 respond.salvageable = true;
                                 worked = false;
                             }
-                            if ("qid" in msg) {
+                            if (typeof msg.qid === "number") {
                                 respond.qid = msg.qid;
                             }
                             if (worked && !!doc) {
@@ -127,7 +129,7 @@ export default class GatewaySession {
                             }
                         }
                     }).then((respond) => {
-                        this.socket.send(JSON.stringify(respond));
+                        this.sendMessage(GatewayServerMessageTypes.Results, respond);
                     });
                 }
             }
@@ -140,7 +142,9 @@ export default class GatewaySession {
             message: GatewayServerMessageTypes[type],
             messageid: type,
             data
-        }));
+        }), (err) => {
+            if(err) throw err;
+        });
     }
 
     sendError(type: GatewayErrors): Promise<void> {
@@ -150,7 +154,7 @@ export default class GatewaySession {
                 error: type,
                 errorName: GatewayErrors[type]
             }), (err) => {
-                if(err) {
+                if (err) {
                     reject(err);
                 } else {
                     resolve();

@@ -82,18 +82,18 @@ export default class API {
         this.ws = new WSServer({
             server: this.server.server,
             path: "/api/v1/gateway",
-            perMessageDeflate: {
-                zlibDeflateOptions: {
-                    chunkSize: 1024,
-                    memLevel: 7,
-                    level: 3,
-                },
-                zlibInflateOptions: {
-                    chunkSize: 10 * 1024
-                },
-                concurrencyLimit: 10,
-                threshold: 1024
-            }
+            // perMessageDeflate: {
+            //     zlibDeflateOptions: {
+            //         chunkSize: 16 * 1024,
+            //         memLevel: 7,
+            //         level: 3,
+            //     },
+            //     zlibInflateOptions: {
+            //         chunkSize: 16 * 1024
+            //     },
+            //     concurrencyLimit: 10,
+            //     threshold: 1024
+            // }
         });
         this.events = new EventPush(this);
         this.ws.on("listening", () => {

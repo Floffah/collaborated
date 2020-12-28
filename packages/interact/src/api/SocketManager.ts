@@ -1,9 +1,9 @@
 import WebSocket, {Data} from "ws";
-import {Client, GatewayMessageTypes, Incoming} from "../core/Client";
+import {Client, Incoming} from "../core/Client";
 import chalk from "chalk";
 import Projects from "../store/Projects";
 import {createGraphQLError, GraphQLToError} from "../util/errors";
-import {GatewayClientMessageTypes} from "@collaborated/common";
+import {GatewayClientMessageTypes, GatewayServerMessageTypes} from "@collaborated/common";
 
 export class SocketManager {
     ws: WebSocket
@@ -61,18 +61,19 @@ export class SocketManager {
     }
 
     message(data: Data) {
+        console.log(data);
         if (typeof data === "string") {
             let dat: Incoming = JSON.parse(data);
             if ("type" in dat) {
                 //console.log(JSON.stringify(dat));
                 if (dat.type === "message") {
-                    if (dat.messageid == GatewayMessageTypes.Authenticated) {
+                    if (dat.messageid == GatewayServerMessageTypes.Authenticated) {
                         this.client.projects = new Projects(this.client);
                         this.client.emit("ready");
-                    }
-                } else if(dat.type === "results") {
-                    if ("qid" in dat && this.qidfs.has(dat.qid)) {
-                        (this.qidfs.get(dat.qid) as (msg: any) => void)(dat)
+                    } else if(dat.messageid === GatewayServerMessageTypes.Results) {
+                        if ("qid" in dat && this.qidfs.has(dat.qid)) {
+                            (this.qidfs.get(dat.qid) as (msg: any) => void)(dat)
+                        }
                     }
                 }
             }

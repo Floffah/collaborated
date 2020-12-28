@@ -3,6 +3,7 @@ import {GraphQLError} from "graphql";
 export enum GatewayServerMessageTypes {
     Authenticated,
     Shutdown,
+    Results,
 }
 
 export enum GatewayClientMessageTypes {

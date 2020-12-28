@@ -5,6 +5,7 @@ import {EventEmitter} from "events";
 import chalk from "chalk";
 import Projects from "../store/Projects";
 import buildQuery from "../api/gql";
+import {GatewayErrors, GatewayServerMessageTypes} from "@collaborated/common";
 
 interface ClientOptions {
     debug?: boolean;
@@ -176,28 +177,15 @@ export interface IncomingError {
 export interface IncomingMessage {
     type: "message",
     message: string,
-    messageid: GatewayMessageTypes
+    messageid: GatewayServerMessageTypes
     data: any,
 }
 
 export interface IncomingQueryReturn {
-    type: "results",
+    type: "message",
     message: string,
-    messageid: GatewayMessageTypes,
+    messageid: GatewayServerMessageTypes,
     data: any,
     errors: any[],
     qid: number,
-}
-
-export enum GatewayMessageTypes {
-    Authenticated,
-    Return,
-}
-
-export enum GatewayErrors {
-    InvalidAuthDetails,
-    IncorrectAuthDetails,
-    AuthDetailMismatch,
-    CouldNotFetchUser,
-    AuthenticationTimeOut
 }

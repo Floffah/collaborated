@@ -10,7 +10,6 @@ import Configuration from "../util/Configuration";
 import {existsSync, mkdirSync, writeFileSync} from "fs";
 import DatabaseManager from "../db/DatabaseManager";
 import {terminal, Terminal} from "terminal-kit";
-import {createInterface} from "readline";
 
 const memwatch = require("@floffah/node-memwatch")
 
@@ -38,10 +37,10 @@ export default class Server {
         }
 
         this.cfg = new Configuration(resolve(__dirname, "../../data"));
-        if(process.argv.includes("--dev") || this.cfg.val.environment.mode === "dev") {
+        if (process.argv.includes("--dev") || this.cfg.val.environment.mode === "dev") {
             this.dev = true;
         }
-        if(process.argv.includes("--maintenance") || this.cfg.val.environment.maintenance === "true") {
+        if (process.argv.includes("--maintenance") || this.cfg.val.environment.maintenance === "true") {
             this.maintenance = true;
         }
 
@@ -52,13 +51,13 @@ export default class Server {
         this.dbm = new DatabaseManager(this);
         this.dbm.init().then(() => {
             this.logger.info(`Database initialized.`)
-            if(this.dev) {
+            if (this.dev) {
                 this.logger.warn("Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.");
-                if(this.maintenance) {
+                if (this.maintenance) {
                     this.logger.fatal("Do not mix dev mode and maintenance mode.");
                     process.exit();
                 }
-            } else if(this.maintenance) {
+            } else if (this.maintenance) {
                 this.logger.err("WATCH OUT! The server is running in maintenance mode. Nothing will work as expected! Only use this when servers or dependencies are updating.");
             }
             this.start()
@@ -67,28 +66,27 @@ export default class Server {
 
 
     key(name: string, _match: any[], _dat: { isCharacter: boolean, codepoint: number, code: number | Buffer }) {
-        if(name.toLowerCase() === "m") {
+        if (name.toLowerCase() === "m") {
             this.doMemDiff()
+        } else if(name === "CTRL_C") {
+            this.shutdown();
         }
     }
 
     doMemDiff() {
-        if(this.hds.length > 0) {
+        if (this.hds.length > 0) {
+            this.logger.warn("Saving heap diff...");
             let diff = this.hds[0].end()
             writeFileSync(resolve(this.cfg.rootpath, "diff.json"), JSON.stringify(diff, null, 4), "utf8");
             this.logger.warn("Saved heap diff to " + resolve(this.cfg.rootpath, "diff.json"));
         } else {
+            this.logger.warn("Starting heap diff.")
             this.hds[0] = new memwatch.HeapDiff();
-            this.logger.warn("Took heap snapshot. Press M again to save a heap diff");
+            this.logger.warn("Started heap snapshot. Press M again to save the heap diff");
         }
     }
 
     cliutil() {
-        let r = createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
-        r.on("SIGINT", () => this.shutdown());
         process.on("SIGINT", () => this.shutdown());
     }
 
