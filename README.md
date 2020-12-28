@@ -1,4 +1,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5b2928d4-ab11-45ed-a18e-3040feeb74ca/deploy-status)](https://app.netlify.com/sites/determined-pike-df8a24/deploys)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![CodeQL](https://github.com/Floffah/collaborated/workflows/CodeQL/badge.svg)
 ![Docs](https://github.com/Floffah/collaborated/workflows/Docs/badge.svg)
 
@@ -31,3 +34,16 @@ Go to PKG_CONFIG_PATH/gdk-3.0.pc and PKG_CONFIG_PATH/gdk-2.0.pc (these will have
 On windows I found this in wherever_mingw64/32_is/lib/pkgconfig (in my case it was C:/msys2/mingw64/lib/pkgconfig
 
 Once you have corrected this you may need to rerun the install and manager command to make sure the build is correct
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

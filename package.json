@@ -14,15 +14,16 @@
     "docsync": "git fetch && git pull && git push",
     "buildts": "yarn workspace @collaborated/common && yarn workspace @collaborated/interact tsc && yarn workspace test-addon tsc && yarn workspace server tsc && yarn workspace app tsc",
     "buildall": "yarn buildts && yarn docs && yarn workspace web snowpack build",
-    "unpushed":  "git log origin/master..HEAD",
-    "netlifydeploy":  "yarn && yarn workspace @collaborated/interact tsc && yarn workspace web snowpack build",
-    "docsend":  "git add docs && git subtree push --prefix docs origin gh-pages && git push",
+    "unpushed": "git log origin/master..HEAD",
+    "netlifydeploy": "yarn && yarn workspace @collaborated/interact tsc && yarn workspace web snowpack build",
+    "docsend": "git add docs && git subtree push --prefix docs origin gh-pages && git push",
     "mbuildlinux": "cd services/manager && go build -v -x -o ../../../capp main.go && cd ../../",
     "mbuildwin": "cd services/manager && go build -v -x -o ../../../capp.exe main.go && cd ../../",
     "manager": "yarn mbuildwin && cd ../ && \"./capp.exe\"",
     "firstmbuild": "go install -v -x -a -i && yarn manager"
   },
   "devDependencies": {
+    "all-contributors-cli": "^6.19.0",
     "lerna": "^3.22.1"
   },
   "version": "0.0.0"
