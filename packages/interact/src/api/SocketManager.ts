@@ -61,6 +61,7 @@ export class SocketManager {
     }
 
     message(data: Data) {
+        console.log(data);
         if (typeof data === "string") {
             let dat: Incoming = JSON.parse(data);
             if ("type" in dat) {

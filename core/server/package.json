@@ -21,6 +21,7 @@
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19",
+    "synchronized-promise": "^0.3.1",
     "terminal-kit": "^1.44.0",
     "time-stamp": "^2.2.0",
     "typeorm": "^0.2.29",
