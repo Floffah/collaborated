@@ -2,13 +2,31 @@
   "projectName": "collaborated",
   "projectOwner": "Floffah",
   "repoType": "github",
-  "repoHost": "https://github.com/floffah/collaborated",
+  "repoHost": "https://github.com",
   "files": [
     "README.md"
   ],
   "imageSize": 100,
-  "commit": true,
+  "commit": false,
   "commitConvention": "none",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "Floffah",
+      "name": "Floffah",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/27270386?v=4",
+      "profile": "https://discord.gg/bc8Y2y9",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "ideas",
+        "projectManagement",
+        "question",
+        "review",
+        "research",
+        "security"
+      ]
+    }
+  ],
   "contributorsPerLine": 7
 }
