@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '14'
       - run: yarn
         name: Install dependencies
       - run: yarn buildts
@@ -31,11 +31,11 @@ jobs:
 #          author_name: 'github-actions[bot]'
 #          author_email: 'github-actions[bot]@users.noreply.github.com'
 #          message: '(gh-actions) storybook build'
-      - run: git push origin `git subtree split --prefix docs origin`:gh-pages --force
+      - run: git push origin `git subtree split --prefix docs master`:gh-pages --force
         name: "Send docs to gh-pages"
 #      - run: git rm -r --cached docs
 #        name: untrack docs on master but keep gh-pages
-      - run: git push
-        name: Push changes
+#      - run: git push
+#        name: Push changes
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
