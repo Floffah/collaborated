@@ -34,8 +34,8 @@ export function query_me_projects(api: API) {
                         ) {
                             reject("Too many requests. Wait < 5 minutes");
                         } else {
-                            if (!!args.name) {
-                                let proj = new Project();
+                            if (args.name) {
+                                const proj = new Project();
                                 proj.name = args.name;
                                 proj.owner = s.user;
 
@@ -85,7 +85,7 @@ export function query_me_projects(api: API) {
                                 if (!i) {
                                     reject("Invalid invite");
                                 } else {
-                                    let proj = i.project;
+                                    const proj = i.project;
                                     proj.members.push(s.user);
                                     api.server.db
                                         .getRepository<Project>(Project)

@@ -10,8 +10,7 @@ import Configuration from "../util/Configuration";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import DatabaseManager from "../db/DatabaseManager";
 import { terminal, Terminal } from "terminal-kit";
-
-const memwatch = require("@floffah/node-memwatch");
+import memwatch from "@floffah/node-memwatch";
 
 export default class Server {
     app: Application;
@@ -26,8 +25,8 @@ export default class Server {
     hds: any[] = [];
     started = false;
 
-    dev: boolean = false;
-    maintenance: boolean = false;
+    dev = false;
+    maintenance = false;
 
     init() {
         this.hds[0] = new memwatch.HeapDiff();
@@ -106,7 +105,7 @@ export default class Server {
     doMemDiff() {
         if (this.hds.length > 0) {
             this.logger.warn("Saving heap diff...");
-            let diff = this.hds[0].end();
+            const diff = this.hds[0].end();
             writeFileSync(
                 resolve(this.cfg.rootpath, "diff.json"),
                 JSON.stringify(diff, null, 4),
@@ -163,7 +162,7 @@ export default class Server {
 
             this.server.listen(80);
 
-            let diff = this.hds[0].end();
+            const diff = this.hds[0].end();
             writeFileSync(
                 resolve(this.cfg.rootpath, "startup.diff.json"),
                 JSON.stringify(diff, null, 4),

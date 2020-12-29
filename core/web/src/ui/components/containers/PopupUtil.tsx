@@ -14,29 +14,29 @@ export enum PopOverPos {
     RightBottom = "right-end",
     LeftTop = "left-start",
     Left = "left",
-    LeftBottom = "left-bottom"
+    LeftBottom = "left-bottom",
 }
 
 interface PopOverProps {
-    defaultVisible?: boolean,
-    content: JSX.Element,
-    position?: PopOverPos,
-    fit?: boolean,
-    autoShow?: boolean,
-    contentRect?: DOMRect, // for use only if the ref isnt working (e.g. the tooltip uses it because it does funky business with this so it has to feed its own width in)
+    defaultVisible?: boolean;
+    content: JSX.Element;
+    position?: PopOverPos;
+    fit?: boolean;
+    autoShow?: boolean;
+    contentRect?: DOMRect; // for use only if the ref isnt working (e.g. the tooltip uses it because it does funky business with this so it has to feed its own width in)
 }
 
 interface PopOverState {
-    visible: boolean,
-    top: number,
-    left: number,
+    visible: boolean;
+    top: number;
+    left: number;
 }
 
 function getPopupRoot() {
     let root = document.getElementById("capp_popups");
     if (root === null) {
         root = document.createElement("div");
-        root.setAttribute("id", "capp_popups")
+        root.setAttribute("id", "capp_popups");
         document.body.appendChild(root);
     }
     return root;
@@ -49,7 +49,7 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
         position: PopOverPos.Top,
         fit: true,
         autoShow: true,
-    }
+    };
 
     constructor(p: PopOverProps) {
         super(p);
@@ -61,9 +61,9 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
         visible: !!this.props.defaultVisible,
         left: 0,
         top: 0,
-    }
+    };
 
-    tref: React.RefObject<HTMLDivElement> = React.createRef()
+    tref: React.RefObject<HTMLDivElement> = React.createRef();
     pref: React.RefObject<HTMLDivElement> = React.createRef();
 
     componentDidMount() {
@@ -78,18 +78,31 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
     }
 
     calcLeft(): number {
-        let ppos = this.props.position || PopOverPos.Top
+        const ppos = this.props.position || PopOverPos.Top;
         let left = 0;
-        let cwidth = this.pref.current?.getBoundingClientRect().width || this.props.contentRect?.width || 0;
+        const cwidth =
+            this.pref.current?.getBoundingClientRect().width ||
+            this.props.contentRect?.width ||
+            0;
 
-        if ([PopOverPos.Top, PopOverPos.TopLeft, PopOverPos.TopRight].includes(ppos)) {
+        if (
+            [PopOverPos.Top, PopOverPos.TopLeft, PopOverPos.TopRight].includes(
+                ppos,
+            )
+        ) {
             left = this.tref.current?.getBoundingClientRect().left || 0;
             if (ppos === PopOverPos.TopLeft) {
-                left += (this.tref.current?.getBoundingClientRect().width || 0) * 0.24
+                left +=
+                    (this.tref.current?.getBoundingClientRect().width || 0) *
+                    0.24;
             } else if (ppos === PopOverPos.TopRight) {
-                left += (this.tref.current?.getBoundingClientRect().width || 0) * 0.74
+                left +=
+                    (this.tref.current?.getBoundingClientRect().width || 0) *
+                    0.74;
             } else {
-                left += (this.tref.current?.getBoundingClientRect().width || 0) * 0.49
+                left +=
+                    (this.tref.current?.getBoundingClientRect().width || 0) *
+                    0.49;
             }
             left -= cwidth / 2;
         }
@@ -100,11 +113,18 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
     }
 
     calcTop(): number {
-        let ppos = this.props.position || PopOverPos.Top
+        const ppos = this.props.position || PopOverPos.Top;
         let top = 0;
-        let cheight = this.pref.current?.getBoundingClientRect().height || this.props.contentRect?.height || 0;
+        const cheight =
+            this.pref.current?.getBoundingClientRect().height ||
+            this.props.contentRect?.height ||
+            0;
 
-        if ([PopOverPos.Top, PopOverPos.TopLeft, PopOverPos.TopRight].includes(ppos)) {
+        if (
+            [PopOverPos.Top, PopOverPos.TopLeft, PopOverPos.TopRight].includes(
+                ppos,
+            )
+        ) {
             top = this.tref.current?.getBoundingClientRect().top || 0;
             top -= cheight + 2;
         }
@@ -115,17 +135,17 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
     }
 
     onClick() {
-        if(!this.state.visible) {
+        if (!this.state.visible) {
             this.setState({
-                visible: true
+                visible: true,
             });
         }
     }
 
     onBlur() {
-        if(this.state.visible) {
+        if (this.state.visible) {
             this.setState({
-                visible: false
+                visible: false,
             });
         }
     }
@@ -139,32 +159,63 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
             top = this.calcTop();
         }
 
-        return <React.Fragment>
-            <Children ref={this.tref} onClick={() => this.onClick()} onBlur={() => this.onBlur()}>
-                {this.props.children}
-            </Children>
-            <RootPopup ref={this.pref} top={top} left={left} visible={this.state.visible}>
-                {this.props.content || <p>Hi</p>}
-            </RootPopup>
-        </React.Fragment>
+        return (
+            <React.Fragment>
+                <Children
+                    ref={this.tref}
+                    onClick={() => this.onClick()}
+                    onBlur={() => this.onBlur()}
+                >
+                    {this.props.children}
+                </Children>
+                <RootPopup
+                    ref={this.pref}
+                    top={top}
+                    left={left}
+                    visible={this.state.visible}
+                >
+                    {this.props.content || <p>Hi</p>}
+                </RootPopup>
+            </React.Fragment>
+        );
     }
 }
 
 const Children = styled.div`
-  display: inline-block;
-`
+    display: inline-block;
+`;
 
-const RPS = styled.div<{ top: number, left: number, visible: boolean }>`
-  transition: opacity 0.1s;
-  position: fixed;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
-  //display: $\{props => props.visible ? "block" : "none"};
-  opacity: ${props => props.visible ? 1 : 0};
-  pointer-events: ${props => props.visible ? "all" : "none"};
-`
+const RPS = styled.div<{ top: number; left: number; visible: boolean }>`
+    transition: opacity 0.1s;
+    position: fixed;
+    top: ${(props) => props.top}px;
+    left: ${(props) => props.left}px;
+    //display: $\{props => props.visible ? "block" : "none"};
+    opacity: ${(props) => (props.visible ? 1 : 0)};
+    pointer-events: ${(props) => (props.visible ? "all" : "none")};
+`;
 
-const RootPopup = React.forwardRef<HTMLDivElement, { children: React.ReactNode, top: number, left: number, visible: boolean }>((props, ref) => {
-    return ReactDOM.createPortal(<RPS ref={ref} top={props.top} left={props.left}
-                                      visible={props.visible}>{props.children}</RPS>, getPopupRoot());
-})
+interface RootPopupProps {
+    children: React.ReactNode;
+    top: number;
+    left: number;
+    visible: boolean;
+}
+
+const RootPopup = React.forwardRef<HTMLDivElement, RootPopupProps>(
+    (props, ref) => {
+        return ReactDOM.createPortal(
+            <RPS
+                ref={ref}
+                top={props.top}
+                left={props.left}
+                visible={props.visible}
+            >
+                {props.children}
+            </RPS>,
+            getPopupRoot(),
+        );
+    },
+);
+
+RootPopup.displayName = "RootPopup";

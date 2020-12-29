@@ -8,9 +8,9 @@ export class Interprocess {
 
     server: Server;
 
-    master: boolean = false;
+    master = false;
 
-    slaves: Map<String, Slave> = new Map();
+    slaves: Map<string, Slave> = new Map();
 
     constructor(server: Server) {
         this.server = server;
@@ -70,13 +70,13 @@ export class Interprocess {
         } else if (channel === "capp:slave") {
             chnl = ChannelType.Slave;
         }
-        let dat = JSON.parse(msg);
-        let message = dat.msg;
-        let data = dat.data;
+        const dat = JSON.parse(msg);
+        const message = dat.msg;
+        const data = dat.data;
 
         if (chnl === ChannelType.Master) {
             if (message === MessageType.SlaveAvailable) {
-                let slave = new Slave();
+                const slave = new Slave();
                 slave.name = data.name;
                 this.slaves.set(slave.name, slave);
             }

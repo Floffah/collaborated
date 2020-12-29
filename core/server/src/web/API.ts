@@ -35,14 +35,14 @@ export default class API {
         clearInterval(this.flushint);
         return new Promise((resolve, reject) => {
             this.server.logger.info("Clearing sessions");
-            for (let sesh of this.sessions.keys()) {
-                let session = <GatewaySession>this.sessions.get(sesh);
+            for (const sesh of this.sessions.keys()) {
+                const session = <GatewaySession>this.sessions.get(sesh);
                 session.sendMessage(GatewayServerMessageTypes.Shutdown);
                 session.socket.close();
             }
             this.flush(true);
             this.ws.close((err) => {
-                if (!!err) {
+                if (err) {
                     reject(err);
                 } else {
                     resolve();
@@ -57,19 +57,19 @@ export default class API {
 
         this.route.use(cors());
         this.route.use((req, res, next) => {
-            let origin = req.get("host") || req.get("origin") || null;
-            if (!!origin) {
+            const origin = req.get("host") || req.get("origin") || null;
+            if (origin) {
                 next();
                 this.server.db
                     .getRepository<RequestLog>(RequestLog)
                     .findOne({ origin: origin })
                     .then((reqs2) => {
-                        let reqs = new RequestLog();
+                        const reqs = new RequestLog();
                         reqs.system = "api";
-                        let origin =
+                        const origin =
                             req.get("host") || req.get("origin") || null;
                         reqs.origin = <string>origin;
-                        reqs.amount = !!reqs2 ? reqs2.amount + 1 : 1;
+                        reqs.amount = reqs2 ? reqs2.amount + 1 : 1;
                         this.server.db
                             .getRepository<RequestLog>(RequestLog)
                             .save(reqs);
@@ -122,7 +122,7 @@ export default class API {
         this.server.db
             .getRepository(GatewayConnection)
             .find({
-                where: { authed: !!authed ? true : Not(true) },
+                where: { authed: authed ? true : Not(true) },
                 select: ["guid"],
             })
             .then((gates) => {
@@ -137,7 +137,7 @@ export default class API {
     }
 
     connection(socket: WebSocket) {
-        let session: GatewaySession = new GatewaySession(socket, this);
+        const session: GatewaySession = new GatewaySession(socket, this);
         session.onConnect();
     }
 }

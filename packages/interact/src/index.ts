@@ -1,5 +1,5 @@
 import buildQuery from "./api/gql";
-import {Client} from "./core/Client";
+import { Client } from "./core/Client";
 
-export {Client}
-export {buildQuery}
+export { Client };
+export { buildQuery };

@@ -3,8 +3,8 @@ export default class CachedMap<V = string> {
     keys: { [k: string]: number } = {};
 
     put(k: string, v: () => V, i?: V) {
-        if (this.keys.hasOwnProperty(k)) {
-            let index = this.keys[k];
+        if (k in this.keys) {
+            const index = this.keys[k];
             this.data[index] = [k, i || v(), new Date(), v];
         } else {
             this.data.push([k, i || v(), new Date(), v]);
@@ -13,11 +13,11 @@ export default class CachedMap<V = string> {
     }
 
     get(k: string): V | null {
-        let index = this.keys[k];
+        const index = this.keys[k];
         return this.data[index][1];
     }
 
     has(k: string): boolean {
-        return this.keys.hasOwnProperty(k);
+        return k in this.keys;
     }
 }

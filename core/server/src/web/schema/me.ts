@@ -29,7 +29,7 @@ export function query_me(api: API) {
                                 user: s.user,
                             })
                             .then((gt) => {
-                                let gate = new GatewayConnection();
+                                const gate = new GatewayConnection();
                                 gate.user = s.user;
                                 gate.listen = args.listen;
                                 if (gt) {

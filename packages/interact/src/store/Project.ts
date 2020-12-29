@@ -1,3 +1,3 @@
 export default class Project {
-    name:string
+    name: string;
 }

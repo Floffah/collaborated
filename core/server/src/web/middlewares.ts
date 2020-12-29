@@ -5,13 +5,13 @@ import { resolve } from "path";
 import Logger from "../util/Logger";
 
 export function staticCached(path: string, logger: Logger) {
-    let cache = new CachedMap<string>();
+    const cache = new CachedMap<string>();
 
     logger.info("caching served files...");
 
     function scan(path: string, prev: string) {
-        for (let pth of readdirSync(path)) {
-            let stat = lstatSync(resolve(path, pth));
+        for (const pth of readdirSync(path)) {
+            const stat = lstatSync(resolve(path, pth));
             if (stat.isDirectory()) {
                 scan(
                     resolve(path, pth),

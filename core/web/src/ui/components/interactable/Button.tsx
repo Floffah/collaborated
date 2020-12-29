@@ -45,7 +45,6 @@ const BaseButton = styled.button<{ isize: number; ipadding: string }>`
     border-radius: 5px;
     cursor: pointer;
     font-size: ${(props) => props.isize}px;
-    border: none;
 
     transition: background-color 0.1s;
 
@@ -62,6 +61,7 @@ const DefaultButton = styled(BaseButton)`
     &:focus {
         background-color: ${(props) => props.theme.button.hover};
     }
+
     &:active {
         background-color: ${(props) =>
             props.theme.button.active || props.theme.button.bg};
@@ -77,6 +77,7 @@ const PrimaryButton = styled(BaseButton)`
     &:focus {
         background-color: ${(props) => props.theme.button.primary.hover};
     }
+
     &:active {
         background-color: ${(props) =>
             props.theme.button.primary.active || props.theme.button.primary.bg};

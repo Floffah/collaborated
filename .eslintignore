@@ -3,3 +3,6 @@ dist
 types
 assets
 data
+.storybook
+public
+build

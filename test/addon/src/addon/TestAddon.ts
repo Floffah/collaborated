@@ -1,4 +1,4 @@
-import {Client} from "@collaborated/interact";
+import { Client } from "@collaborated/interact";
 
 export default class TestAddon extends Client {
     constructor() {

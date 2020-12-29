@@ -1,17 +1,19 @@
 import * as React from "react";
 import styled from "styled-components";
-import {getTheme} from "../../colours/theme";
+import { getTheme } from "../../colours/theme";
 import Login from "../menus/Login";
 import Particles from "react-tsparticles";
-import {PopupContainer} from "./Popups";
+import { PopupContainer } from "./Popups";
 
 export class LoginPage extends React.Component<any> {
     render() {
-        return <>
-            <StyledParticles options={particleopts}/>
-            <Login float={true}/>
-            <PopupContainer/>
-        </>
+        return (
+            <>
+                <StyledParticles options={particleopts} />
+                <Login float={true} />
+                <PopupContainer />
+            </>
+        );
     }
 }
 
@@ -21,7 +23,7 @@ const StyledParticles = styled(Particles)`
     left: 0;
     width: 100%;
     height: 100%;
-`
+`;
 
 const particleopts = {
     background: {
@@ -43,8 +45,8 @@ const particleopts = {
                 parallax: {
                     enable: true,
                     force: 25,
-                    smooth: 25
-                }
+                    smooth: 25,
+                },
             },
             resize: true,
         },
@@ -70,7 +72,7 @@ const particleopts = {
         },
         collisions: {
             enable: true,
-            mode: "bounce"
+            mode: "bounce",
         },
         move: {
             direction: "top",
@@ -99,4 +101,4 @@ const particleopts = {
         },
     },
     detectRetina: true,
-}
+};

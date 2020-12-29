@@ -1,7 +1,5 @@
-import {Meta, Canvas, Story, ArgsTable} from "@storybook/addon-docs/blocks";
+import {Canvas, Meta, Story} from "@storybook/addon-docs/blocks";
 import Button from "./Button";
-import {ThemeProvider} from "styled-components";
-import {getTheme} from "../../colours/theme";
 
 <Meta title="Component Library/Interactable/Button" component={Button}/>
 
@@ -26,10 +24,12 @@ But there are different types of buttons. Here is what the `primary` button look
 There's more... There is different sizes.
 
 <Canvas>
-    <Story name="Big-enough" args={{type: "primary", size: "medium"}}>{(args) => <Button {...args}>Big-enough</Button>}</Story>
-    <Story name="Too Big"    args={{type: "primary", size: "large" }}>{(args) => <Button {...args}>Too Big   </Button>}</Story>
-</Canvas>
+    <Story name="Big-enough" args={{type: "primary", size: "medium"}}>{(args) =>
+        <Button {...args}>Big-enough</Button>}</Story>
+    <Story name="Too Big" args={{type: "primary", size: "large"}}>{(args) => <Button {...args}>Too
+    Big </Button>}</Story>
+    </Canvas>
 
 ## API
 
-<ArgsTable of={Button}/>
+    <ArgsTable of={Button}/>

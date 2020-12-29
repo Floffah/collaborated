@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "dependencies": {
     "@collaborated/common": "0.0.1-alpha1",
-    "@floffah/node-memwatch": "^3.0.0",
+    "@floffah/node-memwatch": "https://github.com/Floffah/node-memwatch",
     "@types/terminal-kit": "^1.28.2",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",

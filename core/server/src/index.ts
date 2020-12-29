@@ -1,7 +1,8 @@
-import "source-map-support/register"
-import "reflect-metadata"
+import "source-map-support/register";
+import "reflect-metadata";
+// eslint-disable-next-line workspaces/require-dependency
 import Server from "./web/Server";
-import "dotenv/config"
+import "dotenv/config";
 
-let server = new Server();
+const server = new Server();
 server.init();

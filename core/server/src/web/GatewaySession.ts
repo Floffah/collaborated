@@ -25,7 +25,7 @@ export default class GatewaySession {
     api: API;
     access: string;
 
-    authed: boolean = false;
+    authed = false;
 
     // constructor(socket: WebSocket, gate: GatewayConnection, api: API, access: string) {
     //     this.socket = socket;
@@ -68,7 +68,7 @@ export default class GatewaySession {
 
     onMessage(data: string) {
         if (isJson(data)) {
-            let msg: OutgoingMessage = JSON.parse(data);
+            const msg: OutgoingMessage = JSON.parse(data);
             if (!this.authed) {
                 if (
                     typeof msg.type === "string" &&
@@ -88,9 +88,8 @@ export default class GatewaySession {
                             },
                         )
                         .then((gate) => {
-                            if (!!gate) {
+                            if (gate) {
                                 if (!!gate.user && !!gate.user.id) {
-                                    // @ts-ignore
                                     if (gate.user.access === msg.data.access) {
                                         gate.authed = true;
                                         this.api.server.db
@@ -157,7 +156,7 @@ export default class GatewaySession {
                                 respond.qid = msg.data.qid;
                             }
                             if (worked && !!doc) {
-                                let errs = validate(this.api.schema, doc);
+                                const errs = validate(this.api.schema, doc);
                                 if (errs.length > 0) {
                                     respond.errors = <GraphQLError[]>errs;
                                     respond.salvageable = true;
@@ -203,7 +202,7 @@ export default class GatewaySession {
 
     sendMessage(type: GatewayServerMessageTypes, data?: any): Promise<void> {
         return new Promise((resolve, reject) => {
-            let msg = JSON.stringify({
+            const msg = JSON.stringify({
                 type: "message",
                 message: GatewayServerMessageTypes[type],
                 messageid: type,
@@ -239,7 +238,7 @@ export default class GatewaySession {
     }
 
     rid() {
-        let guid = this.gate.guid;
+        const guid = this.gate.guid;
         this.api.server.db
             .getRepository(GatewayConnection)
             .delete(this.gate)
