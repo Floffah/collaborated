@@ -6,6 +6,6 @@
   "jsxSingleQuote": false,
   "jsxBracketSameLine": false,
   "arrowParens": "always",
-  "endOfLine": "lf",
+  "endOfLine": "crlf",
   "embeddedLanguageFormatting": "auto"
 }
