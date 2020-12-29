@@ -9,18 +9,16 @@ export default class Projects {
         this.client = client;
     }
 
-    create(name: string): Project {
-        let req: (() => Promise<Project>) = () => {
-            return new Promise((resolve) => {
-                this.client._query("query CreateProject($name: String) { me { projects { create(name: $name) { name } } } }", {name}).then((d) => {
-                    let p = new Project();
-                    p.name = d.data?.name;
-                    resolve(p);
-                });
-            });
-        }
-        let sync = sp<any, any[], Project>(req);
-        return sync(this);
+    create(name: string): Promise<Project> {
+        return new Promise((resolve, reject) => {
+            this.client._query("query CreateProject($name: String) { me { projects { create(name: $name) { name } } } }", {name}).then((d) => {
+                let p = new Project();
+                p.name = d.data?.name;
+                resolve(p);
+            }).catch((r) => {
+                reject(r);
+            })
+        });
     }
 
     // doesn't work for addons's client user

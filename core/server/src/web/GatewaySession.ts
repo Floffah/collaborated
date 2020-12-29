@@ -7,7 +7,8 @@ import {
     GatewayServerMessageTypes,
     IncomingErrorMessage,
     IncomingMessage,
-    IncomingQueryMessageData, OutgoingMessage
+    IncomingQueryMessageData,
+    OutgoingMessage
 } from "@collaborated/common";
 import {execute, ExecutionResult, GraphQLError, parse, Source, validate} from "graphql";
 
@@ -29,9 +30,6 @@ export default class GatewaySession {
     constructor(socket: WebSocket, api: API) {
         this.socket = socket;
         this.api = api;
-
-        this.socket.on("close", () => this.onClose());
-        this.socket.on("message", (data) => this.onMessage(<string>data));
     }
 
     onConnect() {
@@ -46,6 +44,9 @@ export default class GatewaySession {
                 });
             }
         }, 10000);
+
+        this.socket.on("close", () => this.onClose());
+        this.socket.on("message", (data) => this.onMessage(<string>data));
     }
 
     onClose() {
@@ -56,7 +57,7 @@ export default class GatewaySession {
 
     onMessage(data: string) {
         if (isJson(data)) {
-            let msg:OutgoingMessage = JSON.parse(data);
+            let msg: OutgoingMessage = JSON.parse(data);
             if (!this.authed) {
                 if (typeof msg.type === "string" && msg.type === GatewayClientMessageTypes.Authenticate && typeof msg.data.guid === "number" && typeof msg.data.access === "string") {
                     this.api.server.db.getRepository(GatewayConnection).findOne({
@@ -138,14 +139,21 @@ export default class GatewaySession {
         }
     }
 
-    sendMessage(type: GatewayServerMessageTypes, data?: any) {
-        this.socket.send(JSON.stringify({
-            type: "message",
-            message: GatewayServerMessageTypes[type],
-            messageid: type,
-            data
-        } as IncomingMessage), (err) => {
-            if (err) throw err;
+    sendMessage(type: GatewayServerMessageTypes, data?: any):Promise<void> {
+        return new Promise((resolve, reject) => {
+            let msg = JSON.stringify({
+                type: "message",
+                message: GatewayServerMessageTypes[type],
+                messageid: type,
+                data
+            } as IncomingMessage);
+            this.socket.send(msg, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
         });
     }
 

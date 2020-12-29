@@ -30,6 +30,12 @@ export class SocketManager {
 
         this.ws.on("open", () => this.connected());
         this.ws.on("message", data => this.message(data))
+        this.ws.on("close", () => this.closed());
+    }
+
+    closed() {
+        console.log(chalk`{red Websocket connection was abruptly closed}`)
+        process.exit();
     }
 
     _gateQuery(query: string, variables?: { [k: string]: any }): Promise<{ data: any }> {
@@ -71,11 +77,9 @@ export class SocketManager {
     }
 
     message(data: Data) {
-        console.log(data);
         if (typeof data === "string") {
             let dat: IncomingMessage = JSON.parse(data);
             if ("type" in dat) {
-                //console.log(JSON.stringify(dat));
                 if (dat.type === "message") {
                     if (dat.messageid == GatewayServerMessageTypes.Authenticated) {
                         this.client.projects = new Projects(this.client);
