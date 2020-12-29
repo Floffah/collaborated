@@ -1,6 +1,6 @@
 import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import { User } from "./Clients";
-import { Project } from "./Projects"
+import {User} from "./Clients";
+import {Project} from "./Projects"
 
 @Entity()
 export class Group {

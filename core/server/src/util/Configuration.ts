@@ -13,7 +13,7 @@ export default class Configuration {
     }
 
     read() {
-        if(!existsSync(resolve(this.rootpath, "config.ini"))) {
+        if (!existsSync(resolve(this.rootpath, "config.ini"))) {
             this.defaults();
         }
         this.val = <Config>parse(readFileSync(resolve(this.rootpath, "config.ini"), "utf8"))
@@ -55,16 +55,16 @@ export default class Configuration {
 
 interface Config {
     environment: {
-        mode: "dev"|"prod",
-        ipmode: "master"|"slave",
+        mode: "dev" | "prod",
+        ipmode: "master" | "slave",
         ipname: string,
-        maintenance: "true"|"false"
+        maintenance: "true" | "false"
     },
     info: {
         accesslength: number
     },
     database: {
-        type: "postgres"|"mongodb",
+        type: "postgres" | "mongodb",
         host: string,
         database: string,
         username: string,

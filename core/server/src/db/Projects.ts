@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./Clients";
 import {Group} from "./Groups";
-import { Invite } from "./Utils";
+import {Invite} from "./Utils";
 
 @Entity()
 export class Project {

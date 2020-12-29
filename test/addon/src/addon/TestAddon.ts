@@ -11,8 +11,9 @@ export default class TestAddon extends Client {
 
     ready() {
         console.log("is bonk");
-        let p = this.projects.create("test123");
-        console.log(p.name);
+        this.projects.create("test123").then((p) => {
+            console.log(p.name);
+        });
     }
 
     init() {

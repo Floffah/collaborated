@@ -10,9 +10,9 @@ export function staticCached(path: string, logger: Logger) {
     logger.info("caching served files...");
 
     function scan(path: string, prev: string) {
-        for(let pth of readdirSync(path)) {
+        for (let pth of readdirSync(path)) {
             let stat = lstatSync(resolve(path, pth));
-            if(stat.isDirectory()) {
+            if (stat.isDirectory()) {
                 scan(resolve(path, pth), prev + (prev !== "/" ? "/" : "") + pth);
             } else {
                 cache.put(prev + (prev !== "/" ? "/" : "") + pth, () => {
@@ -21,23 +21,24 @@ export function staticCached(path: string, logger: Logger) {
             }
         }
     }
+
     scan(path, "/");
 
     logger.info("cached served files.");
 
     return (req: Request, res: Response, next: NextFunction) => {
-        if(cache.has(req.path)) {
+        if (cache.has(req.path)) {
             let mime = "text/html";
-            if(req.path.endsWith(".js")) {
+            if (req.path.endsWith(".js")) {
                 mime = "text/javascript"
-            } else if(req.path.endsWith(".css")) {
+            } else if (req.path.endsWith(".css")) {
                 mime = "text/css";
-            } else if(req.path.endsWith(".ico")) {
+            } else if (req.path.endsWith(".ico")) {
                 mime = "image/vnd.microsoft.icon"
             }
             console.log(req.path, mime);
             res.status(200).header("Content-type", mime).send(cache.get(req.path));
-        } else if(req.path.endsWith("/") && cache.has(req.path + "index.html")) {
+        } else if (req.path.endsWith("/") && cache.has(req.path + "index.html")) {
             res.status(200).send(cache.get(req.path + "index.html"));
         } else {
             next();

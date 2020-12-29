@@ -17,7 +17,7 @@ export class Interprocess {
     }
 
     init(done?: () => void) {
-        if(this.server.cfg.val.redis.host === "example.com") return;
+        if (this.server.cfg.val.redis.host === "example.com") return;
         this.server.logger.info("Connecting to Redis server...");
         this.sub = createClient({
             host: this.server.cfg.val.redis.host,
@@ -26,10 +26,10 @@ export class Interprocess {
             url: this.server.cfg.val.redis.url,
         });
 
-        let sub1 = false,sub2 = false;
+        let sub1 = false, sub2 = false;
 
         this.sub.on("ready", () => {
-            if(!sub1) {
+            if (!sub1) {
                 sub1 = true;
                 this.pub = createClient({
                     host: this.server.cfg.val.redis.host,
@@ -38,14 +38,14 @@ export class Interprocess {
                     url: this.server.cfg.val.redis.url,
                 });
                 this.pub.on("ready", () => {
-                    if(!sub2) {
+                    if (!sub2) {
                         sub2 = true;
                         this.server.logger.info("Connected to Redis server");
                         if (this.server.cfg.val.environment.ipmode === "master") {
                             this.master = true;
                             this.sub.subscribe("capp:master", () => this.ipmoded(done))
                         } else {
-                            this.sub.subscribe("capp:slave",() => this.ipmoded(done));
+                            this.sub.subscribe("capp:slave", () => this.ipmoded(done));
                         }
                         this.sub.on("message", (channel, msg) => this.message(channel, msg));
                     }
@@ -56,17 +56,17 @@ export class Interprocess {
 
     message(channel: string, msg: string) {
         let chnl = 0;
-        if(channel === "capp:master") {
+        if (channel === "capp:master") {
             chnl = ChannelType.Master
-        } else if(channel === "capp:slave") {
+        } else if (channel === "capp:slave") {
             chnl = ChannelType.Slave
         }
         let dat = JSON.parse(msg);
         let message = dat.msg;
         let data = dat.data;
 
-        if(chnl === ChannelType.Master) {
-            if(message === MessageType.SlaveAvailable) {
+        if (chnl === ChannelType.Master) {
+            if (message === MessageType.SlaveAvailable) {
                 let slave = new Slave();
                 slave.name = data.name;
                 this.slaves.set(slave.name, slave);
@@ -76,22 +76,22 @@ export class Interprocess {
         console.log(chnl, message, data);
     }
 
-    send(channel: ChannelType, msg: MessageType, data?: {[k: string]: any}): Promise<void> {
-        if(channel === ChannelType.Master) {
+    send(channel: ChannelType, msg: MessageType, data?: { [k: string]: any }): Promise<void> {
+        if (channel === ChannelType.Master) {
             return this._send("capp:master", msg, data);
-        } else if(channel === ChannelType.Slave) {
+        } else if (channel === ChannelType.Slave) {
             return this._send("capp:slave", msg, data);
         }
         return Promise.resolve();
     }
 
-    _send(channel: string, msg: MessageType, data?: {[k:string]: any}):Promise<void> {
+    _send(channel: string, msg: MessageType, data?: { [k: string]: any }): Promise<void> {
         return new Promise((resolve, reject) => {
             this.pub.publish(channel, JSON.stringify({
                 msg,
                 data
             }), (err) => {
-                if(err) {
+                if (err) {
                     reject(err);
                 } else {
                     resolve();

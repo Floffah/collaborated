@@ -68,7 +68,7 @@ export default class Server {
     key(name: string, _match: any[], _dat: { isCharacter: boolean, codepoint: number, code: number | Buffer }) {
         if (name.toLowerCase() === "m") {
             this.doMemDiff()
-        } else if(name === "CTRL_C") {
+        } else if (name === "CTRL_C") {
             this.shutdown();
         }
     }

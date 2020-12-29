@@ -4,10 +4,10 @@
 
 import API from "./API";
 
- export default class EventPush {
+export default class EventPush {
     api: API;
 
-     constructor(api: API) {
-         this.api = api;
-     }
- }
+    constructor(api: API) {
+        this.api = api;
+    }
+}

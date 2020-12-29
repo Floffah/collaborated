@@ -139,7 +139,7 @@ export default class GatewaySession {
         }
     }
 
-    sendMessage(type: GatewayServerMessageTypes, data?: any):Promise<void> {
+    sendMessage(type: GatewayServerMessageTypes, data?: any): Promise<void> {
         return new Promise((resolve, reject) => {
             let msg = JSON.stringify({
                 type: "message",

@@ -6,7 +6,7 @@ import {randomBytes} from "crypto";
 
 export default function query(api: API) {
     return new GraphQLSchema({
-        query: new GraphQLObjectType<any, {access?: string}>({
+        query: new GraphQLObjectType<any, { access?: string }>({
             name: "query",
             description: "Root query",
             fields: {
@@ -22,7 +22,7 @@ export default function query(api: API) {
                             if (typeof c === "object" && "access" in c) {
                                 ac = c.access;
                             }
-                            api.server.db.getRepository<User>(User).findOne( {access: ac}).then(user => {
+                            api.server.db.getRepository<User>(User).findOne({access: ac}).then(user => {
                                 if (user) {
                                     resolve({user})
                                 } else {

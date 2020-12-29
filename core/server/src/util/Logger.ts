@@ -5,7 +5,7 @@ const chalk = require('chalk');
 
 export default class Logger {
     last: number
-    console:Console = new Console(process.stdout, process.stderr);
+    console: Console = new Console(process.stdout, process.stderr);
 
     constructor() {
         this.last = Date.now();
@@ -27,9 +27,9 @@ export default class Logger {
         this.log("fatal", messages);
     }
 
-    log(type:string, messages:string[]) {
+    log(type: string, messages: string[]) {
         let sts = "";
-        switch(type) {
+        switch (type) {
             case "info":
                 sts = chalk`{blue info}`;
                 break;
