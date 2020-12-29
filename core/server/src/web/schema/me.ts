@@ -1,7 +1,12 @@
 import API from "../API";
-import {GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString} from "graphql";
-import {GatewayConnection, User} from "../../db/Clients";
-import {query_me_projects} from "./projects";
+import {
+    GraphQLInt,
+    GraphQLList,
+    GraphQLObjectType,
+    GraphQLString,
+} from "graphql";
+import { GatewayConnection, User } from "../../db/Clients";
+import { query_me_projects } from "./projects";
 
 export function query_me(api: API) {
     return new GraphQLObjectType<{ user: User }>({
@@ -11,57 +16,68 @@ export function query_me(api: API) {
             gateway: {
                 type: query_me_gateway(api),
                 args: {
-                    listen: {type: GraphQLList(GraphQLString), description: "The events you want to listen for."}
+                    listen: {
+                        type: GraphQLList(GraphQLString),
+                        description: "The events you want to listen for.",
+                    },
                 },
                 description: "Create a new gateway",
                 resolve(s, args) {
                     return new Promise((resolve, _reject) => {
-                        api.server.db.manager.findOne<GatewayConnection>(GatewayConnection, {
-                            user: s.user
-                        }).then(gt => {
-                            let gate = new GatewayConnection()
-                            gate.user = s.user;
-                            gate.listen = args.listen;
-                            if (gt) {
-                                gate.guid = gt.guid;
-                            }
-                            api.server.db.manager.save<GatewayConnection>(gate).then((gate) => {
-                                resolve({gate})
+                        api.server.db.manager
+                            .findOne<GatewayConnection>(GatewayConnection, {
+                                user: s.user,
+                            })
+                            .then((gt) => {
+                                let gate = new GatewayConnection();
+                                gate.user = s.user;
+                                gate.listen = args.listen;
+                                if (gt) {
+                                    gate.guid = gt.guid;
+                                }
+                                api.server.db.manager
+                                    .save<GatewayConnection>(gate)
+                                    .then((gate) => {
+                                        resolve({ gate });
+                                    });
                             });
-                        });
                     });
-                }
+                },
             },
             projects: {
                 type: query_me_projects(api),
-                description: "Field for interacting with projects relating to your user",
+                description:
+                    "Field for interacting with projects relating to your user",
                 resolve(s) {
-                    return {user: s.user}
-                }
-            }
-        }
-    })
+                    return { user: s.user };
+                },
+            },
+        },
+    });
 }
 
 export function query_me_gateway(_api: API) {
     return new GraphQLObjectType({
         name: "gateway",
-        description: "GraphQL Object for getting information about the gateway you just created.",
+        description:
+            "GraphQL Object for getting information about the gateway you just created.",
         fields: {
             url: {
                 type: GraphQLString,
-                description: "The URL to the websocket gateway that you should use.",
+                description:
+                    "The URL to the websocket gateway that you should use.",
                 resolve(_s: { gate: GatewayConnection }) {
-                    return "ws://localhost/api/v1/gateway"
-                }
+                    return "ws://localhost/api/v1/gateway";
+                },
             },
             guid: {
                 type: GraphQLInt,
-                description: "The unique id of your gateway connection that you will need to provide at the gate.",
+                description:
+                    "The unique id of your gateway connection that you will need to provide at the gate.",
                 resolve(s: { gate: GatewayConnection }) {
-                    return s.gate.guid
-                }
-            }
-        }
-    })
+                    return s.gate.guid;
+                },
+            },
+        },
+    });
 }

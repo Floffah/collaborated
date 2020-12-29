@@ -1,29 +1,29 @@
-import {Router} from "express";
-import {graphqlHTTP} from "express-graphql";
+import { Router } from "express";
+import { graphqlHTTP } from "express-graphql";
 import query from "./schema/query";
-import WebSocket, {Server as WSServer} from "ws"
+import WebSocket, { Server as WSServer } from "ws";
 import Server from "./Server";
 import GatewaySession from "./GatewaySession";
-import {GatewayConnection} from "../db/Clients";
-import {Not} from "typeorm";
-import {forWait} from "../util/arrays";
+import { GatewayConnection } from "../db/Clients";
+import { Not } from "typeorm";
+import { forWait } from "../util/arrays";
 import EventPush from "./EventPush";
-import {GraphQLSchema} from "graphql";
+import { GraphQLSchema } from "graphql";
 import cors from "cors";
-import {RequestLog} from "../db/Utils";
-import {GatewayServerMessageTypes} from "@collaborated/common";
+import { RequestLog } from "../db/Utils";
+import { GatewayServerMessageTypes } from "@collaborated/common";
 import Timeout = NodeJS.Timeout;
 
 export default class API {
-    server: Server
-    route: Router
-    ws: WSServer
+    server: Server;
+    route: Router;
+    ws: WSServer;
 
     sessions: Map<number, GatewaySession> = new Map();
 
-    events: EventPush
+    events: EventPush;
 
-    schema: GraphQLSchema = query(this)
+    schema: GraphQLSchema = query(this);
 
     flushint: Timeout;
 
@@ -34,7 +34,7 @@ export default class API {
     stop(): Promise<void> {
         clearInterval(this.flushint);
         return new Promise((resolve, reject) => {
-            this.server.logger.info("Clearing sessions")
+            this.server.logger.info("Clearing sessions");
             for (let sesh of this.sessions.keys()) {
                 let session = <GatewaySession>this.sessions.get(sesh);
                 session.sendMessage(GatewayServerMessageTypes.Shutdown);
@@ -43,7 +43,7 @@ export default class API {
             this.flush(true);
             this.ws.close((err) => {
                 if (!!err) {
-                    reject(err)
+                    reject(err);
                 } else {
                     resolve();
                 }
@@ -52,7 +52,7 @@ export default class API {
     }
 
     init() {
-        this.route = Router()
+        this.route = Router();
         this.server.app.use("/api/v1", this.route);
 
         this.route.use(cors());
@@ -60,23 +60,34 @@ export default class API {
             let origin = req.get("host") || req.get("origin") || null;
             if (!!origin) {
                 next();
-                this.server.db.getRepository<RequestLog>(RequestLog).findOne({origin: origin}).then(reqs2 => {
-                    let reqs = new RequestLog();
-                    reqs.system = "api"
-                    let origin = req.get("host") || req.get("origin") || null
-                    reqs.origin = <string>origin;
-                    reqs.amount = !!reqs2 ? reqs2.amount + 1 : 1
-                    this.server.db.getRepository<RequestLog>(RequestLog).save(reqs);
-                });
+                this.server.db
+                    .getRepository<RequestLog>(RequestLog)
+                    .findOne({ origin: origin })
+                    .then((reqs2) => {
+                        let reqs = new RequestLog();
+                        reqs.system = "api";
+                        let origin =
+                            req.get("host") || req.get("origin") || null;
+                        reqs.origin = <string>origin;
+                        reqs.amount = !!reqs2 ? reqs2.amount + 1 : 1;
+                        this.server.db
+                            .getRepository<RequestLog>(RequestLog)
+                            .save(reqs);
+                    });
             } else {
-                res.status(400).json({error: "Must send host or origin header."});
+                res.status(400).json({
+                    error: "Must send host or origin header.",
+                });
             }
         });
 
-        this.route.use("/", graphqlHTTP({
-            schema: this.schema,
-            graphiql: true,
-        }));
+        this.route.use(
+            "/",
+            graphqlHTTP({
+                schema: this.schema,
+                graphiql: true,
+            }),
+        );
         this.server.logger.info("Built GraphQL schema");
 
         this.ws = new WSServer({
@@ -89,33 +100,40 @@ export default class API {
                     level: 3,
                 },
                 zlibInflateOptions: {
-                    chunkSize: 16 * 1024
+                    chunkSize: 16 * 1024,
                 },
                 concurrencyLimit: 10,
-                threshold: 1024
-            }
+                threshold: 1024,
+            },
         });
         this.events = new EventPush(this);
         this.ws.on("listening", () => {
-            this.server.logger.info("Gateway websocket listening on path /api/v1/gateway");
+            this.server.logger.info(
+                "Gateway websocket listening on path /api/v1/gateway",
+            );
         });
-        this.ws.on("connection", socket => this.connection(socket));
+        this.ws.on("connection", (socket) => this.connection(socket));
 
-        this.flush(true)
+        this.flush(true);
         this.flushint = setInterval(() => this.flush(), 60000);
     }
 
     flush(authed?: boolean) {
-        this.server.db.getRepository(GatewayConnection).find({
-            where: {authed: !!authed ? true : Not(true)},
-            select: ["guid"]
-        }).then(gates => {
-            forWait(gates, (gate, next) => {
-                this.server.db.manager.delete<GatewayConnection>(GatewayConnection, gate).then(() => {
-                    next();
-                })
+        this.server.db
+            .getRepository(GatewayConnection)
+            .find({
+                where: { authed: !!authed ? true : Not(true) },
+                select: ["guid"],
+            })
+            .then((gates) => {
+                forWait(gates, (gate, next) => {
+                    this.server.db.manager
+                        .delete<GatewayConnection>(GatewayConnection, gate)
+                        .then(() => {
+                            next();
+                        });
+                });
             });
-        });
     }
 
     connection(socket: WebSocket) {

@@ -14,6 +14,9 @@ In this repository, issues should only be created for bug reports. If you have a
 // TODO: write readme
 ```
 
+## Developers
+ - Please make sure when developing, your IDE or code editor has prettier support. If using intellij or webstorm, make sure you have the prettier plugin installed. This project has idea configs in the repo so it should automatically configure when using this project.
+
 ## Links
 [All docs](https://capp.floffah.dev/?path=/story/developers-contents--page) <br>
 [Setting up a development environment](https://capp.floffah.dev/?path=/story/developers-contributors-development-environment--page) <br>

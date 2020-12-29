@@ -1,68 +1,76 @@
-import {Column, Entity, JoinColumn, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Group} from "./Groups";
-import {Project} from "./Projects";
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToMany,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn,
+} from "typeorm";
+import { Group } from "./Groups";
+import { Project } from "./Projects";
 
 export class User_Settings {
-    @Column({default: false})
-    left_handed: boolean
+    @Column({ default: false })
+    left_handed: boolean;
 
-    @Column({default: "dark"})
-    theme: string
+    @Column({ default: "dark" })
+    theme: string;
 }
 
 export class User_Rates {
-    @Column({nullable: true})
-    project_created: Date
+    @Column({ nullable: true })
+    project_created: Date;
 
-    @Column({nullable: true})
-    group_created: Date
+    @Column({ nullable: true })
+    group_created: Date;
 }
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
 
     @Column()
-    username: string
+    username: string;
 
     @Column()
-    email: string
+    email: string;
 
     @Column()
-    password: string
+    password: string;
 
-    @ManyToMany(() => Group, group => group.users)
-    groups: Group[]
+    @ManyToMany(() => Group, (group) => group.users)
+    groups: Group[];
 
-    @ManyToMany(() => Project, proj => proj.members)
-    projects: Project[]
+    @ManyToMany(() => Project, (proj) => proj.members)
+    projects: Project[];
 
-    @OneToMany(() => Project, proj => proj.owner)
-    projectsOwned: Project[]
+    @OneToMany(() => Project, (proj) => proj.owner)
+    projectsOwned: Project[];
 
     @Column(() => User_Settings)
-    settings: User_Settings
+    settings: User_Settings;
 
     @Column(() => User_Rates)
-    rates: User_Rates
+    rates: User_Rates;
 
-    @Column({length: 512, nullable: true})
-    access: string
+    @Column({ length: 512, nullable: true })
+    access: string;
 }
 
 @Entity()
 export class GatewayConnection {
     @PrimaryGeneratedColumn()
-    guid: number
+    guid: number;
 
     @OneToOne(() => User)
     @JoinColumn()
-    user: User
+    user: User;
 
-    @Column({nullable: true, default: false})
-    authed: boolean
+    @Column({ nullable: true, default: false })
+    authed: boolean;
 
-    @Column({default: [], type: "text"})
-    listen: string[]
+    @Column({ default: [], type: "text" })
+    listen: string[];
 }

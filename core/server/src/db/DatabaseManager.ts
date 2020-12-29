@@ -1,27 +1,27 @@
 import Server from "../web/Server";
-import {Connection, createConnection} from "typeorm";
-import {GatewayConnection, User} from "./Clients";
-import {Group} from "./Groups";
-import {Project} from "./Projects";
-import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
-import {Invite, RequestLog} from "./Utils";
+import { Connection, createConnection } from "typeorm";
+import { GatewayConnection, User } from "./Clients";
+import { Group } from "./Groups";
+import { Project } from "./Projects";
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
+import { Invite, RequestLog } from "./Utils";
 
 export default class DatabaseManager {
-    server: Server
+    server: Server;
 
-    main: Connection
+    main: Connection;
 
     constructor(server: Server) {
         this.server = server;
     }
 
     stop(): Promise<any> {
-        return this.main.close()
+        return this.main.close();
     }
 
     init(): Promise<void> {
-        return new Promise(resolve => {
-            this.mainConnection().then(db => {
+        return new Promise((resolve) => {
+            this.mainConnection().then((db) => {
                 this.main = db;
                 this.server.db = db;
                 resolve();
@@ -40,10 +40,21 @@ export default class DatabaseManager {
             //url: this.server.cfg.val.database.url,
             //url: `mongodb://${this.server.cfg.val.database.username}:${this.server.cfg.val.database.password}@${this.server.cfg.val.database.host}/${this.server.cfg.val.database.database}?retryWrites=true&w=majority`,
 
-            entities: [User, GatewayConnection, Group, Project, RequestLog, Invite],
+            entities: [
+                User,
+                GatewayConnection,
+                Group,
+                Project,
+                RequestLog,
+                Invite,
+            ],
             entityPrefix: "capp_",
             synchronize: true,
-            logging: this.server.cfg.val.environment.mode === "dev" && !process.argv.includes("--no-db-log") ? "all" : ["error", "warn", "migration"],
+            logging:
+                this.server.cfg.val.environment.mode === "dev" &&
+                !process.argv.includes("--no-db-log")
+                    ? "all"
+                    : ["error", "warn", "migration"],
             logger: "advanced-console",
             // ssl: true,
             // useUnifiedTopology: true,
@@ -54,9 +65,10 @@ export default class DatabaseManager {
             // authMechanism: "MONGODB-X509",
             ssl: {
                 requestCert: true,
-                rejectUnauthorized: this.server.cfg.val.environment.mode !== "dev",
+                rejectUnauthorized:
+                    this.server.cfg.val.environment.mode !== "dev",
                 //cert: readFileSync(resolve(this.server.cfg.rootpath, "cert.pem")),
-            }
-        } as PostgresConnectionOptions)
+            },
+        } as PostgresConnectionOptions);
     }
 }

@@ -1,30 +1,39 @@
-import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {User} from "./Clients";
-import {Group} from "./Groups";
-import {Invite} from "./Utils";
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from "typeorm";
+import { User } from "./Clients";
+import { Group } from "./Groups";
+import { Invite } from "./Utils";
 
 @Entity()
 export class Project {
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
 
     @Column()
-    name: string
+    name: string;
 
-    @ManyToOne(() => User, user => user.projectsOwned)
+    @ManyToOne(() => User, (user) => user.projectsOwned)
     @JoinColumn()
-    owner: User
+    owner: User;
 
-    @OneToMany(() => Invite, inv => inv.invite)
+    @OneToMany(() => Invite, (inv) => inv.invite)
     @JoinColumn()
-    invites: Invite[]
+    invites: Invite[];
 
-    @ManyToMany(() => User, user => user.projects)
+    @ManyToMany(() => User, (user) => user.projects)
     @JoinTable()
-    members: User[]
+    members: User[];
 
-    @OneToMany(() => Group, group => group.project, {
-        nullable: true
+    @OneToMany(() => Group, (group) => group.project, {
+        nullable: true,
     })
-    groups: Group[]
+    groups: Group[];
 }

@@ -1,26 +1,31 @@
-import {parse, stringify} from "ini";
-import {existsSync, readFileSync, writeFileSync} from "fs";
-import {resolve} from "path";
+import { parse, stringify } from "ini";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { resolve } from "path";
 
 export default class Configuration {
-    rootpath: string
+    rootpath: string;
 
-    val: Config
+    val: Config;
 
     constructor(rootpath: string) {
         this.rootpath = rootpath;
-        this.read()
+        this.read();
     }
 
     read() {
         if (!existsSync(resolve(this.rootpath, "config.ini"))) {
             this.defaults();
         }
-        this.val = <Config>parse(readFileSync(resolve(this.rootpath, "config.ini"), "utf8"))
+        this.val = <Config>(
+            parse(readFileSync(resolve(this.rootpath, "config.ini"), "utf8"))
+        );
     }
 
     write() {
-        writeFileSync(resolve(this.rootpath, "config.ini"), stringify(this.val));
+        writeFileSync(
+            resolve(this.rootpath, "config.ini"),
+            stringify(this.val),
+        );
     }
 
     defaults() {
@@ -32,7 +37,7 @@ export default class Configuration {
                 maintenance: "false",
             },
             info: {
-                accesslength: 512
+                accesslength: 512,
             },
             database: {
                 type: "mongodb",
@@ -47,36 +52,36 @@ export default class Configuration {
                 user: "null",
                 port: 29269,
                 password: "example password",
-            }
-        }
+            },
+        };
         this.write();
     }
 }
 
 interface Config {
     environment: {
-        mode: "dev" | "prod",
-        ipmode: "master" | "slave",
-        ipname: string,
-        maintenance: "true" | "false"
-    },
+        mode: "dev" | "prod";
+        ipmode: "master" | "slave";
+        ipname: string;
+        maintenance: "true" | "false";
+    };
     info: {
-        accesslength: number
-    },
+        accesslength: number;
+    };
     database: {
-        type: "postgres" | "mongodb",
-        host: string,
-        database: string,
-        username: string,
-        port: number,
-        password: string,
-        url?: string
-    },
+        type: "postgres" | "mongodb";
+        host: string;
+        database: string;
+        username: string;
+        port: number;
+        password: string;
+        url?: string;
+    };
     redis: {
-        host: string,
-        user: string,
-        port: number,
-        password: string,
-        url?: string
-    }
+        host: string;
+        user: string;
+        port: number;
+        password: string;
+        url?: string;
+    };
 }
