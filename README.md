@@ -1,9 +1,9 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5b2928d4-ab11-45ed-a18e-3040feeb74ca/deploy-status)](https://app.netlify.com/sites/determined-pike-df8a24/deploys)
+![CodeQL](https://github.com/Floffah/collaborated/workflows/CodeQL/badge.svg)
+![Docs](https://github.com/Floffah/collaborated/workflows/Docs/badge.svg)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-![CodeQL](https://github.com/Floffah/collaborated/workflows/CodeQL/badge.svg)
-![Docs](https://github.com/Floffah/collaborated/workflows/Docs/badge.svg)
 
 **PLEASE NOTE**
 In this repository, issues should only be created for bug reports. If you have a feature request, question, or anything else you want to talk about, use the discussions tab.

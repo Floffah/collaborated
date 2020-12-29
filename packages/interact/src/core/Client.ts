@@ -5,7 +5,6 @@ import {EventEmitter} from "events";
 import chalk from "chalk";
 import Projects from "../store/Projects";
 import buildQuery from "../api/gql";
-import {GatewayErrors, GatewayServerMessageTypes} from "@collaborated/common";
 
 interface ClientOptions {
     debug?: boolean;
@@ -72,7 +71,7 @@ export class Client extends EventEmitter {
     _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse<any> | { data: any }> {
         if (!this.socket) {
             return new Promise((resolve, reject) => {
-                if(this.opts.debug) {
+                if (this.opts.debug) {
                     console.log(chalk`{red -} {blue REQUEST WITH QUERY} {gray "${query}"} ${!!variables ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(variables)}}` : ""} {blue WITH NO QID}`)
                 }
                 let start = Date.now()
@@ -94,7 +93,7 @@ export class Client extends EventEmitter {
                             reject(GraphQLToError(createGraphQLError(d.data, query)));
                         } else {
                             resolve(d);
-                            if(this.opts.debug) {
+                            if (this.opts.debug) {
                                 console.log(chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(d.data)}} {blue WITH NO QID IN ${Date.now() - start}ms}`);
                             }
                         }
@@ -164,28 +163,4 @@ interface DetailLoginOptions {
 
 interface AccessLoginOptions {
     access: string
-}
-
-export type Incoming = IncomingError | IncomingMessage | IncomingQueryReturn
-
-export interface IncomingError {
-    type: "error",
-    error: GatewayErrors,
-    errorName: string,
-}
-
-export interface IncomingMessage {
-    type: "message",
-    message: string,
-    messageid: GatewayServerMessageTypes
-    data: any,
-}
-
-export interface IncomingQueryReturn {
-    type: "message",
-    message: string,
-    messageid: GatewayServerMessageTypes,
-    data: any,
-    errors: any[],
-    qid: number,
 }

@@ -5,7 +5,9 @@ import {
     GatewayClientMessageTypes,
     GatewayErrors,
     GatewayServerMessageTypes,
-    ServerResponse
+    IncomingErrorMessage,
+    IncomingMessage,
+    IncomingQueryMessageData, OutgoingMessage
 } from "@collaborated/common";
 import {execute, ExecutionResult, GraphQLError, parse, Source, validate} from "graphql";
 
@@ -54,18 +56,18 @@ export default class GatewaySession {
 
     onMessage(data: string) {
         if (isJson(data)) {
-            let msg = JSON.parse(data);
+            let msg:OutgoingMessage = JSON.parse(data);
             if (!this.authed) {
-                if (typeof msg.type === "string" && msg.type === GatewayClientMessageTypes.Authenticate && typeof msg.guid === "number" && typeof msg.access === "string") {
+                if (typeof msg.type === "string" && msg.type === GatewayClientMessageTypes.Authenticate && typeof msg.data.guid === "number" && typeof msg.data.access === "string") {
                     this.api.server.db.getRepository(GatewayConnection).findOne({
-                        guid: msg.guid
+                        guid: msg.data.guid
                     }, {
                         loadEagerRelations: true,
                         relations: ["user"]
                     }).then((gate) => {
                         if (!!gate) {
-                            if (!!gate.user && !!gate.user.id) {
-                                if (gate.user.access === msg.access) {
+                            if (!!gate.user && !!gate.user.id) { // @ts-ignore
+                                if (gate.user.access === msg.data.access) {
                                     gate.authed = true;
                                     this.api.server.db.getRepository(GatewayConnection).save(gate).then(gat3 => {
                                         this.api.sessions.set(gat3.guid, this);
@@ -90,20 +92,20 @@ export default class GatewaySession {
             } else {
                 // post-authenticated
                 if (typeof msg.type === "string") {
-                    new Promise<ServerResponse>((resolve) => {
-                        let respond: ServerResponse = {type: "unknown"}
-                        if (msg.type === "query" && typeof msg.query === "string") {
+                    new Promise<IncomingQueryMessageData>((resolve) => {
+                        let respond: IncomingQueryMessageData = {} as unknown as IncomingQueryMessageData
+                        if (msg.type === "query" && typeof msg.data.query === "string") {
                             respond.type = "results";
                             let doc, worked = true;
                             try {
-                                doc = parse(new Source(msg.query, "Gateway request"))
+                                doc = parse(new Source(msg.data.query, "Gateway request"))
                             } catch (syntaxError: unknown) {
                                 respond.errors = [syntaxError as GraphQLError];
                                 respond.salvageable = true;
                                 worked = false;
                             }
-                            if (typeof msg.qid === "number") {
-                                respond.qid = msg.qid;
+                            if (typeof msg.data.qid === "number") {
+                                respond.qid = msg.data.qid;
                             }
                             if (worked && !!doc) {
                                 let errs = validate(this.api.schema, doc);
@@ -114,14 +116,14 @@ export default class GatewaySession {
                                 (execute({
                                     schema: this.api.schema,
                                     document: doc,
-                                    variableValues: "variables" in msg ? msg.variables : undefined,
-                                    operationName: "operationName" in msg ? msg.operationName : undefined,
+                                    variableValues: "variables" in msg.data ? msg.data.variables : undefined,
+                                    operationName: "operationName" in msg.data ? msg.data.operationName : undefined,
                                     contextValue: {access: this.access},
                                 }) as Promise<ExecutionResult<{ [p: string]: any }, { [p: string]: any }>>).then((res) => {
                                     respond = {
                                         ...respond,
                                         ...res
-                                    } as unknown as ServerResponse
+                                    } as unknown as IncomingQueryMessageData
                                     resolve(respond);
                                 });
                             } else {
@@ -142,8 +144,8 @@ export default class GatewaySession {
             message: GatewayServerMessageTypes[type],
             messageid: type,
             data
-        }), (err) => {
-            if(err) throw err;
+        } as IncomingMessage), (err) => {
+            if (err) throw err;
         });
     }
 
@@ -153,7 +155,7 @@ export default class GatewaySession {
                 type: "error",
                 error: type,
                 errorName: GatewayErrors[type]
-            }), (err) => {
+            } as IncomingErrorMessage), (err) => {
                 if (err) {
                     reject(err);
                 } else {
