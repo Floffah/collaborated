@@ -1,26 +1,27 @@
-import express, { Application, static as estatic } from "express";
-import { createServer, Server } from "http";
 import { AddressInfo } from "net";
 import AppManager from "../app/AppManager";
+import fastify, { FastifyInstance } from "fastify";
+import fastifyStatic from "fastify-static";
 
 export default class InternalServer {
     port = 0;
-    app: Application;
+    app: FastifyInstance & PromiseLike<any>;
 
     appm: AppManager;
-    server: Server;
 
     constructor(appm: AppManager) {
         this.appm = appm;
     }
 
     init() {
-        this.app = express();
-        this.server = createServer(this.app);
+        this.app = fastify();
 
-        this.app.use("/", estatic(this.appm.media));
+        this.app.register(fastifyStatic, {
+            root: this.appm.assets,
+            prefix: "/",
+        });
 
-        this.server.listen(0);
-        this.port = (this.server.address() as AddressInfo).port;
+        this.app.listen(0);
+        this.port = (this.app.server.address() as AddressInfo).port;
     }
 }

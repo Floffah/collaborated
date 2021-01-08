@@ -17,7 +17,11 @@ for (const path of readdirSync(rt)) {
         existsSync(resolve(rt, path, "snowpack.config.js"))
     ) {
         topush = "2@" + path;
-    } else if (existsSync(resolve(rt, path, "tsconfig.json"))) {
+    } else if (
+        existsSync(resolve(rt, path, "tsconfig.json")) &&
+        process.argv.includes("-t") &&
+        !existsSync(resolve(rt, path, "snowpack.config.js"))
+    ) {
         topush = "1@" + path;
     }
 

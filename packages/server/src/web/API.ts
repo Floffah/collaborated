@@ -1,5 +1,3 @@
-import { Router } from "express";
-import { graphqlHTTP } from "express-graphql";
 import query from "./schema/query";
 import WebSocket, { Server as WSServer } from "ws";
 import Server from "./Server";
@@ -9,14 +7,12 @@ import { Not } from "typeorm";
 import { forWait } from "../util/arrays";
 import EventPush from "./EventPush";
 import { GraphQLSchema } from "graphql";
-import cors from "cors";
-import { RequestLog } from "../db/Utils";
 import { GatewayServerMessageTypes } from "@collaborated/common";
+import mercurius from "mercurius";
 import Timeout = NodeJS.Timeout;
 
 export default class API {
     server: Server;
-    route: Router;
     ws: WSServer;
 
     sessions: Map<number, GatewaySession> = new Map();
@@ -52,46 +48,40 @@ export default class API {
     }
 
     init() {
-        this.route = Router();
-        this.server.app.use("/api/v1", this.route);
+        // this.server.app.use((req, res, next) => {
+        //     const origin = req.get("host") || req.get("origin") || null;
+        //     if (origin) {
+        //         next();
+        //         this.server.db
+        //             .getRepository<RequestLog>(RequestLog)
+        //             .findOne({ origin: origin })
+        //             .then((reqs2) => {
+        //                 const reqs = new RequestLog();
+        //                 reqs.system = "api";
+        //                 const origin =
+        //                     req.get("host") || req.get("origin") || null;
+        //                 reqs.origin = <string>origin;
+        //                 reqs.amount = reqs2 ? reqs2.amount + 1 : 1;
+        //                 this.server.db
+        //                     .getRepository<RequestLog>(RequestLog)
+        //                     .save(reqs);
+        //             });
+        //     } else {
+        //         res.status(400).json({
+        //             error: "Must send host or origin header.",
+        //         });
+        //     }
+        // });
 
-        this.route.use(cors());
-        this.route.use((req, res, next) => {
-            const origin = req.get("host") || req.get("origin") || null;
-            if (origin) {
-                next();
-                this.server.db
-                    .getRepository<RequestLog>(RequestLog)
-                    .findOne({ origin: origin })
-                    .then((reqs2) => {
-                        const reqs = new RequestLog();
-                        reqs.system = "api";
-                        const origin =
-                            req.get("host") || req.get("origin") || null;
-                        reqs.origin = <string>origin;
-                        reqs.amount = reqs2 ? reqs2.amount + 1 : 1;
-                        this.server.db
-                            .getRepository<RequestLog>(RequestLog)
-                            .save(reqs);
-                    });
-            } else {
-                res.status(400).json({
-                    error: "Must send host or origin header.",
-                });
-            }
+        this.server.app.register(mercurius, {
+            schema: this.schema,
+            prefix: "/api/v1",
+            graphiql: true,
         });
-
-        this.route.use(
-            "/",
-            graphqlHTTP({
-                schema: this.schema,
-                graphiql: true,
-            }),
-        );
         this.server.logger.info("Built GraphQL schema");
 
         this.ws = new WSServer({
-            server: this.server.server,
+            server: this.server.app.server,
             path: "/api/v1/gateway",
             perMessageDeflate: {
                 zlibDeflateOptions: {

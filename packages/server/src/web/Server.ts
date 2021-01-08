@@ -1,6 +1,3 @@
-import express, { Application } from "express";
-import { createServer, Server as HTTPServer } from "http";
-import { staticCached } from "./middlewares";
 import { resolve } from "path";
 import API from "./API";
 import Logger from "../util/Logger";
@@ -11,10 +8,12 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 import DatabaseManager from "../db/DatabaseManager";
 import { terminal, Terminal } from "terminal-kit";
 import memwatch from "@floffah/node-memwatch";
+import fastify, { FastifyInstance } from "fastify";
+import fastifyStatic from "fastify-static";
+import fastifyCors from "fastify-cors";
 
 export default class Server {
-    app: Application;
-    server: HTTPServer;
+    app: FastifyInstance & PromiseLike<any>;
     api: API;
     logger: Logger = new Logger();
     db: Connection;
@@ -130,7 +129,7 @@ export default class Server {
     shutdown() {
         this.logger.warn("Shutting down...");
         this.api.stop().then(() => {
-            this.server.close(() => {
+            this.app.close(() => {
                 this.dbm.stop().then(() => {
                     process.exit();
                 });
@@ -143,16 +142,15 @@ export default class Server {
 
         this.ip = new Interprocess(this);
         this.ip.init(() => {
-            this.app = express();
-            this.server = createServer(this.app);
+            this.app = fastify();
+
+            this.app.register(fastifyCors, {});
 
             if (!this.dev) {
-                this.app.use(
-                    staticCached(
-                        resolve(__dirname, "../../../web/build"),
-                        this.logger,
-                    ),
-                );
+                this.app.register(fastifyStatic, {
+                    root: resolve(__dirname, "../../../web/build"),
+                    prefix: "/",
+                });
             }
 
             if (!this.maintenance) {
@@ -160,7 +158,7 @@ export default class Server {
                 this.api.init();
             }
 
-            this.server.listen(80);
+            this.app.listen(80);
 
             const diff = this.hds[0].end();
             writeFileSync(

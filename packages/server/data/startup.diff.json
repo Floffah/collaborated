@@ -1,19 +1,19 @@
 {
     "before": {
-        "nodes": 215487,
-        "size_bytes": 27128477,
-        "size": "25.87 mb"
+        "nodes": 227404,
+        "size_bytes": 26252536,
+        "size": "25.04 mb"
     },
     "after": {
-        "nodes": 227678,
-        "size_bytes": 27800237,
-        "size": "26.51 mb"
+        "nodes": 237715,
+        "size_bytes": 26833741,
+        "size": "25.59 mb"
     },
     "change": {
-        "size_bytes": 671760,
-        "size": "656.02 kb",
-        "freed_nodes": 13687,
-        "allocated_nodes": 25666,
+        "size_bytes": 581205,
+        "size": "567.58 kb",
+        "freed_nodes": 19064,
+        "allocated_nodes": 29335,
         "details": [
             {
                 "what": "API",
@@ -38,10 +38,10 @@
             },
             {
                 "what": "Array",
-                "size_bytes": 112472,
-                "size": "109.84 kb",
-                "+": 7574,
-                "-": 4490
+                "size_bytes": -76384,
+                "size": "-74.59 kb",
+                "+": 10012,
+                "-": 7899
             },
             {
                 "what": "ArrayBuffer",
@@ -49,6 +49,13 @@
                 "size": "360 bytes",
                 "+": 6,
                 "-": 1
+            },
+            {
+                "what": "Boot",
+                "size_bytes": 192,
+                "size": "192 bytes",
+                "+": 1,
+                "-": 0
             },
             {
                 "what": "BoundPool",
@@ -101,17 +108,17 @@
             },
             {
                 "what": "Closure",
-                "size_bytes": 51376,
-                "size": "50.17 kb",
-                "+": 891,
-                "-": 43
+                "size_bytes": 60304,
+                "size": "58.89 kb",
+                "+": 1044,
+                "-": 49
             },
             {
                 "what": "Code",
-                "size_bytes": 134944,
-                "size": "131.78 kb",
-                "+": 1357,
-                "-": 120
+                "size_bytes": 193328,
+                "size": "188.8 kb",
+                "+": 1461,
+                "-": 208
             },
             {
                 "what": "ColumnMetadata",
@@ -129,10 +136,10 @@
             },
             {
                 "what": "CompiledFnEntry",
-                "size_bytes": 1504,
-                "size": "1.47 kb",
-                "+": 47,
-                "-": 0
+                "size_bytes": 1344,
+                "size": "1.31 kb",
+                "+": 43,
+                "-": 1
             },
             {
                 "what": "Configuration",
@@ -159,6 +166,13 @@
                 "what": "ConnectionParameters",
                 "size_bytes": 272,
                 "size": "272 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "ContentTypeParser",
+                "size_bytes": 120,
+                "size": "120 bytes",
                 "+": 1,
                 "-": 0
             },
@@ -220,9 +234,9 @@
             },
             {
                 "what": "EventEmitter",
-                "size_bytes": 360,
-                "size": "360 bytes",
-                "+": 7,
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 4,
                 "-": 0
             },
             {
@@ -275,16 +289,16 @@
                 "-": 0
             },
             {
-                "what": "IdleItem",
-                "size_bytes": 112,
-                "size": "112 bytes",
+                "what": "Hooks",
+                "size_bytes": 184,
+                "size": "184 bytes",
                 "+": 1,
                 "-": 0
             },
             {
-                "what": "IncomingMessage",
-                "size_bytes": 56,
-                "size": "56 bytes",
+                "what": "IdleItem",
+                "size_bytes": 112,
+                "size": "112 bytes",
                 "+": 1,
                 "-": 0
             },
@@ -310,24 +324,24 @@
                 "-": 0
             },
             {
-                "what": "Layer",
-                "size_bytes": 816,
-                "size": "816 bytes",
-                "+": 6,
+                "what": "LRU",
+                "size_bytes": 136,
+                "size": "136 bytes",
+                "+": 1,
                 "-": 0
             },
             {
                 "what": "Map",
-                "size_bytes": 128,
-                "size": "128 bytes",
-                "+": 5,
+                "size_bytes": 192,
+                "size": "192 bytes",
+                "+": 7,
                 "-": 1
             },
             {
                 "what": "Module",
-                "size_bytes": 3760,
-                "size": "3.67 kb",
-                "+": 47,
+                "size_bytes": 3680,
+                "size": "3.59 kb",
+                "+": 46,
                 "-": 0
             },
             {
@@ -338,25 +352,32 @@
                 "-": 0
             },
             {
+                "what": "MultiRegex",
+                "size_bytes": 600,
+                "size": "600 bytes",
+                "+": 5,
+                "-": 0
+            },
+            {
                 "what": "Native",
-                "size_bytes": 13968,
-                "size": "13.64 kb",
-                "+": 144,
-                "-": 107
+                "size_bytes": -25825,
+                "size": "-25.22 kb",
+                "+": 10,
+                "-": 106
             },
             {
                 "what": "Number",
-                "size_bytes": 432,
-                "size": "432 bytes",
-                "+": 29,
+                "size_bytes": 448,
+                "size": "448 bytes",
+                "+": 30,
                 "-": 2
             },
             {
                 "what": "Object",
-                "size_bytes": 18568,
-                "size": "18.13 kb",
-                "+": 376,
-                "-": 44
+                "size_bytes": 24208,
+                "size": "23.64 kb",
+                "+": 470,
+                "-": 27
             },
             {
                 "what": "PG",
@@ -367,9 +388,9 @@
             },
             {
                 "what": "Parser",
-                "size_bytes": 128,
-                "size": "128 bytes",
-                "+": 1,
+                "size_bytes": 384,
+                "size": "384 bytes",
+                "+": 3,
                 "-": 0
             },
             {
@@ -384,6 +405,13 @@
                 "size_bytes": 208,
                 "size": "208 bytes",
                 "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Plugin",
+                "size_bytes": 736,
+                "size": "736 bytes",
+                "+": 4,
                 "-": 0
             },
             {
@@ -409,15 +437,8 @@
             },
             {
                 "what": "Promise",
-                "size_bytes": 912,
-                "size": "912 bytes",
-                "+": 19,
-                "-": 0
-            },
-            {
-                "what": "PromiseWrap",
-                "size_bytes": 640,
-                "size": "640 bytes",
+                "size_bytes": 960,
+                "size": "960 bytes",
                 "+": 20,
                 "-": 0
             },
@@ -451,10 +472,10 @@
             },
             {
                 "what": "RegExp",
-                "size_bytes": 1064,
-                "size": "1.04 kb",
-                "+": 30,
-                "-": 11
+                "size_bytes": 5152,
+                "size": "5.03 kb",
+                "+": 96,
+                "-": 4
             },
             {
                 "what": "RelationCountLoader",
@@ -499,6 +520,13 @@
                 "-": 0
             },
             {
+                "what": "Reply",
+                "size_bytes": 176,
+                "size": "176 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
                 "what": "Repository",
                 "size_bytes": 104,
                 "size": "104 bytes",
@@ -506,9 +534,37 @@
                 "-": 0
             },
             {
+                "what": "Request",
+                "size_bytes": 144,
+                "size": "144 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
                 "what": "Resolver",
                 "size_bytes": 96,
                 "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "ResumableMultiRegex",
+                "size_bytes": 1088,
+                "size": "1.06 kb",
+                "+": 17,
+                "-": 0
+            },
+            {
+                "what": "Router",
+                "size_bytes": 352,
+                "size": "352 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Schemas",
+                "size_bytes": 104,
+                "size": "104 bytes",
                 "+": 1,
                 "-": 0
             },
@@ -530,13 +586,6 @@
                 "what": "Server",
                 "size_bytes": 248,
                 "size": "248 bytes",
-                "+": 1,
-                "-": 0
-            },
-            {
-                "what": "ServerResponse",
-                "size_bytes": 56,
-                "size": "56 bytes",
                 "+": 1,
                 "-": 0
             },
@@ -577,16 +626,16 @@
             },
             {
                 "what": "String",
-                "size_bytes": -54968,
-                "size": "-53.68 kb",
-                "+": 3025,
-                "-": 4531
+                "size_bytes": -52632,
+                "size": "-51.4 kb",
+                "+": 3013,
+                "-": 5823
             },
             {
                 "what": "TCP",
-                "size_bytes": 240,
-                "size": "240 bytes",
-                "+": 5,
+                "size_bytes": 192,
+                "size": "192 bytes",
+                "+": 4,
                 "-": 0
             },
             {
@@ -608,6 +657,20 @@
                 "size_bytes": 96,
                 "size": "96 bytes",
                 "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Task",
+                "size_bytes": 720,
+                "size": "720 bytes",
+                "+": 9,
+                "-": 0
+            },
+            {
+                "what": "TimeTree",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 1,
                 "-": 0
             },
             {
@@ -682,10 +745,10 @@
             },
             {
                 "what": "system / Context",
-                "size_bytes": 14352,
-                "size": "14.02 kb",
-                "+": 244,
-                "-": 4
+                "size_bytes": 16200,
+                "size": "15.82 kb",
+                "+": 279,
+                "-": 6
             }
         ]
     }
