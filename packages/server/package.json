@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "@collaborated/server",
   "version": "0.0.1-alpha1",
   "private": true,
   "description": "Collaborated back-end",

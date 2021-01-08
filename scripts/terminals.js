@@ -1,5 +1,7 @@
-import { exec } from "child_process";
-import * as path from "path";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { exec } = require("child_process");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require("path");
 
 let cmd = `wt `;
 if (!process.argv.includes("--builds")) {

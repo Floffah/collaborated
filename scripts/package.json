@@ -3,6 +3,11 @@
   "version": "0.0.1-alpha1",
   "private": true,
   "scripts": {
-    "terminals": "node terminals.js"
+    "terminals": "node terminals.js",
+    "build": "yarn node dist/build.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "source-map-support": "^0.5.19"
   }
 }

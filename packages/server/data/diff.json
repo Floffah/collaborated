@@ -1,0 +1,90 @@
+{
+    "before": {
+        "nodes": 223656,
+        "size_bytes": 27484281,
+        "size": "26.21 mb"
+    },
+    "after": {
+        "nodes": 220736,
+        "size_bytes": 27214793,
+        "size": "25.95 mb"
+    },
+    "change": {
+        "size_bytes": -269488,
+        "size": "-263.17 kb",
+        "freed_nodes": 3881,
+        "allocated_nodes": 916,
+        "details": [
+            {
+                "what": "Array",
+                "size_bytes": -66640,
+                "size": "-65.08 kb",
+                "+": 19,
+                "-": 1172
+            },
+            {
+                "what": "ArrayBuffer",
+                "size_bytes": 0,
+                "size": "0 bytes",
+                "+": 1,
+                "-": 1
+            },
+            {
+                "what": "Buffer",
+                "size_bytes": 0,
+                "size": "0 bytes",
+                "+": 1,
+                "-": 1
+            },
+            {
+                "what": "Code",
+                "size_bytes": -11856,
+                "size": "-11.58 kb",
+                "+": 0,
+                "-": 32
+            },
+            {
+                "what": "Native",
+                "size_bytes": -32,
+                "size": "-32 bytes",
+                "+": 8,
+                "-": 9
+            },
+            {
+                "what": "Number",
+                "size_bytes": -16,
+                "size": "-16 bytes",
+                "+": 4,
+                "-": 5
+            },
+            {
+                "what": "Object",
+                "size_bytes": -600,
+                "size": "-600 bytes",
+                "+": 4,
+                "-": 18
+            },
+            {
+                "what": "RegExp",
+                "size_bytes": -504,
+                "size": "-504 bytes",
+                "+": 0,
+                "-": 9
+            },
+            {
+                "what": "String",
+                "size_bytes": -6248,
+                "size": "-6.1 kb",
+                "+": 0,
+                "-": 180
+            },
+            {
+                "what": "system / Context",
+                "size_bytes": 0,
+                "size": "0 bytes",
+                "+": 2,
+                "-": 2
+            }
+        ]
+    }
+}

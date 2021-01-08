@@ -1,7 +1,6 @@
 {
   "name": "collaborated",
   "workspaces": [
-    "core/*",
     "packages/*",
     "scripts",
     "test/*"
@@ -9,7 +8,6 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "terminals": "yarn workspace scripts terminals",
     "docs": "yarn workspace web docs",
     "docsync": "git fetch && git pull && git push",
     "buildts": "yarn workspace @collaborated/common tsc && yarn workspace @collaborated/interact tsc && yarn workspace test-addon tsc && yarn workspace server tsc && yarn workspace app tsc",
@@ -21,7 +19,11 @@
     "mbuildwin": "cd services/manager && go build -v -x -o ../../../capp.exe main.go && cd ../../",
     "manager": "yarn mbuildwin && cd ../ && \"./capp.exe\"",
     "firstmbuild": "go install -v -x -a -i && yarn manager",
-    "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
+    "build": "yarn && yarn workspace scripts tsc && yarn workspace scripts node dist/build.js -v",
+    "tsbuild": "yarn build -t",
+    "devbuild": "yarn build --dev",
+    "prepack": "yarn build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.11.1",
@@ -33,5 +35,12 @@
     "eslint-plugin-workspaces": "^0.6.2",
     "lerna": "^3.22.1"
   },
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "buildOrder": [
+    "common",
+    "interact",
+    "web",
+    "app",
+    "server"
+  ]
 }

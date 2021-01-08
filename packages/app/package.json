@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "@collaborated/app",
   "version": "0.0.1-alpha1",
   "private": true,
   "main": "./dist/index.js",
@@ -17,6 +17,6 @@
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "source-map-support": "^0.5.19",
-    "web": "0.0.1-alpha1"
+    "@collaborated/web": "0.0.1-alpha1"
   }
 }

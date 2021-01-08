@@ -1,0 +1,692 @@
+{
+    "before": {
+        "nodes": 215487,
+        "size_bytes": 27128477,
+        "size": "25.87 mb"
+    },
+    "after": {
+        "nodes": 227678,
+        "size_bytes": 27800237,
+        "size": "26.51 mb"
+    },
+    "change": {
+        "size_bytes": 671760,
+        "size": "656.02 kb",
+        "freed_nodes": 13687,
+        "allocated_nodes": 25666,
+        "details": [
+            {
+                "what": "API",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "AdvancedConsoleLogger",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Alias",
+                "size_bytes": 104,
+                "size": "104 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Array",
+                "size_bytes": 112472,
+                "size": "109.84 kb",
+                "+": 7574,
+                "-": 4490
+            },
+            {
+                "what": "ArrayBuffer",
+                "size_bytes": 360,
+                "size": "360 bytes",
+                "+": 6,
+                "-": 1
+            },
+            {
+                "what": "BoundPool",
+                "size_bytes": 200,
+                "size": "200 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Broadcaster",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Buffer",
+                "size_bytes": 1144,
+                "size": "1.12 kb",
+                "+": 13,
+                "-": 0
+            },
+            {
+                "what": "BufferList",
+                "size_bytes": 192,
+                "size": "192 bytes",
+                "+": 4,
+                "-": 0
+            },
+            {
+                "what": "BufferReader",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "ChannelWrap",
+                "size_bytes": 64,
+                "size": "64 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Client",
+                "size_bytes": 264,
+                "size": "264 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Closure",
+                "size_bytes": 51376,
+                "size": "50.17 kb",
+                "+": 891,
+                "-": 43
+            },
+            {
+                "what": "Code",
+                "size_bytes": 134944,
+                "size": "131.78 kb",
+                "+": 1357,
+                "-": 120
+            },
+            {
+                "what": "ColumnMetadata",
+                "size_bytes": 7440,
+                "size": "7.27 kb",
+                "+": 30,
+                "-": 0
+            },
+            {
+                "what": "Command",
+                "size_bytes": 272,
+                "size": "272 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "CompiledFnEntry",
+                "size_bytes": 1504,
+                "size": "1.47 kb",
+                "+": 47,
+                "-": 0
+            },
+            {
+                "what": "Configuration",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Connection",
+                "size_bytes": 360,
+                "size": "360 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "ConnectionManager",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "ConnectionParameters",
+                "size_bytes": 272,
+                "size": "272 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "DatabaseManager",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "DefaultNamingStrategy",
+                "size_bytes": 104,
+                "size": "104 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Denque",
+                "size_bytes": 720,
+                "size": "720 bytes",
+                "+": 6,
+                "-": 0
+            },
+            {
+                "what": "Duplex",
+                "size_bytes": 56,
+                "size": "56 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "EmbeddedMetadata",
+                "size_bytes": 560,
+                "size": "560 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "EntityManager",
+                "size_bytes": 240,
+                "size": "240 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "EntityMetadata",
+                "size_bytes": 4544,
+                "size": "4.44 kb",
+                "+": 8,
+                "-": 0
+            },
+            {
+                "what": "Error",
+                "size_bytes": 216,
+                "size": "216 bytes",
+                "+": 9,
+                "-": 0
+            },
+            {
+                "what": "EventEmitter",
+                "size_bytes": 360,
+                "size": "360 bytes",
+                "+": 7,
+                "-": 0
+            },
+            {
+                "what": "EventPush",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "ForeignKeyMetadata",
+                "size_bytes": 1008,
+                "size": "1008 bytes",
+                "+": 9,
+                "-": 0
+            },
+            {
+                "what": "GetAddrInfoReqWrap",
+                "size_bytes": 32,
+                "size": "32 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "GraphQLList",
+                "size_bytes": 352,
+                "size": "352 bytes",
+                "+": 11,
+                "-": 0
+            },
+            {
+                "what": "GraphQLNonNull",
+                "size_bytes": 864,
+                "size": "864 bytes",
+                "+": 27,
+                "-": 0
+            },
+            {
+                "what": "GraphQLObjectType",
+                "size_bytes": 440,
+                "size": "440 bytes",
+                "+": 5,
+                "-": 0
+            },
+            {
+                "what": "GraphQLSchema",
+                "size_bytes": 184,
+                "size": "184 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "IdleItem",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "IncomingMessage",
+                "size_bytes": 56,
+                "size": "56 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "IndexMetadata",
+                "size_bytes": 1024,
+                "size": "1024 bytes",
+                "+": 4,
+                "-": 0
+            },
+            {
+                "what": "Interprocess",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "JavascriptRedisParser",
+                "size_bytes": 224,
+                "size": "224 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Layer",
+                "size_bytes": 816,
+                "size": "816 bytes",
+                "+": 6,
+                "-": 0
+            },
+            {
+                "what": "Map",
+                "size_bytes": 128,
+                "size": "128 bytes",
+                "+": 5,
+                "-": 1
+            },
+            {
+                "what": "Module",
+                "size_bytes": 3760,
+                "size": "3.67 kb",
+                "+": 47,
+                "-": 0
+            },
+            {
+                "what": "ModuleWrap",
+                "size_bytes": 64,
+                "size": "64 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Native",
+                "size_bytes": 13968,
+                "size": "13.64 kb",
+                "+": 144,
+                "-": 107
+            },
+            {
+                "what": "Number",
+                "size_bytes": 432,
+                "size": "432 bytes",
+                "+": 29,
+                "-": 2
+            },
+            {
+                "what": "Object",
+                "size_bytes": 18568,
+                "size": "18.13 kb",
+                "+": 376,
+                "-": 44
+            },
+            {
+                "what": "PG",
+                "size_bytes": 144,
+                "size": "144 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Parser",
+                "size_bytes": 128,
+                "size": "128 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "PendingItem",
+                "size_bytes": 192,
+                "size": "192 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "PlainObjectToNewEntityTransformer",
+                "size_bytes": 208,
+                "size": "208 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Pool",
+                "size_bytes": 24,
+                "size": "24 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "PostgresDriver",
+                "size_bytes": 208,
+                "size": "208 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "PostgresQueryRunner",
+                "size_bytes": 160,
+                "size": "160 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Promise",
+                "size_bytes": 912,
+                "size": "912 bytes",
+                "+": 19,
+                "-": 0
+            },
+            {
+                "what": "PromiseWrap",
+                "size_bytes": 640,
+                "size": "640 bytes",
+                "+": 20,
+                "-": 0
+            },
+            {
+                "what": "QueryExpressionMap",
+                "size_bytes": 344,
+                "size": "344 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Readable",
+                "size_bytes": 56,
+                "size": "56 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "ReadableState",
+                "size_bytes": 1056,
+                "size": "1.03 kb",
+                "+": 4,
+                "-": 0
+            },
+            {
+                "what": "RedisClient",
+                "size_bytes": 640,
+                "size": "640 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "RegExp",
+                "size_bytes": 1064,
+                "size": "1.04 kb",
+                "+": 30,
+                "-": 11
+            },
+            {
+                "what": "RelationCountLoader",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "RelationCountMetadataToAttributeTransformer",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "RelationIdLoader",
+                "size_bytes": 208,
+                "size": "208 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "RelationIdMetadataToAttributeTransformer",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "RelationLoader",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "RelationMetadata",
+                "size_bytes": 3648,
+                "size": "3.56 kb",
+                "+": 12,
+                "-": 0
+            },
+            {
+                "what": "Repository",
+                "size_bytes": 104,
+                "size": "104 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Resolver",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "SecureContext",
+                "size_bytes": 160,
+                "size": "160 bytes",
+                "+": 3,
+                "-": 0
+            },
+            {
+                "what": "SelectQueryBuilder",
+                "size_bytes": 152,
+                "size": "152 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Server",
+                "size_bytes": 248,
+                "size": "248 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "ServerResponse",
+                "size_bytes": 56,
+                "size": "56 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Set",
+                "size_bytes": 32,
+                "size": "32 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Signal",
+                "size_bytes": 32,
+                "size": "32 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Socket",
+                "size_bytes": 1248,
+                "size": "1.22 kb",
+                "+": 3,
+                "-": 0
+            },
+            {
+                "what": "SqlInMemory",
+                "size_bytes": 104,
+                "size": "104 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Stream",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "String",
+                "size_bytes": -54968,
+                "size": "-53.68 kb",
+                "+": 3025,
+                "-": 4531
+            },
+            {
+                "what": "TCP",
+                "size_bytes": 240,
+                "size": "240 bytes",
+                "+": 5,
+                "-": 0
+            },
+            {
+                "what": "TCPConnectWrap",
+                "size_bytes": 32,
+                "size": "32 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "TLSSocket",
+                "size_bytes": 544,
+                "size": "544 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "TLSWrap",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Timeout",
+                "size_bytes": 352,
+                "size": "352 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "TimersList",
+                "size_bytes": 272,
+                "size": "272 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "Transform",
+                "size_bytes": 56,
+                "size": "56 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "TypeError",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 4,
+                "-": 0
+            },
+            {
+                "what": "TypeOverrides",
+                "size_bytes": 112,
+                "size": "112 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "UniqueMetadata",
+                "size_bytes": 304,
+                "size": "304 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "WebSocketServer",
+                "size_bytes": 144,
+                "size": "144 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "WritableState",
+                "size_bytes": 1184,
+                "size": "1.16 kb",
+                "+": 4,
+                "-": 0
+            },
+            {
+                "what": "WriteWrap",
+                "size_bytes": 40,
+                "size": "40 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
+                "what": "Writer",
+                "size_bytes": 240,
+                "size": "240 bytes",
+                "+": 2,
+                "-": 0
+            },
+            {
+                "what": "system / Context",
+                "size_bytes": 14352,
+                "size": "14.02 kb",
+                "+": 244,
+                "-": 4
+            }
+        ]
+    }
+}

@@ -7,8 +7,8 @@
       <excludeFolder url="file://$MODULE_DIR$/core/web/build" />
       <excludeFolder url="file://$MODULE_DIR$/core/web/build/web_modules" />
       <excludeFolder url="file://$MODULE_DIR$/docs" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/interact/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/interact/types" />
+      <excludeFolder url="file://$MODULE_DIR$/core/interact/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/core/interact/types" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/test/addon/dist" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />

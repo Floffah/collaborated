@@ -1235,14 +1235,6 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@floffah/node-memwatch@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@floffah/node-memwatch/-/node-memwatch-3.0.0.tgz#18f2ec5a474201b9b3a8d4462fcde8bfc653b35f"
-  integrity sha512-23291odcFur+3jpslqYTH0CxFDCaAQewmz6MUzrYTKq3cCyVFtKw2TCnDzaq9OkMcAyURqGoYFgKufEe0FeOlQ==
-  dependencies:
-    bindings "^1.5.0"
-    nan "^2.14.1"
-
 "@floffah/node-memwatch@https://github.com/Floffah/node-memwatch":
   version "3.0.0"
   resolved "https://github.com/Floffah/node-memwatch#662a40991d24130af2062df9f7cc90ec7767fdf1"
