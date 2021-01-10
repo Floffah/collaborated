@@ -1,19 +1,19 @@
 {
     "before": {
-        "nodes": 232851,
-        "size_bytes": 29075025,
-        "size": "27.73 mb"
+        "nodes": 229992,
+        "size_bytes": 28627833,
+        "size": "27.3 mb"
     },
     "after": {
-        "nodes": 238983,
-        "size_bytes": 29410197,
-        "size": "28.05 mb"
+        "nodes": 236342,
+        "size_bytes": 28989501,
+        "size": "27.65 mb"
     },
     "change": {
-        "size_bytes": 335172,
-        "size": "327.32 kb",
-        "freed_nodes": 19950,
-        "allocated_nodes": 26040,
+        "size_bytes": 361668,
+        "size": "353.19 kb",
+        "freed_nodes": 19745,
+        "allocated_nodes": 26053,
         "details": [
             {
                 "what": "API",
@@ -38,10 +38,10 @@
             },
             {
                 "what": "Array",
-                "size_bytes": -116480,
-                "size": "-113.75 kb",
-                "+": 7706,
-                "-": 7997
+                "size_bytes": -111112,
+                "size": "-108.51 kb",
+                "+": 7724,
+                "-": 7961
             },
             {
                 "what": "ArrayBuffer",
@@ -115,10 +115,10 @@
             },
             {
                 "what": "Code",
-                "size_bytes": 132024,
-                "size": "128.93 kb",
-                "+": 1399,
-                "-": 191
+                "size_bytes": 133736,
+                "size": "130.6 kb",
+                "+": 1400,
+                "-": 189
             },
             {
                 "what": "ColumnMetadata",
@@ -192,8 +192,8 @@
             },
             {
                 "what": "Denque",
-                "size_bytes": 720,
-                "size": "720 bytes",
+                "size_bytes": 768,
+                "size": "768 bytes",
                 "+": 6,
                 "-": 0
             },
@@ -619,10 +619,10 @@
             },
             {
                 "what": "String",
-                "size_bytes": -54544,
-                "size": "-53.27 kb",
-                "+": 2922,
-                "-": 6046
+                "size_bytes": -45520,
+                "size": "-44.45 kb",
+                "+": 2924,
+                "-": 5958
             },
             {
                 "what": "TCP",

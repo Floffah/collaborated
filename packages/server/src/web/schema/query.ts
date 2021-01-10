@@ -19,23 +19,20 @@ export default function query(api: API) {
                             description: "Your user's access code",
                         },
                     },
-                    resolve(_, a, c) {
-                        return new Promise((resolve, reject) => {
-                            let ac = a.access;
-                            if (typeof c === "object" && "access" in c) {
-                                ac = c.access;
-                            }
-                            api.server.db
-                                .getRepository<User>(User)
-                                .findOne({ access: ac })
-                                .then((user) => {
-                                    if (user) {
-                                        resolve({ user });
-                                    } else {
-                                        reject("Incorrect access code.");
-                                    }
-                                });
-                        });
+                    async resolve(_, a, c) {
+                        let ac = a.access;
+                        if (typeof c === "object" && "access" in c) {
+                            ac = c.access;
+                        }
+                        const user = await api.server.db
+                            .getRepository<User>(User)
+                            .findOne({ access: ac });
+
+                        if (user) {
+                            return { user };
+                        } else {
+                            throw "Incorrect access code.";
+                        }
                     },
                 },
                 getAccess: {
@@ -52,35 +49,29 @@ export default function query(api: API) {
                             description: "Your account's password",
                         },
                     },
-                    resolve(_, { email, password }: any) {
-                        return new Promise((resolve, reject) => {
-                            api.server.db
+                    async resolve(_, { email, password }: any) {
+                        const user = await api.server.db
+                            .getRepository(User)
+                            .findOne({
+                                where: {
+                                    email,
+                                    password,
+                                },
+                            });
+
+                        if (user) {
+                            user.access = randomBytes(
+                                api.server.cfg.val.info.accesslength / 2,
+                            ).toString("hex");
+
+                            const user2 = await api.server.db
                                 .getRepository(User)
-                                .findOne({
-                                    where: {
-                                        email,
-                                        password,
-                                    },
-                                })
-                                .then((user) => {
-                                    if (user) {
-                                        user.access = randomBytes(
-                                            api.server.cfg.val.info
-                                                .accesslength / 2,
-                                        ).toString("hex");
-                                        api.server.db
-                                            .getRepository(User)
-                                            .save(user)
-                                            .then((user) => {
-                                                resolve(user.access);
-                                            });
-                                    } else {
-                                        reject(
-                                            "Could not find user matchine those details.",
-                                        );
-                                    }
-                                });
-                        });
+                                .save(user);
+
+                            return user2.access;
+                        } else {
+                            throw "Could not find user matchine those details.";
+                        }
                     },
                 },
                 ping: {

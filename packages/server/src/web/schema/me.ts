@@ -22,26 +22,25 @@ export function query_me(api: API) {
                     },
                 },
                 description: "Create a new gateway",
-                resolve(s, args) {
-                    return new Promise((resolve, _reject) => {
-                        api.server.db.manager
-                            .findOne<GatewayConnection>(GatewayConnection, {
-                                user: s.user,
-                            })
-                            .then((gt) => {
-                                const gate = new GatewayConnection();
-                                gate.user = s.user;
-                                gate.listen = args.listen;
-                                if (gt) {
-                                    gate.guid = gt.guid;
-                                }
-                                api.server.db.manager
-                                    .save<GatewayConnection>(gate)
-                                    .then((gate) => {
-                                        resolve({ gate });
-                                    });
-                            });
-                    });
+                async resolve(s, args) {
+                    const gt = await api.server.db.manager.findOne<GatewayConnection>(
+                        GatewayConnection,
+                        {
+                            user: s.user,
+                        },
+                    );
+
+                    const gate = new GatewayConnection();
+                    gate.user = s.user;
+                    gate.listen = args.listen;
+                    if (gt) {
+                        gate.guid = gt.guid;
+                    }
+
+                    const gatesave = await api.server.db.manager.save<GatewayConnection>(
+                        gate,
+                    );
+                    return { gatesave };
                 },
             },
             projects: {

@@ -71,7 +71,7 @@ if (process.argv.includes("--dev") || process.argv.includes("-d")) {
                     : undefined,
             cwd: resolve(__dirname, "../../"),
         }).on("close", (code) => {
-            process.exit(code);
+            process.exit(code || 0);
         });
     }
 } else {
@@ -106,7 +106,7 @@ function nextBuild(i: number) {
             cwd: resolve(__dirname, "../../"),
         }).on("close", (code) => {
             if (code !== 0) {
-                process.exit(code);
+                process.exit(code || 0);
             } else {
                 nextBuild(i + 1);
             }

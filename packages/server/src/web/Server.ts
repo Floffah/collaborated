@@ -147,6 +147,14 @@ export default class Server {
         });
     }
 
+    public async test(): Promise<string> {
+        return "hi";
+    }
+
+    public async test2(): Promise<string> {
+        return await this.test();
+    }
+
     start() {
         this.logger.info("Starting...");
 
@@ -154,7 +162,10 @@ export default class Server {
         this.ip.init(() => {
             this.app = fastify();
 
-            this.app.register(fastifyCors, {});
+            this.app.register(fastifyCors, {
+                credentials: true,
+                origin: ["*"],
+            });
 
             if (!this.dev) {
                 this.app.register(fastifyStatic, {

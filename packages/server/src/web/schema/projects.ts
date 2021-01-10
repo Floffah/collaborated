@@ -24,43 +24,36 @@ export function query_me_projects(api: API) {
                         description: "Name of the project",
                     },
                 },
-                resolve(s, args) {
-                    return new Promise((resolve, reject) => {
-                        if (
-                            !process.argv.includes("--dev") &&
-                            s.user.rates.project_created !== null &&
-                            s.user.rates.project_created >
-                                new Date(Date.now() - 5 * 60000)
-                        ) {
-                            reject("Too many requests. Wait < 5 minutes");
-                        } else {
-                            if (args.name) {
-                                const proj = new Project();
-                                proj.name = args.name;
-                                proj.owner = s.user;
+                async resolve(s, args) {
+                    if (
+                        !process.argv.includes("--dev") &&
+                        s.user.rates.project_created !== null &&
+                        s.user.rates.project_created >
+                            new Date(Date.now() - 5 * 60000)
+                    ) {
+                        throw "Too many requests. Wait < 5 minutes";
+                    } else {
+                        if (args.name) {
+                            const proj = new Project();
+                            proj.name = args.name;
+                            proj.owner = s.user;
 
-                                api.server.db
-                                    .getRepository<Project>(Project)
-                                    .save(proj)
-                                    .then((p) => {
-                                        s.user.rates.project_created = new Date();
-                                        api.server.db
-                                            .getRepository<User>(User)
-                                            .save(s.user)
-                                            .then((u) => {
-                                                s.user = u;
-                                                resolve({
-                                                    name: p.name,
-                                                    id: p.id,
-                                                });
-                                            });
-                                    })
-                                    .catch();
-                            } else {
-                                reject("Argument `name` is not optional.");
-                            }
+                            const p = await api.server.db
+                                .getRepository<Project>(Project)
+                                .save(proj);
+
+                            s.user.rates.project_created = new Date();
+                            s.user = await api.server.db
+                                .getRepository<User>(User)
+                                .save(s.user);
+                            return {
+                                name: p.name,
+                                id: p.id,
+                            };
+                        } else {
+                            throw "Argument `name` is not optional.";
                         }
-                    });
+                    }
                 },
             },
             join: {
@@ -72,30 +65,28 @@ export function query_me_projects(api: API) {
                         description: "The invite to the project",
                     },
                 },
-                resolve(s, args) {
-                    return new Promise((resolve, reject) => {
+                async resolve(s, args) {
+                    const i = await api.server.db
+                        .getRepository<Invite>(Invite)
+                        .findOne({
+                            relations: ["project"],
+                            loadEagerRelations: true,
+                            where: { invite: args.invite },
+                        });
+
+                    if (!i) {
+                        throw "Invalid invite";
+                    } else {
+                        const proj = i.project;
+                        proj.members.push(s.user);
+
                         api.server.db
-                            .getRepository<Invite>(Invite)
-                            .findOne({
-                                relations: ["project"],
-                                loadEagerRelations: true,
-                                where: { invite: args.invite },
-                            })
-                            .then((i) => {
-                                if (!i) {
-                                    reject("Invalid invite");
-                                } else {
-                                    const proj = i.project;
-                                    proj.members.push(s.user);
-                                    api.server.db
-                                        .getRepository<Project>(Project)
-                                        .save(proj)
-                                        .then(() => {
-                                            resolve(true);
-                                        });
-                                }
+                            .getRepository<Project>(Project)
+                            .save(proj)
+                            .then(() => {
+                                return true;
                             });
-                    });
+                    }
                 },
             },
         },
