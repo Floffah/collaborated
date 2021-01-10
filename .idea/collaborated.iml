@@ -13,6 +13,14 @@
       <excludeFolder url="file://$MODULE_DIR$/test/addon/dist" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/core/app/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/app/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/common/types" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/common/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/interact/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/interact/types" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/web/build" />
+      <excludeFolder url="file://$MODULE_DIR$/scripts/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -76,7 +76,8 @@ export default class API {
         this.server.app.register(mercurius, {
             schema: this.schema,
             prefix: "/api/v1",
-            graphiql: true,
+            graphiql: "playground",
+            path: "/",
         });
         this.server.logger.info("Built GraphQL schema");
 

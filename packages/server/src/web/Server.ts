@@ -11,6 +11,7 @@ import memwatch from "@floffah/node-memwatch";
 import fastify, { FastifyInstance } from "fastify";
 import fastifyStatic from "fastify-static";
 import fastifyCors from "fastify-cors";
+import { clearTimeout } from "timers";
 
 export default class Server {
     app: FastifyInstance & PromiseLike<any>;
@@ -127,10 +128,19 @@ export default class Server {
     }
 
     shutdown() {
+        let success = false;
+        const t = setTimeout(() => {
+            if (!success) {
+                this.logger.err("Forcefully exiting");
+                process.exit();
+            }
+        }, 5000);
         this.logger.warn("Shutting down...");
         this.api.stop().then(() => {
             this.app.close(() => {
                 this.dbm.stop().then(() => {
+                    success = true;
+                    clearTimeout(t);
                     process.exit();
                 });
             });

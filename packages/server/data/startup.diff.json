@@ -1,19 +1,19 @@
 {
     "before": {
-        "nodes": 227404,
-        "size_bytes": 26252536,
-        "size": "25.04 mb"
+        "nodes": 232851,
+        "size_bytes": 29075025,
+        "size": "27.73 mb"
     },
     "after": {
-        "nodes": 237715,
-        "size_bytes": 26833741,
-        "size": "25.59 mb"
+        "nodes": 238983,
+        "size_bytes": 29410197,
+        "size": "28.05 mb"
     },
     "change": {
-        "size_bytes": 581205,
-        "size": "567.58 kb",
-        "freed_nodes": 19064,
-        "allocated_nodes": 29335,
+        "size_bytes": 335172,
+        "size": "327.32 kb",
+        "freed_nodes": 19950,
+        "allocated_nodes": 26040,
         "details": [
             {
                 "what": "API",
@@ -38,10 +38,10 @@
             },
             {
                 "what": "Array",
-                "size_bytes": -76384,
-                "size": "-74.59 kb",
-                "+": 10012,
-                "-": 7899
+                "size_bytes": -116480,
+                "size": "-113.75 kb",
+                "+": 7706,
+                "-": 7997
             },
             {
                 "what": "ArrayBuffer",
@@ -108,17 +108,17 @@
             },
             {
                 "what": "Closure",
-                "size_bytes": 60304,
-                "size": "58.89 kb",
-                "+": 1044,
-                "-": 49
+                "size_bytes": 59864,
+                "size": "58.46 kb",
+                "+": 1030,
+                "-": 43
             },
             {
                 "what": "Code",
-                "size_bytes": 193328,
-                "size": "188.8 kb",
-                "+": 1461,
-                "-": 208
+                "size_bytes": 132024,
+                "size": "128.93 kb",
+                "+": 1399,
+                "-": 191
             },
             {
                 "what": "ColumnMetadata",
@@ -136,10 +136,10 @@
             },
             {
                 "what": "CompiledFnEntry",
-                "size_bytes": 1344,
-                "size": "1.31 kb",
-                "+": 43,
-                "-": 1
+                "size_bytes": 1472,
+                "size": "1.44 kb",
+                "+": 46,
+                "-": 0
             },
             {
                 "what": "Configuration",
@@ -352,18 +352,11 @@
                 "-": 0
             },
             {
-                "what": "MultiRegex",
-                "size_bytes": 600,
-                "size": "600 bytes",
-                "+": 5,
-                "-": 0
-            },
-            {
                 "what": "Native",
-                "size_bytes": -25825,
-                "size": "-25.22 kb",
-                "+": 10,
-                "-": 106
+                "size_bytes": 13940,
+                "size": "13.61 kb",
+                "+": 140,
+                "-": 107
             },
             {
                 "what": "Number",
@@ -374,10 +367,10 @@
             },
             {
                 "what": "Object",
-                "size_bytes": 24208,
-                "size": "23.64 kb",
-                "+": 470,
-                "-": 27
+                "size_bytes": 21592,
+                "size": "21.09 kb",
+                "+": 400,
+                "-": 21
             },
             {
                 "what": "PG",
@@ -437,9 +430,16 @@
             },
             {
                 "what": "Promise",
-                "size_bytes": 960,
-                "size": "960 bytes",
-                "+": 20,
+                "size_bytes": 1008,
+                "size": "1008 bytes",
+                "+": 21,
+                "-": 0
+            },
+            {
+                "what": "PromiseWrap",
+                "size_bytes": 704,
+                "size": "704 bytes",
+                "+": 22,
                 "-": 0
             },
             {
@@ -472,10 +472,10 @@
             },
             {
                 "what": "RegExp",
-                "size_bytes": 5152,
-                "size": "5.03 kb",
-                "+": 96,
-                "-": 4
+                "size_bytes": 1008,
+                "size": "1008 bytes",
+                "+": 20,
+                "-": 2
             },
             {
                 "what": "RelationCountLoader",
@@ -545,13 +545,6 @@
                 "size_bytes": 96,
                 "size": "96 bytes",
                 "+": 1,
-                "-": 0
-            },
-            {
-                "what": "ResumableMultiRegex",
-                "size_bytes": 1088,
-                "size": "1.06 kb",
-                "+": 17,
                 "-": 0
             },
             {
@@ -626,10 +619,10 @@
             },
             {
                 "what": "String",
-                "size_bytes": -52632,
-                "size": "-51.4 kb",
-                "+": 3013,
-                "-": 5823
+                "size_bytes": -54544,
+                "size": "-53.27 kb",
+                "+": 2922,
+                "-": 6046
             },
             {
                 "what": "TCP",
@@ -745,10 +738,10 @@
             },
             {
                 "what": "system / Context",
-                "size_bytes": 16200,
-                "size": "15.82 kb",
-                "+": 279,
-                "-": 6
+                "size_bytes": 16032,
+                "size": "15.66 kb",
+                "+": 273,
+                "-": 4
             }
         ]
     }
