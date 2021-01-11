@@ -66,7 +66,7 @@ export default class GatewaySession {
         }
     }
 
-    onMessage(data: string) {
+    async onMessage(data: string) {
         if (isJson(data)) {
             const msg: OutgoingMessage = JSON.parse(data);
             if (!this.authed) {
@@ -76,7 +76,7 @@ export default class GatewaySession {
                     typeof msg.data.guid === "number" &&
                     typeof msg.data.access === "string"
                 ) {
-                    this.api.server.db
+                    const gate = await this.api.server.db
                         .getRepository(GatewayConnection)
                         .findOne(
                             {
@@ -86,43 +86,36 @@ export default class GatewaySession {
                                 loadEagerRelations: true,
                                 relations: ["user"],
                             },
-                        )
-                        .then((gate) => {
-                            if (gate) {
-                                if (!!gate.user && !!gate.user.id) {
-                                    if (gate.user.access === msg.data.access) {
-                                        gate.authed = true;
-                                        this.api.server.db
-                                            .getRepository(GatewayConnection)
-                                            .save(gate)
-                                            .then((gat3) => {
-                                                this.api.sessions.set(
-                                                    gat3.guid,
-                                                    this,
-                                                );
-                                                this.gate = gat3;
-                                                this.authed = true;
-                                                this.access = gat3.user.access;
-                                                this.sendMessage(
-                                                    GatewayServerMessageTypes.Authenticated,
-                                                );
-                                            });
-                                    } else {
-                                        this.sendError(
-                                            GatewayErrors.AuthDetailMismatch,
-                                        ).then(() => this.socket.close());
-                                    }
-                                } else {
-                                    this.sendError(
-                                        GatewayErrors.CouldNotFetchUser,
-                                    ).then(() => this.socket.close());
-                                }
+                        );
+                    if (gate) {
+                        if (!!gate.user && !!gate.user.id) {
+                            if (gate.user.access === msg.data.access) {
+                                gate.authed = true;
+                                const gat3 = await this.api.server.db
+                                    .getRepository(GatewayConnection)
+                                    .save(gate);
+                                this.api.sessions.set(gat3.guid, this);
+                                this.gate = gat3;
+                                this.authed = true;
+                                this.access = gat3.user.access;
+                                this.sendMessage(
+                                    GatewayServerMessageTypes.Authenticated,
+                                );
                             } else {
                                 this.sendError(
-                                    GatewayErrors.IncorrectAuthDetails,
+                                    GatewayErrors.AuthDetailMismatch,
                                 ).then(() => this.socket.close());
                             }
-                        });
+                        } else {
+                            this.sendError(
+                                GatewayErrors.CouldNotFetchUser,
+                            ).then(() => this.socket.close());
+                        }
+                    } else {
+                        this.sendError(
+                            GatewayErrors.IncorrectAuthDetails,
+                        ).then(() => this.socket.close());
+                    }
                 } else {
                     this.sendError(GatewayErrors.InvalidAuthDetails).then(() =>
                         this.socket.close(),
@@ -131,70 +124,60 @@ export default class GatewaySession {
             } else {
                 // post-authenticated
                 if (typeof msg.type === "string") {
-                    new Promise<IncomingQueryMessageData>((resolve) => {
-                        let respond: IncomingQueryMessageData = ({} as unknown) as IncomingQueryMessageData;
-                        if (
-                            msg.type === "query" &&
-                            typeof msg.data.query === "string"
-                        ) {
-                            respond.type = "results";
-                            let doc,
-                                worked = true;
-                            try {
-                                doc = parse(
-                                    new Source(
-                                        msg.data.query,
-                                        "Gateway request",
-                                    ),
-                                );
-                            } catch (syntaxError: unknown) {
-                                respond.errors = [syntaxError as GraphQLError];
-                                respond.salvageable = true;
-                                worked = false;
-                            }
-                            if (typeof msg.data.qid === "number") {
-                                respond.qid = msg.data.qid;
-                            }
-                            if (worked && !!doc) {
-                                const errs = validate(this.api.schema, doc);
-                                if (errs.length > 0) {
-                                    respond.errors = <GraphQLError[]>errs;
-                                    respond.salvageable = true;
-                                }
-                                (execute({
-                                    schema: this.api.schema,
-                                    document: doc,
-                                    variableValues:
-                                        "variables" in msg.data
-                                            ? msg.data.variables
-                                            : undefined,
-                                    operationName:
-                                        "operationName" in msg.data
-                                            ? msg.data.operationName
-                                            : undefined,
-                                    contextValue: { access: this.access },
-                                }) as Promise<
-                                    ExecutionResult<
-                                        { [p: string]: any },
-                                        { [p: string]: any }
-                                    >
-                                >).then((res) => {
-                                    respond = ({
-                                        ...respond,
-                                        ...res,
-                                    } as unknown) as IncomingQueryMessageData;
-                                    resolve(respond);
-                                });
-                            } else {
-                                resolve(respond);
-                            }
+                    let respond: IncomingQueryMessageData = ({} as unknown) as IncomingQueryMessageData;
+                    if (
+                        msg.type === "query" &&
+                        typeof msg.data.query === "string"
+                    ) {
+                        respond.type = "results";
+                        let doc,
+                            worked = true;
+                        try {
+                            doc = parse(
+                                new Source(msg.data.query, "Gateway request"),
+                            );
+                        } catch (syntaxError: unknown) {
+                            respond.errors = [syntaxError as GraphQLError];
+                            respond.salvageable = true;
+                            worked = false;
                         }
-                    }).then((respond) => {
-                        this.sendMessage(
-                            GatewayServerMessageTypes.Results,
-                            respond,
-                        );
-                    });
+                        if (typeof msg.data.qid === "number") {
+                            respond.qid = msg.data.qid;
+                        }
+                        if (worked && !!doc) {
+                            const errs = validate(this.api.schema, doc);
+                            if (errs.length > 0) {
+                                respond.errors = <GraphQLError[]>errs;
+                                respond.salvageable = true;
+                            }
+                            const res = (await execute({
+                                schema: this.api.schema,
+                                document: doc,
+                                variableValues:
+                                    "variables" in msg.data
+                                        ? msg.data.variables
+                                        : undefined,
+                                operationName:
+                                    "operationName" in msg.data
+                                        ? msg.data.operationName
+                                        : undefined,
+                                contextValue: { access: this.access },
+                            })) as Promise<
+                                ExecutionResult<
+                                    { [p: string]: any },
+                                    { [p: string]: any }
+                                >
+                            >;
+                            respond = ({
+                                ...respond,
+                                ...res,
+                            } as unknown) as IncomingQueryMessageData;
+                        }
+                    }
+                    this.sendMessage(
+                        GatewayServerMessageTypes.Results,
+                        respond,
+                    );
                 }
             }
         }
@@ -237,13 +220,11 @@ export default class GatewaySession {
         });
     }
 
-    rid() {
+    async rid() {
         const guid = this.gate.guid;
-        this.api.server.db
+        await this.api.server.db
             .getRepository(GatewayConnection)
-            .delete(this.gate)
-            .then(() => {
-                this.api.sessions.delete(guid);
-            });
+            .delete(this.gate);
+        this.api.sessions.delete(guid);
     }
 }

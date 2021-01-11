@@ -4,7 +4,6 @@ import Server from "./Server";
 import GatewaySession from "./GatewaySession";
 import { GatewayConnection } from "../db/Clients";
 import { Not } from "typeorm";
-import { forWait } from "../util/arrays";
 import EventPush from "./EventPush";
 import { GraphQLSchema } from "graphql";
 import { GatewayServerMessageTypes } from "@collaborated/common";
@@ -47,7 +46,7 @@ export default class API {
         });
     }
 
-    init() {
+    async init() {
         // this.server.app.use((req, res, next) => {
         //     const origin = req.get("host") || req.get("origin") || null;
         //     if (origin) {
@@ -109,22 +108,19 @@ export default class API {
         this.flushint = setInterval(() => this.flush(), 60000);
     }
 
-    flush(authed?: boolean) {
-        this.server.db
+    async flush(authed?: boolean) {
+        const gates = await this.server.db
             .getRepository(GatewayConnection)
             .find({
                 where: { authed: authed ? true : Not(true) },
                 select: ["guid"],
-            })
-            .then((gates) => {
-                forWait(gates, (gate, next) => {
-                    this.server.db.manager
-                        .delete<GatewayConnection>(GatewayConnection, gate)
-                        .then(() => {
-                            next();
-                        });
-                });
             });
+        for (const gate of gates) {
+            await this.server.db.manager.delete<GatewayConnection>(
+                GatewayConnection,
+                gate,
+            );
+        }
     }
 
     connection(socket: WebSocket) {

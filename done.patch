@@ -1,0 +1,960 @@
+diff --git a/packages/common/src/index.ts b/packages/common/src/index.ts
+index 0577302..9aad36d 100644
+--- a/packages/common/src/index.ts
++++ b/packages/common/src/index.ts
+@@ -29,3 +29,5 @@ export {
+     OutgoingQueryMessageData,
+     OutgoingBlankMessage,
+ };
++
++export const APIUrl = "http://localhost/api/v1";
+diff --git a/packages/interact/src/core/Client.ts b/packages/interact/src/core/Client.ts
+index 2cc9e00..a5d3476 100644
+--- a/packages/interact/src/core/Client.ts
++++ b/packages/interact/src/core/Client.ts
+@@ -8,6 +8,7 @@ import buildQuery from "../api/gql";
+ 
+ interface ClientOptions {
+     debug?: boolean;
++    overrideApiURL?: string;
+ }
+ 
+ export declare interface Client {
+@@ -25,13 +26,14 @@ export class Client extends EventEmitter {
+ 
+     #access: string;
+ 
+-    url = "http://localhost/api/v1";
++    url: string;
+ 
+     projects: Projects;
+ 
+     constructor(opts: ClientOptions) {
+         super();
+         this.opts = opts;
++        this.url = this.opts.overrideApiURL || "http://localhost/api/v1";
+ 
+         console.log(
+             buildQuery({
+@@ -73,7 +75,7 @@ export class Client extends EventEmitter {
+     _query(
+         query: string,
+         variables?: { [k: string]: any },
+-    ): Promise<AxiosResponse<any> | { data: any }> {
++    ): Promise<AxiosResponse | { data: any }> {
+         if (!this.socket) {
+             return new Promise((resolve, reject) => {
+                 if (this.opts.debug) {
+@@ -102,6 +104,15 @@ export class Client extends EventEmitter {
+                     responseType: "json",
+                 })
+                     .then((d) => {
++                        if (this.opts.debug) {
++                            console.log(
++                                chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(
++                                    d.data,
++                                )}} {blue WITH NO QID IN ${
++                                    Date.now() - start
++                                }ms}`,
++                            );
++                        }
+                         if ("data" in d) {
+                             if ("errors" in d.data) {
+                                 reject(
+@@ -111,15 +122,6 @@ export class Client extends EventEmitter {
+                                 );
+                             } else {
+                                 resolve(d);
+-                                if (this.opts.debug) {
+-                                    console.log(
+-                                        chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(
+-                                            d.data,
+-                                        )}} {blue WITH NO QID IN ${
+-                                            Date.now() - start
+-                                        }ms}`,
+-                                    );
+-                                }
+                             }
+                         } else {
+                             resolve(d);
+diff --git a/packages/interact/src/store/Projects.ts b/packages/interact/src/store/Projects.ts
+index dcb8abd..14744fc 100644
+--- a/packages/interact/src/store/Projects.ts
++++ b/packages/interact/src/store/Projects.ts
+@@ -4,39 +4,31 @@ import Project from "./Project";
+ export default class Projects {
+     client: Client;
+ 
++    cache: Map<string, Project> = new Map();
++    lastupdate = 0;
++
+     constructor(client: Client) {
+         this.client = client;
+     }
+ 
+-    create(name: string): Promise<Project> {
+-        return new Promise((resolve, reject) => {
+-            this.client
+-                ._query(
+-                    "query CreateProject($name: String) { me { projects { create(name: $name) { name } } } }",
+-                    { name },
+-                )
+-                .then((d) => {
+-                    const p = new Project();
+-                    const proj = d.data?.data.me.projects.create;
+-                    p.name = proj.name;
+-                    resolve(p);
+-                })
+-                .catch((r) => reject(r));
+-        });
++    async create(name: string): Promise<Project> {
++        const d = await this.client._query(
++            "query CreateProject($name: String) { me { projects { create(name: $name) { name } } } }",
++            { name },
++        );
++
++        const p = new Project();
++        const proj = d.data?.data.me.projects.create;
++        p.name = proj.name;
++        return p;
+     }
+ 
+     // doesn't work for addons's client user
+-    join(invite: string): Promise<void> {
+-        return new Promise((resolve, reject) => {
+-            this.client
+-                ._query(
+-                    "query JoinProject($invite: String) { me { projects { join(invite: $invite) } } }",
+-                    { invite },
+-                )
+-                .then(() => {
+-                    resolve();
+-                })
+-                .catch((r) => reject(r));
+-        });
++    async join(invite: string): Promise<void> {
++        await this.client._query(
++            "query JoinProject($invite: String) { me { projects { join(invite: $invite) } } }",
++            { invite },
++        );
++        return;
+     }
+ }
+diff --git a/packages/server/data/startup.diff.json b/packages/server/data/startup.diff.json
+index b162a9d..358be1a 100644
+--- a/packages/server/data/startup.diff.json
++++ b/packages/server/data/startup.diff.json
+@@ -1,19 +1,19 @@
+ {
+     "before": {
+-        "nodes": 229992,
+-        "size_bytes": 28627833,
+-        "size": "27.3 mb"
++        "nodes": 220284,
++        "size_bytes": 27787009,
++        "size": "26.5 mb"
+     },
+     "after": {
+-        "nodes": 236342,
+-        "size_bytes": 28989501,
+-        "size": "27.65 mb"
++        "nodes": 236178,
++        "size_bytes": 28949285,
++        "size": "27.61 mb"
+     },
+     "change": {
+-        "size_bytes": 361668,
+-        "size": "353.19 kb",
+-        "freed_nodes": 19745,
+-        "allocated_nodes": 26053,
++        "size_bytes": 1162276,
++        "size": "1.11 mb",
++        "freed_nodes": 10617,
++        "allocated_nodes": 26458,
+         "details": [
+             {
+                 "what": "API",
+@@ -38,10 +38,10 @@
+             },
+             {
+                 "what": "Array",
+-                "size_bytes": -111112,
+-                "size": "-108.51 kb",
+-                "+": 7724,
+-                "-": 7961
++                "size_bytes": 378936,
++                "size": "370.05 kb",
++                "+": 7904,
++                "-": 2271
+             },
+             {
+                 "what": "ArrayBuffer",
+@@ -108,17 +108,17 @@
+             },
+             {
+                 "what": "Closure",
+-                "size_bytes": 59864,
+-                "size": "58.46 kb",
+-                "+": 1030,
+-                "-": 43
++                "size_bytes": 59640,
++                "size": "58.24 kb",
++                "+": 1036,
++                "-": 53
+             },
+             {
+                 "what": "Code",
+-                "size_bytes": 133736,
+-                "size": "130.6 kb",
+-                "+": 1400,
+-                "-": 189
++                "size_bytes": 135240,
++                "size": "132.07 kb",
++                "+": 1410,
++                "-": 103
+             },
+             {
+                 "what": "ColumnMetadata",
+@@ -253,6 +253,13 @@
+                 "+": 9,
+                 "-": 0
+             },
++            {
++                "what": "Generator",
++                "size_bytes": -16,
++                "size": "-16 bytes",
++                "+": 2,
++                "-": 2
++            },
+             {
+                 "what": "GetAddrInfoReqWrap",
+                 "size_bytes": 32,
+@@ -262,9 +269,9 @@
+             },
+             {
+                 "what": "GraphQLList",
+-                "size_bytes": 352,
+-                "size": "352 bytes",
+-                "+": 11,
++                "size_bytes": 384,
++                "size": "384 bytes",
++                "+": 12,
+                 "-": 0
+             },
+             {
+@@ -276,9 +283,9 @@
+             },
+             {
+                 "what": "GraphQLObjectType",
+-                "size_bytes": 440,
+-                "size": "440 bytes",
+-                "+": 5,
++                "size_bytes": 352,
++                "size": "352 bytes",
++                "+": 4,
+                 "-": 0
+             },
+             {
+@@ -353,24 +360,24 @@
+             },
+             {
+                 "what": "Native",
+-                "size_bytes": 13940,
+-                "size": "13.61 kb",
+-                "+": 140,
++                "size_bytes": 14003,
++                "size": "13.67 kb",
++                "+": 141,
+                 "-": 107
+             },
+             {
+                 "what": "Number",
+-                "size_bytes": 448,
+-                "size": "448 bytes",
++                "size_bytes": 432,
++                "size": "432 bytes",
+                 "+": 30,
+-                "-": 2
++                "-": 3
+             },
+             {
+                 "what": "Object",
+-                "size_bytes": 21592,
+-                "size": "21.09 kb",
+-                "+": 400,
+-                "-": 21
++                "size_bytes": 20936,
++                "size": "20.45 kb",
++                "+": 408,
++                "-": 45
+             },
+             {
+                 "what": "PG",
+@@ -432,15 +439,15 @@
+                 "what": "Promise",
+                 "size_bytes": 1008,
+                 "size": "1008 bytes",
+-                "+": 21,
+-                "-": 0
++                "+": 22,
++                "-": 1
+             },
+             {
+                 "what": "PromiseWrap",
+-                "size_bytes": 704,
+-                "size": "704 bytes",
++                "size_bytes": 672,
++                "size": "672 bytes",
+                 "+": 22,
+-                "-": 0
++                "-": 1
+             },
+             {
+                 "what": "QueryExpressionMap",
+@@ -472,10 +479,10 @@
+             },
+             {
+                 "what": "RegExp",
+-                "size_bytes": 1008,
+-                "size": "1008 bytes",
++                "size_bytes": 728,
++                "size": "728 bytes",
+                 "+": 20,
+-                "-": 2
++                "-": 7
+             },
+             {
+                 "what": "RelationCountLoader",
+@@ -619,10 +626,10 @@
+             },
+             {
+                 "what": "String",
+-                "size_bytes": -45520,
+-                "size": "-44.45 kb",
+-                "+": 2924,
+-                "-": 5958
++                "size_bytes": 32400,
++                "size": "31.64 kb",
++                "+": 2968,
++                "-": 4066
+             },
+             {
+                 "what": "TCP",
+@@ -740,8 +747,8 @@
+                 "what": "system / Context",
+                 "size_bytes": 16032,
+                 "size": "15.66 kb",
+-                "+": 273,
+-                "-": 4
++                "+": 276,
++                "-": 7
+             }
+         ]
+     }
+diff --git a/packages/server/src/comms/Interprocess.ts b/packages/server/src/comms/Interprocess.ts
+index 6376e13..ba642c9 100644
+--- a/packages/server/src/comms/Interprocess.ts
++++ b/packages/server/src/comms/Interprocess.ts
+@@ -16,6 +16,7 @@ export class Interprocess {
+         this.server = server;
+     }
+ 
++    // PLS EXCUSE MY QUESTIONABLE CHOICES HERE I AM NOT PROUD BUT I AM NOT GOING TO FIX
+     init(done?: () => void) {
+         if (this.server.cfg.val.redis.host === "example.com") return;
+         this.server.logger.info("Connecting to Redis server...");
+diff --git a/packages/server/src/web/API.ts b/packages/server/src/web/API.ts
+index e9941ce..f199379 100644
+--- a/packages/server/src/web/API.ts
++++ b/packages/server/src/web/API.ts
+@@ -4,7 +4,6 @@ import Server from "./Server";
+ import GatewaySession from "./GatewaySession";
+ import { GatewayConnection } from "../db/Clients";
+ import { Not } from "typeorm";
+-import { forWait } from "../util/arrays";
+ import EventPush from "./EventPush";
+ import { GraphQLSchema } from "graphql";
+ import { GatewayServerMessageTypes } from "@collaborated/common";
+@@ -47,7 +46,7 @@ export default class API {
+         });
+     }
+ 
+-    init() {
++    async init() {
+         // this.server.app.use((req, res, next) => {
+         //     const origin = req.get("host") || req.get("origin") || null;
+         //     if (origin) {
+@@ -109,22 +108,19 @@ export default class API {
+         this.flushint = setInterval(() => this.flush(), 60000);
+     }
+ 
+-    flush(authed?: boolean) {
+-        this.server.db
++    async flush(authed?: boolean) {
++        const gates = await this.server.db
+             .getRepository(GatewayConnection)
+             .find({
+                 where: { authed: authed ? true : Not(true) },
+                 select: ["guid"],
+-            })
+-            .then((gates) => {
+-                forWait(gates, (gate, next) => {
+-                    this.server.db.manager
+-                        .delete<GatewayConnection>(GatewayConnection, gate)
+-                        .then(() => {
+-                            next();
+-                        });
+-                });
+             });
++        for (const gate of gates) {
++            await this.server.db.manager.delete<GatewayConnection>(
++                GatewayConnection,
++                gate,
++            );
++        }
+     }
+ 
+     connection(socket: WebSocket) {
+diff --git a/packages/server/src/web/GatewaySession.ts b/packages/server/src/web/GatewaySession.ts
+index e32f2f9..0850f20 100644
+--- a/packages/server/src/web/GatewaySession.ts
++++ b/packages/server/src/web/GatewaySession.ts
+@@ -66,7 +66,7 @@ export default class GatewaySession {
+         }
+     }
+ 
+-    onMessage(data: string) {
++    async onMessage(data: string) {
+         if (isJson(data)) {
+             const msg: OutgoingMessage = JSON.parse(data);
+             if (!this.authed) {
+@@ -76,7 +76,7 @@ export default class GatewaySession {
+                     typeof msg.data.guid === "number" &&
+                     typeof msg.data.access === "string"
+                 ) {
+-                    this.api.server.db
++                    const gate = await this.api.server.db
+                         .getRepository(GatewayConnection)
+                         .findOne(
+                             {
+@@ -86,43 +86,36 @@ export default class GatewaySession {
+                                 loadEagerRelations: true,
+                                 relations: ["user"],
+                             },
+-                        )
+-                        .then((gate) => {
+-                            if (gate) {
+-                                if (!!gate.user && !!gate.user.id) {
+-                                    if (gate.user.access === msg.data.access) {
+-                                        gate.authed = true;
+-                                        this.api.server.db
+-                                            .getRepository(GatewayConnection)
+-                                            .save(gate)
+-                                            .then((gat3) => {
+-                                                this.api.sessions.set(
+-                                                    gat3.guid,
+-                                                    this,
+-                                                );
+-                                                this.gate = gat3;
+-                                                this.authed = true;
+-                                                this.access = gat3.user.access;
+-                                                this.sendMessage(
+-                                                    GatewayServerMessageTypes.Authenticated,
+-                                                );
+-                                            });
+-                                    } else {
+-                                        this.sendError(
+-                                            GatewayErrors.AuthDetailMismatch,
+-                                        ).then(() => this.socket.close());
+-                                    }
+-                                } else {
+-                                    this.sendError(
+-                                        GatewayErrors.CouldNotFetchUser,
+-                                    ).then(() => this.socket.close());
+-                                }
++                        );
++                    if (gate) {
++                        if (!!gate.user && !!gate.user.id) {
++                            if (gate.user.access === msg.data.access) {
++                                gate.authed = true;
++                                const gat3 = await this.api.server.db
++                                    .getRepository(GatewayConnection)
++                                    .save(gate);
++                                this.api.sessions.set(gat3.guid, this);
++                                this.gate = gat3;
++                                this.authed = true;
++                                this.access = gat3.user.access;
++                                this.sendMessage(
++                                    GatewayServerMessageTypes.Authenticated,
++                                );
+                             } else {
+                                 this.sendError(
+-                                    GatewayErrors.IncorrectAuthDetails,
++                                    GatewayErrors.AuthDetailMismatch,
+                                 ).then(() => this.socket.close());
+                             }
+-                        });
++                        } else {
++                            this.sendError(
++                                GatewayErrors.CouldNotFetchUser,
++                            ).then(() => this.socket.close());
++                        }
++                    } else {
++                        this.sendError(
++                            GatewayErrors.IncorrectAuthDetails,
++                        ).then(() => this.socket.close());
++                    }
+                 } else {
+                     this.sendError(GatewayErrors.InvalidAuthDetails).then(() =>
+                         this.socket.close(),
+@@ -131,70 +124,60 @@ export default class GatewaySession {
+             } else {
+                 // post-authenticated
+                 if (typeof msg.type === "string") {
+-                    new Promise<IncomingQueryMessageData>((resolve) => {
+-                        let respond: IncomingQueryMessageData = ({} as unknown) as IncomingQueryMessageData;
+-                        if (
+-                            msg.type === "query" &&
+-                            typeof msg.data.query === "string"
+-                        ) {
+-                            respond.type = "results";
+-                            let doc,
+-                                worked = true;
+-                            try {
+-                                doc = parse(
+-                                    new Source(
+-                                        msg.data.query,
+-                                        "Gateway request",
+-                                    ),
+-                                );
+-                            } catch (syntaxError: unknown) {
+-                                respond.errors = [syntaxError as GraphQLError];
++                    let respond: IncomingQueryMessageData = ({} as unknown) as IncomingQueryMessageData;
++                    if (
++                        msg.type === "query" &&
++                        typeof msg.data.query === "string"
++                    ) {
++                        respond.type = "results";
++                        let doc,
++                            worked = true;
++                        try {
++                            doc = parse(
++                                new Source(msg.data.query, "Gateway request"),
++                            );
++                        } catch (syntaxError: unknown) {
++                            respond.errors = [syntaxError as GraphQLError];
++                            respond.salvageable = true;
++                            worked = false;
++                        }
++                        if (typeof msg.data.qid === "number") {
++                            respond.qid = msg.data.qid;
++                        }
++                        if (worked && !!doc) {
++                            const errs = validate(this.api.schema, doc);
++                            if (errs.length > 0) {
++                                respond.errors = <GraphQLError[]>errs;
+                                 respond.salvageable = true;
+-                                worked = false;
+-                            }
+-                            if (typeof msg.data.qid === "number") {
+-                                respond.qid = msg.data.qid;
+-                            }
+-                            if (worked && !!doc) {
+-                                const errs = validate(this.api.schema, doc);
+-                                if (errs.length > 0) {
+-                                    respond.errors = <GraphQLError[]>errs;
+-                                    respond.salvageable = true;
+-                                }
+-                                (execute({
+-                                    schema: this.api.schema,
+-                                    document: doc,
+-                                    variableValues:
+-                                        "variables" in msg.data
+-                                            ? msg.data.variables
+-                                            : undefined,
+-                                    operationName:
+-                                        "operationName" in msg.data
+-                                            ? msg.data.operationName
+-                                            : undefined,
+-                                    contextValue: { access: this.access },
+-                                }) as Promise<
+-                                    ExecutionResult<
+-                                        { [p: string]: any },
+-                                        { [p: string]: any }
+-                                    >
+-                                >).then((res) => {
+-                                    respond = ({
+-                                        ...respond,
+-                                        ...res,
+-                                    } as unknown) as IncomingQueryMessageData;
+-                                    resolve(respond);
+-                                });
+-                            } else {
+-                                resolve(respond);
+                             }
++                            const res = (await execute({
++                                schema: this.api.schema,
++                                document: doc,
++                                variableValues:
++                                    "variables" in msg.data
++                                        ? msg.data.variables
++                                        : undefined,
++                                operationName:
++                                    "operationName" in msg.data
++                                        ? msg.data.operationName
++                                        : undefined,
++                                contextValue: { access: this.access },
++                            })) as Promise<
++                                ExecutionResult<
++                                    { [p: string]: any },
++                                    { [p: string]: any }
++                                >
++                            >;
++                            respond = ({
++                                ...respond,
++                                ...res,
++                            } as unknown) as IncomingQueryMessageData;
+                         }
+-                    }).then((respond) => {
+-                        this.sendMessage(
+-                            GatewayServerMessageTypes.Results,
+-                            respond,
+-                        );
+-                    });
++                    }
++                    this.sendMessage(
++                        GatewayServerMessageTypes.Results,
++                        respond,
++                    );
+                 }
+             }
+         }
+@@ -237,13 +220,11 @@ export default class GatewaySession {
+         });
+     }
+ 
+-    rid() {
++    async rid() {
+         const guid = this.gate.guid;
+-        this.api.server.db
++        await this.api.server.db
+             .getRepository(GatewayConnection)
+-            .delete(this.gate)
+-            .then(() => {
+-                this.api.sessions.delete(guid);
+-            });
++            .delete(this.gate);
++        this.api.sessions.delete(guid);
+     }
+ }
+diff --git a/packages/server/src/web/Server.ts b/packages/server/src/web/Server.ts
+index cb5b5df..8293064 100644
+--- a/packages/server/src/web/Server.ts
++++ b/packages/server/src/web/Server.ts
+@@ -28,7 +28,7 @@ export default class Server {
+     dev = false;
+     maintenance = false;
+ 
+-    init() {
++    async init() {
+         this.hds[0] = new memwatch.HeapDiff();
+ 
+         if (!existsSync(resolve(__dirname, "../../data"))) {
+@@ -65,28 +65,25 @@ export default class Server {
+         this.term.grabInput(true);
+ 
+         this.dbm = new DatabaseManager(this);
+-        this.dbm.init().then(() => {
+-            this.logger.info(`Database initialized.`);
+-            if (this.dev) {
+-                this.logger.warn(
+-                    "Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.",
+-                );
+-                if (this.maintenance) {
+-                    this.logger.fatal(
+-                        "Do not mix dev mode and maintenance mode.",
+-                    );
+-                    process.exit();
+-                }
+-            } else if (this.maintenance) {
+-                this.logger.err(
+-                    "WATCH OUT! The server is running in maintenance mode. Nothing will work as expected! Only use this when servers or dependencies are updating.",
+-                );
++        await this.dbm.init();
++        this.logger.info(`Database initialized.`);
++        if (this.dev) {
++            this.logger.warn(
++                "Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.",
++            );
++            if (this.maintenance) {
++                this.logger.fatal("Do not mix dev mode and maintenance mode.");
++                process.exit();
+             }
+-            this.start();
+-        });
++        } else if (this.maintenance) {
++            this.logger.err(
++                "WATCH OUT! The server is running in maintenance mode. Nothing will work as expected! Only use this when servers or dependencies are updating.",
++            );
++        }
++        this.start();
+     }
+ 
+-    key(
++    async key(
+         name: string,
+         _match: any[],
+         _dat: {
+@@ -102,7 +99,7 @@ export default class Server {
+         }
+     }
+ 
+-    doMemDiff() {
++    async doMemDiff() {
+         if (this.hds.length > 0) {
+             this.logger.warn("Saving heap diff...");
+             const diff = this.hds[0].end();
+@@ -123,11 +120,11 @@ export default class Server {
+         }
+     }
+ 
+-    cliutil() {
++    async cliutil() {
+         process.on("SIGINT", () => this.shutdown());
+     }
+ 
+-    shutdown() {
++    async shutdown() {
+         let success = false;
+         const t = setTimeout(() => {
+             if (!success) {
+@@ -136,26 +133,16 @@ export default class Server {
+             }
+         }, 5000);
+         this.logger.warn("Shutting down...");
+-        this.api.stop().then(() => {
+-            this.app.close(() => {
+-                this.dbm.stop().then(() => {
+-                    success = true;
+-                    clearTimeout(t);
+-                    process.exit();
+-                });
+-            });
++        await this.api.stop();
++        this.app.close(async () => {
++            await this.dbm.stop();
++            success = true;
++            clearTimeout(t);
++            process.exit();
+         });
+     }
+ 
+-    public async test(): Promise<string> {
+-        return "hi";
+-    }
+-
+-    public async test2(): Promise<string> {
+-        return await this.test();
+-    }
+-
+-    start() {
++    async start() {
+         this.logger.info("Starting...");
+ 
+         this.ip = new Interprocess(this);
+@@ -191,14 +178,6 @@ export default class Server {
+             this.started = true;
+ 
+             this.logger.info("Started on port 80");
+-
+-            // let admin = new User();
+-            // admin.id = 1;
+-            // admin.access = randomBytes(this.cfg.val.info.accesslength/2).toString("hex");
+-            // admin.username = "floffah"
+-            // admin.email = "therealfloffah@gmail.com"
+-            // admin.password = "testpass123"
+-            // this.db.manager.save<User>(admin);
+         });
+     }
+ }
+diff --git a/packages/server/src/web/schema/me.ts b/packages/server/src/web/schema/me.ts
+index bc1c835..b2fe5c2 100644
+--- a/packages/server/src/web/schema/me.ts
++++ b/packages/server/src/web/schema/me.ts
+@@ -40,7 +40,7 @@ export function query_me(api: API) {
+                     const gatesave = await api.server.db.manager.save<GatewayConnection>(
+                         gate,
+                     );
+-                    return { gatesave };
++                    return { gate: gatesave };
+                 },
+             },
+             projects: {
+diff --git a/packages/server/src/web/schema/projects.ts b/packages/server/src/web/schema/projects.ts
+index 851f634..ccfc54a 100644
+--- a/packages/server/src/web/schema/projects.ts
++++ b/packages/server/src/web/schema/projects.ts
+@@ -2,6 +2,7 @@ import API from "../API";
+ import {
+     GraphQLBoolean,
+     GraphQLInt,
++    GraphQLList,
+     GraphQLObjectType,
+     GraphQLString,
+ } from "graphql";
+@@ -16,7 +17,7 @@ export function query_me_projects(api: API) {
+             "GraphQL Object for interacting with projects relating to your user",
+         fields: {
+             create: {
+-                type: query_project_info(api),
++                type: query_project_info,
+                 description: "Create a project",
+                 args: {
+                     name: {
+@@ -70,7 +71,6 @@ export function query_me_projects(api: API) {
+                         .getRepository<Invite>(Invite)
+                         .findOne({
+                             relations: ["project"],
+-                            loadEagerRelations: true,
+                             where: { invite: args.invite },
+                         });
+ 
+@@ -80,32 +80,48 @@ export function query_me_projects(api: API) {
+                         const proj = i.project;
+                         proj.members.push(s.user);
+ 
+-                        api.server.db
++                        await api.server.db
+                             .getRepository<Project>(Project)
+-                            .save(proj)
+-                            .then(() => {
+-                                return true;
+-                            });
++                            .save(proj);
++                        return true;
+                     }
+                 },
+             },
+-        },
+-    });
+-}
++            all: {
++                type: GraphQLList(query_project_info),
++                description:
++                    "Get information (that you have permission to access) about all projects you have access to",
++                async resolve(s) {
++                    const user = (await api.server.db
++                        .getRepository<User>(User)
++                        .findOne({
++                            relations: ["projects"],
++                            where: { id: s.user.id },
++                        })) as User;
++                    const list: { name: string; id: number }[] = [];
+ 
+-export function query_project_info(_api: API) {
+-    return new GraphQLObjectType({
+-        name: "project_info",
+-        description: "Information about a project",
+-        fields: {
+-            name: {
+-                type: GraphQLString,
+-                description: "Project name",
+-            },
+-            id: {
+-                type: GraphQLInt,
+-                description: "Project ID",
++                    for (const p of user.projects) {
++                        list.push({ name: p.name, id: p.id });
++                    }
++
++                    return list;
++                },
+             },
+         },
+     });
+ }
++
++export const query_project_info = new GraphQLObjectType({
++    name: "project_info",
++    description: "Information about a project",
++    fields: {
++        name: {
++            type: GraphQLString,
++            description: "Project name",
++        },
++        id: {
++            type: GraphQLInt,
++            description: "Project ID",
++        },
++    },
++});
+diff --git a/packages/server/src/web/schema/query.ts b/packages/server/src/web/schema/query.ts
+index b301154..00b9dcd 100644
+--- a/packages/server/src/web/schema/query.ts
++++ b/packages/server/src/web/schema/query.ts
+@@ -21,7 +21,7 @@ export default function query(api: API) {
+                     },
+                     async resolve(_, a, c) {
+                         let ac = a.access;
+-                        if (typeof c === "object" && "access" in c) {
++                        if ("access" in c && typeof c === "object") {
+                             ac = c.access;
+                         }
+                         const user = await api.server.db
+diff --git a/packages/web/src/ui/colours/dark.ts b/packages/web/src/ui/colours/dark.ts
+index f8bc326..114557d 100644
+--- a/packages/web/src/ui/colours/dark.ts
++++ b/packages/web/src/ui/colours/dark.ts
+@@ -1,5 +1,8 @@
+ import { ColourTheme } from "./theme";
+ 
++//https://ant.design/docs/spec/colors
++//https://ant.design/docs/spec/dark
++
+ export function darkTheme(): ColourTheme {
+     return {
+         name: "Dark",
+@@ -62,5 +65,12 @@ export function darkTheme(): ColourTheme {
+             color: "#ffffff", //gray1
+             bg: "#141414", //gray12
+         },
++
++        discreteModal: {
++            bg: "#1f1f1f", //gray11
++            titlecolor: "#d9d9d9", //gray5
++            color: "#ffffff", //gray1
++            sepcolor: "#434343", //gray9
++        },
+     };
+ }
+diff --git a/packages/web/src/ui/colours/theme.ts b/packages/web/src/ui/colours/theme.ts
+index 0e1afc4..a6b2b69 100644
+--- a/packages/web/src/ui/colours/theme.ts
++++ b/packages/web/src/ui/colours/theme.ts
+@@ -68,4 +68,11 @@ export interface ColourTheme {
+         color: string;
+         bg: string;
+     };
++
++    discreteModal: {
++        bg: string;
++        titlecolor: string;
++        color: string;
++        sepcolor: string;
++    };
+ }
+diff --git a/packages/web/src/ui/components/feedback/Notifications.stories.mdx b/packages/web/src/ui/components/feedback/Notifications.stories.mdx
+index a7e9042..64f930e 100644
+--- a/packages/web/src/ui/components/feedback/Notifications.stories.mdx
++++ b/packages/web/src/ui/components/feedback/Notifications.stories.mdx
+@@ -1,7 +1,7 @@
+-import Notification from "./Notifications"
+-import {ArgsTable, Canvas, Meta, Story} from "@storybook/addon-docs/blocks";
++import Notification from "./Notifications";
++import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+ 
+-<Meta title="Component Library/Feedback/Notification" component={Notification}/>
++<Meta title="Component Library/Feedback/Notification" component={Notification} />
+ 
+ # Notification
+ The component that is used by the appcontainer to show notifications to the user

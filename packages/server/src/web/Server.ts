@@ -28,7 +28,7 @@ export default class Server {
     dev = false;
     maintenance = false;
 
-    init() {
+    async init() {
         this.hds[0] = new memwatch.HeapDiff();
 
         if (!existsSync(resolve(__dirname, "../../data"))) {
@@ -65,28 +65,25 @@ export default class Server {
         this.term.grabInput(true);
 
         this.dbm = new DatabaseManager(this);
-        this.dbm.init().then(() => {
-            this.logger.info(`Database initialized.`);
-            if (this.dev) {
-                this.logger.warn(
-                    "Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.",
-                );
-                if (this.maintenance) {
-                    this.logger.fatal(
-                        "Do not mix dev mode and maintenance mode.",
-                    );
-                    process.exit();
-                }
-            } else if (this.maintenance) {
-                this.logger.err(
-                    "WATCH OUT! The server is running in maintenance mode. Nothing will work as expected! Only use this when servers or dependencies are updating.",
-                );
+        await this.dbm.init();
+        this.logger.info(`Database initialized.`);
+        if (this.dev) {
+            this.logger.warn(
+                "Collaborated instance running in dev mode. THIS IS NOT SECURE. SWITCH TO PRODUCTION MODE BEFORE DEPLOYING.",
+            );
+            if (this.maintenance) {
+                this.logger.fatal("Do not mix dev mode and maintenance mode.");
+                process.exit();
             }
-            this.start();
-        });
+        } else if (this.maintenance) {
+            this.logger.err(
+                "WATCH OUT! The server is running in maintenance mode. Nothing will work as expected! Only use this when servers or dependencies are updating.",
+            );
+        }
+        this.start();
     }
 
-    key(
+    async key(
         name: string,
         _match: any[],
         _dat: {
@@ -102,7 +99,7 @@ export default class Server {
         }
     }
 
-    doMemDiff() {
+    async doMemDiff() {
         if (this.hds.length > 0) {
             this.logger.warn("Saving heap diff...");
             const diff = this.hds[0].end();
@@ -123,11 +120,11 @@ export default class Server {
         }
     }
 
-    cliutil() {
+    async cliutil() {
         process.on("SIGINT", () => this.shutdown());
     }
 
-    shutdown() {
+    async shutdown() {
         let success = false;
         const t = setTimeout(() => {
             if (!success) {
@@ -136,26 +133,16 @@ export default class Server {
             }
         }, 5000);
         this.logger.warn("Shutting down...");
-        this.api.stop().then(() => {
-            this.app.close(() => {
-                this.dbm.stop().then(() => {
-                    success = true;
-                    clearTimeout(t);
-                    process.exit();
-                });
-            });
+        await this.api.stop();
+        this.app.close(async () => {
+            await this.dbm.stop();
+            success = true;
+            clearTimeout(t);
+            process.exit();
         });
     }
 
-    public async test(): Promise<string> {
-        return "hi";
-    }
-
-    public async test2(): Promise<string> {
-        return await this.test();
-    }
-
-    start() {
+    async start() {
         this.logger.info("Starting...");
 
         this.ip = new Interprocess(this);
@@ -191,14 +178,6 @@ export default class Server {
             this.started = true;
 
             this.logger.info("Started on port 80");
-
-            // let admin = new User();
-            // admin.id = 1;
-            // admin.access = randomBytes(this.cfg.val.info.accesslength/2).toString("hex");
-            // admin.username = "floffah"
-            // admin.email = "therealfloffah@gmail.com"
-            // admin.password = "testpass123"
-            // this.db.manager.save<User>(admin);
         });
     }
 }

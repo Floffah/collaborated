@@ -1,5 +1,8 @@
 import { ColourTheme } from "./theme";
 
+//https://ant.design/docs/spec/colors
+//https://ant.design/docs/spec/dark
+
 export function darkTheme(): ColourTheme {
     return {
         name: "Dark",
@@ -61,6 +64,13 @@ export function darkTheme(): ColourTheme {
         tooltip: {
             color: "#ffffff", //gray1
             bg: "#141414", //gray12
+        },
+
+        discreteModal: {
+            bg: "#1f1f1f", //gray11
+            titlecolor: "#d9d9d9", //gray5
+            color: "#ffffff", //gray1
+            sepcolor: "#434343", //gray9
         },
     };
 }

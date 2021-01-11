@@ -16,6 +16,7 @@ export class Interprocess {
         this.server = server;
     }
 
+    // PLS EXCUSE MY QUESTIONABLE CHOICES HERE I AM NOT PROUD BUT I AM NOT GOING TO FIX
     init(done?: () => void) {
         if (this.server.cfg.val.redis.host === "example.com") return;
         this.server.logger.info("Connecting to Redis server...");

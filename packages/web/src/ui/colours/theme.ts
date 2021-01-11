@@ -68,4 +68,11 @@ export interface ColourTheme {
         color: string;
         bg: string;
     };
+
+    discreteModal: {
+        bg: string;
+        titlecolor: string;
+        color: string;
+        sepcolor: string;
+    };
 }

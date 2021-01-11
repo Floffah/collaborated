@@ -8,6 +8,7 @@ import buildQuery from "../api/gql";
 
 interface ClientOptions {
     debug?: boolean;
+    overrideApiURL?: string;
 }
 
 export declare interface Client {
@@ -25,13 +26,14 @@ export class Client extends EventEmitter {
 
     #access: string;
 
-    url = "http://localhost/api/v1";
+    url: string;
 
     projects: Projects;
 
     constructor(opts: ClientOptions) {
         super();
         this.opts = opts;
+        this.url = this.opts.overrideApiURL || "http://localhost/api/v1";
 
         console.log(
             buildQuery({
@@ -73,7 +75,7 @@ export class Client extends EventEmitter {
     _query(
         query: string,
         variables?: { [k: string]: any },
-    ): Promise<AxiosResponse<any> | { data: any }> {
+    ): Promise<AxiosResponse | { data: any }> {
         if (!this.socket) {
             return new Promise((resolve, reject) => {
                 if (this.opts.debug) {
@@ -102,6 +104,15 @@ export class Client extends EventEmitter {
                     responseType: "json",
                 })
                     .then((d) => {
+                        if (this.opts.debug) {
+                            console.log(
+                                chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(
+                                    d.data,
+                                )}} {blue WITH NO QID IN ${
+                                    Date.now() - start
+                                }ms}`,
+                            );
+                        }
                         if ("data" in d) {
                             if ("errors" in d.data) {
                                 reject(
@@ -111,15 +122,6 @@ export class Client extends EventEmitter {
                                 );
                             } else {
                                 resolve(d);
-                                if (this.opts.debug) {
-                                    console.log(
-                                        chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(
-                                            d.data,
-                                        )}} {blue WITH NO QID IN ${
-                                            Date.now() - start
-                                        }ms}`,
-                                    );
-                                }
                             }
                         } else {
                             resolve(d);

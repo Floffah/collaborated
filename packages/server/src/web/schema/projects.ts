@@ -2,6 +2,7 @@ import API from "../API";
 import {
     GraphQLBoolean,
     GraphQLInt,
+    GraphQLList,
     GraphQLObjectType,
     GraphQLString,
 } from "graphql";
@@ -16,7 +17,7 @@ export function query_me_projects(api: API) {
             "GraphQL Object for interacting with projects relating to your user",
         fields: {
             create: {
-                type: query_project_info(api),
+                type: query_project_info,
                 description: "Create a project",
                 args: {
                     name: {
@@ -70,7 +71,6 @@ export function query_me_projects(api: API) {
                         .getRepository<Invite>(Invite)
                         .findOne({
                             relations: ["project"],
-                            loadEagerRelations: true,
                             where: { invite: args.invite },
                         });
 
@@ -80,32 +80,48 @@ export function query_me_projects(api: API) {
                         const proj = i.project;
                         proj.members.push(s.user);
 
-                        api.server.db
+                        await api.server.db
                             .getRepository<Project>(Project)
-                            .save(proj)
-                            .then(() => {
-                                return true;
-                            });
+                            .save(proj);
+                        return true;
                     }
+                },
+            },
+            all: {
+                type: GraphQLList(query_project_info),
+                description:
+                    "Get information (that you have permission to access) about all projects you have access to",
+                async resolve(s) {
+                    const user = (await api.server.db
+                        .getRepository<User>(User)
+                        .findOne({
+                            relations: ["projects"],
+                            where: { id: s.user.id },
+                        })) as User;
+                    const list: { name: string; id: number }[] = [];
+
+                    for (const p of user.projects) {
+                        list.push({ name: p.name, id: p.id });
+                    }
+
+                    return list;
                 },
             },
         },
     });
 }
 
-export function query_project_info(_api: API) {
-    return new GraphQLObjectType({
-        name: "project_info",
-        description: "Information about a project",
-        fields: {
-            name: {
-                type: GraphQLString,
-                description: "Project name",
-            },
-            id: {
-                type: GraphQLInt,
-                description: "Project ID",
-            },
+export const query_project_info = new GraphQLObjectType({
+    name: "project_info",
+    description: "Information about a project",
+    fields: {
+        name: {
+            type: GraphQLString,
+            description: "Project name",
         },
-    });
-}
+        id: {
+            type: GraphQLInt,
+            description: "Project ID",
+        },
+    },
+});

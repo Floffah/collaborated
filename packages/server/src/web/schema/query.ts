@@ -21,7 +21,7 @@ export default function query(api: API) {
                     },
                     async resolve(_, a, c) {
                         let ac = a.access;
-                        if (typeof c === "object" && "access" in c) {
+                        if ("access" in c && typeof c === "object") {
                             ac = c.access;
                         }
                         const user = await api.server.db

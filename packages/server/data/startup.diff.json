@@ -1,19 +1,19 @@
 {
     "before": {
-        "nodes": 229992,
-        "size_bytes": 28627833,
-        "size": "27.3 mb"
+        "nodes": 220284,
+        "size_bytes": 27787009,
+        "size": "26.5 mb"
     },
     "after": {
-        "nodes": 236342,
-        "size_bytes": 28989501,
-        "size": "27.65 mb"
+        "nodes": 236178,
+        "size_bytes": 28949285,
+        "size": "27.61 mb"
     },
     "change": {
-        "size_bytes": 361668,
-        "size": "353.19 kb",
-        "freed_nodes": 19745,
-        "allocated_nodes": 26053,
+        "size_bytes": 1162276,
+        "size": "1.11 mb",
+        "freed_nodes": 10617,
+        "allocated_nodes": 26458,
         "details": [
             {
                 "what": "API",
@@ -38,10 +38,10 @@
             },
             {
                 "what": "Array",
-                "size_bytes": -111112,
-                "size": "-108.51 kb",
-                "+": 7724,
-                "-": 7961
+                "size_bytes": 378936,
+                "size": "370.05 kb",
+                "+": 7904,
+                "-": 2271
             },
             {
                 "what": "ArrayBuffer",
@@ -108,17 +108,17 @@
             },
             {
                 "what": "Closure",
-                "size_bytes": 59864,
-                "size": "58.46 kb",
-                "+": 1030,
-                "-": 43
+                "size_bytes": 59640,
+                "size": "58.24 kb",
+                "+": 1036,
+                "-": 53
             },
             {
                 "what": "Code",
-                "size_bytes": 133736,
-                "size": "130.6 kb",
-                "+": 1400,
-                "-": 189
+                "size_bytes": 135240,
+                "size": "132.07 kb",
+                "+": 1410,
+                "-": 103
             },
             {
                 "what": "ColumnMetadata",
@@ -254,6 +254,13 @@
                 "-": 0
             },
             {
+                "what": "Generator",
+                "size_bytes": -16,
+                "size": "-16 bytes",
+                "+": 2,
+                "-": 2
+            },
+            {
                 "what": "GetAddrInfoReqWrap",
                 "size_bytes": 32,
                 "size": "32 bytes",
@@ -262,9 +269,9 @@
             },
             {
                 "what": "GraphQLList",
-                "size_bytes": 352,
-                "size": "352 bytes",
-                "+": 11,
+                "size_bytes": 384,
+                "size": "384 bytes",
+                "+": 12,
                 "-": 0
             },
             {
@@ -276,9 +283,9 @@
             },
             {
                 "what": "GraphQLObjectType",
-                "size_bytes": 440,
-                "size": "440 bytes",
-                "+": 5,
+                "size_bytes": 352,
+                "size": "352 bytes",
+                "+": 4,
                 "-": 0
             },
             {
@@ -353,24 +360,24 @@
             },
             {
                 "what": "Native",
-                "size_bytes": 13940,
-                "size": "13.61 kb",
-                "+": 140,
+                "size_bytes": 14003,
+                "size": "13.67 kb",
+                "+": 141,
                 "-": 107
             },
             {
                 "what": "Number",
-                "size_bytes": 448,
-                "size": "448 bytes",
+                "size_bytes": 432,
+                "size": "432 bytes",
                 "+": 30,
-                "-": 2
+                "-": 3
             },
             {
                 "what": "Object",
-                "size_bytes": 21592,
-                "size": "21.09 kb",
-                "+": 400,
-                "-": 21
+                "size_bytes": 20936,
+                "size": "20.45 kb",
+                "+": 408,
+                "-": 45
             },
             {
                 "what": "PG",
@@ -432,15 +439,15 @@
                 "what": "Promise",
                 "size_bytes": 1008,
                 "size": "1008 bytes",
-                "+": 21,
-                "-": 0
+                "+": 22,
+                "-": 1
             },
             {
                 "what": "PromiseWrap",
-                "size_bytes": 704,
-                "size": "704 bytes",
+                "size_bytes": 672,
+                "size": "672 bytes",
                 "+": 22,
-                "-": 0
+                "-": 1
             },
             {
                 "what": "QueryExpressionMap",
@@ -472,10 +479,10 @@
             },
             {
                 "what": "RegExp",
-                "size_bytes": 1008,
-                "size": "1008 bytes",
+                "size_bytes": 728,
+                "size": "728 bytes",
                 "+": 20,
-                "-": 2
+                "-": 7
             },
             {
                 "what": "RelationCountLoader",
@@ -619,10 +626,10 @@
             },
             {
                 "what": "String",
-                "size_bytes": -45520,
-                "size": "-44.45 kb",
-                "+": 2924,
-                "-": 5958
+                "size_bytes": 32400,
+                "size": "31.64 kb",
+                "+": 2968,
+                "-": 4066
             },
             {
                 "what": "TCP",
@@ -740,8 +747,8 @@
                 "what": "system / Context",
                 "size_bytes": 16032,
                 "size": "15.66 kb",
-                "+": 273,
-                "-": 4
+                "+": 276,
+                "-": 7
             }
         ]
     }

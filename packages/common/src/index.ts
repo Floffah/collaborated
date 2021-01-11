@@ -29,3 +29,5 @@ export {
     OutgoingQueryMessageData,
     OutgoingBlankMessage,
 };
+
+export const APIUrl = "http://localhost/api/v1";

@@ -40,7 +40,7 @@ export function query_me(api: API) {
                     const gatesave = await api.server.db.manager.save<GatewayConnection>(
                         gate,
                     );
-                    return { gatesave };
+                    return { gate: gatesave };
                 },
             },
             projects: {
