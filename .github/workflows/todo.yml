@@ -1,0 +1,9 @@
+name: TODO
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: todo-actions
+        uses: dtinth/todo-actions@v0.2.0
+
