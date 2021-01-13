@@ -6,6 +6,12 @@ on:
       - core/web/src/ui/**
       - core/web/src/docs/**
       - .github/workflows/**
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for dispatch'
+        required: false
+        default: 'Because'
 
 jobs:
   build:
