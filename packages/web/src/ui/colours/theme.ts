@@ -1,9 +1,13 @@
 import { darkTheme } from "./dark";
+import { lightTheme } from "./light";
 
-export function getTheme(theme?: string): ColourTheme {
+export function getTheme(theme?: "dark" | "light" | string): ColourTheme {
     const find = theme || localStorage.getItem("capp:theme") || "dark";
     if (find === "dark") {
         return darkTheme();
+    }
+    if (find === "light") {
+        return lightTheme();
     }
     return darkTheme();
 }
