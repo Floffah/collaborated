@@ -53,7 +53,7 @@ export default class DiscreteModal extends React.Component<
                 <DMSeperator />
                 <DMContent>{content}</DMContent>
                 {
-                    // TODO [$5fff6a5b9cf5b300077956f0]: add buttons & close icon to DiscreteModal
+                    // TODO [#5]: add buttons & close icon to DiscreteModal
                     // At the bottom right with a seperator above
                     // i think another good addition is making the lower seperator and buttons optional and not show when not used but still show the close icon
                 }
