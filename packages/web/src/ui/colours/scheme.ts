@@ -71,7 +71,7 @@ export default function themeToScheme(
     };
 }
 
-// TODO: add "offset" props to schemes
+// TODO [$5fff6a5b9cf5b300077956ef]: add "offset" props to schemes
 // i found when using the storybook that with the light theme, some things are a bit light and indistinguishable so i feel like an offset like "darkenBy" on certain components would be good
 // i think this could be done by just adding the offset to the scheme array index
 
