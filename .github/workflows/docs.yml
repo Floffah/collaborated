@@ -24,6 +24,7 @@ jobs:
         name: Build the docs
       - run: echo capp.floffah.dev > docs/CNAME
         name: Make sure the cname file is there
+      - run: yarn docsend
 #      - uses: EndBug/add-and-commit@v5
 #        name: Commit new docs
 #        with:
@@ -37,6 +38,5 @@ jobs:
 #        name: untrack docs on master but keep gh-pages
 #      - run: git push
 #        name: Push changes
-       - run: yarn docsend
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
