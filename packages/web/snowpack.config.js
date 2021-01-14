@@ -1,21 +1,36 @@
 module.exports = {
     mount: {
         public: "/",
-        src: "/media"
+        src: "/media",
     },
-    exclude: ['**/node_modules/**/*', '**/__tests__/*', '**/*.@(spec|test).@(js|mjs)', '**/*.stories.@(tsx|mdx)'],
-    plugins: ["@snowpack/plugin-optimize", "@snowpack/plugin-typescript", "@snowpack/plugin-webpack"],
-    installOptions: {
-        treeshake: true,
+    exclude: [
+        "**/node_modules/**/*",
+        "**/__tests__/*",
+        "**/*.@(spec|test).@(js|mjs)",
+        "**/*.stories.@(tsx|mdx)",
+    ],
+    // plugins: [
+    //     "@snowpack/plugin-optimize",
+    //     "@snowpack/plugin-typescript",
+    //     "@snowpack/plugin-webpack",
+    // ],
+    packageOptions: {
         installTypes: true,
-        polyfillNode: true
+        source: "remote",
+        types: true,
     },
     devOptions: {
-        open: "none"
+        open: "none",
     },
     buildOptions: {
-        sourceMaps: true,
+        sourcemap: true,
         baseUrl: "./",
-    }
-}
-
+    },
+    optimize: {
+        bundle: true,
+        minify: true,
+        target: "es2018",
+        manifest: true,
+        treeshake: true,
+    },
+};
