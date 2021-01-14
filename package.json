@@ -14,7 +14,7 @@
     "buildall": "yarn build",
     "unpushed": "git log origin/master..HEAD",
     "netlifydeploy": "yarn && yarn buildts && yarn workspace @collaborated/web snowpack build",
-    "docsend": "git add docs && git commit -m \"docs build\" && git subtree push --prefix docs origin gh-pages && git push",
+    "docsend": "git add docs && git subtree push --prefix docs origin gh-pages && git push",
     "mbuildlinux": "cd services/manager && go build -v -x -o ../../../capp main.go && cd ../../",
     "mbuildwin": "cd services/manager && go build -v -x -o ../../../capp.exe main.go && cd ../../",
     "manager": "yarn mbuildwin && cd ../ && \"./capp.exe\"",
