@@ -157,8 +157,8 @@ export const DMContainer = styled.div<{ position: "none" | "bottomRight" }>`
     }
 `;
 
-// TODO [$60005d9ec6e3fc00086eb6aa]: better margin and button positioning on DiscreteModal
+// TODO [#6]: better margin and button positioning on DiscreteModal
 // i dont like how i am doing the bottom margin, it seems unnecessary.
 
-// TODO [$60005d9ec6e3fc00086eb6ab]: portalify discretemodal
+// TODO [#7]: portalify discretemodal
 // Currently its just a component but i want to make it portal to either the popuproot or its own root element
