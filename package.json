@@ -8,7 +8,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "docs": "yarn builts && yarn workspace @collaborated/web docs",
+    "docs": "yarn buildts && yarn workspace @collaborated/web docs",
     "docsync": "git fetch && git pull && git push",
     "buildts": "yarn tsbuild",
     "buildall": "yarn build",
