@@ -36,7 +36,7 @@ Button.defaultProps = {
     size: "small",
 };
 
-const BaseButton = styled.button<{ isize: number; ipadding: string }>`
+export const BaseButton = styled.button<{ isize: number; ipadding: string }>`
     outline: none;
     border: none;
 
@@ -53,7 +53,7 @@ const BaseButton = styled.button<{ isize: number; ipadding: string }>`
     }
 `;
 
-const DefaultButton = styled(BaseButton)`
+export const DefaultButton = styled(BaseButton)`
     color: ${(props) => props.theme.button.color};
     background-color: ${(props) => props.theme.button.bg};
 
@@ -68,7 +68,7 @@ const DefaultButton = styled(BaseButton)`
     }
 `;
 
-const PrimaryButton = styled(BaseButton)`
+export const PrimaryButton = styled(BaseButton)`
     color: ${(props) =>
         props.theme.button.primary.color || props.theme.button.color};
     background-color: ${(props) => props.theme.button.primary.bg};
