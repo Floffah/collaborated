@@ -20,6 +20,8 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/web/build" />
       <excludeFolder url="file://$MODULE_DIR$/scripts/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/stored/types" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/stored/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

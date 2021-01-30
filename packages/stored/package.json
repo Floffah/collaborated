@@ -1,0 +1,8 @@
+{
+  "name": "@collaborated/stored",
+  "version": "0.0.1-alpha1",
+  "private": false,
+  "description": "A javascript/typescript library for parsing and serializing Collaborated's .store and .storeinf files",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts"
+}

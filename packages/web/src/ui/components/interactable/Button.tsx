@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h } from "preact";
 import styled from "styled-components";
 import { ComponentProps } from "../../util/typings";
 

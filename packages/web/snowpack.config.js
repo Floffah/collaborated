@@ -19,12 +19,11 @@ module.exports = {
         source: "remote",
         types: true,
     },
-    devOptions: {
-        open: "none",
-    },
     buildOptions: {
         sourcemap: true,
         baseUrl: "./",
+        jsxFactory: "h",
+        jsxFragment: "Fragment",
     },
     optimize: {
         bundle: true,
@@ -32,5 +31,10 @@ module.exports = {
         target: "es2018",
         manifest: true,
         treeshake: true,
+    },
+    alias: {
+        react: "react/compat",
+        "react-dom": "preact/compat",
+        "@collaborated/interact": "../interact/dist/index.js",
     },
 };

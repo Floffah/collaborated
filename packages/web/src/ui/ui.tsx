@@ -1,11 +1,10 @@
-import { render } from "react-dom";
 import Body from "./components/containers/Body";
-import * as React from "react";
 import { LoginPage } from "./components/containers/LoginPage";
 import styled from "styled-components";
 import { AppContainer } from "../AppContainer";
 import { AppContextProvider } from "../util/AppContext";
 import i18next from "i18next";
+import { h, render } from "preact";
 
 export default function ui(appc: AppContainer) {
     i18next.init({
@@ -19,16 +18,26 @@ export default function ui(appc: AppContainer) {
             <AppContextProvider appcontainer={appc} i18next={i18next}>
                 <Body />
             </AppContextProvider>,
-            document.getElementById("root"),
+            getRoot(),
         );
     } else {
         render(
             <AppContextProvider appcontainer={appc} i18next={i18next}>
                 <LoginPage />
             </AppContextProvider>,
-            document.getElementById("root"),
+            getRoot(),
         );
     }
+}
+
+function getRoot(): HTMLElement {
+    let root = document.getElementById("root");
+    if (root === null) {
+        root = document.createElement("div");
+        root.setAttribute("id", "root");
+        document.body.appendChild(root);
+    }
+    return root;
 }
 
 export const RootContainer = styled.div`

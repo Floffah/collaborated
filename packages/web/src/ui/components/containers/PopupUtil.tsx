@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { Component, createRef, Fragment, RefObject, VNode, h } from "preact";
+import { createPortal, forwardRef } from "preact/compat";
 import styled from "styled-components";
 
 export enum PopOverPos {
@@ -19,7 +19,7 @@ export enum PopOverPos {
 
 interface PopOverProps {
     defaultVisible?: boolean;
-    content: JSX.Element;
+    content: VNode;
     position?: PopOverPos;
     fit?: boolean;
     autoShow?: boolean;
@@ -42,7 +42,7 @@ function getPopupRoot() {
     return root;
 }
 
-export class PopOver extends React.Component<PopOverProps, PopOverState> {
+export class PopOver extends Component<PopOverProps, PopOverState> {
     static defaultProps: PopOverProps = {
         defaultVisible: true,
         content: <p>Hi</p>,
@@ -63,8 +63,8 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
         top: 0,
     };
 
-    tref: React.RefObject<HTMLDivElement> = React.createRef();
-    pref: React.RefObject<HTMLDivElement> = React.createRef();
+    tref: RefObject<HTMLDivElement> = createRef();
+    pref: RefObject<HTMLDivElement> = createRef();
 
     componentDidMount() {
         this.recalc();
@@ -160,7 +160,7 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
         }
 
         return (
-            <React.Fragment>
+            <Fragment>
                 <Children
                     ref={this.tref}
                     onClick={() => this.onClick()}
@@ -176,7 +176,7 @@ export class PopOver extends React.Component<PopOverProps, PopOverState> {
                 >
                     {this.props.content || <p>Hi</p>}
                 </RootPopup>
-            </React.Fragment>
+            </Fragment>
         );
     }
 }
@@ -196,26 +196,24 @@ const RPS = styled.div<{ top: number; left: number; visible: boolean }>`
 `;
 
 interface RootPopupProps {
-    children: React.ReactNode;
+    children: VNode;
     top: number;
     left: number;
     visible: boolean;
 }
 
-const RootPopup = React.forwardRef<HTMLDivElement, RootPopupProps>(
-    (props, ref) => {
-        return ReactDOM.createPortal(
-            <RPS
-                ref={ref}
-                top={props.top}
-                left={props.left}
-                visible={props.visible}
-            >
-                {props.children}
-            </RPS>,
-            getPopupRoot(),
-        );
-    },
-);
+const RootPopup = forwardRef<HTMLDivElement, RootPopupProps>((props, ref) => {
+    return createPortal(
+        <RPS
+            ref={ref}
+            top={props.top}
+            left={props.left}
+            visible={props.visible}
+        >
+            {props.children}
+        </RPS>,
+        getPopupRoot(),
+    );
+});
 
 RootPopup.displayName = "RootPopup";

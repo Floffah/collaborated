@@ -1,20 +1,18 @@
-import * as React from "react";
 import styled from "styled-components";
 import { getTheme } from "../../colours/theme";
 import Login from "../menus/Login";
 import Particles from "react-tsparticles";
 import { PopupContainer } from "./Popups";
+import { h, Fragment } from "preact";
 
-export class LoginPage extends React.Component<any> {
-    render() {
-        return (
-            <>
-                <StyledParticles options={particleopts} />
-                <Login float={true} />
-                <PopupContainer />
-            </>
-        );
-    }
+export function LoginPage() {
+    return (
+        <>
+            <StyledParticles options={particleopts} />
+            <Login float={true} />
+            <PopupContainer />
+        </>
+    );
 }
 
 const StyledParticles = styled(Particles)`

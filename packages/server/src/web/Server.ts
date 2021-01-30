@@ -12,6 +12,7 @@ import fastify, { FastifyInstance } from "fastify";
 import fastifyStatic from "fastify-static";
 import fastifyCors from "fastify-cors";
 import { clearTimeout } from "timers";
+import StorageManager from "../store/StorageManager";
 
 export default class Server {
     app: FastifyInstance & PromiseLike<any>;
@@ -21,6 +22,7 @@ export default class Server {
     ip: Interprocess;
     cfg: Configuration;
     dbm: DatabaseManager;
+    sm: StorageManager;
     term: Terminal = terminal;
     hds: any[] = [];
     started = false;
@@ -29,8 +31,6 @@ export default class Server {
     maintenance = false;
 
     async init() {
-        this.hds[0] = new memwatch.HeapDiff();
-
         if (!existsSync(resolve(__dirname, "../../data"))) {
             mkdirSync(resolve(__dirname, "../../data"));
         }
@@ -99,8 +99,8 @@ export default class Server {
         }
     }
 
-    async doMemDiff() {
-        if (this.hds.length > 0) {
+    async doMemDiff(s?: "start" | "stop") {
+        if ((s && s === "stop") || this.hds.length > 0) {
             this.logger.warn("Saving heap diff...");
             const diff = this.hds[0].end();
             writeFileSync(
@@ -111,11 +111,11 @@ export default class Server {
             this.logger.warn(
                 "Saved heap diff to " + resolve(this.cfg.rootpath, "diff.json"),
             );
-        } else {
-            this.logger.warn("Starting heap diff.");
+        } else if ((s && s === "start") || this.hds.length <= 0) {
+            this.logger.warn("Starting heap diff");
             this.hds[0] = new memwatch.HeapDiff();
             this.logger.warn(
-                "Started heap snapshot. Press M again to save the heap diff",
+                "Started heap snapshot. Press M again to create and save a heap diff",
             );
         }
     }
@@ -147,6 +147,8 @@ export default class Server {
 
         this.ip = new Interprocess(this);
         this.ip.init(() => {
+            this.sm = new StorageManager(this);
+
             this.app = fastify();
 
             this.app.register(fastifyCors, {
@@ -168,13 +170,7 @@ export default class Server {
 
             this.app.listen(80);
 
-            const diff = this.hds[0].end();
-            writeFileSync(
-                resolve(this.cfg.rootpath, "startup.diff.json"),
-                JSON.stringify(diff, null, 4),
-                "utf8",
-            );
-            this.hds = [];
+            this.doMemDiff("stop");
             this.started = true;
 
             this.logger.info("Started on port 80");

@@ -1,13 +1,14 @@
 module.exports = {
     root: true,
     parser: "@typescript-eslint/parser",
-    plugins: ["workspaces", "@typescript-eslint", "react"],
+    plugins: ["workspaces", "@typescript-eslint"],
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended",
+        //"plugin:react/recommended",
         "prettier",
         "prettier/@typescript-eslint",
+        "preact",
     ],
     rules: {
         "workspaces/no-relative-imports": "error",
