@@ -26,9 +26,7 @@
       "*": [
         ".snowpack/.types/*"
       ]
-    },
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment"
+    }
   },
   "exclude": [
     "node_modules",

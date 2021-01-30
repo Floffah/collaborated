@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { AppContainer } from "../AppContainer";
 import { AppContextProvider } from "../util/AppContext";
 import i18next from "i18next";
-import { h, render } from "preact";
+import * as React from "react";
+
+import { render } from "react-dom";
 
 export default function ui(appc: AppContainer) {
     i18next.init({

@@ -9,21 +9,20 @@ module.exports = {
         "**/*.@(spec|test).@(js|mjs)",
         "**/*.stories.@(tsx|mdx)",
     ],
-    // plugins: [
-    //     "@snowpack/plugin-optimize",
-    //     "@snowpack/plugin-typescript",
-    //     "@snowpack/plugin-webpack",
-    // ],
+    plugins: [
+        "@snowpack/plugin-optimize",
+        "@snowpack/plugin-typescript",
+        "@snowpack/plugin-webpack",
+    ],
     packageOptions: {
         installTypes: true,
-        source: "remote",
+        //source: "remote",
         types: true,
+        polyfillNode: true,
     },
     buildOptions: {
         sourcemap: true,
         baseUrl: "./",
-        jsxFactory: "h",
-        jsxFragment: "Fragment",
     },
     optimize: {
         bundle: true,
@@ -31,10 +30,5 @@ module.exports = {
         target: "es2018",
         manifest: true,
         treeshake: true,
-    },
-    alias: {
-        react: "react/compat",
-        "react-dom": "preact/compat",
-        "@collaborated/interact": "../interact/dist/index.js",
     },
 };

@@ -3,7 +3,7 @@ import { getTheme } from "../../colours/theme";
 import Login from "../menus/Login";
 import Particles from "react-tsparticles";
 import { PopupContainer } from "./Popups";
-import { h, Fragment } from "preact";
+import * as React from "react";
 
 export function LoginPage() {
     return (

@@ -1,3 +1,4 @@
-import { VNode } from "preact";
+import { ReactNode } from "react";
 
-export type ComponentProps<P> = Readonly<P> & Readonly<{ children?: VNode }>;
+export type ComponentProps<P> = Readonly<P> &
+    Readonly<{ children?: ReactNode }>;

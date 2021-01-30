@@ -1,11 +1,11 @@
-import { h, Component } from "preact";
 import styled from "styled-components";
 import { ColourTheme, getTheme } from "../../colours/theme";
 import { RootContainer } from "../../ui";
 import Icon from "@mdi/react";
 import { mdiHome } from "@mdi/js";
+import * as React from "react";
 
-export default class Body extends Component<any, { theme: ColourTheme }> {
+export default class Body extends React.Component<any, { theme: ColourTheme }> {
     constructor(p: any) {
         super(p);
 

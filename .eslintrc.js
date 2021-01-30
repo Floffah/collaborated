@@ -10,6 +10,9 @@ module.exports = {
         "prettier/@typescript-eslint",
         "preact",
     ],
+    globals: {
+        JSX: "readonly",
+    },
     rules: {
         "workspaces/no-relative-imports": "error",
         "workspaces/require-dependency": "warn",

@@ -16,7 +16,7 @@ export class AppContainer {
     constructor(used: boolean) {
         this.used = used;
         if (used) {
-            this.theme = getTheme("light");
+            this.theme = getTheme("dark");
         }
     }
 
