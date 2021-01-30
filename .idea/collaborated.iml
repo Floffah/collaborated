@@ -22,6 +22,7 @@
       <excludeFolder url="file://$MODULE_DIR$/scripts/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/stored/types" />
       <excludeFolder url="file://$MODULE_DIR$/packages/stored/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/web/.snowpack" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
