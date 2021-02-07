@@ -5,10 +5,9 @@ module.exports = {
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        //"plugin:react/recommended",
+        "plugin:react/recommended",
         "prettier",
         "prettier/@typescript-eslint",
-        "preact",
     ],
     globals: {
         JSX: "readonly",
