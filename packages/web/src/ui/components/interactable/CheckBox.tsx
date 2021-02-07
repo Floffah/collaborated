@@ -28,17 +28,17 @@ export default class CheckBox extends React.Component<
         super(p);
 
         this.state = {
-            checked: false,
+            checked: !!this.props.defaultChecked,
         };
     }
 
-    componentDidMount() {
-        if (this.props.defaultChecked) {
-            this.setState({
-                checked: true,
-            });
-        }
-    }
+    // componentDidMount() {
+    //     if (this.props.defaultChecked) {
+    //         this.setState({
+    //             checked: true,
+    //         });
+    //     }
+    // }
 
     onClick() {
         //e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {

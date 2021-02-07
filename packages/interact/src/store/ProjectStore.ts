@@ -1,16 +1,20 @@
 import { Client } from "../core/Client";
 import Project from "./Project";
 
-export default class Projects {
+export default class ProjectStore {
     client: Client;
 
-    cache: Map<string, Project> = new Map();
+    cache: Map<number, Project> = new Map();
     lastupdate = 0;
 
     constructor(client: Client) {
         this.client = client;
     }
 
+    /**
+     * Create a project.
+     * @param name
+     */
     async create(name: string): Promise<Project> {
         const d = await this.client._query(
             "query CreateProject($name: String) { me { projects { create(name: $name) { name } } } }",
@@ -30,5 +34,20 @@ export default class Projects {
             { invite },
         );
         return;
+    }
+
+    async fetch() {
+        const d = await this.client._query(
+            "query { me { projects { all { id name } } } }",
+        );
+        for (const proj of d.data.data.me.projects.all as {
+            id: number;
+            name: string;
+        }[]) {
+            const p = new Project();
+            p.name = proj.name;
+            p.id = proj.id;
+            this.cache.set(proj.id, p);
+        }
     }
 }

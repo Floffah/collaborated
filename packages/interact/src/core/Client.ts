@@ -3,7 +3,7 @@ import { createGraphQLError, GraphQLToError } from "../util/errors";
 import { SocketManager } from "../api/SocketManager";
 import { EventEmitter } from "events";
 import chalk from "chalk";
-import Projects from "../store/Projects";
+import ProjectStore from "../store/ProjectStore";
 import buildQuery from "../api/gql";
 
 interface ClientOptions {
@@ -28,7 +28,7 @@ export class Client extends EventEmitter {
 
     url: string;
 
-    projects: Projects;
+    projects: ProjectStore;
 
     constructor(opts: ClientOptions) {
         super();

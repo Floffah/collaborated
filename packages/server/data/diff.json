@@ -1,19 +1,19 @@
 {
     "before": {
-        "nodes": 230598,
-        "size_bytes": 28684841,
-        "size": "27.36 mb"
+        "nodes": 230884,
+        "size_bytes": 28740033,
+        "size": "27.41 mb"
     },
     "after": {
-        "nodes": 236507,
-        "size_bytes": 29001597,
-        "size": "27.66 mb"
+        "nodes": 236895,
+        "size_bytes": 29066541,
+        "size": "27.72 mb"
     },
     "change": {
-        "size_bytes": 316756,
-        "size": "309.33 kb",
-        "freed_nodes": 19803,
-        "allocated_nodes": 25670,
+        "size_bytes": 326508,
+        "size": "318.86 kb",
+        "freed_nodes": 19725,
+        "allocated_nodes": 25694,
         "details": [
             {
                 "what": "API",
@@ -38,10 +38,10 @@
             },
             {
                 "what": "Array",
-                "size_bytes": -128488,
-                "size": "-125.48 kb",
-                "+": 7530,
-                "-": 7984
+                "size_bytes": -128048,
+                "size": "-125.05 kb",
+                "+": 7531,
+                "-": 7945
             },
             {
                 "what": "ArrayBuffer",
@@ -108,17 +108,17 @@
             },
             {
                 "what": "Closure",
-                "size_bytes": 59768,
-                "size": "58.37 kb",
-                "+": 1038,
+                "size_bytes": 59880,
+                "size": "58.48 kb",
+                "+": 1040,
                 "-": 53
             },
             {
                 "what": "Code",
-                "size_bytes": 124816,
-                "size": "121.89 kb",
+                "size_bytes": 123384,
+                "size": "120.49 kb",
                 "+": 1400,
-                "-": 190
+                "-": 188
             },
             {
                 "what": "ColumnMetadata",
@@ -220,8 +220,8 @@
             },
             {
                 "what": "EntityMetadata",
-                "size_bytes": 4544,
-                "size": "4.44 kb",
+                "size_bytes": 4608,
+                "size": "4.5 kb",
                 "+": 8,
                 "-": 0
             },
@@ -360,10 +360,10 @@
             },
             {
                 "what": "Native",
-                "size_bytes": 14036,
-                "size": "13.71 kb",
-                "+": 142,
-                "-": 108
+                "size_bytes": 14049,
+                "size": "13.72 kb",
+                "+": 141,
+                "-": 107
             },
             {
                 "what": "Number",
@@ -374,8 +374,8 @@
             },
             {
                 "what": "Object",
-                "size_bytes": 21312,
-                "size": "20.81 kb",
+                "size_bytes": 21328,
+                "size": "20.83 kb",
                 "+": 399,
                 "-": 27
             },
@@ -437,16 +437,16 @@
             },
             {
                 "what": "Promise",
-                "size_bytes": 1056,
-                "size": "1.03 kb",
-                "+": 23,
+                "size_bytes": 1008,
+                "size": "1008 bytes",
+                "+": 22,
                 "-": 1
             },
             {
                 "what": "PromiseWrap",
-                "size_bytes": 704,
-                "size": "704 bytes",
-                "+": 23,
+                "size_bytes": 672,
+                "size": "672 bytes",
+                "+": 22,
                 "-": 1
             },
             {
@@ -521,8 +521,8 @@
             },
             {
                 "what": "RelationMetadata",
-                "size_bytes": 3648,
-                "size": "3.56 kb",
+                "size_bytes": 3744,
+                "size": "3.66 kb",
                 "+": 12,
                 "-": 0
             },
@@ -618,6 +618,13 @@
                 "-": 0
             },
             {
+                "what": "StorageManager",
+                "size_bytes": 96,
+                "size": "96 bytes",
+                "+": 1,
+                "-": 0
+            },
+            {
                 "what": "Stream",
                 "size_bytes": 112,
                 "size": "112 bytes",
@@ -626,10 +633,10 @@
             },
             {
                 "what": "String",
-                "size_bytes": -48112,
-                "size": "-46.98 kb",
-                "+": 2865,
-                "-": 5945
+                "size_bytes": -43984,
+                "size": "-42.95 kb",
+                "+": 2877,
+                "-": 5920
             },
             {
                 "what": "TCP",
@@ -738,9 +745,9 @@
             },
             {
                 "what": "system / Context",
-                "size_bytes": 16128,
-                "size": "15.75 kb",
-                "+": 279,
+                "size_bytes": 16056,
+                "size": "15.68 kb",
+                "+": 277,
                 "-": 8
             }
         ]

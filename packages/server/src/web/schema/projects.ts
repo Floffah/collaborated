@@ -38,6 +38,7 @@ export function query_me_projects(api: API) {
                             const proj = new Project();
                             proj.name = args.name;
                             proj.owner = s.user;
+                            proj.members = [s.user];
 
                             const p = await api.server.db
                                 .getRepository<Project>(Project)
@@ -80,9 +81,7 @@ export function query_me_projects(api: API) {
                         const proj = i.project;
                         proj.members.push(s.user);
 
-                        await api.server.db
-                            .getRepository<Project>(Project)
-                            .save(proj);
+                        await api.server.db.manager.save(proj);
                         return true;
                     }
                 },
@@ -97,6 +96,7 @@ export function query_me_projects(api: API) {
                         .findOne({
                             relations: ["projects"],
                             where: { id: s.user.id },
+                            loadEagerRelations: true,
                         })) as User;
                     const list: { name: string; id: number }[] = [];
 

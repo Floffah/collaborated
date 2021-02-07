@@ -1,7 +1,7 @@
 import WebSocket, { Data } from "ws";
 import { Client } from "../core/Client";
 import chalk from "chalk";
-import Projects from "../store/Projects";
+import ProjectStore from "../store/ProjectStore";
 import { createGraphQLError, GraphQLToError } from "../util/errors";
 import {
     GatewayClientMessageTypes,
@@ -101,7 +101,7 @@ export class SocketManager {
                     if (
                         dat.messageid == GatewayServerMessageTypes.Authenticated
                     ) {
-                        this.client.projects = new Projects(this.client);
+                        this.client.projects = new ProjectStore(this.client);
                         this.client.emit("ready");
                     } else if (
                         dat.messageid === GatewayServerMessageTypes.Results

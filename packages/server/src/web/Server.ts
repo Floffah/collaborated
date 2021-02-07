@@ -153,7 +153,7 @@ export default class Server {
 
             this.app.register(fastifyCors, {
                 credentials: true,
-                origin: ["*"],
+                origin: "*",
             });
 
             if (!this.dev) {
