@@ -30,7 +30,7 @@ export default class StoreSerializer {
     }
 }
 
-// TODO [$601fd1d02b4eda000af3b33f]: deflate store where possible
+// TODO [#8]: deflate store where possible
 // i feel like store files could become quite big and inefficient without deflation so i want to eventually add automatic deflation to v1 or make a new version identical to v1 but only uses deflation.
 // making two different version would make deflation detection easier and more efficient since it would never be deflated with v1 but always with v2 since the version byte is never deflated.
 
