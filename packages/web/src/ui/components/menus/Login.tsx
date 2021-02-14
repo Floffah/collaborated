@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TextInput, { InputContainer } from "../input/TextInput";
 import Button from "../interactable/Button";
 import { AppContext } from "../../../util/AppContext";
-import { AppContainer } from "../../../AppContainer";
+import { AppContainer } from "../../../app/AppContainer";
 import { Popup } from "../containers/Popups";
 import { Tooltip } from "../feedback/Tooltip";
 import { PopOverPos } from "../containers/PopupUtil";

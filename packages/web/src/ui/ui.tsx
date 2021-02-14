@@ -1,7 +1,7 @@
 import Body from "./components/containers/Body";
 import { LoginPage } from "./components/containers/LoginPage";
 import styled from "styled-components";
-import { AppContainer } from "../AppContainer";
+import { AppContainer } from "../app/AppContainer";
 import { AppContextProvider } from "../util/AppContext";
 import i18next from "i18next";
 import * as React from "react";
@@ -15,7 +15,7 @@ export default function ui(appc: AppContainer) {
         },
     });
 
-    if (localStorage.getItem("access")) {
+    if (appc.loginable()) {
         render(
             <AppContextProvider appcontainer={appc} i18next={i18next}>
                 <Body />

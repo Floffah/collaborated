@@ -1,6 +1,6 @@
 import ui from "./ui/ui";
 import "./ui/environment.css";
-import { AppContainer } from "./AppContainer";
+import { AppContainer } from "./app/AppContainer";
 
 let readied = false;
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppContainer } from "../../../AppContainer";
+import { AppContainer } from "../../../app/AppContainer";
 import { AppContext } from "../../../util/AppContext";
 import styled from "styled-components";
 

@@ -1,10 +1,15 @@
 import { Client } from "@collaborated/interact";
-import { ColourTheme, getTheme } from "./ui/colours/theme";
+
+import * as semver from "semver";
+import { ColourTheme, getTheme } from "../ui/colours/theme";
+import StorageHelper from "./StorageHelper";
 
 export class AppContainer {
+    version = "0.0.1-alpha1";
     used: boolean;
 
     client: Client;
+    sth: StorageHelper;
 
     theme: ColourTheme;
 
@@ -17,7 +22,24 @@ export class AppContainer {
         this.used = used;
         if (used) {
             this.theme = getTheme("dark");
+            this.sth = new StorageHelper(this);
+            (async () => {
+                const v = await this.sth.sdb.settings.get("lastVersion");
+                if (v === undefined || semver.lt(v.value, this.version)) {
+                    this.performUpgrade(
+                        v !== undefined,
+                        (v || { value: "0.0.0" }).value,
+                    );
+                }
+            })();
         }
+    }
+
+    performUpgrade(had: boolean, was: string) {
+        this.sth.sdb.settings.put(
+            { key: "lastVersion", value: this.version },
+            "lastVersion",
+        );
     }
 
     startClient(email: string, password: string) {
@@ -44,5 +66,9 @@ export class AppContainer {
 
     showNotif(content: JSX.Element) {
         this.notifHandler(content);
+    }
+
+    loginable(): boolean {
+        return !!localStorage.getItem("access");
     }
 }
