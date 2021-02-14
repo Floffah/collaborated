@@ -10,9 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: todo-actions
-        uses: floffah/todo-actions@master
+        uses: dtinth/todo-actions@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TODO_ACTIONS_MONGO_URL: ${{ secrets.TODO_ACTIONS_MONGO_URL }}
-          MILESTONE_ID: MDk6TWlsZXN0b25lNjMwNzkzOA==
-          LABEL_IDS: DU6TGFiZWwyNjU5ODkxNTYx
