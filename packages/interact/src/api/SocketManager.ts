@@ -105,6 +105,7 @@ export class SocketManager {
     message(data: Data) {
         if (typeof data === "string") {
             const dat: IncomingMessage = JSON.parse(data);
+            console.log(dat);
             if ("type" in dat) {
                 if (dat.type === "message") {
                     if (
@@ -115,6 +116,10 @@ export class SocketManager {
                     } else if (
                         dat.messageid === GatewayServerMessageTypes.Results
                     ) {
+                        console.log(
+                            "qid" in dat.data,
+                            this.qidfs.has(dat.data.qid),
+                        );
                         if ("qid" in dat.data && this.qidfs.has(dat.data.qid)) {
                             (this.qidfs.get(dat.data.qid) as (
                                 msg: any,
@@ -136,7 +141,13 @@ export class SocketManager {
                 data,
             } as OutgoingMessage);
             if (this.client.opts.browserMode) {
-                this.bws?.send(smsg);
+                try {
+                    this.bws?.send(smsg);
+                } catch (e) {
+                    reject(e);
+                    return;
+                }
+                resolve();
             } else {
                 this.ws?.send(smsg, (err) => {
                     if (err) {

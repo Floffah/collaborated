@@ -109,9 +109,9 @@ export class Client extends events.EventEmitter {
                             console.log(
                                 chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(
                                     d.data,
-                                )}} {blue WITH NO QID IN ${
-                                    Date.now() - start
-                                }ms}`,
+                                )}} {blue WITH ${
+                                    d.data.qid ? "QID " + d.data.qid : "NO QID"
+                                } IN ${Date.now() - start}ms}`,
                             );
                         }
                         if ("data" in d) {

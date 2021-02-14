@@ -21,8 +21,13 @@ export class AppContainer {
     }
 
     startClient(email: string, password: string) {
-        this.client = new Client({ browserMode: true });
+        this.client = new Client({ browserMode: true, debug: true });
         this.client.login({ email, password });
+        this.client.on("ready", () => this.clientReady());
+    }
+
+    clientReady() {
+        this.client.projects.fetch();
     }
 
     handlePopups(handler: (content: JSX.Element) => void) {
