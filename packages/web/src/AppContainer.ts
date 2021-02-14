@@ -21,7 +21,7 @@ export class AppContainer {
     }
 
     startClient(email: string, password: string) {
-        this.client = new Client({});
+        this.client = new Client({ browserMode: true });
         this.client.login({ email, password });
     }
 

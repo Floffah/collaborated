@@ -23,6 +23,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/stored/types" />
       <excludeFolder url="file://$MODULE_DIR$/packages/stored/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/web/.snowpack" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/snowpack-monorepo-plugin/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

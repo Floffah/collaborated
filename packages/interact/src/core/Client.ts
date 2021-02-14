@@ -1,7 +1,7 @@
 import ax, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { createGraphQLError, GraphQLToError } from "../util/errors";
 import { SocketManager } from "../api/SocketManager";
-import { EventEmitter } from "events";
+import events from "events";
 import chalk from "chalk";
 import ProjectStore from "../store/ProjectStore";
 import buildQuery from "../api/gql";
@@ -9,6 +9,7 @@ import buildQuery from "../api/gql";
 interface ClientOptions {
     debug?: boolean;
     overrideApiURL?: string;
+    browserMode?: boolean;
 }
 
 export declare interface Client {
@@ -17,7 +18,7 @@ export declare interface Client {
     on(event: string, listener: () => unknown): this;
 }
 
-export class Client extends EventEmitter {
+export class Client extends events.EventEmitter {
     authenticated = false;
     opts: ClientOptions;
 

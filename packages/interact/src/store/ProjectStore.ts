@@ -13,7 +13,7 @@ export default class ProjectStore {
 
     /**
      * Create a project.
-     * @param name
+     * @param {string} name
      */
     async create(name: string): Promise<Project> {
         const d = await this.client._query(
@@ -27,7 +27,11 @@ export default class ProjectStore {
         return p;
     }
 
-    // doesn't work for addons's client user
+    /**
+     * Join a project
+     * Doesn't work for an addons's client user
+     * @param {string} invite
+     */
     async join(invite: string): Promise<void> {
         await this.client._query(
             "query JoinProject($invite: String) { me { projects { join(invite: $invite) } } }",
@@ -36,6 +40,9 @@ export default class ProjectStore {
         return;
     }
 
+    /**
+     * Fetch all projects associated with the user and cache them
+     */
     async fetch() {
         const d = await this.client._query(
             "query { me { projects { all { id name } } } }",
@@ -49,5 +56,6 @@ export default class ProjectStore {
             p.id = proj.id;
             this.cache.set(proj.id, p);
         }
+        return;
     }
 }

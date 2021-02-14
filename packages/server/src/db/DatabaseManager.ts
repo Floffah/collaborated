@@ -19,14 +19,10 @@ export default class DatabaseManager {
         return this.main.close();
     }
 
-    init(): Promise<void> {
-        return new Promise((resolve) => {
-            this.mainConnection().then((db) => {
-                this.main = db;
-                this.server.db = db;
-                resolve();
-            });
-        });
+    async init(): Promise<void> {
+        const db = await this.mainConnection();
+        this.main = db;
+        this.server.db = db;
     }
 
     private mainConnection() {

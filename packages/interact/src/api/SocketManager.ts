@@ -1,4 +1,4 @@
-import WebSocket, { Data } from "ws";
+import WSSocket, { Data } from "ws";
 import { Client } from "../core/Client";
 import chalk from "chalk";
 import ProjectStore from "../store/ProjectStore";
@@ -12,7 +12,8 @@ import {
 } from "@collaborated/common";
 
 export class SocketManager {
-    ws: WebSocket;
+    ws?: WSSocket;
+    bws?: WebSocket;
     guid: number;
 
     #access: string;
@@ -23,14 +24,22 @@ export class SocketManager {
     qidfs: Map<number, (msg: any) => void> = new Map();
 
     constructor(url: string, guid: number, access: string, client: Client) {
-        this.ws = new WebSocket(url);
-        this.guid = guid;
-        this.#access = access;
         this.client = client;
+        this.#access = access;
+        this.guid = guid;
+        if (this.client.opts.browserMode) {
+            this.bws = new WebSocket(url);
 
-        this.ws.on("open", () => this.connected());
-        this.ws.on("message", (data) => this.message(data));
-        this.ws.on("close", () => this.closed());
+            this.bws.addEventListener("open", () => this.connected());
+            this.bws.addEventListener("message", (e) => this.message(e.data));
+            this.bws.addEventListener("close", () => this.closed());
+        } else {
+            this.ws = new WSSocket(url);
+
+            this.ws.on("open", () => this.connected());
+            this.ws.on("message", (data) => this.message(data));
+            this.ws.on("close", () => this.closed());
+        }
     }
 
     closed() {
@@ -122,19 +131,21 @@ export class SocketManager {
         data: { [k: string]: any },
     ): Promise<void> {
         return new Promise((resolve, reject) => {
-            this.ws.send(
-                JSON.stringify({
-                    type: msg,
-                    data,
-                } as OutgoingMessage),
-                (err) => {
+            const smsg = JSON.stringify({
+                type: msg,
+                data,
+            } as OutgoingMessage);
+            if (this.client.opts.browserMode) {
+                this.bws?.send(smsg);
+            } else {
+                this.ws?.send(smsg, (err) => {
                     if (err) {
                         reject(err);
                     } else {
                         resolve();
                     }
-                },
-            );
+                });
+            }
         });
     }
 }

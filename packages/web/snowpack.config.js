@@ -1,7 +1,16 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { resolve } = require("path");
+
+const mount = {
+    public: "/",
+    src: "/media",
+};
+mount[resolve(__dirname, "../interact")] = "/media/@collaborated/interact";
+
 module.exports = {
-    mount: {
-        public: "/",
-        src: "/media",
+    mount,
+    alias: {
+        "@collaborated/interact": "../interact/src",
     },
     exclude: [
         "**/node_modules/**/*",
@@ -13,6 +22,7 @@ module.exports = {
         "@snowpack/plugin-optimize",
         "@snowpack/plugin-typescript",
         "@snowpack/plugin-webpack",
+        //"@collaborated/snowpack-monorepo-plugin",
     ],
     packageOptions: {
         installTypes: true,
