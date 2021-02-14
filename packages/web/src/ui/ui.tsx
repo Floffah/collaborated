@@ -8,14 +8,14 @@ import * as React from "react";
 
 import { render } from "react-dom";
 
-export default function ui(appc: AppContainer) {
+export default async function ui(appc: AppContainer) {
     i18next.init({
         interpolation: {
             escapeValue: false,
         },
     });
 
-    if (appc.loginable()) {
+    if (await appc.loginable()) {
         render(
             <AppContextProvider appcontainer={appc} i18next={i18next}>
                 <Body />

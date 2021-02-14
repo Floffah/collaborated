@@ -3,6 +3,7 @@ import { Client } from "@collaborated/interact";
 import semver from "semver";
 import { ColourTheme, getTheme } from "../ui/colours/theme";
 import StorageHelper from "./StorageHelper";
+import ui from "../ui/ui";
 
 export class AppContainer {
     version = "0.0.1-alpha1";
@@ -71,8 +72,13 @@ export class AppContainer {
         this.client.on("ready", () => this.clientReady());
     }
 
-    clientReady() {
-        this.client.projects.fetch();
+    async clientReady() {
+        await this.client.projects.fetch();
+        this.sth.sdb.settings.put(
+            { key: "access", value: this.client.access },
+            "access",
+        );
+        await ui(this);
     }
 
     handlePopups(handler: (content: JSX.Element) => void) {
@@ -91,7 +97,8 @@ export class AppContainer {
         this.notifHandler(content);
     }
 
-    loginable(): boolean {
-        return !!localStorage.getItem("access");
+    async loginable(): Promise<boolean> {
+        const a = await this.sth.sdb.settings.get("access");
+        return !!a || !!localStorage.getItem("access");
     }
 }

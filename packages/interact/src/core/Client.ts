@@ -24,7 +24,7 @@ export class Client extends events.EventEmitter {
     socket: SocketManager;
     ax: AxiosInstance;
 
-    #access: string;
+    access: string;
 
     url: string;
 
@@ -146,11 +146,11 @@ export class Client extends events.EventEmitter {
                 },
             )
                 .then((d) => {
-                    this.#access = opts.access;
+                    this.access = opts.access;
                     this.socket = new SocketManager(
                         d.data.data.me.gateway.url,
                         d.data.data.me.gateway.guid,
-                        this.#access,
+                        this.access,
                         this,
                     );
                 })
