@@ -4,7 +4,6 @@ import { SocketManager } from "../api/SocketManager";
 import events from "events";
 import chalk from "chalk";
 import ProjectStore from "../store/ProjectStore";
-import buildQuery from "../api/gql";
 
 interface ClientOptions {
     debug?: boolean;
@@ -35,22 +34,6 @@ export class Client extends events.EventEmitter {
         super();
         this.opts = opts;
         this.url = this.opts.overrideApiURL || "http://localhost/api/v1";
-
-        console.log(
-            buildQuery({
-                fields: {
-                    this: {
-                        fields: {
-                            is: {},
-                        },
-                    },
-                    a: {},
-                },
-                variables: {
-                    test: "ok",
-                },
-            }),
-        );
 
         this.ax = ax.create({
             headers: {
