@@ -24,6 +24,10 @@ export interface ColourTheme {
         bg: string;
     };
 
+    base: {
+        color: string;
+    };
+
     login: {
         bg: string;
         header: {

@@ -6,6 +6,8 @@ import StorageHelper from "./StorageHelper";
 import ui from "../ui/ui";
 
 export class AppContainer {
+    static inst: AppContainer;
+
     version = "0.0.1-alpha1";
     used: boolean;
 
@@ -20,6 +22,7 @@ export class AppContainer {
         console.log("unhandled notifHandler");
 
     constructor(used: boolean) {
+        AppContainer.inst = this;
         this.used = used;
         if (used) {
             this.theme = getTheme("dark");
@@ -72,13 +75,29 @@ export class AppContainer {
         this.client.on("ready", () => this.clientReady());
     }
 
+    usingAccess = false;
+
+    async reuseClient() {
+        if (await this.loginable()) {
+            this.client = new Client({ browserMode: true, debug: true });
+            this.usingAccess = true;
+            const o = await this.sth.sdb.settings.get("access");
+            if (o) {
+                this.client.login({ access: o.value });
+                this.client.on("ready", () => this.clientReady());
+            }
+        }
+    }
+
     async clientReady() {
         await this.client.projects.fetch();
-        this.sth.sdb.settings.put(
-            { key: "access", value: this.client.access },
-            "access",
-        );
-        await ui(this);
+        if (!this.usingAccess) {
+            this.sth.sdb.settings.put(
+                { key: "access", value: this.client.access },
+                "access",
+            );
+            await ui(this);
+        }
     }
 
     handlePopups(handler: (content: JSX.Element) => void) {

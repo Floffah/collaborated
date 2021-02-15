@@ -13,6 +13,9 @@ export default function themeToScheme(
         page: {
             bg: scheme.accent[11],
         },
+        base: {
+            color: scheme.accent[3],
+        },
         login: {
             bg: scheme.accent[10],
             header: {

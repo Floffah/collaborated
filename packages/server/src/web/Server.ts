@@ -153,7 +153,16 @@ export default class Server {
 
             this.app.register(fastifyCors, {
                 credentials: true,
-                origin: "*",
+                origin: [
+                    "*",
+                    "floffah.dev",
+                    "localhost",
+                    "preview.capp.floffah.dev",
+                    /\.floffah\.dev$/,
+                    /localhost/,
+                ],
+                preflight: true,
+                strictPreflight: true,
             });
 
             if (!this.dev) {

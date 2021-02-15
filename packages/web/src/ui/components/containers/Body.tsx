@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { ColourTheme, getTheme } from "../../colours/theme";
 import { RootContainer } from "../../ui";
-import Icon from "@mdi/react";
 import { mdiHome } from "@mdi/js";
 import * as React from "react";
+import { AppContainer } from "../../../app/AppContainer";
+
+import { SIcon } from "../common/Icons";
 
 export default class Body extends React.Component<any, { theme: ColourTheme }> {
     constructor(p: any) {
@@ -14,11 +16,17 @@ export default class Body extends React.Component<any, { theme: ColourTheme }> {
         };
     }
 
+    componentDidMount() {
+        if (AppContainer.inst.client == undefined) {
+            AppContainer.inst.reuseClient();
+        }
+    }
+
     render() {
         return (
             <RootContainer>
                 <NavBar>
-                    <Icon path={mdiHome} />
+                    <SIcon path={mdiHome} />
                 </NavBar>
             </RootContainer>
         );
