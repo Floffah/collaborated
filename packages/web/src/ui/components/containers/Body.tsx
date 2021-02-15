@@ -26,12 +26,14 @@ export default class Body extends React.Component<any, { theme: ColourTheme }> {
         return (
             <RootContainer>
                 <NavBar>
-                    <SIcon path={mdiHome} />
+                    <HomeIcon path={mdiHome} />
                 </NavBar>
             </RootContainer>
         );
     }
 }
+
+const HomeIcon = styled(SIcon)``;
 
 const NavBar = styled.div`
     position: fixed;

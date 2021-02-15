@@ -1,4 +1,4 @@
-import ax, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import ax, { AxiosInstance, AxiosResponse } from "axios";
 import { createGraphQLError, GraphQLToError } from "../util/errors";
 import { SocketManager } from "../api/SocketManager";
 import events from "events";
@@ -56,79 +56,73 @@ export class Client extends events.EventEmitter {
      * @param query the query that will be executed
      * @param variables variables that will be passed to graphql
      */
-    _query(
+    async _query(
         query: string,
         variables?: { [k: string]: any },
     ): Promise<AxiosResponse | { data: any }> {
         if (!this.socket) {
-            return new Promise((resolve, reject) => {
-                if (this.opts.debug) {
-                    console.log(
-                        chalk`{red -} {blue REQUEST WITH QUERY} {gray "${query}"} ${
-                            variables
-                                ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(
-                                      variables,
-                                  )}}`
-                                : ""
-                        } {blue WITH NO QID}`,
-                    );
-                }
-                const start = Date.now();
-                ax.post(this.url, JSON.stringify({ query, variables }), {
-                    method: "POST",
-                    data: JSON.stringify({ query, variables }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                        "Access-Control-Allow-Origin": "*",
-                        // 'Access-Control-Allow-Methods': "GET, POST",
-                        // 'Access-Control-Allow-Headers': "Accept, Content-Type",
-                        "Cache-Control": "no-cache",
+            if (this.opts.debug) {
+                console.log(
+                    chalk`{red -} {blue REQUEST WITH QUERY} {gray "${query}"} ${
+                        variables
+                            ? chalk`{blue WITH VARIABLES} {gray ${JSON.stringify(
+                                  variables,
+                              )}}`
+                            : ""
+                    } {blue WITH NO QID}`,
+                );
+            }
+            const start = Date.now();
+            let d;
+            try {
+                d = await ax.post(
+                    this.url,
+                    JSON.stringify({ query, variables }),
+                    {
+                        method: "POST",
+                        data: JSON.stringify({ query, variables }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            "Access-Control-Allow-Origin": "*",
+                            // 'Access-Control-Allow-Methods': "GET, POST",
+                            // 'Access-Control-Allow-Headers': "Accept, Content-Type",
+                            "Cache-Control": "no-cache",
+                        },
+                        responseType: "json",
                     },
-                    responseType: "json",
-                })
-                    .then((d) => {
-                        if (this.opts.debug) {
-                            console.log(
-                                chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(
-                                    d.data,
-                                )}} {blue WITH ${
-                                    d.data.qid ? "QID " + d.data.qid : "NO QID"
-                                } IN ${Date.now() - start}ms}`,
-                            );
-                        }
-                        if ("data" in d) {
-                            if ("errors" in d.data) {
-                                reject(
-                                    GraphQLToError(
-                                        createGraphQLError(d.data, query),
-                                    ),
-                                );
-                            } else {
-                                resolve(d);
-                            }
-                        } else {
-                            resolve(d);
-                        }
-                    })
-                    .catch((reason: AxiosError) => {
-                        if (reason.response) {
-                            console.log(reason.response.data);
-                            reject(
-                                GraphQLToError(
-                                    createGraphQLError(
-                                        reason.response.data,
-                                        query,
-                                    ),
-                                ),
-                            );
-                        } else {
-                            console.log(reason);
-                        }
-                    });
-            });
+                );
+            } catch (reason) {
+                if (reason.response) {
+                    console.log(reason.response.data);
+                    throw GraphQLToError(
+                        createGraphQLError(reason.response.data, query),
+                    );
+                } else {
+                    throw reason;
+                }
+            }
+            if (d === undefined) throw "Request was undefined";
+            if (this.opts.debug) {
+                console.log(
+                    chalk`{green -} {blue REQUEST QUERY RETURN} {gray ${JSON.stringify(
+                        d.data,
+                    )}} {blue WITH ${
+                        d.data.qid ? "QID " + d.data.qid : "NO QID"
+                    } IN ${Date.now() - start}ms}`,
+                );
+            }
+            if ("data" in d) {
+                if ("errors" in d.data) {
+                    throw GraphQLToError(createGraphQLError(d.data, query));
+                } else {
+                    return d;
+                }
+            } else {
+                return d;
+            }
         } else {
-            return this.socket._gateQuery(query, variables);
+            return await this.socket._gateQuery(query, variables);
         }
     }
 
@@ -136,41 +130,31 @@ export class Client extends events.EventEmitter {
      * Authenticate with the gateway using your client application's access token.
      * @param opts - login information
      */
-    login(opts: LoginOptions) {
+    async login(opts: LoginOptions) {
         if ("access" in opts) {
-            this._query(
+            const d = await this._query(
                 `query Login($access: String, $listen: [String]) { me(access: $access) { gateway(listen: $listen) { url guid } } }`,
                 {
                     access: opts.access,
                     listen: ["*"],
                 },
-            )
-                .then((d) => {
-                    this.access = opts.access;
-                    this.socket = new SocketManager(
-                        d.data.data.me.gateway.url,
-                        d.data.data.me.gateway.guid,
-                        this.access,
-                        this,
-                    );
-                })
-                .catch((reason) => {
-                    throw reason;
-                });
+            );
+            this.access = opts.access;
+            this.socket = new SocketManager(
+                d.data.data.me.gateway.url,
+                d.data.data.me.gateway.guid,
+                this.access,
+                this,
+            );
         } else if ("email" in opts && "password" in opts) {
-            this._query(
+            const d = await this._query(
                 `query Login($password: String, $email: String) { getAccess(email: $email, password: $password) }`,
                 {
                     email: opts.email,
                     password: opts.password,
                 },
-            )
-                .then((d) => {
-                    this.login({ access: d.data.data.getAccess });
-                })
-                .catch((reason) => {
-                    throw reason;
-                });
+            );
+            await this.login({ access: d.data.data.getAccess });
         } else {
             throw new Error("Incorrect detail combination");
         }

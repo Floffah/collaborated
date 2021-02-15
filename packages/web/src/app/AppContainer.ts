@@ -83,7 +83,13 @@ export class AppContainer {
             this.usingAccess = true;
             const o = await this.sth.sdb.settings.get("access");
             if (o) {
-                this.client.login({ access: o.value });
+                try {
+                    await this.client.login({ access: o.value });
+                } catch (e) {
+                    await this.sth.sdb.settings.delete("access");
+                    console.log("Incorrect access");
+                    ui(this);
+                }
                 this.client.on("ready", () => this.clientReady());
             }
         }
