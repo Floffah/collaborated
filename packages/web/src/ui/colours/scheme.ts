@@ -9,6 +9,8 @@ export default function themeToScheme(
         font: opts.font,
         navbar: {
             bg: scheme.accent[12],
+            partbg: scheme.accent[10],
+            parthbg: scheme.accent[9],
         },
         page: {
             bg: scheme.accent[11],

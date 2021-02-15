@@ -18,6 +18,8 @@ export interface ColourTheme {
 
     navbar: {
         bg: string;
+        partbg: string;
+        parthbg: string;
     };
 
     page: {
