@@ -64,7 +64,7 @@ export class AppContainer {
             );
         }
 
-        // TODO: indexeddb upgrades
+        // TODO [#9]: indexeddb upgrades
         // once the frontend is at the point that it supports the per-device settings and can keep a stable cache of images, text, and other changing but requestable data i want the appcontainer/storagehelper to be able to migrate this data to new formats of indexeddb models if for example the user hasn't opened the website for a few weeks.
         // shouldn't be too hard to implement but the one thing i do not want is for this data to be completely reset because as a user i find that having to log back in and change my settings to how i like it again is incredibly frustrating and affects the relationship between the website and the user.
     }
