@@ -13,6 +13,7 @@ interface ClientOptions {
 
 export declare interface Client {
     on(event: "ready", listener: () => void): this;
+    on(event: "loginprogress", listener: (progress: number) => void): this;
 
     on(event: string, listener: () => unknown): this;
 }
@@ -139,6 +140,7 @@ export class Client extends events.EventEmitter {
                     listen: ["*"],
                 },
             );
+            this.emit("loginprogress", 0.4);
             this.access = opts.access;
             this.socket = new SocketManager(
                 d.data.data.me.gateway.url,
@@ -154,6 +156,7 @@ export class Client extends events.EventEmitter {
                     password: opts.password,
                 },
             );
+            this.emit("loginprogress", 0.2);
             await this.login({ access: d.data.data.getAccess });
         } else {
             throw new Error("Incorrect detail combination");

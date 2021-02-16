@@ -40,6 +40,7 @@ export class SocketManager {
             this.ws.on("message", (data) => this.message(data));
             this.ws.on("close", () => this.closed());
         }
+        this.client.emit("loginprogress", 0.6);
     }
 
     closed() {
@@ -96,6 +97,7 @@ export class SocketManager {
     }
 
     connected() {
+        this.client.emit("loginprogress", 0.8);
         this.sendMessage(GatewayClientMessageTypes.Authenticate, {
             guid: this.guid,
             access: this.#access,
@@ -111,6 +113,7 @@ export class SocketManager {
                     if (
                         dat.messageid == GatewayServerMessageTypes.Authenticated
                     ) {
+                        this.client.emit("loginprogress", 1);
                         this.client.projects = new ProjectStore(this.client);
                         this.client.emit("ready");
                     } else if (

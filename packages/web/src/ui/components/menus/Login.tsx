@@ -7,6 +7,7 @@ import { AppContainer } from "../../../app/AppContainer";
 import { Popup } from "../containers/Popups";
 import { Tooltip } from "../feedback/Tooltip";
 import { PopOverPos } from "../containers/PopupUtil";
+import { LoadingIcon } from "../common/Icons";
 
 export interface LoginProps {
     float?: boolean;
@@ -15,6 +16,7 @@ export interface LoginProps {
 export interface LoginState {
     email: string;
     pswd: string;
+    hasloading: boolean;
 }
 
 export default class Login extends React.Component<LoginProps, LoginState> {
@@ -30,6 +32,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
         this.state = {
             email: "",
             pswd: "",
+            hasloading: false,
         };
     }
 
@@ -48,7 +51,9 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     }
 
     submit() {
-        console.log(this.state.email, this.state.pswd);
+        this.setState({
+            hasloading: true,
+        });
         this.appc.startClient(this.state.email, this.state.pswd);
     }
 
@@ -110,7 +115,11 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                             type="primary"
                             onClick={() => this.submit()}
                         >
-                            Log In
+                            {this.state.hasloading ? (
+                                <LoginLoading />
+                            ) : (
+                                "Log In"
+                            )}
                         </ButtonPartTwo>
                     </ButtonGroup>
 
@@ -129,6 +138,14 @@ export default class Login extends React.Component<LoginProps, LoginState> {
         );
     }
 }
+
+const LoginLoading = styled(LoadingIcon)`
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    position: relative;
+    margin: 0;
+`;
 
 const SepLink = styled.a`
     display: block;
@@ -160,11 +177,13 @@ const ButtonPartOne = styled(Button)`
     width: 195px;
     margin-right: 5px;
     position: relative;
+    height: 34px;
 `;
 const ButtonPartTwo = styled(Button)`
     width: 195px;
     margin-left: 5px;
     position: relative;
+    height: 34px;
 `;
 
 const LoginBody = styled.div`

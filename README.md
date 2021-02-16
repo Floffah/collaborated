@@ -1,6 +1,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5b2928d4-ab11-45ed-a18e-3040feeb74ca/deploy-status)](https://app.netlify.com/sites/determined-pike-df8a24/deploys)
 ![CodeQL](https://github.com/Floffah/collaborated/workflows/CodeQL/badge.svg)
-![Docs](https://github.com/Floffah/collaborated/workflows/Docs/badge.svg)
+![TODO](https://github.com/Floffah/collaborated/workflows/TODO/badge.svg)
+![ESLint](https://github.com/Floffah/collaborated/workflows/ESLint/badge.svg)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -18,10 +19,11 @@ In this repository, issues should only be created for bug reports. If you have a
  - Please make sure when developing, your IDE or code editor has prettier support. If using intellij or webstorm, make sure you have the prettier plugin installed. This project has idea configs in the repo so it should automatically configure when using this project.
 
 ## Links
-[All docs](https://capp.floffah.dev/?path=/story/developers-contents--page) <br>
-[Setting up a development environment](https://capp.floffah.dev/?path=/story/developers-contributors-development-environment--page) <br>
-[Storybook](https://capp.floffah.dev) <br>
-[UI Preview](https://preview.capp.floffah.dev) (this isn't usually connected to any api)
+[All docs](https://capp.floffah.dev/?path=/story/developers-contents--page) <br/>
+[Setting up a development environment](https://capp.floffah.dev/?path=/story/developers-contributors-development-environment--page) <br/>
+[Storybook](https://capp.floffah.dev) <br/>
+[UI Preview](https://preview.capp.floffah.dev) (this isn't usually connected to any api) <br/>
+[Discord](https://discord.gg/tTfksMfb3z)
 
 ## Warnings
  - When using the manager, make sure you:

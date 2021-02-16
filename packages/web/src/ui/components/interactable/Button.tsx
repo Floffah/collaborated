@@ -7,6 +7,7 @@ interface ButtonProps {
     onClick?: () => void;
     size?: "small" | "medium" | "large";
     className?: string;
+    progress?: number;
 }
 
 export default function Button(props: ComponentProps<ButtonProps>) {
