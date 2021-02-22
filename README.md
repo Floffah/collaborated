@@ -2,6 +2,7 @@
 ![CodeQL](https://github.com/Floffah/collaborated/workflows/CodeQL/badge.svg)
 ![TODO](https://github.com/Floffah/collaborated/workflows/TODO/badge.svg)
 ![ESLint](https://github.com/Floffah/collaborated/workflows/ESLint/badge.svg)
+[![DeepScan grade](https://deepscan.io/api/teams/12988/projects/16021/branches/332484/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=12988&pid=16021&bid=332484)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
