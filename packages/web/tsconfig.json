@@ -22,11 +22,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "paths": {
-      "*": [
-        ".snowpack/.types/*"
-      ]
-    },
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
