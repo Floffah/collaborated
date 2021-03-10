@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Elixir" name="Elixir facet">
+      <configuration sdkName="Elixir 1.11.3" />
+    </facet>
+  </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/packages/server/data" isTestSource="true" />
@@ -25,8 +30,12 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/stored/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/web/.snowpack" />
       <excludeFolder url="file://$MODULE_DIR$/packages/snowpack-monorepo-plugin/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/server/_build" />
+      <excludeFolder url="file://$MODULE_DIR$/docs" />
+      <excludeFolder url="file://$MODULE_DIR$/server/deps" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Elixir 1.11.3" level="application" />
   </component>
 </module>

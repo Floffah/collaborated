@@ -23,17 +23,18 @@
     "build": "yarn && yarn workspace scripts tsc && yarn workspace scripts node dist/build.js -v",
     "tsbuild": "yarn build -t",
     "devbuild": "yarn build --dev",
-    "prepack": "yarn build"
+    "prepack": "yarn build",
+    "betatest": "yarn build && cd server && mix run --no-halt"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.15.2",
-    "@typescript-eslint/parser": "^4.15.2",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
     "all-contributors-cli": "^6.20.0",
-    "eslint": "^7.20.0",
-    "eslint-config-prettier": "^8.0.0",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-workspaces": "^0.6.2",
-    "lerna": "^3.22.1"
+    "lerna": "^4.0.0"
   },
   "version": "0.0.0",
   "buildOrder": [

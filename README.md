@@ -8,7 +8,8 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 **PLEASE NOTE**
-In this repository, issues should only be created for bug reports. If you have a feature request, question, or anything else you want to talk about, use the discussions tab.
+ - In this repository, issues should only be created for bug reports. If you have a feature request, question, or anything else you want to talk about, use the discussions tab.
+ - Before you speculate anything about the `server` folder that isn't in packages, please read it's [readme](server/README.md)
 
 # Collaborated
 
