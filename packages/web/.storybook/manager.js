@@ -7,5 +7,5 @@ addons.setConfig({
     enableShortcuts: true,
     isToolshown: true,
     showRoots: true,
-    theme: themes.light,
+    theme: themes.dark,
 });

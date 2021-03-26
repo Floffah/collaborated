@@ -1,9 +1,14 @@
 {
   "name": "collaborated",
-  "workspaces": [
-    "packages/*",
-    "test/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "test/*"
+    ],
+    "nohoist": [
+      "**/@collaborated/interact"
+    ]
+  },
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
@@ -14,7 +19,7 @@
     "betatest": "yarn build && cd server && mix run --no-halt"
   },
   "devDependencies": {
-    "@floffah/build": "^0.1.0",
+    "@floffah/build": "^0.2.1",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "all-contributors-cli": "^6.20.0",

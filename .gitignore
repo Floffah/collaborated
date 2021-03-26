@@ -5,6 +5,7 @@ build
 packages/server/data
 manager.exe
 diff.patch
+!packages/web/docs
 
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains,webstorm,node,elixir,erlang,go
 # Edit at https://www.toptal.com/developers/gitignore?templates=jetbrains,webstorm,node,elixir,erlang,go

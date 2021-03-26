@@ -1,0 +1,24 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+
+<Meta title="Developers/Contributors/Development Environment"/>
+
+# Setting up a development environment
+I develop on Windows so you already know its easy to get going.
+
+There are only 2 main things you need to get a development environment going. Everything else is either managed automatically or there is a script for it.
+
+The first thing is a database. I use postgres and i know this works with postgres. For easiness, you can make a database on heroku for completely free. If you already have a database, feel free to use that. All of collaborated's tables start with capp_ so the chances of something getting overridden are very low.
+
+The second thins is optional. This is a redis server. During development, you only need this if you are testing or testing something that uses the interprocess system. You can also get a free one on heroku.
+
+If you are getting a database and redis server on heroku and attach them to the same project, it will ask you for your card details. It doesn't cost anything, this is just to prove you are human.
+
+Once you have these, run `yarn && yarn buildts` to install dependencies and build all the typescript files.
+Then you need to start collaborated (with `yarn workspace server node .`.)
+When you do this, collaborated will crash but it will have created a file at core/server/data/config.ini with default values. fill this out with your postgres and redis details. you dont need to fill in the redis details. if you dont, this will be picked up automatically and the interprocess system will not be enabled.
+run it again and you will be able to develop.
+
+There are also a few other scripts
+ - `yarn terminals` - (windows only, must have windows terminals installed) - open a terminals with tabs for building typescript, storybook, starting a snowpack dev server, and starting collaborated without serving web files
+  - `--cmd` - dont run collaborated but run everything else
+  - `--builds` - only run typescript builds (in watch mode)

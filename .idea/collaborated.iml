@@ -24,15 +24,16 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/interact/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/interact/types" />
       <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/web/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web/build" />
       <excludeFolder url="file://$MODULE_DIR$/scripts/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/stored/types" />
       <excludeFolder url="file://$MODULE_DIR$/packages/stored/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/web/.snowpack" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web/.snowpack" />
       <excludeFolder url="file://$MODULE_DIR$/packages/snowpack-monorepo-plugin/dist" />
       <excludeFolder url="file://$MODULE_DIR$/server/_build" />
       <excludeFolder url="file://$MODULE_DIR$/docs" />
       <excludeFolder url="file://$MODULE_DIR$/server/deps" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web/src/docs" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

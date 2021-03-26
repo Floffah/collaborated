@@ -1,0 +1,23 @@
+import {Tooltip} from "./Tooltip";
+import {
+    ArgsTable,
+    Canvas,
+    Meta,
+    Story
+} from "@storybook/addon-docs/blocks"; import {PopOverPos} from "../containers/PopupUtil";
+
+<Meta title="Component Library/Feedback/Tooltip" component={Tooltip}/>
+
+# Tooltip
+A basic popover component that puts a nicely styled message above anything on hover or click
+
+## Usage
+You use it like this
+
+<Canvas>
+    <Story name="Basic" args={{message: "Basic usage", position: PopOverPos.Top}}>{(args) => <Tooltip {...args}>
+        <p>Tooltip</p></Tooltip>}</Story>
+</Canvas>
+
+## API
+<ArgsTable of={Tooltip}/>

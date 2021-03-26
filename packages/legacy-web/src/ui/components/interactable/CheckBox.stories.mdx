@@ -1,0 +1,20 @@
+import {ArgsTable, Canvas, Meta, Story} from "@storybook/addon-docs/blocks";
+import CheckBox from "./CheckBox";
+
+<Meta title="Component Library/Interactable/CheckBox" component={CheckBox}/>
+
+# CheckBox
+
+The check box element is a useful element for providing feedback about certain features, properties, etc, being enabled.
+
+## Usage
+
+The most basic checkbox is a single square with a check that can be toggled on or off.
+
+<Canvas>
+    <Story name="Basic" args={{defaultChecked: false}}>{args => <CheckBox {...args}/>}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={CheckBox}/>

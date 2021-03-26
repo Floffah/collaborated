@@ -1,0 +1,35 @@
+import {Canvas, Meta, Story} from "@storybook/addon-docs/blocks";
+import Button from "./Button";
+
+<Meta title="Component Library/Interactable/Button" component={Button}/>
+
+# Button
+
+One of the most used elements in a website. This is Collaborated's take on it.
+
+## Usage
+
+The most basic use is a button of type default. This is that button.
+
+<Canvas>
+    <Story name="Default">{(args) => <Button {...args}>Button</Button>}</Story>
+</Canvas>
+
+But there are different types of buttons. Here is what the `primary` button looks like.
+
+<Canvas>
+    <Story name="Primary" args={{type: "primary"}}>{(args) => <Button {...args}>Primary</Button>}</Story>
+</Canvas>
+
+There's more... There is different sizes.
+
+<Canvas>
+    <Story name="Big-enough" args={{type: "primary", size: "medium"}}>{(args) =>
+        <Button {...args}>Big-enough</Button>}</Story>
+    <Story name="Too Big" args={{type: "primary", size: "large"}}>{(args) => <Button {...args}>Too
+    Big </Button>}</Story>
+    </Canvas>
+
+## API
+
+    <ArgsTable of={Button}/>

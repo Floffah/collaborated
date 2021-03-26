@@ -7,46 +7,41 @@
   ],
   "commands": [
     {
-      "type": "typescript",
-      "package": "common",
-      "id": "common",
-      "runInEnvironments": ["prod", "dev"]
-    },
-    {
+      "id": "interact",
       "type": "typescript",
       "package": "interact",
-      "id": "interact",
       "runInEnvironments": ["prod", "dev"]
     },
     {
+      "id": "docs",
       "type": "storybook",
       "package": "web",
       "port": "6006",
       "out": "../../docs",
-      "id": "docs",
       "runInEnvironments": ["prod", "dev"]
     },
     {
-      "type": "snowpack",
-      "package": "web",
       "id": "web",
+      "type": "next",
+      "package": "web",
+      "port": 3000,
       "runInEnvironments": ["prod", "dev"]
     },
     {
-      "type": "typescript",
       "id": "old-server",
+      "type": "typescript",
       "package": "server",
       "runInEnvironments": ["prod", "dev"]
     },
     {
-      "type": "typescript",
       "id": "app",
+      "type": "typescript",
       "package": "app",
       "runInEnvironments": ["prod", "dev"]
     },
     {
-      "type": "typescript",
       "id": "addon",
+      "type": "typescript",
       "package": "test-addon",
       "dontUsePackagePrefix": true,
       "runInEnvironments": ["dev"]
