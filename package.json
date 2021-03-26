@@ -2,7 +2,6 @@
   "name": "collaborated",
   "workspaces": [
     "packages/*",
-    "scripts",
     "test/*"
   ],
   "private": true,
@@ -10,23 +9,12 @@
   "scripts": {
     "docs": "yarn buildts && yarn workspace @collaborated/web docs",
     "docsync": "git fetch && git pull && git push",
-    "buildts": "yarn tsbuild",
-    "buildall": "yarn build",
-    "unpushed": "git log origin/master..HEAD",
     "netlifydeploy": "yarn && yarn buildts && yarn workspace @collaborated/web snowpack build",
-    "docsend": "git add docs && git subtree push --prefix docs origin gh-pages && git push",
-    "mbuildlinux": "cd services/manager && go build -v -x -o ../../../capp main.go && cd ../../",
-    "mbuildwin": "cd services/manager && go build -v -x -o ../../../capp.exe main.go && cd ../../",
-    "manager": "yarn mbuildwin && cd ../ && \"./capp.exe\"",
-    "firstmbuild": "go install -v -x -a -i && yarn manager",
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
-    "build": "yarn && yarn workspace scripts tsc && yarn workspace scripts node dist/build.js -v",
-    "tsbuild": "yarn build -t",
-    "devbuild": "yarn build --dev",
-    "prepack": "yarn build",
     "betatest": "yarn build && cd server && mix run --no-halt"
   },
   "devDependencies": {
+    "@floffah/build": "^0.1.0",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "all-contributors-cli": "^6.20.0",
@@ -36,12 +24,5 @@
     "eslint-plugin-workspaces": "^0.6.2",
     "lerna": "^4.0.0"
   },
-  "version": "0.0.0",
-  "buildOrder": [
-    "common",
-    "interact",
-    "web",
-    "app",
-    "server"
-  ]
+  "version": "0.0.0"
 }

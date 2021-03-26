@@ -1,0 +1,55 @@
+{
+  "enableTerminal": true,
+  "packagePrefix": "@collaborated/",
+  "allowedTargets": [
+    "win",
+    "linux"
+  ],
+  "commands": [
+    {
+      "type": "typescript",
+      "package": "common",
+      "id": "common",
+      "runInEnvironments": ["prod", "dev"]
+    },
+    {
+      "type": "typescript",
+      "package": "interact",
+      "id": "interact",
+      "runInEnvironments": ["prod", "dev"]
+    },
+    {
+      "type": "storybook",
+      "package": "web",
+      "port": "6006",
+      "out": "../../docs",
+      "id": "docs",
+      "runInEnvironments": ["prod", "dev"]
+    },
+    {
+      "type": "snowpack",
+      "package": "web",
+      "id": "web",
+      "runInEnvironments": ["prod", "dev"]
+    },
+    {
+      "type": "typescript",
+      "id": "old-server",
+      "package": "server",
+      "runInEnvironments": ["prod", "dev"]
+    },
+    {
+      "type": "typescript",
+      "id": "app",
+      "package": "app",
+      "runInEnvironments": ["prod", "dev"]
+    },
+    {
+      "type": "typescript",
+      "id": "addon",
+      "package": "test-addon",
+      "dontUsePackagePrefix": true,
+      "runInEnvironments": ["dev"]
+    }
+  ]
+}
