@@ -1,7 +1,11 @@
-import {addons} from "@storybook/addons";
-import {themes} from "@storybook/theming";
-import {addDecorator} from "@storybook/react";
+import { addons } from "@storybook/addons";
+import { themes } from "@storybook/theming";
 
 addons.setConfig({
-    theme: themes.dark
-})
+    panelPosition: "bottom",
+    sidebarAnimatiosn: true,
+    enableShortcuts: true,
+    isToolshown: true,
+    showRoots: true,
+    theme: themes.light,
+});

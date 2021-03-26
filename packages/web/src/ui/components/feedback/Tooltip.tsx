@@ -96,7 +96,9 @@ export class TooltipMessage extends React.Component<
         const temp = document.createElement("canvas");
         const ctx = temp.getContext("2d");
         if (ctx) {
-            ctx.font = theme.font;
+            ctx.font =
+                theme.font ??
+                "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
             this.setState(
                 {
                     cwidth:

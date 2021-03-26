@@ -51,10 +51,17 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     }
 
     submit() {
-        this.setState({
-            hasloading: true,
-        });
-        this.appc.startClient(this.state.email, this.state.pswd);
+        if (
+            this.state.pswd !== "" &&
+            !/[ \t]+/.test(this.state.pswd) &&
+            !/[ \t]+/.test(this.state.email) &&
+            this.state.email !== ""
+        ) {
+            this.setState({
+                hasloading: true,
+            });
+            this.appc.startClient(this.state.email, this.state.pswd);
+        }
     }
 
     echange(val: string) {

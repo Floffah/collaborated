@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { getTheme } from "../../colours/theme";
 import Login from "../menus/Login";
 import Particles from "react-tsparticles";
 import { PopupContainer } from "./Popups";
 import * as React from "react";
+import { AppContainer } from "../../../app/AppContainer";
 
 export function LoginPage() {
     return (
         <>
-            <StyledParticles options={particleopts} />
+            <StyledParticles options={particleopts()} />
             <Login float={true} />
             <PopupContainer />
         </>
@@ -21,15 +21,19 @@ const StyledParticles = styled(Particles)`
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: ${(props) => props.theme.page.bg};
 `;
 
-const particleopts = {
+const particleopts = () => ({
+    retina_detect: true,
     background: {
-        color: {
-            value: getTheme().page.bg,
-        },
+        color: AppContainer.inst.theme.page?.bg,
+        image: "",
+        position: "50% 50%",
+        repeat: "no-repeat",
+        size: "cover",
+        opacity: 0,
     },
-    fpsLimit: 60,
     interactivity: {
         detectsOn: "window",
         events: {
@@ -59,10 +63,10 @@ const particleopts = {
     },
     particles: {
         color: {
-            value: "#ffffff",
+            value: AppContainer.inst.theme.login?.particles?.color,
         },
         links: {
-            color: "#ffffff",
+            color: AppContainer.inst.theme.login?.particles?.color,
             distance: 150,
             enable: false,
             opacity: 0.5,
@@ -99,4 +103,4 @@ const particleopts = {
         },
     },
     detectRetina: true,
-};
+});

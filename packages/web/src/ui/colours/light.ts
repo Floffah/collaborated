@@ -60,5 +60,18 @@ export function lightTheme(): ColourTheme {
                 },
             },
         },
+        (s, _o) => ({
+            login: {
+                bg: s.accent[9],
+                header: {
+                    bg: s.accent[8],
+                },
+            },
+            button: {
+                primary: {
+                    color: s.accent[11],
+                },
+            },
+        }),
     );
 }

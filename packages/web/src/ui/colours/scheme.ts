@@ -1,10 +1,13 @@
 import { ColourTheme } from "./theme";
+import { merge } from "../util/objects";
 
 export default function themeToScheme(
     scheme: Scheme,
     opts: SchemeOpts,
+    override: (s: Scheme, o: SchemeOpts) => ColourTheme = (_s, _o) => ({}),
 ): ColourTheme {
-    return {
+    const o = override(scheme, opts);
+    const theme = {
         name: opts.name,
         font: opts.font,
         navbar: {
@@ -19,6 +22,9 @@ export default function themeToScheme(
             color: scheme.accent[3],
         },
         login: {
+            particles: {
+                color: scheme.accent[1],
+            },
             bg: scheme.accent[10],
             header: {
                 color: scheme.accent[4],
@@ -74,6 +80,8 @@ export default function themeToScheme(
             sepcolor: scheme.accent[8],
         },
     };
+    merge(theme, o);
+    return theme;
 }
 
 // TODO [#4]: add "offset" props to schemes
