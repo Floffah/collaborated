@@ -1,23 +1,19 @@
 import { Theme } from "./themes";
 import fromPalette, { Palette } from "./palettes";
 
-interface getDarkTheme {
-    palette: Palette;
-}
-
-function getDarkTheme(): Theme {
+export function getDarkTheme(): Theme {
     return fromPalette(
-        getDarkTheme.palette,
+        darkThemePalette,
         {
             name: "dark",
             font:
                 "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
         },
-        () => ({}),
+        (_s, _o) => ({}),
     );
 }
 
-getDarkTheme.palette = {
+export const darkThemePalette = {
     accent: [
         "#ffffff",
         "#fafafa",
@@ -58,5 +54,3 @@ getDarkTheme.palette = {
         "#fac8c3",
     ],
 } as Palette;
-
-export default getDarkTheme;

@@ -1,17 +1,19 @@
 import { Home } from "../components/structures/Home";
 import React from "react";
-import { GetStaticPropsResult } from "next";
-import { Props } from "./ssr";
+import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { initialState } from "../lib/store";
+import { Props, SST } from "src/lib/i18n";
 
 export default function SSG() {
     return <Home />;
 }
 
-export function getStaticProps(): GetStaticPropsResult<Props> {
-    return {
-        props: {
-            initialState: initialState,
-        },
-    };
-}
+export const getStaticProps = async (
+    p: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<Props>> => ({
+    props: {
+        ...p,
+        initialState: initialState,
+        ...(await SST(p)),
+    },
+});

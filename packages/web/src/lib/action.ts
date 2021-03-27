@@ -1,5 +1,3 @@
-import { Theme } from "../theme/themes";
-
 export enum ActionType {
     ChangeTheme,
 }
@@ -13,5 +11,5 @@ export interface BaseAction {
 
 export interface ThemeAction extends BaseAction {
     type: ActionType.ChangeTheme;
-    opts: [Theme];
+    opts: [string];
 }

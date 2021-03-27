@@ -1,6 +1,4 @@
 import { useMemo } from "react";
-import { Theme } from "../theme/themes";
-import getDarkTheme from "../theme/dark";
 import { Action, ActionType } from "./action";
 import { applyMiddleware, createStore, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -8,11 +6,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 let store: Store<State, Action> | undefined;
 
 export interface State {
-    theme: Theme;
+    theme: string;
 }
 
 export const initialState: State = {
-    theme: getDarkTheme(),
+    theme: "dark",
 };
 
 const reducer: (state: State, a: Action) => State = (

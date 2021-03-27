@@ -6,7 +6,7 @@ import {
 } from "styled-components";
 import { State } from "../../lib/store";
 import { useStore } from "react-redux";
-import { Theme } from "../../theme/themes";
+import { getTheme, Theme } from "../../theme/themes";
 
 const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
   body, html {
@@ -43,7 +43,7 @@ export const ApplyGlobalStyles: React.FC = (p) => {
 
     return (
         <>
-            <ThemeProvider theme={s.theme}>
+            <ThemeProvider theme={getTheme(s.theme)}>
                 <GlobalStyles />
                 {p.children}
             </ThemeProvider>
