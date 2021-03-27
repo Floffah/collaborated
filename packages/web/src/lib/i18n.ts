@@ -11,5 +11,12 @@ export interface Props {
 
 export const localeNamespaces = ["common"];
 
-export const SST = (p: GetServerSidePropsContext | GetStaticPropsContext) =>
-    serverSideTranslations(p.locale as string, localeNamespaces, i18nconfig);
+export const SST = (
+    p: GetServerSidePropsContext | GetStaticPropsContext,
+    ns?: string[],
+) =>
+    serverSideTranslations(
+        p.locale as string,
+        ns ?? localeNamespaces,
+        i18nconfig,
+    );

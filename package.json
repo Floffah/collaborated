@@ -16,7 +16,9 @@
     "docsync": "git fetch && git pull && git push",
     "netlifydeploy": "yarn && yarn buildts && yarn workspace @collaborated/web snowpack build",
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
-    "betatest": "yarn build && cd server && mix run --no-halt"
+    "betatest": "yarn build && cd server && mix run --no-halt",
+    "devbuild": "yarn build dev",
+    "prodbuild": "yarn build build"
   },
   "devDependencies": {
     "@floffah/build": "^0.2.1",
