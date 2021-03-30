@@ -4,7 +4,7 @@
   "private": false,
   "description": "Common utility stuff",
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "graphql": "^15.5.0"
   },

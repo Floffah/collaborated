@@ -7,6 +7,12 @@
   ],
   "commands": [
     {
+      "id": "common",
+      "type": "typescript",
+      "package": "common",
+      "runInEnvironments": ["prod", "dev"]
+    },
+    {
       "id": "interact",
       "type": "typescript",
       "package": "interact",
