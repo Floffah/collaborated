@@ -9,7 +9,6 @@ module.exports = tm({
     reactStrictMode: true,
     trailingSlash: true,
     productionBrowserSourceMaps: true,
-    target: "serverless",
     i18n: {
         locales: ["en"],
         defaultLocale: "en",
@@ -19,7 +18,7 @@ module.exports = tm({
     react: {
         useSuspense: false,
     },
-    // future: {
-    //     webpack5: true,
-    // },
+    future: {
+        webpack5: true,
+    },
 });
