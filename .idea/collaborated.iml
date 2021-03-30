@@ -18,6 +18,9 @@
       <excludeFolder url="file://$MODULE_DIR$/test/addon/dist" />
       <excludeFolder url="file://$MODULE_DIR$/old.idea" />
       <excludeFolder url="file://$MODULE_DIR$/packages/web/.next" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/web/.netlify" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/web/netlify" />
+      <excludeFolder url="file://$MODULE_DIR$/.netlify" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />

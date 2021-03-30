@@ -7,6 +7,8 @@ manager.exe
 diff.patch
 !packages/web/docs
 old.idea
+packages/web/.netlify
+packages/web/netlify
 
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains,webstorm,node,elixir,erlang,go
 # Edit at https://www.toptal.com/developers/gitignore?templates=jetbrains,webstorm,node,elixir,erlang,go
@@ -349,3 +351,6 @@ dist
 # https://plugins.jetbrains.com/plugin/12206-codestream
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,webstorm,node,elixir,erlang,go
+
+# Local Netlify folder
+.netlify

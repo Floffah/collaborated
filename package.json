@@ -4,10 +4,6 @@
     "packages": [
       "packages/*",
       "test/*"
-    ],
-    "nohoist": [
-      "**/@collaborated/interact",
-      "@collaborated/web/@collaborated/interact"
     ]
   },
   "private": true,
@@ -25,6 +21,7 @@
   },
   "devDependencies": {
     "@floffah/build": "^0.3.1",
+    "@netlify/plugin-nextjs": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "all-contributors-cli": "^6.20.0",
@@ -33,6 +30,7 @@
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-workspaces": "^0.6.2",
     "lerna": "^4.0.0",
+    "netlify-cli": "^3.13.9",
     "npm-check-updates": "^11.3.0"
   },
   "version": "0.0.0"
