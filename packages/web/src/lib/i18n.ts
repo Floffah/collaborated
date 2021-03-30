@@ -16,7 +16,7 @@ export const SST = (
     ns?: string[],
 ) =>
     serverSideTranslations(
-        p.locale as string,
+        p.locale ?? "en",
         ns ?? localeNamespaces,
         i18nConfig,
     );
