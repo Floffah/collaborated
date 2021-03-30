@@ -6,6 +6,7 @@ module.exports = {
         locales: ["en"],
         defaultLocale: "en",
     },
+    ns: ["common", "errors"],
     localePath: path.resolve("./locale"),
     defaultNS: "common",
     react: {
