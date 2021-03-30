@@ -30,7 +30,7 @@
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-workspaces": "^0.6.2",
     "lerna": "^4.0.0",
-    "netlify-cli": "^3.13.9",
+    "netlify-cli": "^3.13.10",
     "npm-check-updates": "^11.3.0"
   },
   "version": "0.0.0"
