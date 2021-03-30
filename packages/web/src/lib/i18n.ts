@@ -1,7 +1,9 @@
 import { State } from "./store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
-import { resolve } from "path";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const i18nConfig = require("../../next-i18next.config");
 
 export interface Props {
     initialState: State;
@@ -13,11 +15,8 @@ export const SST = (
     p: GetServerSidePropsContext | GetStaticPropsContext,
     ns?: string[],
 ) =>
-    serverSideTranslations(p.locale as string, ns ?? localeNamespaces, {
-        localePath: resolve("./public/locale"),
-        defaultNS: "common",
-        i18n: {
-            locales: ["en"],
-            defaultLocale: "en",
-        },
-    });
+    serverSideTranslations(
+        p.locale as string,
+        ns ?? localeNamespaces,
+        i18nConfig,
+    );
