@@ -10,7 +10,7 @@ module.exports = tm({
     trailingSlash: true,
     productionBrowserSourceMaps: true,
     target: "serverless",
-    ...i18n,
+    i18n,
     future: {
         webpack5: true,
     },
