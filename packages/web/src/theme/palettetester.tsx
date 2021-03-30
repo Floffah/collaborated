@@ -11,7 +11,7 @@ interface PTProps {
 
 export const PaletteTester: React.FC<PTProps> = (p) => {
     const groups: JSX.Element[] = [];
-    let plt = p.palette ?? {};
+    let plt: Palette | undefined = p.palette;
 
     if (p.paletteName) {
         const name = p.paletteName ?? "dark";
@@ -22,10 +22,14 @@ export const PaletteTester: React.FC<PTProps> = (p) => {
         }
     }
 
+    if (!plt) {
+        return <p>Could not read</p>;
+    }
+
     for (const g of Object.keys(plt)) {
         const colours: JSX.Element[] = [];
 
-        for (const c of plt[g]) {
+        for (const c of ((plt as unknown) as { [k: string]: any[] })[g]) {
             colours.push(
                 <Colour
                     key={colours.length}
