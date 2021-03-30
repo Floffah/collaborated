@@ -6,7 +6,10 @@
       "test/*"
     ],
     "nohoist": [
-      "**/@collaborated/interact"
+      "**/@collaborated/interact",
+      "@collaborated/interact/**",
+      "**/@collaborated/interact/**",
+      "@collaborated/web/@collaborated/interact"
     ]
   },
   "private": true,

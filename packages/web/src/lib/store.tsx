@@ -13,7 +13,7 @@ export const initialState: State = {
     theme: "dark",
 };
 
-const reducer: (state: State, a: Action) => State = (
+const reducer: (state: State | undefined, a: Action) => State = (
     state = initialState,
     a,
 ) => {
