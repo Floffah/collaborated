@@ -1,9 +1,8 @@
 import React from "react";
-
 import { Login } from "src/components/structures/Login";
-import { getStaticProps as GetStaticProps } from "./ssg";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
+import { buildServerPropsFN } from "../lib/ssr";
 
 export default function Index() {
     const { t } = useTranslation("common");
@@ -11,11 +10,11 @@ export default function Index() {
     return (
         <div>
             <Head>
-                <title>{t("login-title")}</title>
+                <title>{t("login-title")} | Collaborated</title>
             </Head>
             <Login />
         </div>
     );
 }
 
-export const getStaticProps = GetStaticProps;
+export const getServerSideProps = buildServerPropsFN({ ns: ["common"] });

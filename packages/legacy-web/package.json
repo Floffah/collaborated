@@ -1,0 +1,62 @@
+{
+  "name": "@collaborated/legacy-web",
+  "version": "0.0.1-alpha1",
+  "private": true,
+  "description": "Collaborated front-end",
+  "scripts": {
+    "docs": "yarn build-storybook -o ../../docs"
+  },
+  "devDependencies": {
+    "@collaborated/interact": "0.0.1-alpha1",
+    "@mdi/js": "^5.9.55",
+    "@mdi/react": "^1.4.0",
+    "@react-theming/storybook-addon": "^1.1.1",
+    "@snowpack/plugin-optimize": "^0.2.13",
+    "@snowpack/plugin-typescript": "^1.2.1",
+    "@snowpack/plugin-webpack": "^2.3.1",
+    "@storybook/addon-a11y": "^6.1.21",
+    "@storybook/addon-actions": "^6.1.21",
+    "@storybook/addon-docs": "^6.1.21",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-links": "^6.1.21",
+    "@storybook/addon-storysource": "^6.1.21",
+    "@storybook/addons": "^6.1.21",
+    "@storybook/react": "^6.1.21",
+    "@storybook/theming": "^6.1.21",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/semver": "^7.3.4",
+    "@types/styled-components": "^5.1.9",
+    "dexie": "^3.0.3",
+    "i18next": "^20.1.0",
+    "next": "^10.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-i18next": "^11.8.12",
+    "react-is": "^17.0.2",
+    "react-latex": "^2.0.0",
+    "react-syntax-highlighter": "^15.4.3",
+    "react-tsparticles": "^1.24.3",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "semver": "^7.3.5",
+    "snowpack": "^3.1.2",
+    "storybook-mobile": "^0.1.30",
+    "styled-components": "^5.2.1",
+    "typescript": "^4.2.3"
+  },
+  "browserslist": {
+    "production": [
+      "defaults",
+      "not IE 11",
+      "not IE_Mob 11",
+      "maintained node versions",
+      ">0.2%",
+      "not dead"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

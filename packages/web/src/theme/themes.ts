@@ -27,4 +27,31 @@ export interface Theme {
         color?: string;
         active?: string;
     };
+
+    login?: {
+        particlecolor?: string;
+        bg?: string;
+        header?: {
+            bg?: string;
+            color?: string;
+        };
+    };
+
+    input?: {
+        bg?: string;
+        color?: string;
+        placeholderColor?: string;
+        borderHover?: string;
+    };
+
+    button?: {
+        default?: Button;
+        primary?: Button;
+    };
+}
+
+interface Button {
+    background?: string;
+    backgroundHover?: string;
+    text?: string;
 }

@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
-  <component name="FacetManager">
-    <facet type="Elixir" name="Elixir facet">
-      <configuration sdkName="Elixir 1.11.3" />
-    </facet>
-  </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/packages/server/data" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/core/server/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/core/web/build" />
-      <excludeFolder url="file://$MODULE_DIR$/core/web/build/web_modules" />
-      <excludeFolder url="file://$MODULE_DIR$/core/interact/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/core/interact/types" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
-      <excludeFolder url="file://$MODULE_DIR$/test/addon/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/core/app/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/app/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/common/types" />
       <excludeFolder url="file://$MODULE_DIR$/packages/common/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/common/types" />
       <excludeFolder url="file://$MODULE_DIR$/packages/interact/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/interact/types" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web/build" />
-      <excludeFolder url="file://$MODULE_DIR$/scripts/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/stored/types" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/stored/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web/.snowpack" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/snowpack-monorepo-plugin/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/server/_build" />
-      <excludeFolder url="file://$MODULE_DIR$/docs" />
-      <excludeFolder url="file://$MODULE_DIR$/server/deps" />
       <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web/src/docs" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/data" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/stored/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/stored/types" />
+      <excludeFolder url="file://$MODULE_DIR$/test/addon/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/old.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/web/.next" />
     </content>
+    <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Elixir 1.11.3" level="application" />
+    <orderEntry type="module" module-name="absinthe" />
+    <orderEntry type="module" module-name="absinthe_plug" />
+    <orderEntry type="module" module-name="server" />
+    <orderEntry type="module" module-name="jason" />
+    <orderEntry type="module" module-name="mime" />
+    <orderEntry type="module" module-name="nimble_parsec" />
+    <orderEntry type="module" module-name="plug" />
+    <orderEntry type="module" module-name="plug_cowboy" />
+    <orderEntry type="module" module-name="plug_crypto" />
   </component>
 </module>

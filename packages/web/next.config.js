@@ -8,4 +8,7 @@ module.exports = tm({
     trailingSlash: true,
     productionBrowserSourceMaps: true,
     ...i18n,
+    future: {
+        webpack5: true,
+    },
 });

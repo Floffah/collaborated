@@ -13,7 +13,7 @@ export const PaletteTester: React.FC<PTProps> = (p) => {
     const groups: JSX.Element[] = [];
     let plt = p.palette ?? {};
 
-    if (!p.palette) {
+    if (p.paletteName) {
         const name = p.paletteName ?? "dark";
         if (name === "dark") {
             plt = darkThemePalette;

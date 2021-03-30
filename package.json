@@ -18,18 +18,21 @@
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
     "betatest": "yarn build && cd server && mix run --no-halt",
     "devbuild": "yarn build dev",
-    "prodbuild": "yarn build build"
+    "prodbuild": "yarn build build",
+    "updates": "ncu --packageManager yarn --deep --target minor",
+    "forceupdate": "ncu --packageManager yarn --deep --target minor -u"
   },
   "devDependencies": {
-    "@floffah/build": "^0.2.1",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@floffah/build": "^0.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
     "all-contributors-cli": "^6.20.0",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-workspaces": "^0.6.2",
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "npm-check-updates": "^11.3.0"
   },
   "version": "0.0.0"
 }

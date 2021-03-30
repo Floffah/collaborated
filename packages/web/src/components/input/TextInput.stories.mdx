@@ -1,0 +1,45 @@
+import TextInput from "./TextInput";
+import { ArgsTable, Meta, Story } from "@storybook/addon-docs/blocks";
+import { mdiEmail } from "@mdi/js";
+
+<Meta title="Components/Input/Text Input" component={TextInput} />
+
+# TextInput
+
+TextInput is a component for getting user input. It has a variety of display options.
+
+## Basic
+
+This is a basic input with nothing special. This component returns a pure input element.
+
+<Story name="Basic" args={{
+    autoComplete: "off",
+    mode: "text",
+    placeholder: "Text",
+    width: 200,
+    height: 30,
+    fontSize: 15,
+}}>
+    {(args) => <TextInput {...args} />}
+</Story>
+
+## Icon input
+
+This is a basic input with an icon from MDI. It does not return a pure input element.
+
+<Story name="Icon" args={{
+    autoComplete: "on",
+    mode: "email",
+    placeholder: "Text",
+    width: 300,
+    height: 35,
+    fontSize: 18,
+    icon: mdiEmail,
+    iconClickable: false
+}}>
+    {(args) => <TextInput {...args} />}
+</Story>
+
+## Args
+
+<ArgsTable of={TextInput} />

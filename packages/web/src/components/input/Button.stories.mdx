@@ -1,0 +1,15 @@
+import { ArgsTable, Meta, Story } from "@storybook/addon-docs/blocks"; import Button from "./Button";
+
+<Meta title="Components/Input/Button" component={Button} />
+
+# Button
+
+<Story name="Basic" args={{
+    children: "Basic button"
+}}>
+    {(args) => <Button {...args}/>}
+</Story>
+
+## Args
+
+<ArgsTable of={Button}/>

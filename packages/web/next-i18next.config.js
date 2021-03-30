@@ -8,4 +8,7 @@ module.exports = {
     },
     localePath: resolve("./public/locale"),
     defaultNS: "common",
+    react: {
+        useSuspense: false,
+    },
 };

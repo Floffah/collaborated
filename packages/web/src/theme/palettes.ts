@@ -19,6 +19,35 @@ export default function fromPalette(
             color: p.primary[7],
             active: p.primary[6],
         },
+
+        login: {
+            particlecolor: p.accent[1],
+            bg: p.accent[9],
+            header: {
+                bg: p.accent[10],
+                color: p.accent[5],
+            },
+        },
+
+        input: {
+            bg: p.accent[11],
+            color: p.accent[2],
+            placeholderColor: p.accent[7],
+            borderHover: p.primary[7],
+        },
+
+        button: {
+            default: {
+                background: p.accent[10],
+                backgroundHover: p.accent[11],
+                text: p.accent[5],
+            },
+            primary: {
+                background: p.primary[5],
+                backgroundHover: p.primary[6],
+                text: p.accent[2],
+            },
+        },
     };
 
     merge(theme, override(p, o));

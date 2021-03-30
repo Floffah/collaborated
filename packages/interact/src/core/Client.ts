@@ -6,13 +6,23 @@ import chalk from "chalk";
 import ProjectStore from "../store/ProjectStore";
 
 interface ClientOptions {
+    /**
+     * Enable debug mode
+     */
     debug?: boolean;
+    /**
+     * API url to use if not using the default
+     */
     overrideApiURL?: string;
+    /**
+     * If the client is in browser mode
+     */
     browserMode?: boolean;
 }
 
 export declare interface Client {
     on(event: "ready", listener: () => void): this;
+
     on(event: "loginprogress", listener: (progress: number) => void): this;
 
     on(event: string, listener: () => unknown): this;
@@ -46,7 +56,7 @@ export class Client extends events.EventEmitter {
                 "Cache-Control": "no-cache",
             },
             baseURL: this.url,
-            withCredentials: true,
+            //withCredentials: true,
             transformRequest: [(data) => JSON.stringify(data.data)],
         });
     }

@@ -1,4 +1,5 @@
 {
-  "in-impl": "Undergoing implementation",
-  "login-title": "Login"
+  "login-title": "Login",
+  "email": "Email",
+  "pass": "Password"
 }

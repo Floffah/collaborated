@@ -24,6 +24,12 @@ run `yarn build` for help with the build command
 
 See a list of planned/implemented features [here](features.md)
 
+When testing and on Windows 10 with Windows Terminals installed (the build command detects this) it is recommended to pass `--exclude web` to the `yarn build dev` command and run `yarn workspace @collaborated/web next dev` separately so it is easier to see.
+
+If you are on linux or don't have Windows Terminals installed, the build command runs everything in parallel in development mode.
+
+run `yarn build` for more information 
+
 ## Links
 [All docs](https://capp.floffah.dev/?path=/story/developers-contents--page) <br/>
 [Setting up a development environment](https://capp.floffah.dev/?path=/story/developers-contributors-development-environment--page) <br/>

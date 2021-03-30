@@ -23,7 +23,6 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "declaration": true,
-    "declarationDir": "types"
   },
   "exclude": [
     "node_modules"

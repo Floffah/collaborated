@@ -8,3 +8,7 @@ export default {
 };
 
 export const a = (args: any) => <PaletteTester {...args} />;
+a.args = {
+    paletteName: "dark",
+    palette: {},
+};

@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/server/deps/absinthe/.idea/absinthe.iml" filepath="$PROJECT_DIR$/server/deps/absinthe/.idea/absinthe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/deps/absinthe_plug/.idea/absinthe_plug.iml" filepath="$PROJECT_DIR$/server/deps/absinthe_plug/.idea/absinthe_plug.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/collaborated.iml" filepath="$PROJECT_DIR$/.idea/collaborated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/deps/jason/.idea/jason.iml" filepath="$PROJECT_DIR$/server/deps/jason/.idea/jason.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/deps/mime/.idea/mime.iml" filepath="$PROJECT_DIR$/server/deps/mime/.idea/mime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/deps/nimble_parsec/.idea/nimble_parsec.iml" filepath="$PROJECT_DIR$/server/deps/nimble_parsec/.idea/nimble_parsec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/deps/plug/.idea/plug.iml" filepath="$PROJECT_DIR$/server/deps/plug/.idea/plug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/deps/plug_cowboy/.idea/plug_cowboy.iml" filepath="$PROJECT_DIR$/server/deps/plug_cowboy/.idea/plug_cowboy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/deps/plug_crypto/.idea/plug_crypto.iml" filepath="$PROJECT_DIR$/server/deps/plug_crypto/.idea/plug_crypto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/.idea/server.iml" filepath="$PROJECT_DIR$/server/.idea/server.iml" />
     </modules>
   </component>
 </project>

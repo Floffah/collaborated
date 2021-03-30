@@ -9,7 +9,12 @@ export function getLightTheme(): Theme {
             font:
                 "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
         },
-        (_s, _o) => ({}),
+        (s, _o) => ({
+            input: {
+                bg: s.accent[9],
+                borderHover: s.primary[3],
+            },
+        }),
     );
 }
 
