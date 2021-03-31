@@ -7,6 +7,7 @@ export const BaseButton = styled.button<{ disabled: boolean; btype: string }>`
     outline: none;
     border-radius: 2px;
     transition: 0.1s background-color;
+    user-select: none;
 
     // ---
     color: ${(props) =>

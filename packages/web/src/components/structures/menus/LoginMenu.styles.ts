@@ -26,6 +26,7 @@ export const LoginHeader = styled.div`
     padding: 10px;
 
     p {
+        user-select: none;
         color: ${(props) => props.theme.login.header.color};
         margin: 0;
         font-size: 35px;

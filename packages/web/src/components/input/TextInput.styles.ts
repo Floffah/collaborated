@@ -17,6 +17,7 @@ export const BaseInput = styled.input<{ contained: boolean }>`
 
     &::placeholder {
         color: ${(props) => props.theme.input.placeholderColor};
+        user-select: none;
     }
 
     &:hover {

@@ -26,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.13.14",
     "@babel/plugin-transform-react-jsx": "^7.13.12",
+    "@babel/plugin-transform-reserved-words": "^7.12.13",
     "@react-theming/storybook-addon": "^1.1.1",
     "@storybook/addon-a11y": "^6.2.1",
     "@storybook/addon-actions": "^6.2.1",
