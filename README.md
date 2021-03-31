@@ -30,11 +30,17 @@ If you are on linux or don't have Windows Terminals installed, the build command
 
 run `yarn build` for more information 
 
+### Branches
+
+ - `master` - This is where all pull requests and edits should be sent to. Can be tested at https://master.capp.floffah.dev
+ - `beta` - Every time master is at a point where it needs to be tested in "production" but without breaking anything, master will be merged into beta. Can be tested at https://beta.capp.floffah.dev
+ - `production` - This is the production branch that vercel pushes to https://capp.floffah.dev
+
 ## Links
-[All docs](https://capp.floffah.dev/?path=/story/developers-contents--page) <br/>
-[Setting up a development environment](https://capp.floffah.dev/?path=/story/developers-contributors-development-environment--page) <br/>
-[Storybook](https://capp.floffah.dev) <br/>
-[UI Preview](https://preview.capp.floffah.dev) (this isn't usually connected to any api) <br/>
+For docs and the component library clone the repo and start storybook in the web package. Documentation will be moved elsewhere once needed but is not a priority<br/>
+[Production deployment](https://capp.floffah.dev)
+[Preview (beta) deployment](https://beta.capp.floffah.dev) <br/>
+[Preview (master) deployment](https://master.capp.floffah.dev) <br/>
 [Discord](https://discord.gg/tTfksMfb3z)
 
 ## Contributors ✨
