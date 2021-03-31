@@ -4,8 +4,8 @@ const path = require("path");
 module.exports = {
     ns: ["common", "errors"],
     i18n: {
-        locales: ["en"],
         defaultLocale: "en",
+        locales: ["en"],
     },
     defaultNS: "common",
     react: {

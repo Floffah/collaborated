@@ -53,10 +53,10 @@ export const LoginMenu: React.FC = (_p) => {
                 />
                 <ButtonContainer>
                     <Button fontSize={18} disabled type="primary">
-                        Register
+                        {t("reg")}
                     </Button>
                     <Button fontSize={18} type="primary">
-                        Login
+                        {t("login")}
                     </Button>
                 </ButtonContainer>
             </LoginBody>
