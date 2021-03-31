@@ -13,6 +13,9 @@
         "pure": true,
         "transpileTemplateLiterals": true
       }
-    ]
+    ],
+      "babel-plugin-polished",
+    "@babel/plugin-transform-react-jsx",
+    "babel-plugin-transform-merge-sibling-variables"
   ]
 }
