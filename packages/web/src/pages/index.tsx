@@ -2,7 +2,7 @@ import React from "react";
 import { Login } from "src/components/structures/Login";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
-import { buildServerPropsFN } from "../lib/ssr";
+import { buildStaticPropsFN } from "../lib/ssg";
 
 export default function Index() {
     const { t } = useTranslation("common");
@@ -17,4 +17,8 @@ export default function Index() {
     );
 }
 
-export const getServerSideProps = buildServerPropsFN({ ns: ["common"] });
+Index.defaultProps = {
+    i18nNamespaces: ["common"],
+};
+
+export const getStaticProps = buildStaticPropsFN({ ns: ["common"] });

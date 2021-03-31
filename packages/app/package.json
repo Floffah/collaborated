@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@collaborated/web": "0.0.1-alpha1",
-    "@electron/remote": "^1.0.4",
+    "@electron/remote": "^1.1.0",
     "@treverix/custom-electron-titlebar": "^4.1.7",
     "axios": "^0.21.1",
     "fastify": "^3.14.1",

@@ -47,7 +47,10 @@ export default class TextInput extends React.Component<TextInputProps> {
         };
 
         if (this.props.icon) {
-            props.style.width = ((props.style.width as number) ?? 200) - height;
+            props.style.width =
+                ((props.style.width as number) ?? 200) - height - 1;
+            props.style.height = height - 2;
+            props.style.top = 1;
             props.style.display = "inline-block";
             props.style.position = "relative";
             props.style.verticalAlign = "top";
