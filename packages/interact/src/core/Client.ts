@@ -35,6 +35,7 @@ export declare interface Client {
 
 export class Client extends events.EventEmitter {
     authenticated = false;
+    placeholder = false;
     opts: ClientOptions;
 
     socket: SocketManager;
@@ -49,21 +50,25 @@ export class Client extends events.EventEmitter {
     constructor(opts: ClientOptions) {
         super();
         this.opts = opts;
-        this.url = this.opts.overrideApiURL || "http://localhost/api/v1";
+        if (!opts.placeholder) {
+            this.url = this.opts.overrideApiURL || "http://localhost/api/v1";
 
-        this.ax = ax.create({
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                "Access-Control-Allow-Origin": "*",
-                // 'Access-Control-Allow-Methods': "GET, POST",
-                // 'Access-Control-Allow-Headers': "Accept, Content-Type",
-                "Cache-Control": "no-cache",
-            },
-            baseURL: this.url,
-            //withCredentials: true,
-            transformRequest: [(data) => JSON.stringify(data.data)],
-        });
+            this.ax = ax.create({
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    // 'Access-Control-Allow-Methods': "GET, POST",
+                    // 'Access-Control-Allow-Headers': "Accept, Content-Type",
+                    "Cache-Control": "no-cache",
+                },
+                baseURL: this.url,
+                //withCredentials: true,
+                transformRequest: [(data) => JSON.stringify(data.data)],
+            });
+        }
+
+        this.placeholder = opts.placeholder ?? false;
     }
 
     /**
@@ -147,6 +152,10 @@ export class Client extends events.EventEmitter {
      * @param opts - login information
      */
     async login(opts: LoginOptions) {
+        if (this.placeholder) {
+            this.emit("loginprogress", 0.4);
+            return;
+        }
         if ("access" in opts) {
             const d = await this._query(
                 `query Login($access: String, $listen: [String]) { me(access: $access) { gateway(listen: $listen) { url guid } } }`,

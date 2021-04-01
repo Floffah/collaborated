@@ -16,6 +16,11 @@ export default class ProjectStore {
      * @param {string} name
      */
     async create(name: string): Promise<Project> {
+        if (this.client.placeholder) {
+            const p = new Project();
+            p.name = name;
+            return p;
+        }
         const d = await this.client._query(
             "query CreateProject($name: String) { me { projects { create(name: $name) { name } } } }",
             { name },
@@ -33,6 +38,7 @@ export default class ProjectStore {
      * @param {string} invite
      */
     async join(invite: string): Promise<void> {
+        if (this.client.placeholder) return;
         await this.client._query(
             "query JoinProject($invite: String) { me { projects { join(invite: $invite) } } }",
             { invite },
@@ -44,6 +50,7 @@ export default class ProjectStore {
      * Fetch all projects associated with the user and cache them
      */
     async fetch() {
+        if (this.client.placeholder) return;
         const d = await this.client._query(
             "query { me { projects { all { id name } } } }",
         );

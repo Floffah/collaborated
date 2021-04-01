@@ -67,7 +67,7 @@ export const ButtonContainer = styled.div`
 export const Reminder = styled.p`
     color: ${(props) => darken(0.4, props.theme.text.defaultColor)};
     font-size: 13px;
-    margin: 7px 0 0 0;
+    margin: 8px 0 0 0;
     text-align: center;
     user-select: none;
 `;

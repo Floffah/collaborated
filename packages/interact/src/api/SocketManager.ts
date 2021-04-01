@@ -23,24 +23,41 @@ export class SocketManager {
     lqid = 0;
     qidfs: Map<number, (msg: any) => void> = new Map();
 
-    constructor(url: string, guid: number, access: string, client: Client) {
-        this.client = client;
-        this.#access = access;
-        this.guid = guid;
-        if (this.client.opts.browserMode) {
-            this.bws = new WebSocket(url);
+    constructor(
+        url: string | boolean,
+        guid?: number,
+        access?: string,
+        client?: Client,
+    ) {
+        if (typeof url === "boolean" && url) {
+            this.client.emit("loginprogress", 0.6);
+            this.client.emit("loginprogress", 0.8);
+            this.client.emit("loginprogress", 1);
+            this.client.projects = new ProjectStore(this.client);
+            this.client.emit("ready");
+            return;
+        } else if (!guid || !access || !client) return;
+        else if (url) {
+            this.client = client;
+            this.#access = access;
+            this.guid = guid;
+            if (this.client.opts.browserMode) {
+                this.bws = new WebSocket(url);
 
-            this.bws.addEventListener("open", () => this.connected());
-            this.bws.addEventListener("message", (e) => this.message(e.data));
-            this.bws.addEventListener("close", () => this.closed());
-        } else {
-            this.ws = new WSSocket(url);
+                this.bws.addEventListener("open", () => this.connected());
+                this.bws.addEventListener("message", (e) =>
+                    this.message(e.data),
+                );
+                this.bws.addEventListener("close", () => this.closed());
+            } else {
+                this.ws = new WSSocket(url);
 
-            this.ws.on("open", () => this.connected());
-            this.ws.on("message", (data) => this.message(data));
-            this.ws.on("close", () => this.closed());
+                this.ws.on("open", () => this.connected());
+                this.ws.on("message", (data) => this.message(data));
+                this.ws.on("close", () => this.closed());
+            }
+            this.client.emit("loginprogress", 0.6);
         }
-        this.client.emit("loginprogress", 0.6);
     }
 
     closed() {
