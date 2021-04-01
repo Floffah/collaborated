@@ -7,21 +7,35 @@ let store: Store<State, Action> | undefined;
 
 export interface State {
     theme: string;
+    mode: {
+        preview: boolean;
+    };
 }
 
 export const initialState: State = {
     theme: "dark",
+    mode: {
+        preview: false,
+    },
 };
 
 const reducer: (state: State | undefined, a: Action) => State = (
     state = initialState,
     a,
 ) => {
-    const s = (a: any) => ({ ...state, ...a });
+    const s = (a1: any) => ({ ...state, ...a1 });
 
     switch (a.type) {
         case ActionType.ChangeTheme:
             return s({ theme: a.opts[0] });
+        case ActionType.PreviewToggle:
+            return {
+                ...state,
+                mode: {
+                    ...state.mode,
+                    preview: a.opts[0] ?? !state.mode.preview,
+                },
+            };
         default:
             return state;
     }

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BaseButton } from "../../input/Button.styles";
+import { darken } from "polished";
 
 export const LoginMenuContainer = styled.div`
     position: fixed;
@@ -61,4 +62,12 @@ export const ButtonContainer = styled.div`
     ${BaseButton}:nth-child(2) {
         margin-left: 22px;
     }
+`;
+
+export const Reminder = styled.p`
+    color: ${(props) => darken(0.4, props.theme.text.defaultColor)};
+    font-size: 13px;
+    margin: 7px 0 0 0;
+    text-align: center;
+    user-select: none;
 `;

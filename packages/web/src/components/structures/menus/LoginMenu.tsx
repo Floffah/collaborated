@@ -6,6 +6,7 @@ import {
     LoginHeader,
     LoginBody,
     ButtonContainer,
+    Reminder,
 } from "./LoginMenu.styles";
 import TextInput from "../../input/TextInput";
 import { mdiEmail, mdiLock } from "@mdi/js";
@@ -59,6 +60,9 @@ export const LoginMenu: React.FC = (_p) => {
                         {t("login")}
                     </Button>
                 </ButtonContainer>
+                <Reminder>
+                    Reminder: CTRL+P puts you in preview mode (to test the ui)
+                </Reminder>
             </LoginBody>
         </LoginMenuContainer>
     );

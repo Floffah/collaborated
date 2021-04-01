@@ -18,6 +18,11 @@ interface ClientOptions {
      * If the client is in browser mode
      */
     browserMode?: boolean;
+    /**
+     * Enable this to fill all data with placeholder data and not make any requests.
+     * Useful for testing. This is what the collaborated frontend uses for preview mode
+     */
+    placeholder?: boolean;
 }
 
 export declare interface Client {
