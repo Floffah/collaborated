@@ -154,6 +154,7 @@ export class Client extends events.EventEmitter {
     async login(opts: LoginOptions) {
         if (this.placeholder) {
             this.emit("loginprogress", 0.4);
+            this.socket = new SocketManager(true, this);
             return;
         }
         if ("access" in opts) {

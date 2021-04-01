@@ -13,6 +13,7 @@ import { mdiEmail, mdiLock } from "@mdi/js";
 import Button from "../../input/Button";
 import { ClientContext } from "../../helpers/context";
 import assert from "assert";
+import { useRouter } from "next/router";
 
 export const LoginMenu: React.FC = (_p) => {
     const { t } = useTranslation("common");
@@ -22,6 +23,7 @@ export const LoginMenu: React.FC = (_p) => {
     const uref = createRef<HTMLInputElement>();
     const pref = createRef<HTMLInputElement>();
     const c = useContext(ClientContext);
+    const r = useRouter();
 
     const login = async () => {
         let either = false;
@@ -38,6 +40,12 @@ export const LoginMenu: React.FC = (_p) => {
         setPerr(false);
         assert(uref.current !== null);
         assert(pref.current !== null);
+        c.client.on("loginprogress", (p) => {
+            console.log(`Login progress: ${p * 100}%`);
+        });
+        c.client.on("ready", () => {
+            r.push("/dash");
+        });
         await c.client.login({
             email: uref.current.value,
             password: pref.current.value,

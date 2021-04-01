@@ -25,11 +25,12 @@ export class SocketManager {
 
     constructor(
         url: string | boolean,
-        guid?: number,
+        guid: number | Client,
         access?: string,
         client?: Client,
     ) {
-        if (typeof url === "boolean" && url) {
+        if (typeof url === "boolean" && url && guid instanceof Client && guid) {
+            this.client = guid;
             this.client.emit("loginprogress", 0.6);
             this.client.emit("loginprogress", 0.8);
             this.client.emit("loginprogress", 1);
@@ -37,8 +38,14 @@ export class SocketManager {
             this.client.projects = new ProjectStore(this.client);
             this.client.emit("ready");
             return;
-        } else if (!guid || !access || !client) return;
-        else if (url) {
+        } else if (!guid || !access || !client) {
+            return;
+        } else if (
+            typeof url === "string" &&
+            url &&
+            typeof guid === "number" &&
+            guid
+        ) {
             this.client = client;
             this.#access = access;
             this.guid = guid;
