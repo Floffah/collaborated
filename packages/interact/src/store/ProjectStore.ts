@@ -18,7 +18,9 @@ export default class ProjectStore {
     async create(name: string): Promise<Project> {
         if (this.client.placeholder) {
             const p = new Project();
+            p.id = 0;
             p.name = name;
+            this.cache.set(p.id, p);
             return p;
         }
         const d = await this.client._query(
@@ -29,6 +31,7 @@ export default class ProjectStore {
         const p = new Project();
         const proj = d.data?.data.me.projects.create;
         p.name = proj.name;
+        this.cache.set(p.id, p);
         return p;
     }
 

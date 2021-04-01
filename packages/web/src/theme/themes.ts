@@ -39,6 +39,7 @@ export interface Theme {
 
     input?: {
         bg?: string;
+        error?: string;
         color?: string;
         placeholderColor?: string;
         borderHover?: string;

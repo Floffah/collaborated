@@ -12,6 +12,7 @@ export interface TextInputProps {
     fontSize?: number;
     inputRef?: RefObject<HTMLInputElement>;
     style?: React.CSSProperties;
+    error?: boolean;
 
     icon?: string;
     iconClickable?: boolean;
@@ -44,6 +45,7 @@ export default class TextInput extends React.Component<TextInputProps> {
                 display: "block",
             } as React.CSSProperties,
             contained: !!this.props.icon,
+            error: this.props.error ?? false,
         };
 
         if (this.props.icon) {
@@ -69,6 +71,7 @@ export default class TextInput extends React.Component<TextInputProps> {
                         width: width,
                         ...this.props.style,
                     }}
+                    error={props.error}
                 >
                     <IconContainer
                         clickable={this.props.iconClickable ?? false}

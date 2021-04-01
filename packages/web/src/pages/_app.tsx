@@ -1,6 +1,6 @@
 import { appWithTranslation } from "next-i18next";
 import { AppProps } from "next/app";
-import React from "react";
+import React, { useState } from "react";
 import { Provider } from "react-redux";
 import WebClient from "src/lib/api/WebClient";
 import { useStore } from "src/lib/store";
@@ -12,9 +12,12 @@ import { ActionType } from "../lib/action";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const s = useStore(pageProps.initialState);
+    const [c, setc] = useState(new WebClient());
 
     useHotkeys("ctrl+p", (e) => {
         e.preventDefault();
+        c.placeholder = !s.getState().mode.preview;
+        setc(c);
         s.dispatch({
             type: ActionType.PreviewToggle,
             opts: [!s.getState().mode.preview],
@@ -24,7 +27,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <ClientContext.Provider
             value={{
-                client: new WebClient(),
+                client: c,
             }}
         >
             <Provider store={s}>

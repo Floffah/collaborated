@@ -31,6 +31,7 @@ export default function fromPalette(
 
         input: {
             bg: p.accent[11],
+            error: p.error[4],
             color: p.accent[2],
             placeholderColor: p.accent[7],
             borderHover: p.primary[7],

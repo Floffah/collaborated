@@ -14,10 +14,8 @@ This list is prefixed by (f), (b), (s), (i), or (a) which mean frontend, backend
 Unsorted & undescribed features/"almost full feature changes":
 
  - (f2) Better and more efficient popup utilities
- - (f1) Better icon system (but still using MDI)
  - (f2) Twemoji support (in all user editable text apart from things like usernames)
  - (f,b,i-3) Support multiple queries in one request or gateway message (eventually with a way to pipe output to the next query)
- - (b3) server side rendering (with styled-components)
  - (f3) mobile support
 
 ## Project Drawer

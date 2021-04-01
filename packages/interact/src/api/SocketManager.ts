@@ -33,6 +33,7 @@ export class SocketManager {
             this.client.emit("loginprogress", 0.6);
             this.client.emit("loginprogress", 0.8);
             this.client.emit("loginprogress", 1);
+            this.client.authenticated = true;
             this.client.projects = new ProjectStore(this.client);
             this.client.emit("ready");
             return;
@@ -130,6 +131,7 @@ export class SocketManager {
                     if (
                         dat.messageid == GatewayServerMessageTypes.Authenticated
                     ) {
+                        this.client.authenticated = true;
                         this.client.emit("loginprogress", 1);
                         this.client.projects = new ProjectStore(this.client);
                         this.client.emit("ready");

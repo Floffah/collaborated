@@ -3317,9 +3317,9 @@
     semver "^7.3.2"
 
 "@netlify/plugins-list@^2.5.0", "@netlify/plugins-list@^2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@netlify/plugins-list/-/plugins-list-2.5.1.tgz#30c57eea4487efd330ab704acf5bf0681e67a394"
-  integrity sha512-OaYiOuK5YBEHLMvcG63He5bENbqOfUcVWJ7XjnACXC7uEc4VamE3lTkBPmo8YRydcA5MDtE9Sr2gZs9KQ/EarQ==
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@netlify/plugins-list/-/plugins-list-2.6.0.tgz#3629dd0e3fd017d99f77e1c32397449ed0f965cc"
+  integrity sha512-XtBrsd4M0OW3RT9O7omqBhWevPoxVfkEX9BJ2Hv5J3gpujTN6IZEYmyprxhQ+Y98r4VvZVUX8dPzR99aF15YcQ==
 
 "@netlify/run-utils@^1.0.6":
   version "1.0.7"
@@ -3839,9 +3839,9 @@
     source-map "^0.7.3"
 
 "@popperjs/core@^2.5.4", "@popperjs/core@^2.6.0":
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.1.tgz#7f554e7368c9ab679a11f4a042ca17149d70cf12"
-  integrity sha512-DvJbbn3dUgMxDnJLH+RZQPnXak1h4ZVYQ7CWiFWjQwBFkVajT4rfw2PdpHLTSTwxrYfnoEXkuBiwkDm6tPMQeA==
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
+  integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==
 
 "@reach/component-component@^0.1.3":
   version "0.1.3"
@@ -6389,9 +6389,9 @@ avvio@^7.1.2:
     queue-microtask "^1.1.2"
 
 aws-sdk@^2.689.0:
-  version "2.877.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.877.0.tgz#e580c08aeba8cb148d1dc0ee16348a410bf6852e"
-  integrity sha512-cNp526SUmJ0WZs40R4Zyk19FYWyVpyidJHOLf+6a+Uv0zG0PvH5257iAWMp81Qz3Sjb11y+wMSOwzCIp7SAZig==
+  version "2.878.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.878.0.tgz#0c18f464766555c86bdd2e70a3db9f473702c4b2"
+  integrity sha512-Mi6ASjd6UugdIskkXqTBgn6tC5I61BlEPwKXYtC6FFrNyvxMF+USH7FHD0O3ZBwqDCSI+BR9a296ReRNzQ//tw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -9052,9 +9052,9 @@ domelementtype@1, domelementtype@^1.3.1:
   integrity sha512-BSKB+TSpMpFI/HOxCNr1O8aMOTZ8hT3pM3GQ0w/mWRmkhEDSFJkkyzz4XQsBV44BChwGkrDfMyjVD0eA2aFV3w==
 
 domelementtype@^2.0.1:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-2.1.0.tgz#a851c080a6d1c3d94344aed151d99f669edf585e"
-  integrity sha512-LsTgx/L5VpD+Q8lmsXSHW2WpA+eBlZ9HPf3erD1IoPF00/3JKHZ3BknUVA2QGDNu69ZNmyFmCWBSO45XjYKC5w==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-2.2.0.tgz#9a0b6c2782ed6a1c7323d42267183df9bd8b1d57"
+  integrity sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==
 
 domhandler@^2.3.0:
   version "2.4.2"
@@ -18611,9 +18611,9 @@ socks@^2.3.3:
     smart-buffer "^4.1.0"
 
 sonic-boom@^1.0.2:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-1.4.0.tgz#d6d35196c32609b46193145afc1174a8c692d21e"
-  integrity sha512-1xUAszhQBOrjk7uisbStQZYkZxD3vkYlCUw5qzOblWQ1ILN5v0dVPAs+QPgszzoPmbdWx6jyT9XiLJ95JdlLiQ==
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-1.4.1.tgz#d35d6a74076624f12e6f917ade7b9d75e918f53e"
+  integrity sha512-LRHh/A8tpW7ru89lrlkU4AszXt1dbwSjVWguGrmlxE7tawVmDBlI1PILMkXAxJTwqhgsEeTHzj36D5CmHgQmNg==
   dependencies:
     atomic-sleep "^1.0.0"
     flatstr "^1.0.12"
@@ -18883,10 +18883,10 @@ store2@^2.12.0, store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
 
-storybook-mobile@^0.1.30:
-  version "0.1.30"
-  resolved "https://registry.yarnpkg.com/storybook-mobile/-/storybook-mobile-0.1.30.tgz#c93b3a38e2e4d087160e20e2eb136731d738889a"
-  integrity sha512-dwikVTjLlSdSczzMGNsbVWhBerKDcSdS1afby54x4sWwFfkbJGiiBWc5ClJ/3kqruqcLHltGdlL6LjIqYrfVtg==
+storybook-mobile@^0.1.31:
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/storybook-mobile/-/storybook-mobile-0.1.31.tgz#284bf8331de8d825b901bec8c61555948ec5b705"
+  integrity sha512-s1bQB0tUXbEySG8gYbykmn6h638ONESnMg8ej+gQqHdaYwKP8kMo/pWoU5uhHMCnIwI9CMU5toNn4rlkcSM/KQ==
   dependencies:
     "@storybook/addons" "^5.3.18"
     "@storybook/api" "^5.3.18"

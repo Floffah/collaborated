@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const BaseInput = styled.input<{ contained: boolean }>`
+export const BaseInput = styled.input<{ contained: boolean; error: boolean }>`
     padding: 2px 7px;
     background-color: ${(props) => props.theme.input.bg};
     color: ${(props) => props.theme.input.color};
@@ -9,7 +9,11 @@ export const BaseInput = styled.input<{ contained: boolean }>`
     outline: none;
     border-radius: ${(props) => (props.contained ? "0" : "2px")};
     border: ${(props) =>
-        props.contained ? "none" : `1px solid ${props.theme.input.bg}`};
+        props.contained
+            ? "none"
+            : props.error
+            ? `1px solid ${props.theme.input.error}`
+            : `1px solid ${props.theme.input.bg}`};
     transition: 0.1s border;
     display: ${(props) => (props.contained ? "inline-block" : "block")};
     margin: ${(props) => (props.contained ? "0" : "unset")};
@@ -21,22 +25,30 @@ export const BaseInput = styled.input<{ contained: boolean }>`
     }
 
     &:hover {
-        border: ${(props) =>
+        ${(props) =>
             props.contained
-                ? "none"
-                : `1px solid ${props.theme.input.borderHover};`};
+                ? ""
+                : props.error
+                ? ""
+                : `border: 1px solid ${props.theme.input.borderHover};`};
     }
 `;
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div<{ error: boolean }>`
     border-radius: 2px;
-    border: 1px solid ${(props) => props.theme.input.bg};
+    border: ${(props) =>
+        props.error
+            ? `1px solid ${props.theme.input.error}`
+            : `1px solid ${props.theme.input.bg}`};
     transition: 0.1s border;
     background-color: ${(props) => props.theme.input.bg};
     padding: 0;
 
     &:hover {
-        border: 1px solid ${(props) => props.theme.input.borderHover};
+        ${(props) =>
+            props.error
+                ? ""
+                : `border: 1px solid ${props.theme.input.borderHover};`}
     }
 `;
 
