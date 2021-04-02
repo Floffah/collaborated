@@ -16,7 +16,8 @@ import assert from "assert";
 import { useRouter } from "next/router";
 
 export const LoginMenu: React.FC = (_p) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation("login");
+    const tc = useTranslation("common").t;
     const [uerr, setUerr] = useState(false);
     const [perr, setPerr] = useState(false);
 
@@ -27,17 +28,15 @@ export const LoginMenu: React.FC = (_p) => {
 
     const login = async () => {
         let either = false;
-        if (!uref.current || /^[\s\t]+$/.test(uref.current.value)) {
+        if (!uref.current || /^[\s\t]*$/.test(uref.current.value)) {
             either = true;
             setUerr(true);
-        }
-        if (!pref.current || /^[\s\t]+$/.test(pref.current.value)) {
+        } else setUerr(false);
+        if (!pref.current || /^[\s\t]*$/.test(pref.current.value)) {
             either = true;
             setPerr(true);
-        }
+        } else setPerr(false);
         if (either) return;
-        setUerr(false);
-        setPerr(false);
         assert(uref.current !== null);
         assert(pref.current !== null);
         c.client.on("loginprogress", (p) => {
@@ -100,9 +99,7 @@ export const LoginMenu: React.FC = (_p) => {
                         {t("login")}
                     </Button>
                 </ButtonContainer>
-                <Reminder>
-                    Reminder: CTRL+P puts you in preview mode (to test the ui)
-                </Reminder>
+                <Reminder>{tc("preview-reminder")}</Reminder>
             </LoginBody>
         </LoginMenuContainer>
     );

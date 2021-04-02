@@ -8,7 +8,7 @@ import { Action } from "src/lib/action";
 import { State } from "../lib/store";
 
 export default function Index() {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation("login");
     const s = useStore<State, Action>();
     const [title, setTitle] = useState(`${t("login-title")} | Collaborated`);
 
@@ -35,8 +35,4 @@ export default function Index() {
     );
 }
 
-Index.defaultProps = {
-    i18nNamespaces: ["common"],
-};
-
-export const getStaticProps = buildStaticPropsFN({ ns: ["common"] });
+export const getStaticProps = buildStaticPropsFN({ ns: ["login", "common"] });

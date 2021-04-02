@@ -1,7 +1,3 @@
 {
-  "login-title": "Login",
-  "email": "Email",
-  "pass": "Password",
-  "login": "Login",
-  "reg": "Register"
+  "preview-reminder": "Reminder: CTRL+P puts you in preview mode (to test the ui)"
 }
