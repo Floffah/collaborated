@@ -13,7 +13,7 @@ export default function Dash() {
         }
     });
 
-    return <h1>BIG EGG</h1>;
+    return <h1>.</h1>;
 }
 
 export const getStaticProps = buildServerPropsFN({ ns: ["common"] });

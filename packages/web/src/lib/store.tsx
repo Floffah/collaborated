@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Action, ActionType } from "./action";
 import { applyMiddleware, createStore, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { isBrowser } from "./context";
 
 let store: Store<State, Action> | undefined;
 
@@ -15,7 +16,9 @@ export interface State {
 export const initialState: State = {
     theme: "dark",
     mode: {
-        preview: false,
+        preview: isBrowser()
+            ? sessionStorage.getItem("preview") === "true" ?? false
+            : false,
     },
 };
 

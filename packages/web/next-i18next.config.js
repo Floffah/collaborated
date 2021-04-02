@@ -2,7 +2,7 @@
 const path = require("path");
 
 module.exports = {
-    ns: ["common", "errors", "login"],
+    ns: ["common", "errors", "login", "seo"],
     i18n: {
         defaultLocale: "en",
         locales: ["en"],
