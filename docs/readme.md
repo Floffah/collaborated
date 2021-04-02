@@ -1,0 +1,7 @@
+ - Design
+    - [Choices](design/choices.md)
+        - ["Hand side project drawer"](design/choices.md#hand-side-project-drawer)
+ - Contributors
+    - [Development environment](contributors/DevelopmentEnvironment.md)
+ - Addons
+    - [Building Addons](addons/BuildingAddons.md)

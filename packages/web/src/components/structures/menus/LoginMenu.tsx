@@ -12,17 +12,19 @@ import TextInput from "../../input/TextInput";
 import { mdiEmail, mdiLock } from "@mdi/js";
 import Button from "../../input/Button";
 import { ClientContext } from "../../helpers/context";
-import assert from "assert";
 import { useRouter } from "next/router";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export const LoginMenu: React.FC = (_p) => {
     const { t } = useTranslation("login");
     const tc = useTranslation("common").t;
     const [uerr, setUerr] = useState(false);
     const [perr, setPerr] = useState(false);
+    const [isConn, setIsConn] = useState(false);
 
     const uref = createRef<HTMLInputElement>();
     const pref = createRef<HTMLInputElement>();
+    const bref = createRef<HTMLButtonElement>();
     const c = useContext(ClientContext);
     const r = useRouter();
 
@@ -37,8 +39,8 @@ export const LoginMenu: React.FC = (_p) => {
             setPerr(true);
         } else setPerr(false);
         if (either) return;
-        assert(uref.current !== null);
-        assert(pref.current !== null);
+        if (!uref.current || !pref.current) return; // this is for typescript's sake
+        setIsConn(true);
         c.client.on("loginprogress", (p) => {
             console.log(`Login progress: ${p * 100}%`);
         });
@@ -49,7 +51,24 @@ export const LoginMenu: React.FC = (_p) => {
             email: uref.current.value,
             password: pref.current.value,
         });
+        setIsConn(false);
     };
+
+    useHotkeys(
+        "enter",
+        (k) => {
+            console.log(k);
+            if (
+                document.activeElement === uref.current ||
+                document.activeElement === pref.current
+            ) {
+                bref.current?.focus();
+            }
+        },
+        {
+            enableOnTags: ["INPUT"],
+        },
+    );
 
     return (
         <LoginMenuContainer>
@@ -95,6 +114,8 @@ export const LoginMenu: React.FC = (_p) => {
                         fontSize={18}
                         type="primary"
                         onClick={() => login()}
+                        disabled={isConn}
+                        ref={bref}
                     >
                         {t("login")}
                     </Button>

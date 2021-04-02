@@ -21,6 +21,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/web/.netlify" />
       <excludeFolder url="file://$MODULE_DIR$/packages/web/netlify" />
       <excludeFolder url="file://$MODULE_DIR$/.netlify" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />

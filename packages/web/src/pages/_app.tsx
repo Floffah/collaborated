@@ -16,16 +16,25 @@ const App: React.FC<AppProps> = (p) => {
     const [c, setc] = useState(new WebClient());
     const ts = useTranslation("seo").t;
 
-    useHotkeys("ctrl+p", (e) => {
-        e.preventDefault();
-        c.placeholder = !s.getState().mode.preview;
-        sessionStorage.setItem("preview", String(!s.getState().mode.preview));
-        setc(c);
-        s.dispatch({
-            type: ActionType.PreviewToggle,
-            opts: [!s.getState().mode.preview],
-        });
-    });
+    useHotkeys(
+        "ctrl+p",
+        (e) => {
+            e.preventDefault();
+            c.placeholder = !s.getState().mode.preview;
+            sessionStorage.setItem(
+                "preview",
+                String(!s.getState().mode.preview),
+            );
+            setc(c);
+            s.dispatch({
+                type: ActionType.PreviewToggle,
+                opts: [!s.getState().mode.preview],
+            });
+        },
+        {
+            enableOnTags: ["INPUT"],
+        },
+    );
 
     return (
         <>
