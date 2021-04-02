@@ -1,14 +1,15 @@
-import React from "react";
-import { ProjectListElementContainer } from "./ProjectListElement.styles";
+import React, { MouseEvent } from "react";
 import StyledIcon from "../util/StyledIcon";
+import ProjectListElement from "./ProjectListElement";
 
 export interface PLIEProps {
     icon: string;
+    onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export default function ProjectListIconElement(p: PLIEProps) {
     return (
-        <ProjectListElementContainer>
+        <ProjectListElement onClick={p.onClick ?? undefined}>
             <StyledIcon
                 path={p.icon}
                 style={{
@@ -17,6 +18,6 @@ export default function ProjectListIconElement(p: PLIEProps) {
                     margin: "10px 10px",
                 }}
             />
-        </ProjectListElementContainer>
+        </ProjectListElement>
     );
 }
