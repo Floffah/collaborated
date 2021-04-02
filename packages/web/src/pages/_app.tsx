@@ -11,8 +11,8 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { ActionType } from "../lib/action";
 import { DefaultSeo } from "next-seo";
 
-const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-    const s = useStore(pageProps.initialState);
+const App: React.FC<AppProps> = (p) => {
+    const s = useStore(p.pageProps.initialState);
     const [c, setc] = useState(new WebClient());
     const ts = useTranslation("seo").t;
 
@@ -33,7 +33,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 titleTemplate="%s | Collaborated"
                 description={ts("description")}
                 openGraph={{
-                    locale: pageProps._nextI18Next.initialLocale,
+                    locale: p.router.locale ?? "en",
                     url: "https://capp.floffah.dev/?ref=seo",
                     title: "Collaborated",
                     description: ts("description"),
@@ -53,7 +53,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             >
                 <Provider store={s}>
                     <ApplyGlobalStyles>
-                        <Component {...pageProps} />
+                        <p.Component {...p.pageProps} />
                     </ApplyGlobalStyles>
                 </Provider>
             </ClientContext.Provider>
