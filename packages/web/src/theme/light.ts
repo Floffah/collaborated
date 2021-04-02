@@ -1,5 +1,6 @@
 import { Theme } from "./themes";
 import fromPalette, { Palette } from "./palettes";
+import { darken } from "polished";
 
 export function getLightTheme(): Theme {
     return fromPalette(
@@ -13,6 +14,12 @@ export function getLightTheme(): Theme {
             input: {
                 bg: s.accent[9],
                 borderHover: s.primary[3],
+            },
+
+            projects: {
+                list: {
+                    bg: darken(0.2, s.accent[11]),
+                },
             },
         }),
     );

@@ -19,6 +19,7 @@
     "react-hotkeys-hook": "^3.3.0",
     "react-is": "^17.0.2",
     "react-latex": "^2.0.0",
+    "react-popper": "^2.2.5",
     "react-redux": "^7.2.3",
     "react-syntax-highlighter": "^15.4.3",
     "react-tsparticles": "^1.24.4",

@@ -49,6 +49,16 @@ export interface Theme {
         default?: Button;
         primary?: Button;
     };
+
+    projects?: {
+        list?: {
+            bg?: string;
+        };
+        element?: {
+            bg?: string;
+            bgHover?: string;
+        };
+    };
 }
 
 interface Button {

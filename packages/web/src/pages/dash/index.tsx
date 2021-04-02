@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { buildServerPropsFN } from "../../lib/ssr";
 import { useClient } from "../../lib/hooks/client";
 import { useRouter } from "next/router";
+import Dashboard from "../../components/structures/dash/Dash";
 
 export default function Dash() {
     const c = useClient();
@@ -13,7 +14,7 @@ export default function Dash() {
         }
     });
 
-    return <h1>.</h1>;
+    return <Dashboard />;
 }
 
 export const getStaticProps = buildServerPropsFN({ ns: ["common"] });

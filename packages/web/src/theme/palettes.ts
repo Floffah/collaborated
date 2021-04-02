@@ -1,5 +1,6 @@
 import { merge } from "src/lib/objects";
 import { Theme } from "./themes";
+import { darken, lighten } from "polished";
 
 export default function fromPalette(
     p: Palette,
@@ -47,6 +48,16 @@ export default function fromPalette(
                 background: p.primary[5],
                 backgroundHover: p.primary[6],
                 text: p.accent[2],
+            },
+        },
+
+        projects: {
+            list: {
+                bg: darken(0.03, p.accent[11]),
+            },
+            element: {
+                bg: lighten(0.05, p.accent[11]),
+                bgHover: lighten(0.1, p.accent[11]),
             },
         },
     };
