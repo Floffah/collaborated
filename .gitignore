@@ -10,6 +10,7 @@ packages/web/.netlify
 packages/web/netlify
 .elixir_ls
 _build
+packages/legacy-web
 
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains,webstorm,node,elixir,erlang,go
 # Edit at https://www.toptal.com/developers/gitignore?templates=jetbrains,webstorm,node,elixir,erlang,go
