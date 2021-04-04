@@ -23,6 +23,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.netlify" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
       <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web" />
+      <excludeFolder url="file://$MODULE_DIR$/.yarn/cache" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />

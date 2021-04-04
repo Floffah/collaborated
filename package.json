@@ -31,5 +31,8 @@
     "lerna": "^4.0.0",
     "npm-check-updates": "^11.3.0"
   },
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "dependencies": {
+    "typescript": "^4.2.3"
+  }
 }

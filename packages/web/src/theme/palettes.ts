@@ -63,7 +63,7 @@ export default function fromPalette(
         },
 
         tooltip: {
-            bg: p.accent[9],
+            bg: lighten(0.03, p.accent[9]),
         },
     };
 
