@@ -6,7 +6,7 @@ import WebClient from "src/lib/api/WebClient";
 import { useStore } from "src/lib/store";
 import { ClientContext } from "../components/helpers/context";
 import { ApplyGlobalStyles } from "../components/helpers/styles";
-import i18nConfig from "../../next-i18next.config";
+import * as i18nConfig from "../../next-i18next.config";
 import { useHotkeys } from "react-hotkeys-hook";
 import { ActionType } from "../lib/action";
 import { DefaultSeo } from "next-seo";
