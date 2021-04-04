@@ -12,8 +12,9 @@ packages/web/netlify
 _build
 packages/legacy-web
 
-# Created by https://www.toptal.com/developers/gitignore/api/jetbrains,webstorm,node,elixir,erlang,go
-# Edit at https://www.toptal.com/developers/gitignore?templates=jetbrains,webstorm,node,elixir,erlang,go
+
+# Created by https://www.toptal.com/developers/gitignore/api/go,node,erlang,elixir,webstorm,jetbrains,yarn
+# Edit at https://www.toptal.com/developers/gitignore?templates=go,node,erlang,elixir,webstorm,jetbrains,yarn
 
 ### Elixir ###
 /_build
@@ -260,6 +261,14 @@ typings/
 .nuxt
 dist
 
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static
+
+# rollup.js default build output
+dist/
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
@@ -283,6 +292,10 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+# Temporary folders
+tmp/
+temp/
 
 ### WebStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -352,7 +365,20 @@ dist
 # CodeStream plugin
 # https://plugins.jetbrains.com/plugin/12206-codestream
 
-# End of https://www.toptal.com/developers/gitignore/api/jetbrains,webstorm,node,elixir,erlang,go
+### yarn ###
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
 
-# Local Netlify folder
-.netlify
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+!.yarn/cache
+
+# and uncomment the following lines
+# .pnp.*
+
+# End of https://www.toptal.com/developers/gitignore/api/go,node,erlang,elixir,webstorm,jetbrains,yarn
