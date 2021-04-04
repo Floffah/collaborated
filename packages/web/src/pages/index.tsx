@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Login } from "src/components/structures/Login";
 import { useTranslation } from "next-i18next";
-import { buildStaticPropsFN } from "../lib/ssg";
 import { useStore } from "react-redux";
 import { Action } from "src/lib/action";
 import { State } from "../lib/store";
 import { NextSeo } from "next-seo";
+import { buildServerPropsFN } from "../lib/ssr";
 
 export default function Index() {
     const { t } = useTranslation("login");
@@ -33,6 +33,10 @@ export default function Index() {
     );
 }
 
-export const getStaticProps = buildStaticPropsFN({
+// export const getStaticProps = buildStaticPropsFN({
+//     ns: ["login", "common", "seo"],
+// });
+
+export const getServerSideProps = buildServerPropsFN({
     ns: ["login", "common", "seo"],
 });

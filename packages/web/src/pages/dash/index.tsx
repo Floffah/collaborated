@@ -17,4 +17,8 @@ export default function Dash() {
     return <Dashboard />;
 }
 
-export const getStaticProps = buildServerPropsFN({ ns: ["common"] });
+// export const getStaticProps = buildServerPropsFN({ ns: ["common"] });
+
+export const getServerSideProps = buildServerPropsFN({
+    ns: ["common"],
+});
