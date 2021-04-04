@@ -7,8 +7,8 @@ const tm = require("next-transpile-modules")(["@collaborated/interact"], {
 
 module.exports = tm({
     reactStrictMode: true,
-    trailingSlash: true,
-    productionBrowserSourceMaps: true,
+    //trailingSlash: true,
+    //productionBrowserSourceMaps: true,
     target: "serverless",
     i18n,
     future: {

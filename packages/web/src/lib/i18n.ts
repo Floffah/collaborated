@@ -1,7 +1,7 @@
 import { State } from "./store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
-import i18nConfig from "../../next-i18next.config";
+import * as i18nConfig from "../../next-i18next.config";
 
 export interface Props {
     initialState: State;
