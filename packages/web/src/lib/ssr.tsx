@@ -12,8 +12,8 @@ export const getServerSideProps = async (
 
     return {
         props: {
-            initialState: store.getState(),
             ...(await SST(p, ns)),
+            initialState: store.getState(),
         },
     };
 };

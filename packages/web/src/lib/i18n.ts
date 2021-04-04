@@ -13,8 +13,6 @@ export const SST = (
     p: GetServerSidePropsContext | GetStaticPropsContext,
     ns?: string[],
 ) =>
-    serverSideTranslations(
-        p.locale ?? "en",
-        ns ?? localeNamespaces,
-        i18nConfig,
-    );
+    serverSideTranslations(p.locale ?? "en", ns ?? localeNamespaces, {
+        ...i18nConfig,
+    });

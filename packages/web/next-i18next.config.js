@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
+// const path = require("path");
 
 module.exports = {
     ns: ["common", "errors", "login", "seo"],
@@ -11,5 +11,4 @@ module.exports = {
     react: {
         useSuspense: false,
     },
-    localePath: path.resolve("./public/locales"),
 };
