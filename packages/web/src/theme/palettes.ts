@@ -54,11 +54,16 @@ export default function fromPalette(
         projects: {
             list: {
                 bg: darken(0.03, p.accent[11]),
+                separator: p.accent[7],
             },
             element: {
                 bg: lighten(0.05, p.accent[11]),
                 bgHover: lighten(0.1, p.accent[11]),
             },
+        },
+
+        tooltip: {
+            bg: p.accent[9],
         },
     };
 

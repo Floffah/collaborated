@@ -23,7 +23,7 @@ const App: React.FC<AppProps> = (p) => {
             c.placeholder = !s.getState().mode.preview;
             sessionStorage.setItem(
                 "preview",
-                String(!s.getState().mode.preview),
+                !s.getState().mode.preview ? "true" : "false",
             );
             setc(c);
             s.dispatch({

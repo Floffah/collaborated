@@ -1,25 +1,30 @@
-import React, { ForwardedRef, forwardRef, ReactNode, RefObject } from "react";
+import React, {
+    ForwardedRef,
+    forwardRef,
+    PropsWithChildren,
+    RefObject,
+} from "react";
 
 import { BaseButton } from "./Button.styles";
 
-export interface ButtonProps {
+export interface IButtonProps {
     fontSize?: number;
     disabled?: boolean;
     type?: "default" | "primary";
     style?: React.CSSProperties;
 
     onClick?: (e: MouseEvent) => void;
-
-    children?: ReactNode | string;
 }
 
-class CButton extends React.Component<
-    ButtonProps & {
+export type ButtonProps = PropsWithChildren<
+    IButtonProps & {
         buttonRef?:
             | RefObject<HTMLButtonElement>
             | ForwardedRef<HTMLButtonElement>;
     }
-> {
+>;
+
+class CButton extends React.Component<ButtonProps> {
     static defaultProps: ButtonProps = {
         fontSize: 15,
         type: "default",
@@ -33,19 +38,30 @@ class CButton extends React.Component<
 
     render() {
         const fontSize = this.props.fontSize ?? 15;
+
+        const forwardprops: any = {
+            ...this.props,
+            fontSize: undefined,
+            disabled: undefined,
+            type: undefined,
+            style: undefined,
+            onClick: undefined,
+        };
+
         const cprops = {
+            ...forwardprops,
             style: {
                 padding: `${fontSize / 4}px ${fontSize / 2}px`,
                 fontSize: fontSize - 2,
                 ...(this.props.style ?? {}),
             },
-            disabled: !!this.props.disabled,
+            bdisabled: !!this.props.disabled,
             btype: (this.props.type as string) ?? "default",
             onClick: (e: unknown) => this.handleClick(e as MouseEvent),
             ref: this.props.buttonRef,
         };
 
-        return <BaseButton {...cprops}>{this.props.children}</BaseButton>;
+        return <BaseButton {...cprops} />;
     }
 }
 

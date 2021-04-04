@@ -14,6 +14,7 @@ import Button from "../../input/Button";
 import { ClientContext } from "../../helpers/context";
 import { useRouter } from "next/router";
 import { useHotkeys } from "react-hotkeys-hook";
+import Tooltip from "../../feedback/Tooltip";
 
 export const LoginMenu: React.FC = (_p) => {
     const { t } = useTranslation("login");
@@ -107,9 +108,15 @@ export const LoginMenu: React.FC = (_p) => {
                     error={perr}
                 />
                 <ButtonContainer>
-                    <Button fontSize={18} disabled type="primary">
-                        {t("reg")}
-                    </Button>
+                    <Tooltip
+                        title="Not implemented"
+                        placement="top"
+                        mode="hover"
+                    >
+                        <Button fontSize={18} disabled type="primary">
+                            {t("reg")}
+                        </Button>
+                    </Tooltip>
                     <Button
                         fontSize={18}
                         type="primary"

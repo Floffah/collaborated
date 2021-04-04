@@ -53,11 +53,16 @@ export interface Theme {
     projects?: {
         list?: {
             bg?: string;
+            separator?: string;
         };
         element?: {
             bg?: string;
             bgHover?: string;
         };
+    };
+
+    tooltip?: {
+        bg?: string;
     };
 }
 

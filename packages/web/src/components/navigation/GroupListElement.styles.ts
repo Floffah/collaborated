@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ProjectListElementContainer = styled.div`
+export const GroupListElementContainer = styled.div`
     width: 50px;
     position: relative;
     margin: 5px 0;

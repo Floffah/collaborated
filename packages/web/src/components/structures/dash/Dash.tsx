@@ -1,10 +1,10 @@
 import React from "react";
-import ProjectList from "../../navigation/ProjectList";
+import GroupList from "../../navigation/GroupList";
 
 export default function Dashboard() {
     return (
         <>
-            <ProjectList />
+            <GroupList />
         </>
     );
 }

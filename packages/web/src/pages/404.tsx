@@ -5,10 +5,11 @@ import React from "react";
 
 import styled from "styled-components";
 import { buildStaticPropsFN } from "../lib/ssg";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function E404() {
     const errs = useTranslation("errors").t;
+    const r = useRouter();
 
     return (
         <div>
@@ -19,9 +20,9 @@ export default function E404() {
                 <p>404</p>
                 <p>{errs("not-found")}</p>
                 <div />
-                <Link href="/" replace>
+                <a href="#" onClick={() => r.back()}>
                     {errs("go-home")}
-                </Link>
+                </a>
             </E404Container>
         </div>
     );
