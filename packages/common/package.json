@@ -1,7 +1,6 @@
 {
   "name": "@collaborated/common",
   "version": "0.0.1-alpha1",
-  "private": false,
   "description": "Common utility stuff",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

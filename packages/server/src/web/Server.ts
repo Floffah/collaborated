@@ -4,10 +4,9 @@ import Logger from "../util/Logger";
 import { Connection } from "typeorm";
 import { Interprocess } from "../comms/Interprocess";
 import Configuration from "../util/Configuration";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync } from "fs";
 import DatabaseManager from "../db/DatabaseManager";
 import { terminal, Terminal } from "terminal-kit";
-import memwatch from "@floffah/node-memwatch";
 import fastify, { FastifyInstance } from "fastify";
 import fastifyStatic from "fastify-static";
 import fastifyCors from "fastify-cors";
@@ -92,33 +91,34 @@ export default class Server {
             code: number | Buffer;
         },
     ) {
-        if (name.toLowerCase() === "m") {
+        /*if (name.toLowerCase() === "m") {
             this.doMemDiff();
-        } else if (name === "CTRL_C") {
+        } else*/
+        if (name === "CTRL_C") {
             this.shutdown();
         }
     }
 
-    async doMemDiff(s?: "start" | "stop") {
-        if ((s && s === "stop") || this.hds.length > 0) {
-            this.logger.warn("Saving heap diff...");
-            const diff = this.hds[0].end();
-            writeFileSync(
-                resolve(this.cfg.rootpath, "diff.json"),
-                JSON.stringify(diff, null, 4),
-                "utf8",
-            );
-            this.logger.warn(
-                "Saved heap diff to " + resolve(this.cfg.rootpath, "diff.json"),
-            );
-        } else if ((s && s === "start") || this.hds.length <= 0) {
-            this.logger.warn("Starting heap diff");
-            this.hds[0] = new memwatch.HeapDiff();
-            this.logger.warn(
-                "Started heap snapshot. Press M again to create and save a heap diff",
-            );
-        }
-    }
+    // async doMemDiff(s?: "start" | "stop") {
+    //     if ((s && s === "stop") || this.hds.length > 0) {
+    //         this.logger.warn("Saving heap diff...");
+    //         const diff = this.hds[0].end();
+    //         writeFileSync(
+    //             resolve(this.cfg.rootpath, "diff.json"),
+    //             JSON.stringify(diff, null, 4),
+    //             "utf8",
+    //         );
+    //         this.logger.warn(
+    //             "Saved heap diff to " + resolve(this.cfg.rootpath, "diff.json"),
+    //         );
+    //     } else if ((s && s === "start") || this.hds.length <= 0) {
+    //         this.logger.warn("Starting heap diff");
+    //         this.hds[0] = new memwatch.HeapDiff();
+    //         this.logger.warn(
+    //             "Started heap snapshot. Press M again to create and save a heap diff",
+    //         );
+    //     }
+    // }
 
     async cliutil() {
         process.on("SIGINT", () => this.shutdown());
@@ -179,7 +179,7 @@ export default class Server {
 
             this.app.listen(80);
 
-            this.doMemDiff("stop");
+            //this.doMemDiff("stop");
             this.started = true;
 
             this.logger.info("Started on port 80");
