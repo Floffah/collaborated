@@ -9,9 +9,7 @@ import { ApplyGlobalStyles } from "../components/helpers/styles";
 import { useHotkeys } from "react-hotkeys-hook";
 import { ActionType } from "../lib/action";
 import { DefaultSeo } from "next-seo";
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const i18nConfig = require("../../next-i18next.config");
+import i18nconfig from "../../next-i18next.config";
 
 const App: React.FC<AppProps> = (p) => {
     const s = useStore(p.pageProps.initialState);
@@ -72,4 +70,4 @@ const App: React.FC<AppProps> = (p) => {
     );
 };
 
-export default appWithTranslation(App, i18nConfig);
+export default appWithTranslation(App, i18nconfig);

@@ -21,4 +21,5 @@ module.exports = {
     cleanCode: true,
     fallbackNS: ["common", "errors", "seo"],
     fallbackLng: "en",
+    serializeConfig: false,
 };

@@ -1,9 +1,7 @@
 import { State } from "./store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const i18nconfig = require("../../next-i18next.config");
+import i18nconfig from "../../next-i18next.config";
 
 export interface Props {
     initialState: State;
