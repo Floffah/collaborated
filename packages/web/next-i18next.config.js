@@ -14,7 +14,7 @@ module.exports = {
     //     useSuspense: false,
     // },
     preload: locales,
-    //localePath: path.resolve("./public/locales"),
+    localePath: path.resolve("./public/static/locales"),
     cleanCode: true,
     fallbackNS: ["common", "errors", "seo"],
     fallbackLng: "en",
