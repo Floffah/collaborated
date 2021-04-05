@@ -7,8 +7,8 @@ export const getStaticProps = async (
     ns?: string[],
 ): Promise<GetStaticPropsResult<Props>> => ({
     props: {
-        ...(await SST(p, ns)),
         initialState: initialState,
+        ...(await SST(p, ns)),
     },
 });
 
