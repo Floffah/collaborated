@@ -6,10 +6,12 @@ import WebClient from "src/lib/api/WebClient";
 import { useStore } from "src/lib/store";
 import { ClientContext } from "../components/helpers/context";
 import { ApplyGlobalStyles } from "../components/helpers/styles";
-import * as i18nConfig from "../../next-i18next.config";
 import { useHotkeys } from "react-hotkeys-hook";
 import { ActionType } from "../lib/action";
 import { DefaultSeo } from "next-seo";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const i18nConfig = require("../../next-i18next.config");
 
 const App: React.FC<AppProps> = (p) => {
     const s = useStore(p.pageProps.initialState);
