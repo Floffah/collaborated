@@ -23,7 +23,10 @@ defmodule CappBackend.MixProject do
       {:plug_cowboy, "~> 2.4"},
       {:absinthe, "~> 1.6"},
       {:absinthe_plug, "~> 1.5"},
-      {:jason, "~> 1.2"}
+      {:jason, "~> 1.2"},
+      {:ecto, "~> 3.6"},
+      {:ecto_sql, "~> 3.6"},
+      {:postgrex, "~> 0.15.8"}
     ]
   end
 end

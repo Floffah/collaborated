@@ -2,23 +2,20 @@ defmodule CappBackend.Router do
   use Plug.Router
   import Plug.Conn
 
-  alias CappBackend.StaticPlug
+
+  plug :match
+  plug :dispatch
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
     json_decoder: Jason
 
-  plug Absinthe.Plug,
-       schema: CappBackend.APISchema,
-       at: "/api/v1"
-
-  plug :match
-  plug :dispatch
+  forward "/api/v1",
+    to: Absinthe.Plug,
+    init_opts: [schema: CappBackend.APISchema]
 
   match _ do
-    IO.puts(conn.request_path)
     conn
-    |> put_resp_content_type("application/json")
-    |> send_resp(404, "{\"error\": \"Not found\"}")
+    |> CappBackend.Errors.send(404, 1, "not found")
   end
 end

@@ -7,6 +7,7 @@ defmodule CappBackend.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {CappBackend.Repo, []},
       {Plug.Cowboy, scheme: :http, plug: CappBackend.Router, options: [port: 80]}
     ]
 

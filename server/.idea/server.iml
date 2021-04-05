@@ -60,5 +60,11 @@
     <orderEntry type="library" name="plug_crypto" level="project" />
     <orderEntry type="library" name="plug_cowboy" level="project" />
     <orderEntry type="library" name="absinthe_plug" level="project" />
+    <orderEntry type="library" name="ecto" level="project" />
+    <orderEntry type="library" name="ecto_sql" level="project" />
+    <orderEntry type="library" name="postgrex" level="project" />
+    <orderEntry type="library" name="db_connection" level="project" />
+    <orderEntry type="library" name="benchee_json" level="project" />
+    <orderEntry type="library" name="connection" level="project" />
   </component>
 </module>
