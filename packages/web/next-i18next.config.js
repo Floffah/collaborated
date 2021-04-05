@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
-
 const locales = ["en"];
 
 module.exports = {
@@ -10,16 +7,12 @@ module.exports = {
         locales,
     },
     defaultNS: "common",
-    // react: {
-    //     useSuspense: false,
-    // },
     preload: locales,
     localePath:
         typeof window === "undefined"
-            ? path.resolve("./public/static/locales")
+            ? "public/static/locales"
             : "static/locales",
     cleanCode: true,
     fallbackNS: ["common", "errors", "seo"],
     fallbackLng: "en",
-    serializeConfig: false,
 };

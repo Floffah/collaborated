@@ -11,7 +11,6 @@ path.resolve("./public/static/locales");
 
 module.exports = tm({
     reactStrictMode: true,
-    target: "serverless",
     i18n,
     future: {
         webpack5: true,
