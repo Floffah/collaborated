@@ -11,7 +11,8 @@ packages/web/netlify
 .elixir_ls
 _build
 packages/legacy-web
-
+config.exs
+dev.exs
 
 # Created by https://www.toptal.com/developers/gitignore/api/go,node,erlang,elixir,webstorm,jetbrains,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,node,erlang,elixir,webstorm,jetbrains,yarn

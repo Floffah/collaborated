@@ -1,3 +1,8 @@
+deps/
+_build/
+.elixir_ls
+assets
+priv
 node_modules
 dist
 types
@@ -7,8 +12,3 @@ data
 public
 build
 docs
-deps/
-_build/
-.elixir_ls
-assets
-priv

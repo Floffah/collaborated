@@ -1,18 +1,23 @@
 defmodule CappBackend.Router do
   use Plug.Router
-  import Plug.Conn
+  # import Plug.Conn
 
-
-  plug :match
-  plug :dispatch
+  plug Plug.Logger
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
     json_decoder: Jason
 
-  forward "/api/v1",
+  forward "/v1",
     to: Absinthe.Plug,
     init_opts: [schema: CappBackend.APISchema]
+
+  forward "/graphiql",
+    to: Absinthe.Plug.GraphiQL,
+    init_opts: [schema: CappBackend.APISchema, interface: :playground]
+
+  plug :match
+  plug :dispatch
 
   match _ do
     conn

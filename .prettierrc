@@ -7,5 +7,14 @@
   "jsxBracketSameLine": false,
   "arrowParens": "always",
   "endOfLine": "crlf",
-  "embeddedLanguageFormatting": "auto"
+  "embeddedLanguageFormatting": "auto",
+  "printWidth": 130,
+  "eexMultilineLineLength": 100,
+  "eexMultilineNoParens": [
+    "link",
+    "form_for"
+  ],
+  "plugins": [
+    "prettier-plugin-eex"
+  ]
 }

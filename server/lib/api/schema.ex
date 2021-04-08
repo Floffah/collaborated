@@ -1,4 +1,4 @@
-defmodule CappBackend.APISchema do
+defmodule CappBackend.API.Schema do
   use Absinthe.Schema
 
   query do
@@ -8,5 +8,4 @@ defmodule CappBackend.APISchema do
       end
     end
   end
-
 end

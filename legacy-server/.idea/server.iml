@@ -66,5 +66,8 @@
     <orderEntry type="library" name="db_connection" level="project" />
     <orderEntry type="library" name="benchee_json" level="project" />
     <orderEntry type="library" name="connection" level="project" />
+    <orderEntry type="library" name="Elixir 1.11.3" level="application" />
+    <orderEntry type="library" name="Elixir 1.11.3" level="application" />
+    <orderEntry type="library" name="Elixir 1.11.3" level="application" />
   </component>
 </module>

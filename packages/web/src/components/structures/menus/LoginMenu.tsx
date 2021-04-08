@@ -108,11 +108,7 @@ export const LoginMenu: React.FC = (_p) => {
                     error={perr}
                 />
                 <ButtonContainer>
-                    <Tooltip
-                        title="Not implemented"
-                        placement="top"
-                        mode="hover"
-                    >
+                    <Tooltip title={tc("noimpl")} placement="top" mode="hover">
                         <Button fontSize={18} disabled type="primary">
                             {t("reg")}
                         </Button>

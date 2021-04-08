@@ -1,15 +1,19 @@
 # CappBackend
 
-This is **not replacing** the current nodejs backend that exists, this is just a test to compare speeds (the nodejs backend should be able to handle 90k requests while the elixir backend should be able to take 300k)
+To start your Phoenix server:
 
-The elixir backend will probably end up being used as a fallback and or reverse proxy
+  * Install dependencies with `mix deps.get`
+  * Create and migrate your database with `mix ecto.setup`
+  * Start Phoenix endpoint with `mix phx.server`
 
-This package is intended to be used as an api and not for the actual website. Although this does serve static assets, it is recommended to sit it behind something like netlify or an nginx instance.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Go to http://localhost/api/v1?query={ping} to see if it is working
+Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## API Errors
+## Learn more
 
-The keys are found as an integer in the capp_error field.
-
-1. Path does not correspond to any endpoint
+  * Official website: https://www.phoenixframework.org/
+  * Guides: https://hexdocs.pm/phoenix/overview.html
+  * Docs: https://hexdocs.pm/phoenix
+  * Forum: https://elixirforum.com/c/phoenix-forum
+  * Source: https://github.com/phoenixframework/phoenix

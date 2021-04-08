@@ -3,14 +3,16 @@ import { GroupListContainer, GroupListSeparator } from "./GroupList.styles";
 import GroupListIconElement from "./GroupListIconElement";
 import { mdiCog, mdiLocationEnter } from "@mdi/js";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function GroupList() {
     const r = useRouter();
+    const tc = useTranslation("common").t;
 
     return (
         <GroupListContainer>
             <GroupListIconElement
-                title="Settings"
+                title={tc("settings")}
                 icon={mdiCog}
                 onClick={() => r.push("/dash/settings")}
             />
@@ -19,7 +21,7 @@ export default function GroupList() {
             <GroupListSeparator />
             <GroupListIconElement
                 icon={mdiLocationEnter}
-                title="Join a project"
+                title={tc("joinproj")}
             />
         </GroupListContainer>
     );
