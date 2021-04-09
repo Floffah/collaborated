@@ -6,7 +6,6 @@ defmodule CappBackendWeb do
       use Phoenix.Controller, namespace: CappBackendWeb
 
       import Plug.Conn
-      import CappBackendWeb.Gettext
       alias CappBackendWeb.Router.Helpers, as: Routes
     end
   end
@@ -30,7 +29,6 @@ defmodule CappBackendWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import CappBackendWeb.Gettext
     end
   end
 

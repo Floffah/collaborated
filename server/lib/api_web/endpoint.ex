@@ -1,5 +1,7 @@
 defmodule CappBackendWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :api
+  use Absinthe.Phoenix.Endpoint,
+    schema: CappBackend.API.Schema
 
   if code_reloading? do
     plug Phoenix.CodeReloader
@@ -14,7 +16,11 @@ defmodule CappBackendWeb.Endpoint do
     pass: ["*/*"],
     json_decoder: Jason
 
-  plug Plug.MethodOverride
+  socket "/v1/socket", CappBackendWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+
+  # plug Plug.MethodOverride
   plug Plug.Head
   plug CappBackendWeb.Router
 end

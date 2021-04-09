@@ -8,7 +8,8 @@ defmodule CappBackend.Application do
       CappBackend.Repo,
       CappBackendWeb.Telemetry,
       {Phoenix.PubSub, name: CappBackend.PubSub},
-      CappBackendWeb.Endpoint
+      CappBackendWeb.Endpoint,
+      {Absinthe.Subscription, CappBackendWeb.Endpoint}
     ]
 
     opts = [strategy: :one_for_one, name: CappBackend.Supervisor]
