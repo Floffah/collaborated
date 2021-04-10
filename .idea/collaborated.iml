@@ -29,16 +29,15 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
       <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web" />
       <excludeFolder url="file://$MODULE_DIR$/.yarn/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/server/.elixir_ls" />
-      <excludeFolder url="file://$MODULE_DIR$/server/_build" />
-      <excludeFolder url="file://$MODULE_DIR$/server/deps" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/.elixir_ls" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/_build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/deps" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="absinthe" />
     <orderEntry type="module" module-name="absinthe_plug" />
-    <orderEntry type="module" module-name="server" />
     <orderEntry type="module" module-name="jason" />
     <orderEntry type="module" module-name="mime" />
     <orderEntry type="module" module-name="nimble_parsec" />
@@ -49,5 +48,6 @@
     <orderEntry type="library" name="Elixir at C:/ProgramData/chocolatey/lib/Elixir" level="application" />
     <orderEntry type="library" name="Elixir at C:/ProgramData/chocolatey/lib/Elixir" level="application" />
     <orderEntry type="library" name="Elixir at C:/ProgramData/chocolatey/lib/Elixir" level="application" />
+    <orderEntry type="library" name="Elixir at C:/Program Files (x86)/Elixir" level="application" />
   </component>
 </module>

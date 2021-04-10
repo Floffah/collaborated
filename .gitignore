@@ -13,6 +13,8 @@ _build
 packages/legacy-web
 config.exs
 dev.exs
+/legacy-server
+/packages/server
 
 # Created by https://www.toptal.com/developers/gitignore/api/go,node,erlang,elixir,webstorm,jetbrains,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,node,erlang,elixir,webstorm,jetbrains,yarn

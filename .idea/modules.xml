@@ -11,7 +11,6 @@
       <module fileurl="file://$PROJECT_DIR$/legacy-server/deps/plug/.idea/plug.iml" filepath="$PROJECT_DIR$/legacy-server/deps/plug/.idea/plug.iml" />
       <module fileurl="file://$PROJECT_DIR$/legacy-server/deps/plug_cowboy/.idea/plug_cowboy.iml" filepath="$PROJECT_DIR$/legacy-server/deps/plug_cowboy/.idea/plug_cowboy.iml" />
       <module fileurl="file://$PROJECT_DIR$/legacy-server/deps/plug_crypto/.idea/plug_crypto.iml" filepath="$PROJECT_DIR$/legacy-server/deps/plug_crypto/.idea/plug_crypto.iml" />
-      <module fileurl="file://$PROJECT_DIR$/legacy-server/.idea/server.iml" filepath="$PROJECT_DIR$/legacy-server/.idea/server.iml" />
     </modules>
   </component>
 </project>
