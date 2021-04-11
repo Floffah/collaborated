@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="noStart test" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="manager" />
+    <working_directory value="$PROJECT_DIR$" />
+    <parameters value="-noStart" />
+    <kind value="PACKAGE" />
+    <package value="cappmanager/src" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/src/main.go" />
+    <method v="2" />
+  </configuration>
+</component>

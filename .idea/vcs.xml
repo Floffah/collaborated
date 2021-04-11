@@ -7,5 +7,6 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/legacy-server/deps/sync" vcs="Git" />
   </component>
 </project>
