@@ -1,2 +1,4 @@
 *
 !packages/web
+!packages/interact
+!packages/common

@@ -2,10 +2,10 @@ defmodule CappBackendWeb.Router do
   use CappBackendWeb, :router
 
   forward "/v1/graphql", Absinthe.Plug,
-    schema: CappBackend.API.Schema
+    schema: CappBackend.Schema
 
   forward "/playground", Absinthe.Plug.GraphiQL,
-    schema: CappBackend.API.Schema,
+    schema: CappBackend.Schema,
     socket: CappBackendWeb.UserSocket,
     interface: :playground
 

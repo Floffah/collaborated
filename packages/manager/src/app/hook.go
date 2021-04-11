@@ -2,10 +2,14 @@ package app
 
 import (
 	"bytes"
+	"cappmanager/src/util"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"github.com/valyala/fasthttp"
+	"os"
+	"strconv"
 )
 
 type HookError struct {
@@ -14,7 +18,13 @@ type HookError struct {
 }
 
 func (a *App) StartHooks() {
-	fasthttp.ListenAndServe(":6491", a.RequestHandler)
+	port, err := util.GetPort()
+	if err != nil {
+		fmt.Println("Could not find an empty port to use")
+		os.Exit(1)
+	}
+	go fasthttp.ListenAndServe("0.0.0.0:"+strconv.Itoa(port), a.RequestHandler)
+	fmt.Printf("Listening on 0.0.0.0:%s\n", strconv.Itoa(port))
 }
 
 func (a *App) RequestHandler(ctx *fasthttp.RequestCtx) {

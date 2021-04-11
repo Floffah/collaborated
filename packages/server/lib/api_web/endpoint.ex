@@ -1,7 +1,7 @@
 defmodule CappBackendWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :api
   use Absinthe.Phoenix.Endpoint,
-    schema: CappBackend.API.Schema
+    schema: CappBackend.Schema
 
   if code_reloading? do
     plug Phoenix.CodeReloader

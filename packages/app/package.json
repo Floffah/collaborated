@@ -9,13 +9,13 @@
     "electron": "^12.0.2",
     "electron-builder": "^22.10.5",
     "electron-debug": "^3.2.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "@electron/remote": "^1.1.0",
     "@treverix/custom-electron-titlebar": "^4.1.7",
     "axios": "^0.21.1",
-    "fastify": "^3.14.1",
+    "fastify": "^3.14.2",
     "fastify-static": "^4.0.1",
     "source-map-support": "^0.5.19"
   }

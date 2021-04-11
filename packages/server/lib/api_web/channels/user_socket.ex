@@ -2,7 +2,7 @@ defmodule CappBackendWeb.UserSocket do
   use Phoenix.Socket
 
   use Absinthe.Phoenix.Socket,
-    schema: CappBackend.API.Schema
+    schema: CappBackend.Schema
 
   @impl true
   def connect(_params, socket) do
