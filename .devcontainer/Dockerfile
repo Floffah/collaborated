@@ -2,7 +2,7 @@ ARG GOVARIANT="1.16"
 ARG NODEVARIANT="14-buster"
 FROM mcr.microsoft.com/vscode/devcontainers/go:0-${GOVARIANT}
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODEVARIANT}
-FROM elixir:1.8
+FROM elixir:1.11
 
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
