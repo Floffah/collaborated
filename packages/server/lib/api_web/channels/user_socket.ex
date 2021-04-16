@@ -10,5 +10,5 @@ defmodule CappBackendWeb.UserSocket do
   end
 
   @impl true
-  def id(socket), do: socket.assigns.user_id
+  def id(_), do: nil
 end

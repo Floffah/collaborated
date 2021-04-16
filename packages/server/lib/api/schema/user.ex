@@ -11,9 +11,10 @@ defmodule CappBackend.Schema.UserTypes do
   object :auth_queries do
     @desc "Authenticate with a email and password"
     field :authenticate, :auth_details do
+      @desc "Email to authenticate with"
       arg :email, non_null(:string)
+      @desc "Password to authenticate with"
       arg :password, non_null(:string)
-
       resolve &CappBackend.Resolvers.User.authenticate/3
     end
   end

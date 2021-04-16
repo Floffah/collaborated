@@ -100,6 +100,7 @@ export class Client extends events.EventEmitter {
                 },
             });
             this.api.details = { access: d.data.authenticate.access, refresh: d.data.authenticate.refresh };
+            console.log(this.api.details);
         } else {
             opts = <AccessLoginOptions>opts;
         }

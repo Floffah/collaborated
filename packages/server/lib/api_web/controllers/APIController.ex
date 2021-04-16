@@ -8,7 +8,7 @@ defmodule CappBackendWeb.APIController do
       },
       v1: %{
         api: "/v1/graphql",
-        socket: "/v1/socket"
+        socket: "/v1/socket/websocket"
       }
     })
   end

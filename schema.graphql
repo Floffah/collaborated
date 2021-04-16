@@ -13,6 +13,11 @@ type AuthDetails {
 
 type RootQueryType {
     "Authenticate with a email and password"
-    authenticate(email: String!, password: String!): AuthDetails
+    authenticate(
+        "Email to authenticate with"
+        email: String!,
+        "Password to authenticate with"
+        password: String!
+    ): AuthDetails
     ping: String
 }

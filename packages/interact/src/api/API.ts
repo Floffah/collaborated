@@ -53,6 +53,8 @@ export default class API {
                 `ws://` + this.client.host + this.urls.socket,
                 {
                     reconnect: true,
+                    inactivityTimeout: 10000,
+                    reconnectionAttempts: 3,
                 },
                 typeof window !== "undefined" ? WebSocket : ws,
             );
