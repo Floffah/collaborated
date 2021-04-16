@@ -17,11 +17,7 @@ export default function Index() {
             (s.getState().mode.preview && !title.includes("PREVIEW")) ||
             (!s.getState().mode.preview && title.includes("PREVIEW"))
         ) {
-            setTitle(
-                s.getState().mode.preview
-                    ? "PREVIEW MODE"
-                    : `${t("login-title")}`,
-            );
+            setTitle(s.getState().mode.preview ? "PREVIEW MODE" : `${t("login-title")}`);
         }
     });
 

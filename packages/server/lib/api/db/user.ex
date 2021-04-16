@@ -11,7 +11,7 @@ defmodule CappBackend.Entities.User do
     field :created, :utc_datetime
 
     field :access, :string
-    field :reconnect, :string
+    field :refresh, :string
   end
 
   def changeset(user, params \\ %{}) do
