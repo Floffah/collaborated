@@ -14,8 +14,6 @@ packages/legacy-web
 config.exs
 dev.exs
 /legacy-server
-/packages/server
-!packages/server/lib/api/db/**/*
 *.private-key.pem
 
 # Created by https://www.toptal.com/developers/gitignore/api/go,node,erlang,elixir,webstorm,jetbrains,yarn

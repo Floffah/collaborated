@@ -17,7 +17,8 @@
     "devbuild": "yarn build dev",
     "prodbuild": "yarn build build",
     "updates": "ncu --packageManager yarn --deep --target minor",
-    "forceupdate": "ncu --packageManager yarn --deep --target minor -u"
+    "forceupdate": "ncu --packageManager yarn --deep --target minor -u",
+    "test": "yarn workspace test-addon node ."
   },
   "devDependencies": {
     "@floffah/build": "^0.3.1",

@@ -1,4 +1,4 @@
-import ax, { AxiosInstance, AxiosResponse } from "axios";
+import ax, { AxiosInstance } from "axios";
 import events from "events";
 import ProjectStore from "../store/ProjectStore";
 import API from "../api/API";
@@ -16,7 +16,7 @@ interface ClientOptions {
     /**
      * Whether or not to use https
      */
-    useHttps: boolean;
+    useHttps?: boolean;
     /**
      * If the client is in browser mode
      */
@@ -67,8 +67,9 @@ export class Client extends events.EventEmitter {
                     "Cache-Control": "no-cache",
                 },
                 baseURL: `http${this.opts.useHttps ? "s" : ""}://` + this.host,
+                responseType: "json",
                 //withCredentials: true,
-                transformRequest: [(data) => JSON.stringify(data.data)],
+                //transformRequest: [(data) => JSON.stringify(data)],
             });
 
             this.api = new API(this);
@@ -78,30 +79,53 @@ export class Client extends events.EventEmitter {
     }
 
     /**
-     * Send a query to the graphql api.
-     * Should not be used outside of the interact library
-     * @param query the query that will be executed
-     * @param variables variables that will be passed to graphql
-     */
-    async _query(query: string, variables?: { [k: string]: any }): Promise<AxiosResponse | { data: any }> {}
-
-    /**
      * Authenticate with the gateway using your client application's access token.
      * @param opts - login information
      */
     async login(opts: LoginOptions) {
         if (Object.prototype.hasOwnProperty.call(opts, "email")) {
             opts = <DetailLoginOptions>opts;
-            this.api.query({
+            const d = await this.api.query({
                 query: gql`
-                    query Authenticate() {
-                    
+                    query Authenticate($email: String!, $password: String!) {
+                        authenticate(email: $email, password: $password) {
+                            access
+                            refresh
+                        }
                     }
                 `,
+                variables: {
+                    email: opts.email,
+                    password: opts.password,
+                },
             });
+            this.api.details = { access: d.data.authenticate.access, refresh: d.data.authenticate.refresh };
         } else {
             opts = <AccessLoginOptions>opts;
         }
+    }
+
+    /**
+     * Check the api latency.
+     * Returns -1 if the request did not succeed, otherwise, it returns the latency in millis
+     */
+    async ping(): Promise<number> {
+        const initial = Date.now();
+        let d;
+        try {
+            d = await this.api.query({
+                query: gql`
+                    query Ping {
+                        ping
+                    }
+                `,
+            });
+        } catch (e) {
+            return -1;
+        }
+        if (!d) return -1;
+        if (d.data.ping !== "pong") return -1;
+        return Date.now() - initial;
     }
 }
 
