@@ -14,6 +14,8 @@ import axios from "axios";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import ws from "ws";
+import cheerio from "cheerio";
+import APIError from "../errors/APIError";
 
 export default class API {
     client: Client;
@@ -76,6 +78,21 @@ export default class API {
             });
         }
 
-        return await this.apollo.query(opts);
+        try {
+            return await this.apollo.query(opts);
+        } catch (e) {
+            if (
+                Object.prototype.hasOwnProperty.call(e, "message") &&
+                e.message.includes("Unexpected token < in JSON") &&
+                typeof e.networkError.bodyText !== "undefined"
+            ) {
+                //const dom = cheerio.load(e.networkError.bodyText);
+                const dom = cheerio.load(e.networkError.bodyText);
+                const title = dom("body .top-details .exception-info .title");
+                throw new APIError(title.text());
+            } else {
+                throw e;
+            }
+        }
     }
 }
