@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DEV_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum ClientType {
+  USER
+  BOT
+}
+
+model Client {
+  id   Int        @id @default(autoincrement())
+  type ClientType @default(USER)
+  user User?
+  bot  BotUser?
+
+  // common between all client types
+  username String
+  created  DateTime @default(now())
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId Int
+
+  // user-specific client fields
+  email    String @unique
+  password String
+}
+
+model BotUser {
+  id       Int    @id @default(autoincrement())
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId Int
+}
+
+// server util
+model PersistedQuery {
+    hash String @unique
+    query String
+}

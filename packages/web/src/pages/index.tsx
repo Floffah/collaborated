@@ -5,7 +5,7 @@ import { useStore } from "react-redux";
 import { Action } from "src/lib/action";
 import { State } from "../lib/store";
 import { NextSeo } from "next-seo";
-import { buildServerPropsFN } from "../lib/ssr";
+import { buildStaticPropsFN } from "../lib/ssg";
 
 export default function Index() {
     const { t } = useTranslation("login");
@@ -33,6 +33,6 @@ export default function Index() {
 //     ns: ["login", "common", "seo"],
 // });
 
-export const getServerSideProps = buildServerPropsFN({
+export const getServerSideProps = buildStaticPropsFN({
     ns: ["login", "common", "seo"],
 });

@@ -1,0 +1,19 @@
+{
+  "name": "@collaborated/server",
+  "version": "0.0.1",
+  "description": "NodeJS (TS) implementation of the Collaborated API using prisma, fastify, and mercurius",
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@types/node": "^15.0.3",
+    "@types/ws": "^7.4.4",
+    "prisma": "^2.22.1",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@collaborated/gql": "0.0.1",
+    "@prisma/client": "^2.22.1",
+    "fastify": "^3.15.1",
+    "graphql": "^15.5.0",
+    "mercurius": "^7.6.1"
+  }
+}

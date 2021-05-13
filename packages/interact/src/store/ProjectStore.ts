@@ -1,5 +1,6 @@
 import { Client } from "../core/Client";
 import Project from "./Project";
+import { gql } from "@apollo/client/core";
 
 export default class ProjectStore {
     client: Client;
@@ -23,10 +24,20 @@ export default class ProjectStore {
             this.cache.set(p.id, p);
             return p;
         }
-        const d = await this.client._query(
-            "query CreateProject($name: String) { me { projects { create(name: $name) { name } } } }",
-            { name },
-        );
+        const d = await this.client.api.query({
+            query: gql`
+                query CreateProject($name: String) {
+                    me {
+                        projects {
+                            create(name: $name) {
+                                name
+                            }
+                        }
+                    }
+                }
+            `,
+            variables: { name },
+        });
 
         const p = new Project();
         const proj = d.data?.data.me.projects.create;
@@ -42,10 +53,18 @@ export default class ProjectStore {
      */
     async join(invite: string): Promise<void> {
         if (this.client.placeholder) return;
-        await this.client._query(
-            "query JoinProject($invite: String) { me { projects { join(invite: $invite) } } }",
-            { invite },
-        );
+        await this.client.api.query({
+            query: gql`
+                query JoinProject($invite: String) {
+                    me {
+                        projects {
+                            join(invite: $invite)
+                        }
+                    }
+                }
+            `,
+            variables: { invite },
+        });
         return;
     }
 
@@ -54,9 +73,20 @@ export default class ProjectStore {
      */
     async fetch() {
         if (this.client.placeholder) return;
-        const d = await this.client._query(
-            "query { me { projects { all { id name } } } }",
-        );
+        const d = await this.client.api.query({
+            query: gql`
+                query {
+                    me {
+                        projects {
+                            all {
+                                id
+                                name
+                            }
+                        }
+                    }
+                }
+            `,
+        });
         for (const proj of d.data.data.me.projects.all as {
             id: number;
             name: string;

@@ -18,23 +18,24 @@
     "prodbuild": "yarn build build",
     "updates": "ncu --packageManager yarn --deep --target minor",
     "forceupdate": "ncu --packageManager yarn --deep --target minor -u",
-    "test": "yarn workspace test-addon node ."
+    "test": "yarn workspace test-addon node .",
+    "dev": "yarn build dev",
+    "devts": "build dev --exclude web,docs"
   },
   "devDependencies": {
-    "@floffah/build": "^0.3.1",
-    "@typescript-eslint/eslint-plugin": "^4.21.0",
-    "@typescript-eslint/parser": "^4.21.0",
+    "@floffah/build": "^0.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
     "all-contributors-cli": "^6.20.0",
-    "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-workspaces": "^0.6.2",
     "lerna": "^4.0.0",
-    "npm-check-updates": "^11.4.1",
-    "prettier-plugin-eex": "^0.4.0"
-  },
-  "version": "0.0.0",
-  "dependencies": {
+    "npm-check-updates": "^11.5.11",
+    "prettier": "^2.3.0",
+    "prettier-plugin-eex": "^0.5.0",
     "typescript": "^4.2.4"
-  }
+  },
+  "version": "0.0.0"
 }

@@ -18,6 +18,5 @@ export const getServerSideProps = async (
     };
 };
 
-export const buildServerPropsFN = (opts: PropBuilderOptions) => async (
-    p: GetServerSidePropsContext,
-) => await getServerSideProps(p, opts.ns);
+export const buildServerPropsFN = (opts: PropBuilderOptions) => async (p: GetServerSidePropsContext) =>
+    await getServerSideProps(p, opts.ns);

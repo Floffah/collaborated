@@ -1,24 +1,25 @@
 {
   "name": "@collaborated/interact",
-  "version": "0.0.1-alpha1",
+  "version": "0.0.1",
   "description": "A javascript/typescript library for interacting with the Collaborated API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@apollo/client": "^3.3.14",
-    "@collaborated/common": "0.0.1-alpha1",
+    "@apollo/client": "^3.3.18",
+    "@collaborated/common": "0.0.1",
     "axios": "^0.21.1",
     "bufferutil": "^4.0.3",
-    "chalk": "^4.1.0",
-    "cheerio": "^1.0.0-rc.6",
+    "chalk": "^4.1.1",
+    "cheerio": "^1.0.0-rc.9",
     "cross-fetch": "^3.1.4",
+    "graphql": "^15.5.0",
     "subscriptions-transport-ws": "^0.9.18",
-    "utf-8-validate": "^5.0.4",
-    "ws": "^7.4.4"
+    "utf-8-validate": "^5.0.5",
+    "ws": "^7.4.5"
   },
   "devDependencies": {
-    "@types/node": "^14.14.37",
-    "@types/ws": "^7.4.1",
+    "@types/node": "^15.0.3",
+    "@types/ws": "^7.4.4",
     "typescript": "^4.2.4"
   }
 }

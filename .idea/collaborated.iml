@@ -32,6 +32,11 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/server/.elixir_ls" />
       <excludeFolder url="file://$MODULE_DIR$/packages/server/_build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/server/deps" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/common" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server" />
+      <excludeFolder url="file://$MODULE_DIR$/legacy-server" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/gql/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server-js/dist" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />

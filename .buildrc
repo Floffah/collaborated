@@ -34,7 +34,7 @@
       "runInEnvironments": ["prod", "dev"]
     },
     {
-      "id": "old-server",
+      "id": "server",
       "type": "typescript",
       "package": "server",
       "runInEnvironments": ["prod", "dev"]
@@ -51,6 +51,12 @@
       "package": "test-addon",
       "dontUsePackagePrefix": true,
       "runInEnvironments": ["dev"]
+    },
+    {
+      "id": "gql",
+      "type": "typescript",
+      "package": "gql",
+      "runInEnvironments": ["dev", "prod"]
     }
   ]
 }

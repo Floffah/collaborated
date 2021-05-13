@@ -36,6 +36,22 @@ run `yarn build` for more information
  - `beta` - Every time master is at a point where it needs to be tested in "production" but without breaking anything, master will be merged into beta. Can be tested at https://beta.capp.floffah.dev
  - `production` - This is the production branch that vercel pushes to https://capp.floffah.dev
 
+### Packages
+
+#### Projects
+| **Package** | **Description** | **State** |
+|:---:|:---:|:---:|
+| [app](packages/app) | Electron application | Paused |
+| [common](packages/common) | Common types and structures shared between packages | Inactive, may be re-used |
+| [interact](packages/interact) | The JS/TS library for interacting with the Collaborated API. Inspired by Discord.JS | Under heavy development, heavily relied on |
+| [manager](packages/manager) | Service manager implemented in Golang for managing the elixir implementation of the server | Paused alongside server (Elixir) |
+| [gql](packages/gql) | Small library for creating GraphQL schemas programmatically (code-first) | Developed as needed by server (Node)
+| [server (Elixir)](packages/server) | Elixir implementation of the Collaborated API using phoenix and absinthe | Paused until server (node) fails stress tests |
+| [server (Node)](packages/server-js) | NodeJS (TS) implementation of the Collaborated API using prisma, fastify, and mercurius | Under heavy development until it fails stress tests |
+| [web](packages/web) | The front end of Collaborated written in React (NextJS, TS) | Under heavy development |
+| [test](test) | Small package for testing the interact library and a server implementation | Developed as interact and server are in needing of testing |
+
+
 ## Links
 For docs and the component library clone the repo and start storybook in the web package. Documentation will be moved elsewhere once needed but is not a priority<br/>
 [Production deployment](https://capp.floffah.dev)

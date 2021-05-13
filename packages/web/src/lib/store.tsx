@@ -16,16 +16,11 @@ export interface State {
 export const initialState: State = {
     theme: "dark",
     mode: {
-        preview: isBrowser()
-            ? sessionStorage.getItem("preview") === "true" ?? false
-            : false,
+        preview: isBrowser() ? sessionStorage.getItem("preview") === "true" ?? false : false,
     },
 };
 
-const reducer: (state: State | undefined, a: Action) => State = (
-    state = initialState,
-    a,
-) => {
+const reducer: (state: State | undefined, a: Action) => State = (state = initialState, a) => {
     const s = (a1: any) => ({ ...state, ...a1 });
 
     switch (a.type) {
@@ -44,8 +39,7 @@ const reducer: (state: State | undefined, a: Action) => State = (
     }
 };
 
-const initStore = (pls = initialState) =>
-    createStore(reducer, pls, composeWithDevTools(applyMiddleware()));
+const initStore = (pls = initialState) => createStore(reducer, pls, composeWithDevTools(applyMiddleware()));
 
 export const initializeStore = (pls?: State) => {
     let s = store ?? initStore(pls);

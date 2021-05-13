@@ -15,6 +15,7 @@ config.exs
 dev.exs
 /legacy-server
 *.private-key.pem
+packages/server-js/.env
 
 # Created by https://www.toptal.com/developers/gitignore/api/go,node,erlang,elixir,webstorm,jetbrains,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,node,erlang,elixir,webstorm,jetbrains,yarn
@@ -87,6 +88,7 @@ _checkouts/
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
+.idea/**/dataSources.xml
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
