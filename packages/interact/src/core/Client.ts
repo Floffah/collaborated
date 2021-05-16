@@ -73,14 +73,18 @@ export class Client extends events.EventEmitter {
         this.placeholder = opts.placeholder ?? false;
     }
 
+    _debug(message: string) {
+        if (this.opts.debug) {
+            console.log(message);
+        }
+    }
+
     /**
      * Authenticate with the gateway using your client application's access token.
      * @param opts - login information
      */
     async login(opts: AuthOptions) {
-        if (Object.prototype.hasOwnProperty.call(opts, "email")) {
-        } else {
-        }
+        return await this.api.authenticate(opts);
     }
 
     /**
@@ -91,13 +95,11 @@ export class Client extends events.EventEmitter {
         const initial = Date.now();
         let d;
         try {
-            d = await this.api.query({
-                query: gql`
-                    query Ping {
-                        ping
-                    }
-                `,
-            });
+            d = await this.api.query(gql`
+                query {
+                    ping
+                }
+            `);
         } catch (e) {
             return -1;
         }

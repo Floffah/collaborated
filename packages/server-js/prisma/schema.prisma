@@ -39,6 +39,7 @@ model User {
   access     String?
   refresh    String?
   lastAccess DateTime @default("1970-01-01T00:00:00-00:00")
+  expired    Boolean  @default(false)
 }
 
 model BotUser {

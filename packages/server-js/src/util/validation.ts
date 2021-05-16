@@ -1,15 +1,28 @@
 import { QueryContext, SubscriptionType } from "./types.js";
 import { minutes } from "./time.js";
-import { StateChange, StateChangeGQL } from "../graphql/subscription.js";
+import { StateChangeEnum } from "../graphql/subscription.js";
 
-export function userValidation(context: QueryContext) {
+export function userValidation(context: QueryContext, noinvalidate?: boolean) {
     if (context.auth === "none") throw "Not authenticated; Must defined CAPP_AUTH; see docs/server/api.md#authentication";
-    if (context.auth === "user" && context.user) {
-        if (context.user.lastAccess.getTime() < Date.now() - minutes(20)) {
+    if (!noinvalidate && context.auth === "user" && context.user) {
+        if (!context.user.expired && context.user.lastAccess.getTime() < Date.now() - minutes(20)) {
             context.ps.publish(SubscriptionType.sessionStateChange, {
-                sessionStateChange: StateChangeGQL.get(StateChange.EXPIRE),
+                sessionStateChange: {
+                    id: context.user.id,
+                    sessionStateChange: StateChangeEnum.EXPIRE,
+                },
             });
+            context.user.expired = true;
+            context.db.user.update({
+                where: {
+                    id: context.user.id,
+                },
+                data: context.user,
+            });
+
             throw "Session expired;";
+        } else if (context.user.expired) {
+            throw "Session expired";
         }
     }
 }

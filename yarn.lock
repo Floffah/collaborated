@@ -1660,7 +1660,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/app@workspace:packages/app"
   dependencies:
-    "@types/node": ^15.0.3
+    "@types/node": ^15.3.0
     electron: ^12.0.7
     electron-builder: ^22.11.3
     electron-debug: ^3.2.0
@@ -1673,7 +1673,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/common@workspace:packages/common"
   dependencies:
-    "@types/node": ^15.0.3
+    "@types/node": ^15.3.0
     graphql: ^15.5.0
     typescript: ^4.2.4
   languageName: unknown
@@ -1683,7 +1683,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/gql@workspace:packages/gql"
   dependencies:
-    "@types/node": ^15.0.3
+    "@types/node": ^15.3.0
     graphql: ^15.5.0
     typescript: ^4.2.4
   languageName: unknown
@@ -1695,7 +1695,7 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.3.18
     "@collaborated/common": 0.0.1
-    "@types/node": ^15.0.3
+    "@types/node": ^15.3.0
     "@types/ws": ^7.4.4
     axios: ^0.21.1
     bufferutil: ^4.0.3
@@ -1718,15 +1718,15 @@ __metadata:
     "@prisma/client": ^2.22.1
     "@types/debug": ^4.1.5
     "@types/ioredis": ^4.26.3
-    "@types/node": ^15.0.3
+    "@types/node": ^15.3.0
     "@types/ws": ^7.4.4
-    crypto-random-string: 3.3.1
+    crypto-random-string: ~3.3.1
     debug: ^4.3.1
     dotenv: ^9.0.2
     fastify: ^3.15.1
     fastify-websocket: ^3.2.0
     graphql: ^15.5.0
-    graphql-redis-subscriptions: ^2.3.1
+    graphql-redis-subscriptions: ^2.4.0
     graphql-subscriptions: ^1.2.1
     ioredis: ^4.27.2
     mercurius: ^7.6.1
@@ -5053,10 +5053,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^15.0.3":
-  version: 15.0.3
-  resolution: "@types/node@npm:15.0.3"
-  checksum: 72bfbac4282443a7b5d5b43c7c39fe855aa1687b5fa5629b735fd2ceacf371b711ccfc956c8af1b1cbd9c74c79be845a801a4c7275048f340aa0df3beec6b10f
+"@types/node@npm:^15.3.0":
+  version: 15.3.0
+  resolution: "@types/node@npm:15.3.0"
+  checksum: 44039665ab71a6ec12e6637a9db4ec3123fdfaf52952ca8028a6f1b37c41c2d380e88d28a41e02693bf9d4815307e0ad938815bf8ffedc5f4d045855fa28db06
   languageName: node
   linkType: hard
 
@@ -8019,7 +8019,7 @@ __metadata:
     eslint-plugin-react: ^7.23.2
     eslint-plugin-workspaces: ^0.6.2
     lerna: ^4.0.0
-    npm-check-updates: ^11.5.12
+    npm-check-updates: ^11.5.13
     prettier: ^2.3.0
     prettier-plugin-eex: ^0.5.0
     typescript: ^4.2.4
@@ -8716,19 +8716,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-random-string@npm:3.3.1":
+"crypto-random-string@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "crypto-random-string@npm:2.0.0"
+  checksum: 7bc19f6cafe3194a434198c9414941cc36d874e1f85b6fcba573b5623f77a440c0a10a94c0d0da26d7d23d85b6fe07354e589ef1a0fe2d7b32e0bab9e70ca4c1
+  languageName: node
+  linkType: hard
+
+"crypto-random-string@npm:~3.3.1":
   version: 3.3.1
   resolution: "crypto-random-string@npm:3.3.1"
   dependencies:
     type-fest: ^0.8.1
   checksum: 709584f60858472554185120ec2af3c165040bcd62e0bc30f57fd73420b05274140c2cb43f7e461b203c89101255bd5d6129ca2c540869ffb763b493638cfb0f
-  languageName: node
-  linkType: hard
-
-"crypto-random-string@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "crypto-random-string@npm:2.0.0"
-  checksum: 7bc19f6cafe3194a434198c9414941cc36d874e1f85b6fcba573b5623f77a440c0a10a94c0d0da26d7d23d85b6fe07354e589ef1a0fe2d7b32e0bab9e70ca4c1
   languageName: node
   linkType: hard
 
@@ -11850,9 +11850,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"graphql-redis-subscriptions@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "graphql-redis-subscriptions@npm:2.3.1"
+"graphql-redis-subscriptions@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "graphql-redis-subscriptions@npm:2.4.0"
   dependencies:
     ioredis: ^4.17.3
     iterall: ^1.3.0
@@ -11861,7 +11861,7 @@ fsevents@^1.2.7:
   dependenciesMeta:
     ioredis:
       optional: true
-  checksum: 11fff9d8eaa3ae35e348a6c0a02344db0ab0fcbf4a3d1a10d84fc898d0063cd6c02d660a2758540c1665e3dbe1f6a3a7561052488d7b98df3d8ab75d7ba8061e
+  checksum: 409e5a3f98219ea277a83fc887b7b7e5d00c4777ef8621a6af4e0c68a990b883f03c1e6554dc7e666a7c4be93c0f70b730cdb2522ac5a667499fba9220d8fb2e
   languageName: node
   linkType: hard
 
@@ -15671,9 +15671,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^11.5.12":
-  version: 11.5.12
-  resolution: "npm-check-updates@npm:11.5.12"
+"npm-check-updates@npm:^11.5.13":
+  version: 11.5.13
+  resolution: "npm-check-updates@npm:11.5.13"
   dependencies:
     chalk: ^4.1.1
     cint: ^8.2.1
@@ -15705,7 +15705,7 @@ fsevents@^1.2.7:
   bin:
     ncu: bin/cli.js
     npm-check-updates: bin/cli.js
-  checksum: 98212cc76fb15c2fe8e5397a72aef5fd51064f6b81228936efa3b2492285ddaf8ee3f551218a0293e260c0bd5efd09d59a65f8a3f692a9e59f9cac0ab8c05d50
+  checksum: fb3a69d42921c8a9a606f4752922404e84c49d455482cfff001eda6296b49051d25905ef271441104ee4506ff71428777500c151ed5c2952214a3f329d7c4362
   languageName: node
   linkType: hard
 

@@ -5,7 +5,7 @@ import { buildSchema } from "@collaborated/gql";
 import { mutation } from "../graphql/mutation";
 import { subscription } from "../graphql/subscription";
 import { RedisPubSub } from "graphql-redis-subscriptions";
-import IORedis, { RedisOptions } from "ioredis";
+import { RedisOptions } from "ioredis";
 import debug from "debug";
 import { getClientContext } from "../util/auth";
 import { PrismaClient } from "@prisma/client";
@@ -42,8 +42,9 @@ export default class Server {
 
         this.info("Initialising Redis (PubSub)");
         this.pubsub = new RedisPubSub({
-            publisher: new IORedis(opts),
-            subscriber: new IORedis(opts),
+            // publisher: new IORedis(opts),
+            // subscriber: new IORedis(opts),
+            connection: opts,
         });
 
         this.info("Initialising Fastify");
@@ -101,7 +102,11 @@ export default class Server {
                         db: this.db,
                         ps: this.pubsub,
                         req,
-                        ...(await getClientContext(this.db, req.headers)),
+                    };
+                },
+                onConnect: async (a) => {
+                    return {
+                        ...(await getClientContext(this.db, a.payload)),
                     };
                 },
                 pubsub: this.pubsub,
@@ -114,6 +119,7 @@ export default class Server {
                 v1: {
                     api: "/v1/graphql",
                     playground: "/v1/playground",
+                    socket: "/v1/graphql",
                 },
             });
         });
