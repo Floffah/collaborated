@@ -1,7 +1,9 @@
 # This file was generated based on ".graphqlconfig". Do not edit manually.
 
 schema {
-    query: RootQueryType
+    query: RootQuery
+    mutation: RootMutation
+    subscription: RootSubscribtion
 }
 
 "Post-authentication details"
@@ -12,15 +14,30 @@ type AuthDetails {
     refresh: String
 }
 
-"Root query"
-type RootQueryType {
-    "Authenticate with an email and password"
-    authenticate(
+"Root mutation"
+type RootMutation {
+    "(USER) Generate new tokens to authenticate with"
+    getTokens(
         "Email to authenticate with"
         email: String!,
         "Password to authenticate with"
         password: String!
     ): AuthDetails
+}
+
+"Root query"
+type RootQuery {
     "For round-trip calculation purposes"
     ping: String
+}
+
+"Root subscribtion"
+type RootSubscribtion {
+    "Updated when the current session changes state. Most commonly used to check for the ready state"
+    sessionStateChange: StateChangeGQL
+}
+
+"Enum for different types of session state change"
+enum StateChangeGQL {
+    EXPIRE
 }

@@ -34,16 +34,23 @@ model User {
   // user-specific client fields
   email    String @unique
   password String
+
+  // auth
+  access     String?
+  refresh    String?
+  lastAccess DateTime @default("1970-01-01T00:00:00-00:00")
 }
 
 model BotUser {
   id       Int    @id @default(autoincrement())
   client   Client @relation(fields: [clientId], references: [id])
   clientId Int
+
+  token String?
 }
 
 // server util
 model PersistedQuery {
-    hash String @unique
-    query String
+  hash  String @unique
+  query String
 }

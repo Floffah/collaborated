@@ -1,7 +1,6 @@
 import ax, { AxiosInstance } from "axios";
 import events from "events";
-import ProjectStore from "../store/ProjectStore";
-import API from "../api/API";
+import API, { AuthOptions } from "../api/API";
 import { gql } from "@apollo/client/core";
 
 interface ClientOptions {
@@ -45,11 +44,7 @@ export class Client extends events.EventEmitter {
 
     ax: AxiosInstance;
 
-    access: string;
-
     host: string;
-
-    projects: ProjectStore;
 
     constructor(opts: ClientOptions) {
         super();
@@ -82,27 +77,9 @@ export class Client extends events.EventEmitter {
      * Authenticate with the gateway using your client application's access token.
      * @param opts - login information
      */
-    async login(opts: LoginOptions) {
+    async login(opts: AuthOptions) {
         if (Object.prototype.hasOwnProperty.call(opts, "email")) {
-            opts = <DetailLoginOptions>opts;
-            const d = await this.api.query({
-                query: gql`
-                    query Authenticate($email: String!, $password: String!) {
-                        authenticate(email: $email, password: $password) {
-                            access
-                            refresh
-                        }
-                    }
-                `,
-                variables: {
-                    email: opts.email,
-                    password: opts.password,
-                },
-            });
-            this.api.details = { access: d.data.authenticate.access, refresh: d.data.authenticate.refresh };
-            console.log(this.api.details);
         } else {
-            opts = <AccessLoginOptions>opts;
         }
     }
 
@@ -137,15 +114,4 @@ export function isJson(str: string): boolean {
         return false;
     }
     return true;
-}
-
-type LoginOptions = DetailLoginOptions | AccessLoginOptions;
-
-interface DetailLoginOptions {
-    email: string;
-    password: string;
-}
-
-interface AccessLoginOptions {
-    access: string;
 }

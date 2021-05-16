@@ -1,6 +1,7 @@
 import {
     ApolloClient,
     ApolloLink,
+    concat,
     HttpLink,
     InMemoryCache,
     NormalizedCacheObject,
@@ -17,9 +18,21 @@ import ws from "ws";
 import cheerio from "cheerio";
 import APIError from "../errors/APIError";
 
+export type AuthOptions = UserAuthOptions | BotAuthOptions;
+
+export interface UserAuthOptions {
+    email: string;
+    password: string;
+}
+
+export interface BotAuthOptions {
+    token: string;
+}
+
 export default class API {
     client: Client;
 
+    authLink: ApolloLink;
     httpLink: HttpLink;
     subLink: WebSocketLink;
     subClient: SubscriptionClient;
@@ -32,13 +45,22 @@ export default class API {
         socket: string;
     };
 
+    authstatus: "none" | "bot" | "user" = "none";
+
     details: {
         access?: string;
         refresh?: string;
+        token?: string;
     } = {};
 
     constructor(client: Client) {
         this.client = client;
+    }
+
+    async authenticate(opts: AuthOptions) {
+        if (Object.prototype.hasOwnProperty.call(opts, "token")) {
+            opts = <BotAuthOptions>opts;
+        }
     }
 
     async query(opts: QueryOptions<OperationVariables, any>) {
@@ -46,6 +68,24 @@ export default class API {
             const data = await axios.get("http://" + this.client.host);
 
             this.urls = { gql: data.data.v1.api, socket: data.data.v1.socket };
+
+            this.authLink = new ApolloLink((op, next) => {
+                if (this.authstatus === "bot") {
+                    op.setContext({
+                        headers: {
+                            CAPP_AUTH: `TOKEN ${this.details.token}`,
+                        },
+                    });
+                } else if (this.authstatus === "user") {
+                    op.setContext({
+                        headers: {
+                            CAPP_AUTH: `ACCESS ${this.details.access}`,
+                        },
+                    });
+                }
+
+                return next(op);
+            });
 
             this.httpLink = new HttpLink({
                 uri: `http${this.client.opts.useHttps ? "s" : ""}://` + this.client.host + this.urls.gql,
@@ -73,7 +113,7 @@ export default class API {
 
             this.cache = new InMemoryCache();
             this.apollo = new ApolloClient({
-                link: this.splitLink,
+                link: concat(this.authLink, this.splitLink),
                 cache: this.cache,
             });
         }

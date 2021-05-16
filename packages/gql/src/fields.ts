@@ -8,6 +8,13 @@ import {
     GraphQLOutputType,
 } from "graphql";
 
+// type ElementType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<infer ElementType> ? ElementType : never;
+// type ResolveArgs = Record<
+//     Parameters<typeof buildField>[3] extends BuildArgument[] ? ElementType<Parameters<typeof buildField>[3]> : string,
+//     any
+// >;
+// ^ no good way to do this yet without typescript complaining,
+
 export function buildField<Source = any, Context = any, Args = DefaultArgs>(
     info: InfoString,
     type: GraphQLOutputType,
@@ -34,6 +41,20 @@ export function buildField<Source = any, Context = any, Args = DefaultArgs>(
             args: a,
         },
     ];
+}
+
+export function buildSubscriptionField<Source = any, Context = any, Args = DefaultArgs>(
+    info: InfoString,
+    type: GraphQLOutputType,
+    subscribe: GraphQLFieldResolver<Source, Context, Args>,
+    args?: BuildArgument[],
+    resolve?: GraphQLFieldResolver<Source, Context, Args>,
+) {
+    const standard = buildField(info, type, resolve, args);
+
+    standard[1] = { ...standard[1], subscribe };
+
+    return standard;
 }
 
 export type BuildArgument = [string, GraphQLArgumentConfig];
