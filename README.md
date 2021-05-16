@@ -80,11 +80,11 @@ elsewhere once needed but is not a priority<br/>
 - [ ] Full authentication lifecycle
     - [ ] Server-side implementation
         - [x] Header tokens (bot and user)
-        - [ ] Connection param tokens in subscriptions (bot and user)
+        - [x] Connection param tokens in subscriptions (bot and user)
         - [x] GraphQL mutations for generating access and refresh tokens
     - [ ] Interact library implementation
         - [x] Support for header tokens (bot and user)
-        - [ ] Support for connection param tokens in subscriptions (bot and user)
+        - [x] Support for connection param tokens in subscriptions (bot and user)
         - [x] Ability to use the token generation mutation when passed an email and password
 - User management
     - [ ] Sessions

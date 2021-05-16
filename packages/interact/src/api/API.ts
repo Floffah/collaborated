@@ -96,16 +96,9 @@ export default class API {
                 sessionStateChange
             }
         `);
-        const subbed = s.subscribe(
-            (data) => {
-                console.log(data.data);
-            },
-            (e) => console.log(e),
-            () => {
-                console.log("complete");
-            },
-        );
-        setInterval(() => console.log(subbed.closed), 3000);
+        s.subscribe((data) => {
+            console.log(data.data);
+        });
     }
 
     async mutate<Var extends Record<any, any>>(
@@ -113,13 +106,13 @@ export default class API {
         variables?: Var,
         opts?: MutationOptions<any, Var>,
     ) {
-        this.client._debug(chalk`{blue MUTATE} {gray ${printQuery(mutation)}}`);
+        this.client._debug(() => chalk`{blue MUTATE} {gray ${printQuery(mutation)}}`);
         const m = await this.apollo.mutate({
             mutation,
             variables,
             ...opts,
         });
-        this.client._debug(chalk`{green MUTATE} {gray ${JSON.stringify(m.data)}}`);
+        this.client._debug(() => chalk`{green MUTATE} {gray ${JSON.stringify(m.data)}}`);
         return m;
     }
 
@@ -128,13 +121,13 @@ export default class API {
         variables?: Var,
         opts?: QueryOptions<any, Var>,
     ) {
-        this.client._debug(chalk`{blue QUERY} {gray ${printQuery(query)}}`);
+        this.client._debug(() => chalk`{blue QUERY} {gray ${printQuery(query)}}`);
         const m = await this.apollo.query({
             query,
             variables,
             ...opts,
         });
-        this.client._debug(chalk`{green QUERY} {gray ${JSON.stringify(m.data)}}`);
+        this.client._debug(() => chalk`{green QUERY} {gray ${JSON.stringify(m.data)}}`);
         return m;
     }
 
@@ -143,7 +136,7 @@ export default class API {
         variables?: Var,
         opts?: MutationOptions<any, Var>,
     ) {
-        this.client._debug(chalk`{green SUBSCRIBE} {gray ${printQuery(subscription)}}`);
+        this.client._debug(() => chalk`{green SUBSCRIBE} {gray ${printQuery(subscription)}}`);
         return this.apollo.subscribe({
             query: subscription,
             variables,
@@ -156,64 +149,79 @@ export default class API {
 
         this.urls = { gql: data.data.v1.api, socket: data.data.v1.socket };
 
-        this.authLink = new ApolloLink((op, next) => {
-            if (this.authstatus === "bot" && typeof this.details.token !== "undefined") {
-                op.setContext({
-                    headers: {
-                        CAPP_AUTH: `TOKEN ${this.details.token}`,
+        if (this.client.opts.method === "rest" || this.client.opts.method === "auto") {
+            this.authLink = new ApolloLink((op, next) => {
+                if (this.authstatus === "bot" && typeof this.details.token !== "undefined") {
+                    op.setContext({
+                        headers: {
+                            CAPP_AUTH: `TOKEN ${this.details.token}`,
+                        },
+                    });
+                } else if (this.authstatus === "user" && typeof this.details.access !== "undefined") {
+                    op.setContext({
+                        headers: {
+                            CAPP_AUTH: `ACCESS ${this.details.access}`,
+                        },
+                    });
+                }
+
+                return next(op);
+            });
+
+            this.httpLink = new HttpLink({
+                uri: `http${this.client.opts.useHttps ? "s" : ""}://` + this.client.host + this.urls.gql,
+            });
+        }
+
+        if (this.client.opts.method === "ws" || this.client.opts.method === "auto") {
+            this.subClient = new SubscriptionClient(
+                `ws://` + this.client.host + this.urls.socket,
+                {
+                    reconnect: true,
+                    inactivityTimeout: 10000,
+                    reconnectionAttempts: 3,
+                    connectionParams: () => {
+                        if (this.authstatus === "bot") {
+                            return {
+                                capp_auth: `TOKEN ${this.details.token}`,
+                            };
+                        } else if (this.authstatus === "user") {
+                            return {
+                                capp_auth: `ACCESS ${this.details.access}`,
+                            };
+                        } else {
+                            return {};
+                        }
                     },
-                });
-            } else if (this.authstatus === "user" && typeof this.details.access !== "undefined") {
-                op.setContext({
-                    headers: {
-                        CAPP_AUTH: `ACCESS ${this.details.access}`,
-                    },
-                });
-            }
-
-            return next(op);
-        });
-
-        this.httpLink = new HttpLink({
-            uri: `http${this.client.opts.useHttps ? "s" : ""}://` + this.client.host + this.urls.gql,
-        });
-
-        this.subClient = new SubscriptionClient(
-            `ws://` + this.client.host + this.urls.socket,
-            {
-                reconnect: true,
-                inactivityTimeout: 10000,
-                reconnectionAttempts: 3,
-                connectionParams: () => {
-                    if (this.authstatus === "bot") {
-                        return {
-                            capp_auth: `TOKEN ${this.details.token}`,
-                        };
-                    } else if (this.authstatus === "user") {
-                        return {
-                            capp_auth: `ACCESS ${this.details.access}`,
-                        };
-                    } else {
-                        return {};
-                    }
                 },
-            },
-            typeof window !== "undefined" ? WebSocket : ws,
-        );
-        this.subLink = new WebSocketLink(this.subClient);
+                typeof window !== "undefined" ? WebSocket : ws,
+            );
+            this.subLink = new WebSocketLink(this.subClient);
+        }
 
-        this.splitLink = split(
-            (q: QueryOptions) => {
-                const def = getMainDefinition(q.query);
-                return def.kind === "OperationDefinition" && def.operation === "subscription";
-            },
-            this.subLink,
-            this.httpLink,
-        );
+        if (this.client.opts.method === "auto") {
+            this.splitLink = split(
+                (q: QueryOptions) => {
+                    const def = getMainDefinition(q.query);
+                    return def.kind === "OperationDefinition" && def.operation === "subscription";
+                },
+                this.subLink,
+                this.httpLink,
+            );
+        }
+
+        let finalLink;
+        if (this.client.opts.method === "auto") {
+            finalLink = this.splitLink;
+        } else if (this.client.opts.method === "rest") {
+            finalLink = concat(this.authLink, this.httpLink);
+        } else if (this.client.opts.method === "ws") {
+            finalLink = this.subLink;
+        }
 
         this.cache = new InMemoryCache();
         this.apollo = new ApolloClient({
-            link: concat(this.authLink, this.splitLink),
+            link: finalLink,
             cache: this.cache,
         });
     }

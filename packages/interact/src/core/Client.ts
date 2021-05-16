@@ -25,6 +25,13 @@ interface ClientOptions {
      * Useful for testing. This is what the collaborated frontend uses for preview mode
      */
     placeholder?: boolean;
+    /**
+     * Method of sending graphql requests
+     * rest - graphql post requests (not recommended as this might break subscriptions),
+     * ws - graphql websocket messages (probably has good performance),
+     * auto - use rest for queries and mutations, use ws for subscriptions
+     */
+    method?: "rest" | "ws" | "auto";
 }
 
 export declare interface Client {
@@ -48,7 +55,14 @@ export class Client extends events.EventEmitter {
 
     constructor(opts: ClientOptions) {
         super();
-        this.opts = opts;
+        this.opts = {
+            debug: false,
+            overrideHost: undefined,
+            useHttps: false, // will be set to true once there is a public api
+            browserMode: typeof document !== "undefined",
+            method: "auto",
+            ...opts,
+        };
         if (!opts.placeholder) {
             this.host = this.opts.overrideHost || "localhost";
 
@@ -57,14 +71,10 @@ export class Client extends events.EventEmitter {
                     "Content-Type": "application/json",
                     Accept: "application/json",
                     "Access-Control-Allow-Origin": "*",
-                    // 'Access-Control-Allow-Methods': "GET, POST",
-                    // 'Access-Control-Allow-Headers': "Accept, Content-Type",
                     "Cache-Control": "no-cache",
                 },
                 baseURL: `http${this.opts.useHttps ? "s" : ""}://` + this.host,
                 responseType: "json",
-                //withCredentials: true,
-                //transformRequest: [(data) => JSON.stringify(data)],
             });
 
             this.api = new API(this);
@@ -73,9 +83,9 @@ export class Client extends events.EventEmitter {
         this.placeholder = opts.placeholder ?? false;
     }
 
-    _debug(message: string) {
+    _debug(message: () => string) {
         if (this.opts.debug) {
-            console.log(message);
+            console.log(message());
         }
     }
 
