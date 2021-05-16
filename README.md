@@ -81,13 +81,15 @@ elsewhere once needed but is not a priority<br/>
     - [ ] Server-side implementation
         - [x] Header tokens (bot and user)
         - [ ] Connection param tokens in subscriptions (bot and user)
-        - [ ] GraphQL mutations for generating access and refresh tokens
+        - [x] GraphQL mutations for generating access and refresh tokens
     - [ ] Interact library implementation
         - [x] Support for header tokens (bot and user)
         - [ ] Support for connection param tokens in subscriptions (bot and user)
         - [x] Ability to use the token generation mutation when passed an email and password
+- User management
     - [ ] Sessions
         - [x] On the next query after expiry, auto invalidate user tokens
+- Structures
     - [ ] Groups
         - [ ] Prisma model
         - [ ] GraphQL fields
@@ -121,8 +123,8 @@ elsewhere once needed but is not a priority<br/>
             - [ ] Show in groups
             - [ ] Channel list
             - [ ] Settings
-    - [ ] Pages
-        - [ ] Settings
+- Pages
+    - [ ] Settings
 
 This list is unfinished. As more things are implemented, I'll add more. Don't want to overwhelm myself lol
 
