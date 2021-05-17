@@ -1,4 +1,6 @@
 import { DefaultArgs } from "@collaborated/gql";
+import { clientValidation, userValidation } from "./validation";
+import { QueryContext } from "./types";
 
 export function publishData(pubdata: any, filterdata?: Record<any, any>) {
     return {
@@ -26,11 +28,14 @@ export function withFilterData<Context, Args = DefaultArgs>(search: Record<any, 
     };
 }
 
-export function withValidFilterData<Context, Args = DefaultArgs>(
-    validate: (p: any, a: Args, c: Context, i: any) => Record<any, any>,
+export function withValidFilterData<Args = DefaultArgs>(
+    validate: (p: any, a: Args, c: QueryContext, i: any) => Record<any, any>,
+    doValidation = false,
+    doInvalidate = true,
 ) {
-    return (p: any, a: Args, c: Context, i: any) => {
+    return (p: any, a: Args, c: QueryContext, i: any) => {
         if (!p.filter) throw "No filter";
+        if (doValidation) clientValidation(c, doInvalidate);
         return withFilterData(validate(p, a, c, i))(p, a, c, i);
     };
 }
