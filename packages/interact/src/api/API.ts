@@ -97,8 +97,31 @@ export default class API {
             }
         `);
         s.subscribe((data) => {
-            console.log(data.data);
+            if (data.data.sessionStateChange === "EXPIRE") {
+                this.refresh();
+            }
         });
+    }
+
+    async refresh() {
+        if (this.authstatus !== "user") throw "Only users can refresh";
+        const res = await this.mutate(
+            gql`
+                mutation Refresh($access: String!, $refresh: String!) {
+                    refresh(access: $access, refresh: $refresh) {
+                        access
+                        refresh
+                    }
+                }
+            `,
+            {
+                access: this.details.access,
+                refresh: this.details.refresh,
+            },
+        );
+
+        this.details.refresh = res.data.refresh.refresh;
+        this.details.access = res.data.access.access;
     }
 
     async mutate<Var extends Record<any, any>>(

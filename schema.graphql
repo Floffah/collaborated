@@ -23,6 +23,13 @@ type RootMutation {
         "Password to authenticate with"
         password: String!
     ): AuthDetails
+    "(USER) Refresh your access token"
+    refresh(
+        "Your access token. Must pass this as well for security purposes"
+        access: String!,
+        "Your refresh token"
+        refresh: String!
+    ): AuthDetails
 }
 
 "Root query"

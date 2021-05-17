@@ -78,14 +78,16 @@ elsewhere once needed but is not a priority<br/>
 
 - [ ] [All todo issues](https://github.com/Floffah/collaborated/issues?q=is%3Aopen+is%3Aissue+label%3Atodo+milestone%3A0.0.1)
 - [ ] Full authentication lifecycle
-    - [ ] Server-side implementation
+    - [x] Server-side implementation
         - [x] Header tokens (bot and user)
         - [x] Connection param tokens in subscriptions (bot and user)
         - [x] GraphQL mutations for generating access and refresh tokens
-    - [ ] Interact library implementation
+        - [x] Ability to refresh an access token
+    - [x] Interact library implementation
         - [x] Support for header tokens (bot and user)
         - [x] Support for connection param tokens in subscriptions (bot and user)
         - [x] Ability to use the token generation mutation when passed an email and password
+        - [x] Being able to refresh an access token once expired
 - User management
     - [ ] Sessions
         - [x] On the next query after expiry, auto invalidate user tokens
