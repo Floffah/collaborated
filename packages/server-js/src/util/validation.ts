@@ -1,6 +1,6 @@
 import { QueryContext, SubscriptionType } from "./types.js";
 import { minutes } from "./time.js";
-import { StateChangeEnum } from "../graphql/subscription.js";
+import { StateChangeEnum } from "../graphql/subscription/session";
 
 export function userValidation(context: QueryContext, noinvalidate?: boolean) {
     if (context.auth === "none") throw "Not authenticated; Must defined CAPP_AUTH; see docs/server/api.md#authentication";

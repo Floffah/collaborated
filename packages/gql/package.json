@@ -6,9 +6,11 @@
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@types/node": "^15.3.0",
+    "graphql": "^15.5.0",
+    "graphql-subscriptions": "^1.2.1",
     "typescript": "^4.2.4"
   },
-  "dependencies": {
+  "peerDependencies": {
     "graphql": "^15.5.0"
   }
 }

@@ -1,5 +1,6 @@
 import { GraphQLFieldConfig, GraphQLFieldConfigMap, GraphQLObjectType, GraphQLSchema } from "graphql";
 import { DefaultArgs, InfoString, infostring } from "./util";
+import { TypeFields } from "./fields";
 
 export function buildSchema(query: GraphQLObjectType, mutation?: GraphQLObjectType, subscription?: GraphQLObjectType) {
     return new GraphQLSchema({ query, mutation, subscription });
@@ -12,7 +13,7 @@ export type BuildQueryFields<Source = any, Context = any, Args = DefaultArgs> = 
 
 export function buildObject<Source = any, Context = any, Args = DefaultArgs>(
     info: InfoString,
-    fields: BuildQueryFields<Source, Context, Args>[] | (() => BuildQueryFields<Source, Context, Args>[]),
+    fields: TypeFields<Source, Context, Args>,
 ) {
     const { name, description } = infostring(info);
 

@@ -20,12 +20,13 @@
     "forceupdate": "ncu --packageManager yarn --deep --target minor -u",
     "test": "yarn workspace test-addon node .",
     "dev": "yarn build dev",
-    "devts": "build dev --exclude web,docs"
+    "devts": "build dev --exclude web,docs",
+    "server": "yarn workspace @collaborated/server node ."
   },
   "devDependencies": {
     "@floffah/build": "^0.4.0",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
     "all-contributors-cli": "^6.20.0",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",

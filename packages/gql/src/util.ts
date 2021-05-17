@@ -4,4 +4,4 @@ export const infostring = (info: `${string}${";" | "; "}${string}`): { name: str
 };
 
 export type InfoString = `${string}${";" | "; "}${string}`;
-export type DefaultArgs = { [argName: string]: any };
+export type DefaultArgs = Record<any, any>;

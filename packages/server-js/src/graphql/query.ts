@@ -1,13 +1,7 @@
 import { buildField, buildObject } from "@collaborated/gql";
 import { GraphQLString } from "graphql";
-import { QueryContext, SubscriptionType } from "../util/types.js";
-import { StateChangeEnum } from "./subscription";
+import { QueryContext } from "../util/types.js";
 
 export const query = buildObject<any, QueryContext>("RootQuery; Root query", () => [
-    buildField("ping; For round-trip calculation purposes", GraphQLString, (_s, _a, c) => {
-        c.ps.publish(SubscriptionType.sessionStateChange + ".1", {
-            sessionStateChange: StateChangeEnum.EXPIRE,
-        });
-        return "pong";
-    }),
+    buildField("ping; For round-trip calculation purposes", GraphQLString, (_s, _a, _c) => "pong"),
 ]);

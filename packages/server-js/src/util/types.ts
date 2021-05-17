@@ -4,7 +4,7 @@ import { FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
 import { IncomingMessage, Server } from "http";
 
-export type QueryContext<T = { [k: string]: any }> = {
+export type QueryContext = {
     db: PrismaClient;
     ps: RedisPubSub;
     req: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>;
@@ -12,7 +12,7 @@ export type QueryContext<T = { [k: string]: any }> = {
     user?: User;
     bot?: BotUser;
     auth: "user" | "bot" | "none";
-} & T;
+};
 
 export enum SubscriptionType {
     sessionStateChange = "SESSION_STATE_CHANGE",
