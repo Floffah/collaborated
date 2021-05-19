@@ -9,6 +9,8 @@ import { RedisOptions } from "ioredis";
 import debug from "debug";
 import { getClientContext } from "../util/auth";
 import { PrismaClient } from "@prisma/client";
+import fastifyHelmet from "fastify-helmet";
+import fastifyCors from "fastify-cors";
 
 export default class Server {
     db: PrismaClient;
@@ -82,6 +84,18 @@ export default class Server {
         //         });
         //     },
         // };
+
+        if (process.env.USE_CORS === "true") {
+            this.info("Initialising cors");
+            this.app.register(fastifyCors, {
+                origin: [/\.apollographql\.com$/],
+            });
+        }
+
+        if (process.env.USE_HELMET === "true") {
+            this.info("Initialising helmet");
+            this.app.register(fastifyHelmet, {});
+        }
 
         this.info("Initialising Mercurius");
         this.app.register(mercurius, {

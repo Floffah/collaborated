@@ -12,9 +12,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:^3.3.18":
-  version: 3.3.18
-  resolution: "@apollo/client@npm:3.3.18"
+"@apollo/client@npm:^3.3.19":
+  version: 3.3.19
+  resolution: "@apollo/client@npm:3.3.19"
   dependencies:
     "@graphql-typed-document-node/core": ^3.0.0
     "@types/zen-observable": ^0.8.0
@@ -38,7 +38,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: 7d72f4eda7f9f65821c0e431ca4442fe3baee8a69dc5a059094260b2cabe9c8d9ee8bf50613ea15bfca422f92edfb5e6110289a4a97298d863426fe464294f16
+  checksum: a7266cfdff900ef71adece4d24c853fc6179dfe3d3b89905b468b0a487959a435ef84219fb1266c86e2edb0747ff0e52b6ac49dba72bdac7cdbc55e1d0a2e357
   languageName: node
   linkType: hard
 
@@ -130,16 +130,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.14.2, @babel/core@npm:^7.14.2":
-  version: 7.14.2
-  resolution: "@babel/core@npm:7.14.2"
+"@babel/core@npm:7.14.3, @babel/core@npm:^7.14.3":
+  version: 7.14.3
+  resolution: "@babel/core@npm:7.14.3"
   dependencies:
     "@babel/code-frame": ^7.12.13
-    "@babel/generator": ^7.14.2
+    "@babel/generator": ^7.14.3
     "@babel/helper-compilation-targets": ^7.13.16
     "@babel/helper-module-transforms": ^7.14.2
     "@babel/helpers": ^7.14.0
-    "@babel/parser": ^7.14.2
+    "@babel/parser": ^7.14.3
     "@babel/template": ^7.12.13
     "@babel/traverse": ^7.14.2
     "@babel/types": ^7.14.2
@@ -149,7 +149,7 @@ __metadata:
     json5: ^2.1.2
     semver: ^6.3.0
     source-map: ^0.5.0
-  checksum: 16dc0a52484da794afc69ac7f13721b7cf2f7e17db6467a36f19fef24fa59a8cea1524faa260d0c05f5a99836fb65acf076cf15abf6846fc66f6c142a94a8327
+  checksum: 4bc2d1abf53e8d1399d5fe159f4f6d275feb64cdfb3a975e903edcbbd98b71ba4a216af28f43db0a5303691a291590837964934acaf673b024563f3acad919f6
   languageName: node
   linkType: hard
 
@@ -172,6 +172,17 @@ __metadata:
     jsesc: ^2.5.1
     source-map: ^0.5.0
   checksum: eacc93d3446dec6fac064cd884ac6e2ecbcfed65f8de069da72855a8124d33004a9dc9f06833e18fae2e352929c493b46035785f948549d2e9d503af0bef8a79
+  languageName: node
+  linkType: hard
+
+"@babel/generator@npm:^7.14.3":
+  version: 7.14.3
+  resolution: "@babel/generator@npm:7.14.3"
+  dependencies:
+    "@babel/types": ^7.14.2
+    jsesc: ^2.5.1
+    source-map: ^0.5.0
+  checksum: 519fce36f3663dd346522d50d13b8549c02c0a340650c62db1bee0595a47f910b433f3bbdb513cc582bd932c5045b2673c8ef6a97913f9335fb16aa06085f274
   languageName: node
   linkType: hard
 
@@ -521,6 +532,15 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 18dffc18a2c15f8877988c9b5a46c87f1763e8a383c3210c9b5b651955b1ac46dc54da27acc09acd7fb917f37e0bd92b8985dc4c9d7f1e750dfccbcea730aa0e
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^7.14.3":
+  version: 7.14.3
+  resolution: "@babel/parser@npm:7.14.3"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 5e8d1b2bfc53b59c7476c32adee20c8a4d19fdab58b04b6b177d89319bd76526219dad2f6ab6f51a80a518d0cbcdc3980b73c18bde16017aeee2dd8a50687fe3
   languageName: node
   linkType: hard
 
@@ -1258,6 +1278,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-react-jsx@npm:^7.14.3":
+  version: 7.14.3
+  resolution: "@babel/plugin-transform-react-jsx@npm:7.14.3"
+  dependencies:
+    "@babel/helper-annotate-as-pure": ^7.12.13
+    "@babel/helper-module-imports": ^7.13.12
+    "@babel/helper-plugin-utils": ^7.13.0
+    "@babel/plugin-syntax-jsx": ^7.12.13
+    "@babel/types": ^7.14.2
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: d5fc75255a9adb51b89a4fec9918737c42fac207e99791b00ca31c5661b4748f1861a9997f9290c334f8fc621155ec5a53158ef6d4dd8cc1ca3cba395d57ac59
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-react-pure-annotations@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-transform-react-pure-annotations@npm:7.12.1"
@@ -1661,7 +1696,7 @@ __metadata:
   resolution: "@collaborated/app@workspace:packages/app"
   dependencies:
     "@types/node": ^15.3.0
-    electron: ^12.0.7
+    electron: ^12.0.8
     electron-builder: ^22.11.4
     electron-debug: ^3.2.0
     source-map-support: ^0.5.19
@@ -1696,7 +1731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/interact@workspace:packages/interact"
   dependencies:
-    "@apollo/client": ^3.3.18
+    "@apollo/client": ^3.3.19
     "@collaborated/common": 0.0.1
     "@types/node": ^15.3.0
     "@types/ws": ^7.4.4
@@ -1718,22 +1753,24 @@ __metadata:
   resolution: "@collaborated/server@workspace:packages/server-js"
   dependencies:
     "@collaborated/gql": 0.0.1
-    "@prisma/client": ^2.22.1
+    "@prisma/client": ^2.23.0
     "@types/debug": ^4.1.5
-    "@types/ioredis": ^4.26.3
+    "@types/ioredis": ^4.26.4
     "@types/node": ^15.3.0
     "@types/ws": ^7.4.4
     crypto-random-string: ~3.3.1
     debug: ^4.3.2
     dotenv: ^9.0.2
     fastify: ^3.15.1
+    fastify-cors: ^6.0.1
+    fastify-helmet: ^5.3.1
     fastify-websocket: ^3.2.0
     graphql: ^15.5.0
     graphql-redis-subscriptions: ^2.4.0
     graphql-subscriptions: ^1.2.1
     ioredis: ^4.27.2
     mercurius: ^7.6.1
-    prisma: ^2.22.1
+    prisma: ^2.23.0
     typescript: ^4.2.4
   languageName: unknown
   linkType: soft
@@ -1742,8 +1779,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/web@workspace:packages/web"
   dependencies:
-    "@babel/core": ^7.14.2
-    "@babel/plugin-transform-react-jsx": ^7.13.12
+    "@babel/core": ^7.14.3
+    "@babel/plugin-transform-react-jsx": ^7.14.3
     "@babel/plugin-transform-reserved-words": ^7.12.13
     "@collaborated/interact": 0.0.1
     "@mdi/js": ^5.9.55
@@ -1759,7 +1796,7 @@ __metadata:
     "@storybook/addons": ^6.2.9
     "@storybook/react": ^6.2.9
     "@storybook/theming": ^6.2.9
-    "@types/react": ^17.0.5
+    "@types/react": ^17.0.6
     "@types/react-dom": ^17.0.5
     "@types/styled-components": ^5.1.9
     babel-plugin-polished: ^1.1.0
@@ -1768,7 +1805,7 @@ __metadata:
     next: ^10.2.0
     next-i18next: ^8.3.0
     next-seo: ^4.24.0
-    next-transpile-modules: ^7.0.0
+    next-transpile-modules: ^7.1.1
     polished: ^4.1.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -1782,7 +1819,7 @@ __metadata:
     storybook-mobile: ^0.1.31
     styled-components: ^5.3.0
     typescript: ^4.2.4
-    webpack: ^5.37.0
+    webpack: ^5.37.1
   languageName: unknown
   linkType: soft
 
@@ -3388,31 +3425,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:^2.22.1":
-  version: 2.22.1
-  resolution: "@prisma/client@npm:2.22.1"
+"@prisma/client@npm:^2.23.0":
+  version: 2.23.0
+  resolution: "@prisma/client@npm:2.23.0"
   dependencies:
-    "@prisma/engines-version": 2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c
+    "@prisma/engines-version": 2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 0ea7bd3c5f9d6fbb939ccf1b9ef1a8e15f7d98b47557851bdc1a448484281c61cc573cccfeb8219d2d1f52b0011e0efb2cda3391c3d5ffb7b4e13761fbd6dd1e
+  checksum: f90e8360047c5ff6f33b803d146660c6a5c248306d4ae40c11ad2e04eeaa9f0ac55e922b65e053b25ea92688d5ed343ed9f0a68326eb8e9fc4de241e1a586b97
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c":
-  version: 2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c
-  resolution: "@prisma/engines-version@npm:2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c"
-  checksum: 0329e50c7e2a1dc2d78d7cc90c7c41bcfaa377977a0d458c5c240c06a5c243bdc8ebd133ff06ebd286969205304998fb58e785dc708ad5885e36c944372883b4
+"@prisma/engines-version@npm:2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b":
+  version: 2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b
+  resolution: "@prisma/engines-version@npm:2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b"
+  checksum: 71798acd7a9758a0dbd2238f0122a6f391528ffe0fd6b9e2551b901aca4834bf2272ae85e1be48cf513f441068733ce51d5633b76995e90c9104299d8c0b5336
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c":
-  version: 2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c
-  resolution: "@prisma/engines@npm:2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c"
-  checksum: 9903d376ca9c6ae0a9990ba8a02d93b4a71b0bcce821f9ce8024ac6b2521d2df5e487ebb531162ad550e6727513ea3699f1ec74bb1403821fc0a5c3d29ff2b48
+"@prisma/engines@npm:2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b":
+  version: 2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b
+  resolution: "@prisma/engines@npm:2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b"
+  checksum: a0fffd848cb762adf8b027e948f0f9b20f5c7b7fcb3a4f2cbb87a20cd954c708f9b938a9bd8d6ee1f2057afe6b7a8357a0285bda3f2e503e8953ba133c93cda5
   languageName: node
   linkType: hard
 
@@ -4923,12 +4960,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ioredis@npm:^4.26.3":
-  version: 4.26.3
-  resolution: "@types/ioredis@npm:4.26.3"
+"@types/ioredis@npm:^4.26.4":
+  version: 4.26.4
+  resolution: "@types/ioredis@npm:4.26.4"
   dependencies:
     "@types/node": "*"
-  checksum: 804cd0b14ab778dee7ecf635753af21f25795d82ad13d78e87b9ac89e53633343cd063c63a7d962dd25ed6b8ae1cddbf2f2fb7b47aea8fe351ae4679ea0b2215
+  checksum: 0138b8c3c290b4917529d797380a31f365756ac9056525dc19a6eb91e9f8484e1116fc249b91001ac3bf1ddcfbd68f1b685d83f63b4e4751022bb000dd7347ea
   languageName: node
   linkType: hard
 
@@ -5188,14 +5225,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.5":
-  version: 17.0.5
-  resolution: "@types/react@npm:17.0.5"
+"@types/react@npm:^17.0.6":
+  version: 17.0.6
+  resolution: "@types/react@npm:17.0.6"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: f9793e8113f14122d6ed20643b4fe27d30e10d7c80571a1d238c13f8171864f2a7b337194bf41310724498586ed4560fffd081a2d21e488afbb1aca33534189b
+  checksum: dcd8e559f758de7c856bd24136d9005e2b6fbae3d6d81704ba33c6a8ba787874f738b7aae8cfffd89ee35f05658800c43d7fdb9493b79c06a3bcdc1e37ea4635
   languageName: node
   linkType: hard
 
@@ -9652,16 +9689,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron@npm:^12.0.7":
-  version: 12.0.7
-  resolution: "electron@npm:12.0.7"
+"electron@npm:^12.0.8":
+  version: 12.0.8
+  resolution: "electron@npm:12.0.8"
   dependencies:
     "@electron/get": ^1.0.1
     "@types/node": ^14.6.2
     extract-zip: ^1.0.3
   bin:
     electron: cli.js
-  checksum: 12dc0d1ebf99b41d06f1d2242359a75e359c2b49c1e68d7f94f68ca9be316c69e6466d1bd4ec436b0471d3efa57615e59e9ea25803b33df45f8bffd60ed016dd
+  checksum: a16bd9b1d48ae2382924961b45423e39429fb2a08431cd343b36b9de013208a72fe688cd4aabd5426d43cefb7897f9aebbfb506f9fde8051a4a20abd159b8203
   languageName: node
   linkType: hard
 
@@ -10575,10 +10612,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fastify-cors@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "fastify-cors@npm:6.0.1"
+  dependencies:
+    fastify-plugin: ^3.0.0
+    vary: ^1.1.2
+  checksum: 8a280ae908888ff5009a46ec6ce08f28ec6402686405f2593630551e513ad70a020d547755f14b210a93061e1dd9e9c33212c45faaa6cbd18c6b9b45f08d92ae
+  languageName: node
+  linkType: hard
+
 "fastify-error@npm:^0.3.0":
   version: 0.3.1
   resolution: "fastify-error@npm:0.3.1"
   checksum: ba3b964a9cc7ee72e1573f10951705ee8cadbc7a395af54ad5cfef7be05ad6eec558b71d7d9862cce92dd68145ccc7e9ab79487c37ed8c763bcf7bbf40ef6d36
+  languageName: node
+  linkType: hard
+
+"fastify-helmet@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "fastify-helmet@npm:5.3.1"
+  dependencies:
+    fastify-plugin: ^3.0.0
+    helmet: ^4.0.0
+  checksum: 574c06766e39f66427afc54a993b6b11b0f8ad8d57b49836a68791e1f5bc90a4e3f9947539e482d6fa255089f662c54bf58d3875b5577da7c75059bed228f1f5
   languageName: node
   linkType: hard
 
@@ -12133,6 +12190,13 @@ fsevents@^1.2.7:
   bin:
     he: bin/he
   checksum: 212122003c20c8c17ac0c83a419b4c8e835411ff6ab9195d053ea6e4a0597cc005b5b8eabcbd57b0b0c0fe676f0049e09315845fff4e051198845491cbba260e
+  languageName: node
+  linkType: hard
+
+"helmet@npm:^4.0.0":
+  version: 4.6.0
+  resolution: "helmet@npm:4.6.0"
+  checksum: 5018633703ac6933b35c581d878f279b3be642c7ce68dcccbaf31be059aefb723a08ed86831df657b82fd2994b4163404b51c76a0dc3ea9cdd67794bf1b0466d
   languageName: node
   linkType: hard
 
@@ -15290,13 +15354,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"next-transpile-modules@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "next-transpile-modules@npm:7.0.0"
+"next-transpile-modules@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "next-transpile-modules@npm:7.1.1"
   dependencies:
     enhanced-resolve: ^5.7.0
     escalade: ^3.1.1
-  checksum: 9d0efd9be3ad64cf096ab2b9284687a15cca099fd579e83478580827df0d17cc1050207912cfa455cc3969f04c87d18d7ffee37e74a401148a6cfbfb3676ad50
+  checksum: d18d4a15e7038f31d3bfd054ce5b4fd683c28fedd2c3ccf1f8120e6de05c4488ab2171cc883d7414dac79635b9a5c6f831c74c309c179e18631a14f8c34d6215
   languageName: node
   linkType: hard
 
@@ -17081,15 +17145,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prisma@npm:^2.22.1":
-  version: 2.22.1
-  resolution: "prisma@npm:2.22.1"
+"prisma@npm:^2.23.0":
+  version: 2.23.0
+  resolution: "prisma@npm:2.23.0"
   dependencies:
-    "@prisma/engines": 2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c
+    "@prisma/engines": 2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: 2128d459112aece0f1ce6be9ac1dfb1f00002757c1d85f22b4ab55246b859c441d62f907231f2df70475cf8c8951eba5f638e449089dd9150703fc7860168ff5
+  checksum: 23e6005656020886fe275e8c99e56a59861c553b10ceee247a5f707c611b2737bc6d1c89b9d8f167f115c43b5596b9878984449686d2c867a40762aa04721174
   languageName: node
   linkType: hard
 
@@ -21642,7 +21706,7 @@ typescript@^4.2.4:
   languageName: node
   linkType: hard
 
-"vary@npm:~1.1.2":
+"vary@npm:^1.1.2, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: 591f059f727ac1ba0d97cb7767f8583a03fcbb07db7be2b7dce838ede520ec0e958a41cb19077054769077fdc49a9b9a2dc391c83426bfee89c054b8cc7404bf
@@ -21900,9 +21964,9 @@ typescript@^4.2.4:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.37.0":
-  version: 5.37.0
-  resolution: "webpack@npm:5.37.0"
+"webpack@npm:^5.37.1":
+  version: 5.37.1
+  resolution: "webpack@npm:5.37.1"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.47
@@ -21932,7 +21996,7 @@ typescript@^4.2.4:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 50c9ce5d9f8d274aa11a57581a2f21b2305f48a96eb7f380a6dab629392fea2b842764f94e7e91cbc28026d69facd5d1456c843b41ba7508f716ff8caacf4214
+  checksum: 5fe030ea3f3852d2a2d20157ec51c6fd1ee98039ff0cf3b5176bde9c5ffcf3183fafdf132b89ad9490c9abe996aff33db6448a24d9f683edd2a8e0f80bcdd95b
   languageName: node
   linkType: hard
 

@@ -94,7 +94,7 @@ export class Client extends events.EventEmitter {
      * @param opts - login information
      */
     async login(opts: AuthOptions) {
-        return await this.api.authenticate(opts);
+        if (!this.placeholder) return await this.api.authenticate(opts);
     }
 
     /**

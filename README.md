@@ -77,7 +77,7 @@ elsewhere once needed but is not a priority<br/>
 ### 0.0.1 milestone
 
 - [ ] [All todo issues](https://github.com/Floffah/collaborated/issues?q=is%3Aopen+is%3Aissue+label%3Atodo+milestone%3A0.0.1)
-- [ ] Full authentication lifecycle
+- [x] Full authentication lifecycle
     - [x] Server-side implementation
         - [x] Header tokens (bot and user)
         - [x] Connection param tokens in subscriptions (bot and user)

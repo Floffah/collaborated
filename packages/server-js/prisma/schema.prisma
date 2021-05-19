@@ -7,7 +7,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount", "orderByRelation", "orderByAggregateGroup"]
 }
 
 enum ClientType {
@@ -40,6 +41,10 @@ model User {
   refresh    String?
   lastAccess DateTime @default("1970-01-01T00:00:00-00:00")
   expired    Boolean  @default(false)
+
+  // relations
+  groupsOwned  Group[]
+  groupsJoined MemberOnGroup[]
 }
 
 model BotUser {
@@ -48,6 +53,28 @@ model BotUser {
   clientId Int
 
   token String?
+}
+
+model Group {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  // users
+  owner   User            @relation(fields: [ownerId], references: [id])
+  ownerId Int
+  users   MemberOnGroup[]
+}
+
+model MemberOnGroup {
+  group   Group @relation(fields: [groupId], references: [id])
+  groupId Int
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+
+  // stats
+  joined DateTime @default(now())
+
+  @@id([groupId, userId])
 }
 
 // server util
