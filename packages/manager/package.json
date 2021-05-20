@@ -1,0 +1,29 @@
+{
+    "name": "@collaborated/manager",
+    "version": "0.0.1",
+    "description": "Service manager for Collaborated's NodeJS implementation of the server",
+    "main": "dist/index.js",
+    "private": true,
+    "devDependencies": {
+        "@types/debug": "^4.1.5",
+        "@types/iarna__toml": "^2.0.1",
+        "@types/node": "^15.3.1",
+        "typescript": "^4.2.4"
+    },
+    "dependencies": {
+        "@iarna/toml": "^2.2.5",
+        "@octokit/app": "^12.0.2",
+        "@octokit/graphql-schema": "^10.40.0",
+        "@octokit/types": "^6.14.2",
+        "chalk": "^4.1.1",
+        "commander": "^7.2.0",
+        "debug": "^4.3.1",
+        "enquirer": "^2.3.6",
+        "execa": "^5.0.0",
+        "flatted": "^3.1.1",
+        "octokit": "^1.0.5"
+    },
+    "bin": {
+        "capp": "bin/capp"
+    }
+}

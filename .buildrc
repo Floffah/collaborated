@@ -1,62 +1,94 @@
 {
-  "enableTerminal": true,
-  "packagePrefix": "@collaborated/",
-  "allowedTargets": [
-    "win",
-    "linux"
-  ],
-  "commands": [
-    {
-      "id": "common",
-      "type": "typescript",
-      "package": "common",
-      "runInEnvironments": ["prod", "dev"]
-    },
-    {
-      "id": "interact",
-      "type": "typescript",
-      "package": "interact",
-      "runInEnvironments": ["prod", "dev"]
-    },
-    {
-      "id": "docs",
-      "type": "storybook",
-      "package": "web",
-      "port": "6006",
-      "out": "../../docs",
-      "runInEnvironments": ["prod", "dev"]
-    },
-    {
-      "id": "web",
-      "type": "next",
-      "package": "web",
-      "port": 3000,
-      "runInEnvironments": ["prod", "dev"]
-    },
-    {
-      "id": "server",
-      "type": "typescript",
-      "package": "server",
-      "runInEnvironments": ["prod", "dev"]
-    },
-    {
-      "id": "app",
-      "type": "typescript",
-      "package": "app",
-      "runInEnvironments": ["prod", "dev"]
-    },
-    {
-      "id": "addon",
-      "type": "typescript",
-      "package": "test-addon",
-      "dontUsePackagePrefix": true,
-      "runInEnvironments": ["dev"]
-    },
-    {
-      "id": "gql",
-      "type": "typescript",
-      "package": "gql",
-      "runInEnvironments": ["dev", "prod"]
-    }
-  ]
+    "enableTerminal": true,
+    "packagePrefix": "@collaborated/",
+    "allowedTargets": [
+        "win",
+        "linux"
+    ],
+    "commands": [
+        {
+            "id": "common",
+            "type": "typescript",
+            "package": "common",
+            "runInEnvironments": [
+                "prod",
+                "dev"
+            ]
+        },
+        {
+            "id": "interact",
+            "type": "typescript",
+            "package": "interact",
+            "runInEnvironments": [
+                "prod",
+                "dev"
+            ]
+        },
+        {
+            "id": "docs",
+            "type": "storybook",
+            "package": "web",
+            "port": "6006",
+            "out": "../../docs",
+            "runInEnvironments": [
+                "prod",
+                "dev"
+            ]
+        },
+        {
+            "id": "web",
+            "type": "next",
+            "package": "web",
+            "port": 3000,
+            "runInEnvironments": [
+                "prod",
+                "dev"
+            ]
+        },
+        {
+            "id": "server",
+            "type": "typescript",
+            "package": "server",
+            "runInEnvironments": [
+                "prod",
+                "dev"
+            ]
+        },
+        {
+            "id": "app",
+            "type": "typescript",
+            "package": "app",
+            "runInEnvironments": [
+                "prod",
+                "dev"
+            ]
+        },
+        {
+            "id": "addon",
+            "type": "typescript",
+            "package": "test-addon",
+            "dontUsePackagePrefix": true,
+            "runInEnvironments": [
+                "dev"
+            ]
+        },
+        {
+            "id": "gql",
+            "type": "typescript",
+            "package": "gql",
+            "runInEnvironments": [
+                "dev",
+                "prod"
+            ]
+        },
+        {
+            "id": "manager",
+            "type": "typescript",
+            "package": "manager",
+            "runInEnvironments": [
+                "prod",
+                "dev"
+            ]
+        }
+    ]
 }

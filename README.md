@@ -56,7 +56,8 @@ run `yarn build` for more information
 | [app](packages/app) | Electron application | Paused |
 | [common](packages/common) | Common types and structures shared between packages | Inactive, may be re-used |
 | [interact](packages/interact) | The JS/TS library for interacting with the Collaborated API. Inspired by Discord.JS | Under heavy development, heavily relied on |
-| [manager](packages/manager) | Service manager implemented in Golang for managing the elixir implementation of the server | Paused alongside server (Elixir) |
+| [manager](packages/manager) | Service manager implemented in NodeJS for managing the node based server implementation | Developing as needed by server (Node) |
+| [legacy-manager](packages/legacy-manager) | Service manager implemented in Golang for managing the elixir implementation of the server | Paused alongside server (Elixir) |
 | [gql](packages/gql) | Small library for creating GraphQL schemas programmatically (code-first) | Developed as needed by server (Node)
 | [server (Elixir)](packages/server) | Elixir implementation of the Collaborated API using phoenix and absinthe | Paused until server (node) fails stress tests |
 | [server (Node)](packages/server-js) | NodeJS (TS) implementation of the Collaborated API using prisma, fastify, and mercurius | Under heavy development until it fails stress tests |
@@ -141,29 +142,3 @@ Feel free to send pull requests for these plans but don't expect them to be merg
 <a href="https://github.com/floffah/collaborated/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=floffah/collaborated" />
 </a>
-
-[comment]: <> (Thanks goes to these wonderful people &#40;[emoji key]&#40;https://allcontributors.org/docs/en/emoji-key&#41;&#41;:)
-
-[comment]: <> (<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->)
-
-[comment]: <> (<!-- prettier-ignore-start -->)
-
-[comment]: <> (<!-- markdownlint-disable -->)
-
-[comment]: <> (<table>)
-
-[comment]: <> (  <tr>)
-
-[comment]: <> (    <td align="center"><a href="https://discord.gg/bc8Y2y9"><img src="https://avatars0.githubusercontent.com/u/27270386?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Floffah</b></sub></a><br /><a href="https://github.com/Floffah/collaborated/commits?author=Floffah" title="Code">💻</a> <a href="https://github.com/Floffah/collaborated/commits?author=Floffah" title="Documentation">📖</a> <a href="#design-Floffah" title="Design">🎨</a> <a href="#ideas-Floffah" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-Floffah" title="Project Management">📆</a> <a href="#question-Floffah" title="Answering Questions">💬</a> <a href="https://github.com/Floffah/collaborated/pulls?q=is%3Apr+reviewed-by%3AFloffah" title="Reviewed Pull Requests">👀</a> <a href="#research-Floffah" title="Research">🔬</a> <a href="#security-Floffah" title="Security">🛡️</a></td>)
-
-[comment]: <> (  </tr>)
-
-[comment]: <> (</table>)
-
-[comment]: <> (<!-- markdownlint-restore -->)
-
-[comment]: <> (<!-- prettier-ignore-end -->)
-
-[comment]: <> (<!-- ALL-CONTRIBUTORS-LIST:END -->)
-
-[comment]: <> (This project follows the [all-contributors]&#40;https://github.com/all-contributors/all-contributors&#41; specification. Contributions of any kind welcome!)

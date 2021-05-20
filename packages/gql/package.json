@@ -1,7 +1,7 @@
 {
   "name": "@collaborated/gql",
   "version": "0.0.1",
-  "description": "Small library for creating GraphQL schemas programmatically (code-first)",
+  "description": "Small library that contains useful graphql utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
