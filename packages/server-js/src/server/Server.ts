@@ -26,11 +26,10 @@ export default class Server {
     async init() {
         this.info("Initialising Prisma");
         this.db = new PrismaClient({
-            log: ["query", "info", "error", "warn"],
+            log: process.env.USE_DEBUG === "true" ? ["query", "info", "error", "warn"] : ["error", "warn"],
         });
 
         const redisport = parseInt(process.env.REDIS_PORT ?? "NaN");
-        console.log(redisport);
 
         const opts: RedisOptions = {
             host: process.env.REDIS_HOST,
@@ -51,39 +50,8 @@ export default class Server {
 
         this.info("Initialising Fastify");
         this.app = fastify({
-            logger: { level: "warn" },
+            logger: { level: process.env.USE_DEBUG === "true" ? "info" : "warn" },
         });
-
-        // const automaticpqp = mercurius.persistedQueryDefaults.automatic();
-        //
-        // const persistedQueryProvider: PersistedQueryProvider = {
-        //     ...automaticpqp,
-        //     getQueryFromHash: async (hash) => {
-        //         const found = await this.db.persistedQuery.findFirst({
-        //             where: {
-        //                 hash: {
-        //                     equals: hash,
-        //                 },
-        //             },
-        //         });
-        //         if (found === null) throw automaticpqp.notFoundError;
-        //         return found.query;
-        //     },
-        //     saveQuery: async (hash, query) => {
-        //         await this.db.persistedQuery.upsert({
-        //             create: {
-        //                 hash,
-        //                 query,
-        //             },
-        //             update: {
-        //                 query,
-        //             },
-        //             where: {
-        //                 hash,
-        //             },
-        //         });
-        //     },
-        // };
 
         if (process.env.USE_CORS === "true") {
             this.info("Initialising cors");
@@ -109,7 +77,6 @@ export default class Server {
                 req,
                 ...(await getClientContext(this.db, req.headers)),
             }),
-            // persistedQueryProvider, // may be re-enabled if necessary, currently this is only a disadvantage.
             subscription: {
                 context: async (_conn, req) => {
                     return {

@@ -76,9 +76,3 @@ model MemberOnGroup {
 
   @@id([groupId, userId])
 }
-
-// server util
-model PersistedQuery {
-  hash  String @unique
-  query String
-}

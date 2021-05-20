@@ -1695,8 +1695,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/app@workspace:packages/app"
   dependencies:
-    "@types/node": ^15.3.0
-    electron: ^12.0.8
+    "@types/node": ^15.3.1
+    electron: ^12.0.9
     electron-builder: ^22.11.4
     electron-debug: ^3.2.0
     source-map-support: ^0.5.19
@@ -1708,7 +1708,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/common@workspace:packages/common"
   dependencies:
-    "@types/node": ^15.3.0
+    "@types/node": ^15.3.1
     graphql: ^15.5.0
     typescript: ^4.2.4
   languageName: unknown
@@ -1718,7 +1718,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/gql@workspace:packages/gql"
   dependencies:
-    "@types/node": ^15.3.0
+    "@types/node": ^15.3.1
     graphql: ^15.5.0
     graphql-subscriptions: ^1.2.1
     typescript: ^4.2.4
@@ -1733,7 +1733,7 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.3.19
     "@collaborated/common": 0.0.1
-    "@types/node": ^15.3.0
+    "@types/node": ^15.3.1
     "@types/ws": ^7.4.4
     axios: ^0.21.1
     bufferutil: ^4.0.3
@@ -1756,15 +1756,15 @@ __metadata:
     "@prisma/client": ^2.23.0
     "@types/debug": ^4.1.5
     "@types/ioredis": ^4.26.4
-    "@types/node": ^15.3.0
+    "@types/node": ^15.3.1
     "@types/ws": ^7.4.4
+    chalk: ^4.1.1
     crypto-random-string: ~3.3.1
     debug: ^4.3.2
     dotenv: ^9.0.2
     fastify: ^3.15.1
     fastify-cors: ^6.0.1
     fastify-helmet: ^5.3.1
-    fastify-websocket: ^3.2.0
     graphql: ^15.5.0
     graphql-redis-subscriptions: ^2.4.0
     graphql-subscriptions: ^1.2.1
@@ -1802,10 +1802,10 @@ __metadata:
     babel-plugin-polished: ^1.1.0
     babel-plugin-styled-components: ^1.12.0
     babel-plugin-transform-merge-sibling-variables: ^6.9.4
-    next: ^10.2.0
+    next: ^10.2.2
     next-i18next: ^8.3.0
     next-seo: ^4.24.0
-    next-transpile-modules: ^7.1.1
+    next-transpile-modules: ^7.1.2
     polished: ^4.1.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -2066,13 +2066,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/accept@npm:5.0.1":
-  version: 5.0.1
-  resolution: "@hapi/accept@npm:5.0.1"
+"@hapi/accept@npm:5.0.2":
+  version: 5.0.2
+  resolution: "@hapi/accept@npm:5.0.2"
   dependencies:
     "@hapi/boom": 9.x.x
     "@hapi/hoek": 9.x.x
-  checksum: 29e3281bd823fbb36d3b838cc25df4c26a9e5db4ed5b36919cf51fe63110e7cddfe3f3b1a88acf31dfe6c0f9c4be449cbe7e58429fa3597698aa1b1ea653d57a
+  checksum: ea9ae15ac21887927082321dbb12334d5ea8db6564a2e0130b759757b515a33c5f00dab08a69ec0de7dad972978456c2f2810e86f006cf6efd8b7d251229a9aa
   languageName: node
   linkType: hard
 
@@ -3068,23 +3068,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@next/env@npm:10.2.0"
-  checksum: 664e0c3166453cb4b5edd042594d0bd9833682e9151e372431b91bf510befa69a0e6fb40f14d31f2006fed4f157f5a658efbaaf2b95ba76f2b2ca8b05e752ef0
+"@next/env@npm:10.2.2":
+  version: 10.2.2
+  resolution: "@next/env@npm:10.2.2"
+  checksum: 4f6da4e577062ee1497f676b09e70a7cd654692346bb85e3ecd6598c567c91f1a4bf79e2900a304c92ab4af0d1325abb83dc1a586cdc61dbd036d22cec254601
   languageName: node
   linkType: hard
 
-"@next/polyfill-module@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@next/polyfill-module@npm:10.2.0"
-  checksum: 57616853ef5aee3a1f11ff8cfa04846184efb95e514cce3abc706e9470e35cedd0966ab9328c8957878255f51fab7e3f6211db0aaee318de4476bed1d490fbe1
+"@next/polyfill-module@npm:10.2.2":
+  version: 10.2.2
+  resolution: "@next/polyfill-module@npm:10.2.2"
+  checksum: fab24879bad3b24166d0b0662e5a8b8f2f24cf54e58d59e1455fb6ae18b1a0ac6f0e3caa433bcd8a37282f26e1965328bf5836052972996b1bf6f6c32a47cf72
   languageName: node
   linkType: hard
 
-"@next/react-dev-overlay@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@next/react-dev-overlay@npm:10.2.0"
+"@next/react-dev-overlay@npm:10.2.2":
+  version: 10.2.2
+  resolution: "@next/react-dev-overlay@npm:10.2.2"
   dependencies:
     "@babel/code-frame": 7.12.11
     anser: 1.4.9
@@ -3100,20 +3100,20 @@ __metadata:
   peerDependencies:
     react: ^16.9.0 || ^17
     react-dom: ^16.9.0 || ^17
-  checksum: 9f33f361a3d1fbe641d01ca281e5ce5562cbcd3e5bfc06ed5c270f560164d3a9a0a9e02df6d0ddaa9840690e26f4543f9a48334b0ce30075fe028c0467b3a768
+  checksum: 3b50e50036ea4bffa15dceda0790259ce422a92562bfffd2b17493e45895251430ee35718242a637bc708060d4e64c79bb7a56a788397e70ea6503be14fa8abd
   languageName: node
   linkType: hard
 
-"@next/react-refresh-utils@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@next/react-refresh-utils@npm:10.2.0"
+"@next/react-refresh-utils@npm:10.2.2":
+  version: 10.2.2
+  resolution: "@next/react-refresh-utils@npm:10.2.2"
   peerDependencies:
     react-refresh: 0.8.3
     webpack: ^4 || ^5
   peerDependenciesMeta:
     webpack:
       optional: true
-  checksum: 5b7f9068aa6315bb1c460a1f1c804baf7a62ad701d2b26061f2a6032bc5014dc5b4881f8c313b3bdd1e9616fabf038abfaf83c8955f826750b64b2af96bfe060
+  checksum: 548e557c5cf0a49a19c9eaeaca94878b028f3a53be2df9e75607534d840073ebd3669b3ace2bf3205b19eb32c3d513d239d49230b7fb63693ceb201e203a63e3
   languageName: node
   linkType: hard
 
@@ -5084,10 +5084,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^15.3.0":
-  version: 15.3.0
-  resolution: "@types/node@npm:15.3.0"
-  checksum: 44039665ab71a6ec12e6637a9db4ec3123fdfaf52952ca8028a6f1b37c41c2d380e88d28a41e02693bf9d4815307e0ad938815bf8ffedc5f4d045855fa28db06
+"@types/node@npm:^15.3.1":
+  version: 15.3.1
+  resolution: "@types/node@npm:15.3.1"
+  checksum: 1c3c94f4c8e1df26b24a00637fdd5a50a5ea7afd0e97cbd298cf675d49ad5436b8b2b111b349194e2fb8bfc81291a67dff9eac80abbf610f938f7a89ba5ba426
   languageName: node
   linkType: hard
 
@@ -7218,18 +7218,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.16.1":
-  version: 4.16.1
-  resolution: "browserslist@npm:4.16.1"
+"browserslist@npm:4.16.6":
+  version: 4.16.6
+  resolution: "browserslist@npm:4.16.6"
   dependencies:
-    caniuse-lite: ^1.0.30001173
-    colorette: ^1.2.1
-    electron-to-chromium: ^1.3.634
+    caniuse-lite: ^1.0.30001219
+    colorette: ^1.2.2
+    electron-to-chromium: ^1.3.723
     escalade: ^3.1.1
-    node-releases: ^1.1.69
+    node-releases: ^1.1.71
   bin:
     browserslist: cli.js
-  checksum: 56f51464c3a3bd9b2aeb75ded1dc3fce5ad91bd6d84187aba812a78ba66b69bc97c2de25a1b7409daac3c0049e979bf0faa6cca4aacce0abcaf3107c250ce3fb
+  checksum: ebb0ab279c5e61f882467f7ccd7d22c0edfcc01201eba06e85e835ca4d355e682f9aa3310bfa18c3a23bb244f0b8e498b3113dae3e9b0fa4908c5ffb4a26b3a2
   languageName: node
   linkType: hard
 
@@ -7570,14 +7570,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001125, caniuse-lite@npm:^1.0.30001173, caniuse-lite@npm:^1.0.30001179, caniuse-lite@npm:^1.0.30001181":
+"caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001125, caniuse-lite@npm:^1.0.30001181":
   version: 1.0.30001207
   resolution: "caniuse-lite@npm:1.0.30001207"
   checksum: c0f1097c43be5178b56f4ae8829c57e3aa4658eaf8c8b9c06612dd7c43667e0b1122d7a61e5b0d73076e601df74917f43532b45ccf9ac5c207e4892f682b2087
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001202":
+"caniuse-lite@npm:^1.0.30001202, caniuse-lite@npm:^1.0.30001219, caniuse-lite@npm:^1.0.30001228":
   version: 1.0.30001228
   resolution: "caniuse-lite@npm:1.0.30001228"
   checksum: a4eb04288e9b7f7bda158126f37e8dab97a5fc851dab192083f36906d8bf76e0526afa0692a662267ea4b3df0b0ba13f847457ac2be0f1ea209ec3013b7caabe
@@ -9682,23 +9682,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-to-chromium@npm:^1.3.564, electron-to-chromium@npm:^1.3.634, electron-to-chromium@npm:^1.3.649":
+"electron-to-chromium@npm:^1.3.564, electron-to-chromium@npm:^1.3.649":
   version: 1.3.707
   resolution: "electron-to-chromium@npm:1.3.707"
   checksum: 9bd9e7174d197c35137e0906dfab8cf5cedeea056341a8105ef7f9b1c7d6ea7c4dd72d84b419f19f0ef804f836c0999e84f00a5c57dd6c0e08203bdc8130e8d6
   languageName: node
   linkType: hard
 
-"electron@npm:^12.0.8":
-  version: 12.0.8
-  resolution: "electron@npm:12.0.8"
+"electron-to-chromium@npm:^1.3.723":
+  version: 1.3.732
+  resolution: "electron-to-chromium@npm:1.3.732"
+  checksum: 9a11947d9970ff10447b7a9260eec95d578aaf6c7e7e9b36ab5b57e44e346a9312cbd91167b4a9966eb70ceddc415e2207ff4a65c1c80b3749d38d5868d9a074
+  languageName: node
+  linkType: hard
+
+"electron@npm:^12.0.9":
+  version: 12.0.9
+  resolution: "electron@npm:12.0.9"
   dependencies:
     "@electron/get": ^1.0.1
     "@types/node": ^14.6.2
     extract-zip: ^1.0.3
   bin:
     electron: cli.js
-  checksum: a16bd9b1d48ae2382924961b45423e39429fb2a08431cd343b36b9de013208a72fe688cd4aabd5426d43cefb7897f9aebbfb506f9fde8051a4a20abd159b8203
+  checksum: 2ffec33095c18624338ba721244068cee276226d8fbe21196ad8a741414128a3bd83aee29c8db1fed5a687b1f88a1a8e997be38dbabb5afd0d4726d4c3b7f533
   languageName: node
   linkType: hard
 
@@ -10666,7 +10673,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify-websocket@npm:^3.0.0, fastify-websocket@npm:^3.2.0":
+"fastify-websocket@npm:^3.0.0":
   version: 3.2.0
   resolution: "fastify-websocket@npm:3.2.0"
   dependencies:
@@ -15354,33 +15361,33 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"next-transpile-modules@npm:^7.1.1":
-  version: 7.1.1
-  resolution: "next-transpile-modules@npm:7.1.1"
+"next-transpile-modules@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "next-transpile-modules@npm:7.1.2"
   dependencies:
     enhanced-resolve: ^5.7.0
     escalade: ^3.1.1
-  checksum: d18d4a15e7038f31d3bfd054ce5b4fd683c28fedd2c3ccf1f8120e6de05c4488ab2171cc883d7414dac79635b9a5c6f831c74c309c179e18631a14f8c34d6215
+  checksum: bddfd9fd98b7c0e673db3454d572c7077a48c8635f1d4265e0b5572eaa2af6319c39b00e3ac03ab0c8cae903d4afbeb9c206717e6bc96d0c81caaa21e903dfa6
   languageName: node
   linkType: hard
 
-"next@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "next@npm:10.2.0"
+"next@npm:^10.2.2":
+  version: 10.2.2
+  resolution: "next@npm:10.2.2"
   dependencies:
     "@babel/runtime": 7.12.5
-    "@hapi/accept": 5.0.1
-    "@next/env": 10.2.0
-    "@next/polyfill-module": 10.2.0
-    "@next/react-dev-overlay": 10.2.0
-    "@next/react-refresh-utils": 10.2.0
+    "@hapi/accept": 5.0.2
+    "@next/env": 10.2.2
+    "@next/polyfill-module": 10.2.2
+    "@next/react-dev-overlay": 10.2.2
+    "@next/react-refresh-utils": 10.2.2
     "@opentelemetry/api": 0.14.0
     assert: 2.0.0
     ast-types: 0.13.2
     browserify-zlib: 0.2.0
-    browserslist: 4.16.1
+    browserslist: 4.16.6
     buffer: 5.6.0
-    caniuse-lite: ^1.0.30001179
+    caniuse-lite: ^1.0.30001228
     chalk: 2.4.2
     chokidar: 3.5.1
     constants-browserify: 1.0.0
@@ -15433,7 +15440,7 @@ fsevents@^1.2.7:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 2c5c1da075664ff9646a66fb6495982f1258a81cb1264dcd909df13411a6c55ccbb1c777a67c27cff3d7ff901c627f14144ebaa647080e07cf8fee840c3eae45
+  checksum: 68904348891168ad4ca61652d85c88e9ca3078b648ff933c80441da9f35086aa826bc145b754abe38897ed1e69ecbe839e711f38b59387435344b4a902db9037
   languageName: node
   linkType: hard
 
@@ -15605,10 +15612,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"node-releases@npm:^1.1.61, node-releases@npm:^1.1.69, node-releases@npm:^1.1.70":
+"node-releases@npm:^1.1.61, node-releases@npm:^1.1.70":
   version: 1.1.71
   resolution: "node-releases@npm:1.1.71"
   checksum: 9e283003f1deafd0ca7f9bbde9c4b5b05d880ca165217f5227b37406626d6689a246a5c4c72f9a8512be65cd51b13cc7d0f5d8bc68ad36089b620f1810292340
+  languageName: node
+  linkType: hard
+
+"node-releases@npm:^1.1.71":
+  version: 1.1.72
+  resolution: "node-releases@npm:1.1.72"
+  checksum: a9ded860baa3c90fa6fde2e1be597959b238940cda1e5bbeceb5de6a16faa1db81982b629429fd6ebbec98f7dd241378cda5918a57c9baf68cb6a6e002b4fc15
   languageName: node
   linkType: hard
 

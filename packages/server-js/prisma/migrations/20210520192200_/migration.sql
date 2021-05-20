@@ -52,12 +52,6 @@ CREATE TABLE "MemberOnGroup" (
     PRIMARY KEY ("groupId","userId")
 );
 
--- CreateTable
-CREATE TABLE "PersistedQuery" (
-    "hash" TEXT NOT NULL,
-    "query" TEXT NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
@@ -67,20 +61,17 @@ CREATE UNIQUE INDEX "User_clientId_unique" ON "User"("clientId");
 -- CreateIndex
 CREATE UNIQUE INDEX "BotUser_clientId_unique" ON "BotUser"("clientId");
 
--- CreateIndex
-CREATE UNIQUE INDEX "PersistedQuery.hash_unique" ON "PersistedQuery"("hash");
-
 -- AddForeignKey
-ALTER TABLE "Group" ADD FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "User" ADD FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "BotUser" ADD FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Group" ADD FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MemberOnGroup" ADD FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MemberOnGroup" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "User" ADD FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;

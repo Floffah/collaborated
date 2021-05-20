@@ -19,7 +19,6 @@ export function withFilterData<Context, Args = DefaultArgs>(search: Record<any, 
             const keys = Object.keys(search);
 
             for (const key of keys) {
-                console.log(payload.filter[key], search[key]);
                 if (payload.filter[key] !== search[key]) return false;
             }
         }
@@ -40,9 +39,10 @@ export function withValidFilterData<Args = DefaultArgs>(
     };
 }
 
-export function filterContext<Context>(fn: (c: Context) => AsyncIterator<any>) {
-    return (_p?: any, _a?: any, c?: Context) => {
+export function filterContext(fn: (c: QueryContext) => AsyncIterator<any>, doValidation = false, doInvalidate = true) {
+    return (_p?: any, _a?: any, c?: QueryContext) => {
         if (!c) throw "No context";
+        if (doValidation) clientValidation(c, !doInvalidate);
         return fn(c);
     };
 }

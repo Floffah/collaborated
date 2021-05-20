@@ -15,7 +15,7 @@ export const SessionFields: LiteralTypeFields<any, QueryContext> = [
         undefined,
         undefined,
         withTypedFilter(
-            filterContext((c) => c.ps.asyncIterator(SubscriptionType.sessionStateChange)),
+            filterContext((c) => c.ps.asyncIterator(SubscriptionType.sessionStateChange), true, true),
             withValidFilterData(
                 (_p, _a, c, _i) => {
                     let id;
