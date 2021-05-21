@@ -17,14 +17,26 @@ enum ClientType {
 }
 
 model Client {
-  id   Int        @id @default(autoincrement())
-  type ClientType @default(USER)
-  user User?
-  bot  BotUser?
+  id     Int        @id @default(autoincrement())
+  type   ClientType @default(USER)
+  user   User?
+  bot    BotUser?
 
   // common between all client types
   username String
   created  DateTime @default(now())
+}
+
+enum LimitType {
+  CreateUser
+}
+
+model LimitLog {
+  fingerprint String
+  type LimitType
+  when DateTime @default(now())
+
+  @@id([fingerprint, type])
 }
 
 model User {
@@ -44,7 +56,7 @@ model User {
 
   // relations
   groupsOwned  Group[]
-  groupsJoined MemberOnGroup[]
+  groupsJoined GroupMember[]
 }
 
 model BotUser {
@@ -55,17 +67,19 @@ model BotUser {
   token String?
 }
 
+// group
+
 model Group {
   id   Int    @id @default(autoincrement())
   name String
 
   // users
-  owner   User            @relation(fields: [ownerId], references: [id])
+  owner   User          @relation(fields: [ownerId], references: [id])
   ownerId Int
-  users   MemberOnGroup[]
+  users   GroupMember[]
 }
 
-model MemberOnGroup {
+model GroupMember {
   group   Group @relation(fields: [groupId], references: [id])
   groupId Int
   user    User  @relation(fields: [userId], references: [id])

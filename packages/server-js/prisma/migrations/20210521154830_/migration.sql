@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "ClientType" AS ENUM ('USER', 'BOT');
 
+-- CreateEnum
+CREATE TYPE "LimitType" AS ENUM ('CreateUser');
+
 -- CreateTable
 CREATE TABLE "Client" (
     "id" SERIAL NOT NULL,
@@ -9,6 +12,16 @@ CREATE TABLE "Client" (
     "created" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "LimitLog" (
+    "id" SERIAL NOT NULL,
+    "type" "LimitType" NOT NULL,
+    "when" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "clientId" INTEGER NOT NULL,
+
+    PRIMARY KEY ("id","type")
 );
 
 -- CreateTable
@@ -44,7 +57,7 @@ CREATE TABLE "Group" (
 );
 
 -- CreateTable
-CREATE TABLE "MemberOnGroup" (
+CREATE TABLE "GroupMember" (
     "groupId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
     "joined" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -62,16 +75,19 @@ CREATE UNIQUE INDEX "User_clientId_unique" ON "User"("clientId");
 CREATE UNIQUE INDEX "BotUser_clientId_unique" ON "BotUser"("clientId");
 
 -- AddForeignKey
-ALTER TABLE "User" ADD FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "GroupMember" ADD FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "GroupMember" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "BotUser" ADD FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "LimitLog" ADD FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Group" ADD FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MemberOnGroup" ADD FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MemberOnGroup" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "User" ADD FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;

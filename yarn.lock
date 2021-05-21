@@ -1695,7 +1695,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/app@workspace:packages/app"
   dependencies:
-    "@types/node": ^15.3.1
+    "@types/node": ^15.6.0
     electron: ^12.0.9
     electron-builder: ^22.11.4
     electron-debug: ^3.2.0
@@ -1708,7 +1708,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/common@workspace:packages/common"
   dependencies:
-    "@types/node": ^15.3.1
+    "@types/node": ^15.6.0
     graphql: ^15.5.0
     typescript: ^4.2.4
   languageName: unknown
@@ -1718,7 +1718,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/gql@workspace:packages/gql"
   dependencies:
-    "@types/node": ^15.3.1
+    "@types/node": ^15.6.0
     graphql: ^15.5.0
     graphql-subscriptions: ^1.2.1
     typescript: ^4.2.4
@@ -1733,7 +1733,7 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.3.19
     "@collaborated/common": 0.0.1
-    "@types/node": ^15.3.1
+    "@types/node": ^15.6.0
     "@types/ws": ^7.4.4
     axios: ^0.21.1
     bufferutil: ^4.0.3
@@ -1754,11 +1754,11 @@ __metadata:
   dependencies:
     "@iarna/toml": ^2.2.5
     "@octokit/app": ^12.0.2
-    "@octokit/graphql-schema": ^10.40.0
+    "@octokit/graphql-schema": ^10.41.0
     "@octokit/types": ^6.14.2
     "@types/debug": ^4.1.5
     "@types/iarna__toml": ^2.0.1
-    "@types/node": ^15.3.1
+    "@types/node": ^15.6.0
     chalk: ^4.1.1
     commander: ^7.2.0
     debug: ^4.3.1
@@ -1780,7 +1780,7 @@ __metadata:
     "@prisma/client": ^2.23.0
     "@types/debug": ^4.1.5
     "@types/ioredis": ^4.26.4
-    "@types/node": ^15.3.1
+    "@types/node": ^15.6.0
     "@types/ws": ^7.4.4
     chalk: ^4.1.1
     crypto-random-string: ~3.3.1
@@ -1828,7 +1828,7 @@ __metadata:
     next: ^10.2.2
     next-i18next: ^8.3.0
     next-seo: ^4.24.0
-    next-transpile-modules: ^7.1.2
+    next-transpile-modules: ^7.2.0
     polished: ^4.1.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -3375,13 +3375,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/graphql-schema@npm:^10.40.0":
-  version: 10.40.0
-  resolution: "@octokit/graphql-schema@npm:10.40.0"
+"@octokit/graphql-schema@npm:^10.41.0":
+  version: 10.41.0
+  resolution: "@octokit/graphql-schema@npm:10.41.0"
   dependencies:
     graphql: ^15.0.0
     graphql-tag: ^2.10.3
-  checksum: b97f15f986f4da6f84f4bf4ee6b53b0571ca3397717a1ee527584a02dfa761f7bda332ed0c4a41ebc0dab22b6bba2c9c5f46bb9957d3b85237b9003f24e17934
+  checksum: 7e563f89b543c2d52a435b2a09eb25ceed14cd62102b6e6981f65816d5870fe535b4b8e9ad2722fde4d05cb9c0a7f1a8979c8c6ad6fdf3e114588cf0ba5db5e6
   languageName: node
   linkType: hard
 
@@ -5366,10 +5366,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^15.3.1":
-  version: 15.3.1
-  resolution: "@types/node@npm:15.3.1"
-  checksum: 1c3c94f4c8e1df26b24a00637fdd5a50a5ea7afd0e97cbd298cf675d49ad5436b8b2b111b349194e2fb8bfc81291a67dff9eac80abbf610f938f7a89ba5ba426
+"@types/node@npm:^15.6.0":
+  version: 15.6.0
+  resolution: "@types/node@npm:15.6.0"
+  checksum: 54515155db4f5d18e36725dafa477e0cee664b5a807560a026692c2c2251034675d9ef55a15bc44b7694a4a2e4866b9ca063872915b34a0564ab955b0da101eb
   languageName: node
   linkType: hard
 
@@ -15722,13 +15722,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"next-transpile-modules@npm:^7.1.2":
-  version: 7.1.2
-  resolution: "next-transpile-modules@npm:7.1.2"
+"next-transpile-modules@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "next-transpile-modules@npm:7.2.0"
   dependencies:
     enhanced-resolve: ^5.7.0
     escalade: ^3.1.1
-  checksum: bddfd9fd98b7c0e673db3454d572c7077a48c8635f1d4265e0b5572eaa2af6319c39b00e3ac03ab0c8cae903d4afbeb9c206717e6bc96d0c81caaa21e903dfa6
+  checksum: c8e0a1ddff3657781b90d9bfbfe809b6532121e9b680e915d5a8e81357524442149f9fc63aec59f5faeba5566a6a34d2e30b653cf1119ffda930d0bdffbf0b85
   languageName: node
   linkType: hard
 
