@@ -1755,7 +1755,7 @@ __metadata:
     "@iarna/toml": ^2.2.5
     "@octokit/app": ^12.0.2
     "@octokit/graphql-schema": ^10.41.0
-    "@octokit/types": ^6.14.2
+    "@octokit/types": ^6.16.0
     "@types/debug": ^4.1.5
     "@types/iarna__toml": ^2.0.1
     "@types/node": ^15.6.0
@@ -1783,15 +1783,16 @@ __metadata:
     "@types/node": ^15.6.0
     "@types/ws": ^7.4.4
     chalk: ^4.1.1
-    crypto-random-string: ~3.3.1
+    crypto-random-string: ~4.0.0
     debug: ^4.3.2
+    estrella: ^1.4.1
     fastify: ^3.15.1
     fastify-cors: ^6.0.1
     fastify-helmet: ^5.3.1
     graphql: ^15.5.0
     graphql-redis-subscriptions: ^2.4.0
     graphql-subscriptions: ^1.2.1
-    ioredis: ^4.27.2
+    ioredis: ^4.27.3
     mercurius: ^7.6.1
     prisma: ^2.23.0
     typescript: ^4.2.4
@@ -3446,6 +3447,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/openapi-types@npm:^7.2.0":
+  version: 7.2.1
+  resolution: "@octokit/openapi-types@npm:7.2.1"
+  checksum: 4bf89367c4e211f7cfa9561d5534cff272ee6293407bb4ad50055786eac8fc54a799123d58aef7d4e616aa12ff5d1d32dd9fa65030b5f39ceb3f0f88423ff306
+  languageName: node
+  linkType: hard
+
 "@octokit/plugin-enterprise-rest@npm:^6.0.1":
   version: 6.0.1
   resolution: "@octokit/plugin-enterprise-rest@npm:6.0.1"
@@ -3572,7 +3580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/types@npm:^6.0.1, @octokit/types@npm:^6.10.0, @octokit/types@npm:^6.12.2, @octokit/types@npm:^6.14.1, @octokit/types@npm:^6.14.2":
+"@octokit/types@npm:^6.0.1, @octokit/types@npm:^6.10.0, @octokit/types@npm:^6.12.2, @octokit/types@npm:^6.14.1":
   version: 6.14.2
   resolution: "@octokit/types@npm:6.14.2"
   dependencies:
@@ -3587,6 +3595,15 @@ __metadata:
   dependencies:
     "@octokit/openapi-types": ^6.0.0
   checksum: 20e7f159be0ebd386291b8e37521f191ca1adc922e2096b6f1434e980336f3a5ee4073bc0e99a8bb91e1657c4a8a1671ce458fbe299d918d773bd4bcf7cb8f5c
+  languageName: node
+  linkType: hard
+
+"@octokit/types@npm:^6.16.0":
+  version: 6.16.0
+  resolution: "@octokit/types@npm:6.16.0"
+  dependencies:
+    "@octokit/openapi-types": ^7.2.0
+  checksum: e24da19b64b6ce856b55d6e614de7675431eaecb13e507cb9e58ba3c5e288d114d10b186ad8c93c872d59de62b21b93becd96e43b284b77843745f107b627ee8
   languageName: node
   linkType: hard
 
@@ -8277,10 +8294,11 @@ __metadata:
     "@floffah/build": ^0.4.0
     "@typescript-eslint/eslint-plugin": ^4.24.0
     "@typescript-eslint/parser": ^4.24.0
-    eslint: ^7.26.0
+    eslint: ^7.27.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-react: ^7.23.2
     eslint-plugin-workspaces: ^0.6.2
+    estrella: ^1.4.1
     lerna: ^4.0.0
     npm-check-updates: ^11.5.13
     prettier: ^2.3.0
@@ -8986,12 +9004,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-random-string@npm:~3.3.1":
-  version: 3.3.1
-  resolution: "crypto-random-string@npm:3.3.1"
+"crypto-random-string@npm:~4.0.0":
+  version: 4.0.0
+  resolution: "crypto-random-string@npm:4.0.0"
   dependencies:
-    type-fest: ^0.8.1
-  checksum: 709584f60858472554185120ec2af3c165040bcd62e0bc30f57fd73420b05274140c2cb43f7e461b203c89101255bd5d6129ca2c540869ffb763b493638cfb0f
+    type-fest: ^1.0.1
+  checksum: 0ca804f34d84f606fee0e31dfbc948ca8d2b71727a5153d517fcb95e406cc7cc19b8c90104352a11b0801de7d5685072e1d0e656d0a0fb08a7c50db90f5f0a21
   languageName: node
   linkType: hard
 
@@ -10297,6 +10315,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esbuild@npm:^0.11.0":
+  version: 0.11.23
+  resolution: "esbuild@npm:0.11.23"
+  bin:
+    esbuild: bin/esbuild
+  checksum: 9226fc3d74f7555c96778c5d9204312c578e9c11b472deebfbab52c4ac58b9efc3a40be529368f6ccbe257d0059c6b8fd142c179824a3227d055d912c7b5a94a
+  languageName: node
+  linkType: hard
+
 "esbuild@npm:^0.11.19":
   version: 0.11.20
   resolution: "esbuild@npm:0.11.20"
@@ -10452,9 +10479,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.26.0":
-  version: 7.26.0
-  resolution: "eslint@npm:7.26.0"
+"eslint@npm:^7.27.0":
+  version: 7.27.0
+  resolution: "eslint@npm:7.27.0"
   dependencies:
     "@babel/code-frame": 7.12.11
     "@eslint/eslintrc": ^0.4.1
@@ -10464,12 +10491,14 @@ __metadata:
     debug: ^4.0.1
     doctrine: ^3.0.0
     enquirer: ^2.3.5
+    escape-string-regexp: ^4.0.0
     eslint-scope: ^5.1.1
     eslint-utils: ^2.1.0
     eslint-visitor-keys: ^2.0.0
     espree: ^7.3.1
     esquery: ^1.4.0
     esutils: ^2.0.2
+    fast-deep-equal: ^3.1.3
     file-entry-cache: ^6.0.1
     functional-red-black-tree: ^1.0.1
     glob-parent: ^5.0.0
@@ -10481,7 +10510,7 @@ __metadata:
     js-yaml: ^3.13.1
     json-stable-stringify-without-jsonify: ^1.0.1
     levn: ^0.4.1
-    lodash: ^4.17.21
+    lodash.merge: ^4.6.2
     minimatch: ^3.0.4
     natural-compare: ^1.4.0
     optionator: ^0.9.1
@@ -10490,12 +10519,12 @@ __metadata:
     semver: ^7.2.1
     strip-ansi: ^6.0.0
     strip-json-comments: ^3.1.0
-    table: ^6.0.4
+    table: ^6.0.9
     text-table: ^0.2.0
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 08f99befd764fbd6ea811e9eec27d5c6b9dc9d1bbfe5ffa1016e4f1fe526a4f45ea127c4e30c554c423ee55eb290ce9af4fb7fedf9b7af3f84076a444c2bbdf6
+  checksum: c91a9a88091fb2654ec599b452f6d8aff22daa4a21761e762536877ec8b65cd6386c29ea2e0fec2668125a07c62973bc23922f924c999e140c1042b8cffca030
   languageName: node
   linkType: hard
 
@@ -10549,6 +10578,21 @@ __metadata:
   version: 5.2.0
   resolution: "estraverse@npm:5.2.0"
   checksum: 7dc1b027aebf937bab10c3254d9d73ed21672d7382518c9ddb9dc45560cb2f4e6548cc8ff1a07b7f431e94bd0fb0bf5da75b602e2473f966fea141c4c31b31d6
+  languageName: node
+  linkType: hard
+
+"estrella@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "estrella@npm:1.4.1"
+  dependencies:
+    esbuild: ^0.11.0
+    fsevents: ~2.3.1
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    estrella: dist/estrella.js
+  checksum: dae875d3a89a18958f5b7416ad00c562e58693eee16fea8f9e4f5e678ab875b848baacf2772f1ee02925b31080940aa81b52322d4ed64c30ae03e1648495bed0
   languageName: node
   linkType: hard
 
@@ -13058,7 +13102,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^4.17.3, ioredis@npm:^4.27.2":
+"ioredis@npm:^4.17.3":
   version: 4.27.2
   resolution: "ioredis@npm:4.27.2"
   dependencies:
@@ -13073,6 +13117,24 @@ fsevents@^1.2.7:
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
   checksum: 8e6e21495bbbc726e4dc6349441d48fd013713f6de9896db3b1790e7d707b36652fa96060121e7aac875c22fdf96a0e95a0ebb5a076d08d02ddce1f5f4fc5913
+  languageName: node
+  linkType: hard
+
+"ioredis@npm:^4.27.3":
+  version: 4.27.3
+  resolution: "ioredis@npm:4.27.3"
+  dependencies:
+    cluster-key-slot: ^1.1.0
+    debug: ^4.3.1
+    denque: ^1.1.0
+    lodash.defaults: ^4.2.0
+    lodash.flatten: ^4.4.0
+    p-map: ^2.1.0
+    redis-commands: 1.7.0
+    redis-errors: ^1.2.0
+    redis-parser: ^3.0.0
+    standard-as-callback: ^2.1.0
+  checksum: f7080a5912fed5e4ebec45be37eb7288049d5865f9e02e77bcb135533d88c93766a5eea95ead973cbadcdbaf7e15019fb7f6e3286a5c5a820dcd945cc345dd2f
   languageName: node
   linkType: hard
 
@@ -14684,7 +14746,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"lodash.merge@npm:4.6.2":
+"lodash.merge@npm:4.6.2, lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: 4e2bb42a87a148991458d7c384bc197e96f7115e9536fc8e2c86ae9e99ce1c1f693ff15eb85761952535f48d72253aed8e673d9f32dde3e671cd91e3fde220a7
@@ -20761,20 +20823,17 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"table@npm:^6.0.4":
-  version: 6.0.9
-  resolution: "table@npm:6.0.9"
+"table@npm:^6.0.9":
+  version: 6.7.1
+  resolution: "table@npm:6.7.1"
   dependencies:
     ajv: ^8.0.1
-    is-boolean-object: ^1.1.0
-    is-number-object: ^1.0.4
-    is-string: ^1.0.5
     lodash.clonedeep: ^4.5.0
-    lodash.flatten: ^4.4.0
     lodash.truncate: ^4.4.2
     slice-ansi: ^4.0.0
     string-width: ^4.2.0
-  checksum: 7591f29ac667a5cf33d9564b5775f1778b1b0a346dadcedd190420c87c295c2f618520669ab10f906d017283f4f2ae1821382028845909ce88ce78d895572bc0
+    strip-ansi: ^6.0.0
+  checksum: 66107046b7226051552d53c1260facfed03f4050373d3888620af7b1353f6a5429d9a4a5fb796c56c29b9dd5ffca7b661a815f42ec392cb5956432585578772a
   languageName: node
   linkType: hard
 
@@ -21448,6 +21507,13 @@ resolve@^2.0.0-next.3:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: f8c4b4249f52e8bea7a4fc55b3653c96c2d547240e4c772e001d02b7cc38b8c3eb493ab9fbe985a76a203cd1aa7044776b728a71ba12bf36e7131f989597885b
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^1.0.1":
+  version: 1.1.3
+  resolution: "type-fest@npm:1.1.3"
+  checksum: dd0ef27a6a15119e1df36b99dc504ef299816ccd2ed2b38a5e2af7b7c1ccd975321aad0fd9d838383a9c13249ce0f3f5d009cabf2f66cafff67a125d36841efb
   languageName: node
   linkType: hard
 

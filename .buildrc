@@ -47,8 +47,10 @@
         },
         {
             "id": "server",
-            "type": "typescript",
+            "type": "custom",
             "package": "server",
+            "devcommand": "node build.js",
+            "command": "node build.js --dev",
             "runInEnvironments": [
                 "prod",
                 "dev"

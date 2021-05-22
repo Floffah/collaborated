@@ -13,23 +13,18 @@ export const UserCreateFields: LiteralTypeFields<any, QueryContext> = [
             queryArgs(a, ["username", "password", "email"]);
             await withLimit(LimitType.CreateUser, c);
 
-            try {
-                await c.db.user.create({
-                    data: {
-                        client: {
-                            create: {
-                                type: "USER",
-                                username: a.username,
-                            },
+            await c.db.user.create({
+                data: {
+                    client: {
+                        create: {
+                            type: "USER",
+                            username: a.username,
                         },
-                        password: a.password,
-                        email: a.email,
                     },
-                });
-            } catch (e) {
-                return false;
-            }
-            return true;
+                    password: a.password,
+                    email: a.email,
+                },
+            });
         },
         [
             buildArgument("username; Name of the client", GraphQLNonNull(GraphQLString)),
