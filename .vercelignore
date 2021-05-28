@@ -1,4 +1,6 @@
-*
-!packages/web
-!packages/interact
-!packages/common
+packages/app
+packages/gql
+packages/manager
+packages/server
+packages/server-js
+test

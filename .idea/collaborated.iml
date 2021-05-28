@@ -39,6 +39,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/packages/manager/dist" />
       <excludeFolder url="file://$MODULE_DIR$/old.yarn/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/storybook-dist" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />
