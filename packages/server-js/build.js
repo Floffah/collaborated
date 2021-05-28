@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { build } = require("esbuild");
+const { build } = require("estrella");
 
 const dev = process.argv.includes("--dev") || process.argv.includes("-d");
 

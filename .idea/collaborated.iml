@@ -28,7 +28,6 @@
       <excludeFolder url="file://$MODULE_DIR$/.netlify" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
       <excludeFolder url="file://$MODULE_DIR$/packages/legacy-web" />
-      <excludeFolder url="file://$MODULE_DIR$/.yarn/cache" />
       <excludeFolder url="file://$MODULE_DIR$/packages/server/.elixir_ls" />
       <excludeFolder url="file://$MODULE_DIR$/packages/server/_build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/server/deps" />
@@ -39,6 +38,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/server-js/dist" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/packages/manager/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/old.yarn/cache" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />

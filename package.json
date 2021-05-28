@@ -24,9 +24,9 @@
     "server": "yarn workspace @collaborated/server node ."
   },
   "devDependencies": {
-    "@floffah/build": "^0.4.0",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
-    "@typescript-eslint/parser": "^4.24.0",
+    "@floffah/build": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
@@ -36,7 +36,7 @@
     "npm-check-updates": "^11.5.13",
     "prettier": "^2.3.0",
     "prettier-plugin-eex": "^0.5.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.2"
   },
   "version": "0.0.0"
 }

@@ -7,14 +7,14 @@
     "devDependencies": {
         "@types/debug": "^4.1.5",
         "@types/iarna__toml": "^2.0.1",
-        "@types/node": "^15.6.0",
-        "typescript": "^4.2.4"
+        "@types/node": "^15.6.1",
+        "typescript": "^4.3.2"
     },
     "dependencies": {
         "@iarna/toml": "^2.2.5",
         "@octokit/app": "^12.0.2",
-        "@octokit/graphql-schema": "^10.41.0",
-        "@octokit/types": "^6.16.0",
+        "@octokit/graphql-schema": "^10.42.0",
+        "@octokit/types": "^6.16.2",
         "chalk": "^4.1.1",
         "commander": "^7.2.0",
         "debug": "^4.3.1",

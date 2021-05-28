@@ -1,7 +1,7 @@
 import React from "react";
 //import { useTranslation } from "next-i18next";
 import { getTheme, Theme } from "../../theme/themes";
-import Particles from "react-tsparticles";
+import Particles, { ISourceOptions } from "react-tsparticles";
 import styled from "styled-components";
 import { useStore } from "react-redux";
 import { State } from "../../lib/store";
@@ -13,9 +13,7 @@ export const Login: React.FC = (_p) => {
 
     return (
         <>
-            <StyledParticles
-                options={getParticleOpts(getTheme(s.getState().theme))}
-            />
+            <StyledParticles options={getParticleOpts(getTheme(s.getState().theme))} />
             <LoginMenu />
         </>
     );
@@ -30,83 +28,84 @@ const StyledParticles = styled(Particles)`
     background-color: ${(props) => props.theme.pagebg};
 `;
 
-export const getParticleOpts = (t: Theme) => ({
-    retina_detect: true,
-    background: {
-        color: t.pagebg,
-        image: "",
-        position: "50% 50%",
-        repeat: "no-repeat",
-        size: "cover",
-        opacity: 0,
-    },
-    interactivity: {
-        detectsOn: "window",
-        events: {
-            onClick: {
-                enable: true,
-                mode: "push",
-            },
-            onHover: {
-                enable: true,
-                mode: "grab",
-                parallax: {
+export const getParticleOpts = (t: Theme) =>
+    ({
+        retina_detect: true,
+        background: {
+            color: t.pagebg,
+            image: "",
+            position: "50% 50%",
+            repeat: "no-repeat",
+            size: "cover",
+            opacity: 0,
+        },
+        interactivity: {
+            detectsOn: "window",
+            events: {
+                onClick: {
                     enable: true,
-                    force: 25,
-                    smooth: 25,
+                    mode: "push",
+                },
+                onHover: {
+                    enable: true,
+                    mode: "grab",
+                    parallax: {
+                        enable: true,
+                        force: 25,
+                        smooth: 25,
+                    },
+                },
+                resize: true,
+            },
+            modes: {
+                push: {
+                    quantity: 4,
+                },
+                grab: {
+                    distance: 120,
                 },
             },
-            resize: true,
         },
-        modes: {
-            push: {
-                quantity: 4,
+        particles: {
+            color: {
+                value: t.login?.particlecolor,
             },
-            grab: {
-                distance: 120,
+            links: {
+                color: t.login?.particlecolor,
+                distance: 150,
+                enable: false,
+                opacity: 0.5,
+                width: 1,
             },
-        },
-    },
-    particles: {
-        color: {
-            value: t.login?.particlecolor,
-        },
-        links: {
-            color: t.login?.particlecolor,
-            distance: 150,
-            enable: false,
-            opacity: 0.5,
-            width: 1,
-        },
-        collisions: {
-            enable: true,
-            mode: "bounce",
-        },
-        move: {
-            direction: "top",
-            enable: true,
-            outMode: "out",
-            random: false,
-            speed: 2,
-            straight: false,
-        },
-        number: {
-            density: {
+            collisions: {
                 enable: true,
-                value_area: 800,
+                mode: "bounce",
             },
-            value: 150,
+            move: {
+                direction: "top",
+                enable: true,
+                outMode: "out",
+                random: false,
+                speed: 2,
+                straight: false,
+            },
+            number: {
+                density: {
+                    enable: true,
+                    value_area: 800,
+                },
+                value: 150,
+            },
+            opacity: {
+                value: 0.5,
+            },
+            shape: {
+                type: "circle",
+            },
+            size: {
+                random: true,
+                value: 5,
+            },
         },
-        opacity: {
-            value: 0.5,
-        },
-        shape: {
-            type: "circle",
-        },
-        size: {
-            random: true,
-            value: 5,
-        },
-    },
-    detectRetina: true,
-});
+        detectRetina: true,
+    } as ISourceOptions);

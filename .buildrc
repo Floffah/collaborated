@@ -29,7 +29,7 @@
             "type": "storybook",
             "package": "web",
             "port": "6006",
-            "out": "../../docs",
+            "out": "../../storybook-dist",
             "runInEnvironments": [
                 "prod",
                 "dev"
@@ -46,11 +46,20 @@
             ]
         },
         {
+            "id": "prisma",
+            "type": "custom",
+            "package": "server",
+            "command": "prisma generate",
+            "runInEnvironments": [
+                "prod"
+            ]
+        },
+        {
             "id": "server",
             "type": "custom",
             "package": "server",
-            "devcommand": "node build.js",
-            "command": "node build.js --dev",
+            "command": "node build.js",
+            "devcommand": "node build.js --watch",
             "runInEnvironments": [
                 "prod",
                 "dev"

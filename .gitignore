@@ -1,3 +1,4 @@
+storybook-dist
 ideas.md
 packages/**/types
 build
@@ -375,10 +376,12 @@ temp/
 # https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
 
 .yarn/*
+old.yarn/*
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+!old.yarn/releases
 
 # if you are NOT using Zero-installs, then:
 # comment the following lines
