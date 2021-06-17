@@ -58,8 +58,8 @@
             "id": "server",
             "type": "custom",
             "package": "server",
-            "command": "node build.js",
-            "devcommand": "node build.js --watch",
+            "command": "microbundle -f cjs --target node",
+            "devcommand": "microbundle watch -f cjs --target node",
             "runInEnvironments": [
                 "prod",
                 "dev"

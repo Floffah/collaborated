@@ -56,8 +56,8 @@ run `yarn build` for more information
 | [app](packages/app) | Electron application | Paused |
 | [common](packages/common) | Common types and structures shared between packages | Inactive, may be re-used |
 | [interact](packages/interact) | The JS/TS library for interacting with the Collaborated API. Inspired by Discord.JS | Under heavy development, heavily relied on |
-| [manager](packages/manager) | Service manager implemented in NodeJS for managing the node based server implementation | Developing as needed by server (Node) |
-| [legacy-manager](packages/legacy-manager) | Service manager implemented in Golang for managing the elixir implementation of the server | Paused alongside server (Elixir) |
+| [manager](packages/manager) | Service manager implemented in NodeJS for managing the node based server implementation | No longer developed |
+| [legacy-manager](packages/legacy-manager) | Service manager implemented in Golang for managing the elixir implementation of the server | No longer developed |
 | [gql](packages/gql) | Small library for creating GraphQL schemas programmatically (code-first) | Developed as needed by server (Node)
 | [server (Elixir)](packages/server) | Elixir implementation of the Collaborated API using phoenix and absinthe | Paused until server (node) fails stress tests |
 | [server (Node)](packages/server-js) | NodeJS (TS) implementation of the Collaborated API using prisma, fastify, and mercurius | Under heavy development until it fails stress tests |
