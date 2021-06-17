@@ -4,10 +4,10 @@ module.exports = {
     plugins: ["workspaces", "@typescript-eslint"],
     extends: [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
         "prettier",
         "plugin:@typescript-eslint/recommended",
+        "next"
     ],
     globals: {
         JSX: "readonly",
