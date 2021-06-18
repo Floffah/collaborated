@@ -1,5 +1,5 @@
 packages/app
-packages/gql
+packages/legacy-manager
 packages/manager
 packages/server
 packages/server-js
