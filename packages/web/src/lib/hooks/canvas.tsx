@@ -16,7 +16,7 @@ export function useCanvas(id?: string) {
             }
             setCanvas(el);
         }
-    });
+    }, [setCanvas, elid, canvas]);
 
     return canvas;
 }

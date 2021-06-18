@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { Emojis, getEmojiURL } from "../../lib/emojis";
 import { getCodePoint } from "../../lib/text";
+import Image from "next/image";
 
 export interface EmojiProps {
     size?: string | number;
@@ -8,10 +9,10 @@ export interface EmojiProps {
     emoji: string | Emojis;
 }
 
-const Emoji = forwardRef<HTMLImageElement, EmojiProps>((p, ref) => {
+const Emoji = forwardRef<HTMLImageElement, EmojiProps>((p, _ref) => {
     return (
-        <img
-            ref={ref}
+        <Image
+            // ref={ref}
             src={p.png ? getEmojiURL(p.emoji, "72x72") : getEmojiURL(p.emoji, "svg")}
             alt={getCodePoint(p.emoji)}
             width={p.size ?? 30}

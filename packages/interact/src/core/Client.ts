@@ -17,10 +17,6 @@ interface ClientOptions {
      */
     useHttps?: boolean;
     /**
-     * If the client is in browser mode
-     */
-    browserMode?: boolean;
-    /**
      * Enable this to fill all data with placeholder data and not make any requests.
      * Useful for testing. This is what the collaborated frontend uses for preview mode
      */
@@ -58,13 +54,16 @@ export class Client extends events.EventEmitter {
         this.opts = {
             debug: false,
             overrideHost: undefined,
-            useHttps: false, // will be set to true once there is a public api
-            browserMode: typeof document !== "undefined",
+            useHttps: true,
             method: "auto",
             ...opts,
         };
         if (!opts.placeholder) {
-            this.host = this.opts.overrideHost ?? "localhost:3000";
+            if (typeof window !== "undefined") {
+                this.host = this.opts.overrideHost ?? window.location.hostname; // to support localhost in dev, master.capp.floffah.dev in preview, and capp.floffah.dev in production automatically
+            } else {
+                this.host = this.opts.overrideHost ?? "capp.floffah.dev";
+            }
 
             this.ax = ax.create({
                 headers: {
