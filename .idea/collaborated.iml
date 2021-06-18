@@ -41,6 +41,7 @@
       <excludeFolder url="file://$MODULE_DIR$/old.yarn/cache" />
       <excludeFolder url="file://$MODULE_DIR$/storybook-dist" />
       <excludeFolder url="file://$MODULE_DIR$/.yarn/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server-js" />
     </content>
     <content url="file://$MODULE_DIR$/packages/web/.next" />
     <orderEntry type="inheritedJdk" />

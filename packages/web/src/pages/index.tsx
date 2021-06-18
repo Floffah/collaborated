@@ -29,10 +29,10 @@ export default function Index() {
     );
 }
 
-// export const getStaticProps = buildStaticPropsFN({
-//     ns: ["login", "common", "seo"],
-// });
-
-export const getServerSideProps = buildStaticPropsFN({
+export const getStaticProps = buildStaticPropsFN({
     ns: ["login", "common", "seo"],
 });
+
+// export const getServerSideProps = buildStaticPropsFN({
+//     ns: ["login", "common", "seo"],
+// });

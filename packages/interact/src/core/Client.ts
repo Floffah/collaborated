@@ -1,7 +1,7 @@
 import ax, { AxiosInstance } from "axios";
 import events from "events";
 import API, { AuthOptions } from "../api/API";
-import { gql } from "@apollo/client/core";
+import gql from "graphql-tag";
 
 interface ClientOptions {
     /**
@@ -64,7 +64,7 @@ export class Client extends events.EventEmitter {
             ...opts,
         };
         if (!opts.placeholder) {
-            this.host = this.opts.overrideHost || "localhost";
+            this.host = this.opts.overrideHost ?? "localhost:3000";
 
             this.ax = ax.create({
                 headers: {

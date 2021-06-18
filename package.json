@@ -1,43 +1,41 @@
 {
-  "name": "collaborated",
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "test/*"
-    ]
-  },
-  "private": true,
-  "license": "GPL-3.0",
-  "scripts": {
-    "docs": "yarn buildts && yarn workspace @collaborated/web docs",
-    "docsync": "git fetch && git pull && git push",
-    "netlifydeploy": "yarn && yarn buildts && yarn workspace @collaborated/web snowpack build",
-    "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
-    "betatest": "yarn build && cd packages/server && mix run --no-halt",
-    "devbuild": "yarn build dev",
-    "prodbuild": "yarn build build",
-    "updates": "ncu --packageManager yarn --deep --target minor",
-    "forceupdate": "ncu --packageManager yarn --deep --target minor -u",
-    "test": "yarn workspace test-addon node .",
-    "dev": "yarn build dev",
-    "devts": "build dev --exclude web,docs",
-    "server": "yarn workspace @collaborated/server node ."
-  },
-  "devDependencies": {
-    "@floffah/build": "^1.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "eslint": "^7.28.0",
-    "eslint-config-next": "^11.0.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-workspaces": "^0.6.2",
-    "estrella": "^1.4.1",
-    "lerna": "^4.0.0",
-    "npm-check-updates": "^11.6.0",
-    "prettier": "^2.3.1",
-    "prettier-plugin-eex": "^0.5.0",
-    "typescript": "^4.3.4"
-  },
-  "version": "0.0.0"
+    "name": "collaborated",
+    "workspaces": [
+        "packages/*",
+        "test/*"
+    ],
+    "private": true,
+    "license": "GPL-3.0",
+    "scripts": {
+        "docs": "yarn buildts && yarn workspace @collaborated/web docs",
+        "docsync": "git fetch && git pull && git push",
+        "netlifydeploy": "yarn && yarn buildts && yarn workspace @collaborated/web snowpack build",
+        "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
+        "betatest": "yarn build && cd packages/server && mix run --no-halt",
+        "devbuild": "yarn build dev",
+        "prodbuild": "yarn build build",
+        "updates": "ncu --packageManager yarn --deep --target minor",
+        "forceupdate": "ncu --packageManager yarn --deep --target minor -u",
+        "test": "yarn workspace test-addon node .",
+        "dev": "yarn build dev",
+        "devts": "build dev --exclude web,docs",
+        "server": "yarn workspace @collaborated/server node ."
+    },
+    "devDependencies": {
+        "@floffah/build": "^1.0.0",
+        "@typescript-eslint/eslint-plugin": "^4.27.0",
+        "@typescript-eslint/parser": "^4.27.0",
+        "eslint": "^7.28.0",
+        "eslint-config-next": "^11.0.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-react": "^7.24.0",
+        "eslint-plugin-workspaces": "^0.6.2",
+        "estrella": "^1.4.1",
+        "lerna": "^4.0.0",
+        "npm-check-updates": "^11.7.1",
+        "prettier": "^2.3.1",
+        "prettier-plugin-eex": "^0.5.0",
+        "typescript": "^4.3.4"
+    },
+    "version": "0.0.0"
 }

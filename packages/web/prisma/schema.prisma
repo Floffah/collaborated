@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DEV_DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount", "orderByRelation", "orderByAggregateGroup"]
+}
+
+enum ClientType {
+  USER
+  BOT
+}
+
+model Client {
+  id     Int        @id @default(autoincrement())
+  type   ClientType @default(USER)
+  user   User?
+  bot    BotUser?
+
+  // common between all client types
+  username String
+  created  DateTime @default(now())
+}
+
+enum LimitType {
+  CreateUser
+}
+
+model LimitLog {
+  fingerprint String
+  type LimitType
+  when DateTime @default(now())
+
+  @@id([fingerprint, type])
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId Int
+
+  // user-specific client fields
+  email    String @unique
+  password String
+
+  // auth
+  access     String?
+  refresh    String?
+  lastAccess DateTime @default("1970-01-01T00:00:00-00:00")
+  expired    Boolean  @default(false)
+
+  // relations
+  groupsOwned  Group[]
+  groupsJoined GroupMember[]
+}
+
+model BotUser {
+  id       Int    @id @default(autoincrement())
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId Int
+
+  token String?
+}
+
+// group
+
+model Group {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  // users
+  owner   User          @relation(fields: [ownerId], references: [id])
+  ownerId Int
+  users   GroupMember[]
+}
+
+model GroupMember {
+  group   Group @relation(fields: [groupId], references: [id])
+  groupId Int
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+
+  // stats
+  joined DateTime @default(now())
+
+  @@id([groupId, userId])
+}

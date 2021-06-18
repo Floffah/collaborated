@@ -1,22 +1,23 @@
 {
-  "presets": [
-    "next/babel"
-  ],
-  "plugins": [
-    [
-      "babel-plugin-styled-components",
-      {
-        "ssr": true,
-        "displayName": true,
-        "preprocess": false,
-        "minify": true,
-        "pure": true,
-        "transpileTemplateLiterals": true
-      }
+    "presets": [
+        "next/babel"
     ],
-    "babel-plugin-polished",
-    "@babel/plugin-transform-react-jsx",
-    "babel-plugin-transform-merge-sibling-variables",
-    "@babel/plugin-transform-reserved-words"
-  ]
+    "plugins": [
+        [
+            "babel-plugin-styled-components",
+            {
+                "ssr": true,
+                "displayName": true,
+                "preprocess": false,
+                "minify": true,
+                "pure": true,
+                "transpileTemplateLiterals": true
+            }
+        ],
+        "babel-plugin-polished",
+        "@babel/plugin-transform-react-jsx",
+        "babel-plugin-transform-merge-sibling-variables",
+        "@babel/plugin-transform-reserved-words",
+        "babel-plugin-graphql-tag"
+    ]
 }

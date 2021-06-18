@@ -17,7 +17,9 @@
         },
         {
             "id": "interact",
-            "type": "typescript",
+            "type": "custom",
+            "command": "microbuild --target browser",
+            "devcommand": "microbuild watch --target browser",
             "package": "interact",
             "runInEnvironments": [
                 "prod",

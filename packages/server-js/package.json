@@ -29,6 +29,6 @@
         "graphql-redis-subscriptions": "^2.4.0",
         "graphql-subscriptions": "^1.2.1",
         "ioredis": "^4.27.6",
-        "mercurius": "^7.9.0"
+        "mercurius": "^7.9.1"
     }
 }

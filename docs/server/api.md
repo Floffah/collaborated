@@ -1,3 +1,7 @@
+## THIS IS OUT OF DATE
+
+a server is no longer used for collaborated
+
 # API
 
 Server implementations should follow the following format:

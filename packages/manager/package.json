@@ -13,7 +13,7 @@
     "dependencies": {
         "@iarna/toml": "^2.2.5",
         "@octokit/app": "^12.0.3",
-        "@octokit/graphql-schema": "^10.48.0",
+        "@octokit/graphql-schema": "^10.49.0",
         "@octokit/types": "^6.16.4",
         "chalk": "^4.1.1",
         "commander": "^7.2.0",

@@ -1,13 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { createRef, useContext, useState } from "react";
 
-import {
-    ButtonContainer,
-    LoginBody,
-    LoginHeader,
-    LoginMenuContainer,
-    Reminder,
-} from "./LoginMenu.styles";
+import { ButtonContainer, LoginBody, LoginHeader, LoginMenuContainer, Reminder } from "./LoginMenu.styles";
 import TextInput from "../../input/TextInput";
 import { mdiEmail, mdiLock } from "@mdi/js";
 import Button from "../../input/Button";
@@ -48,10 +42,17 @@ export const LoginMenu: React.FC = (_p) => {
         c.client.on("ready", () => {
             r.push("/dash");
         });
-        await c.client.login({
-            email: uref.current.value,
-            password: pref.current.value,
-        });
+        try {
+            await c.client.login({
+                email: uref.current.value,
+                password: pref.current.value,
+            });
+        } catch (e) {
+            if (e.message.includes("Invalid auth")) {
+                setUerr(true);
+                setPerr(true);
+            }
+        }
         setIsConn(false);
     };
 
@@ -59,10 +60,7 @@ export const LoginMenu: React.FC = (_p) => {
         "enter",
         (k) => {
             console.log(k);
-            if (
-                document.activeElement === uref.current ||
-                document.activeElement === pref.current
-            ) {
+            if (document.activeElement === uref.current || document.activeElement === pref.current) {
                 bref.current?.focus();
             }
         },
@@ -113,13 +111,7 @@ export const LoginMenu: React.FC = (_p) => {
                             {t("reg")}
                         </Button>
                     </Tooltip>
-                    <Button
-                        fontSize={18}
-                        type="primary"
-                        onClick={() => login()}
-                        disabled={isConn}
-                        ref={bref}
-                    >
+                    <Button fontSize={18} type="primary" onClick={() => login()} disabled={isConn} ref={bref}>
                         {t("login")}
                     </Button>
                 </ButtonContainer>
