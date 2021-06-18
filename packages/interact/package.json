@@ -21,7 +21,7 @@
     },
     "devDependencies": {
         "@babel/plugin-transform-reserved-words": "^7.14.5",
-        "@types/node": "^15.12.2",
+        "@types/node": "^15.12.3",
         "@types/ws": "^7.4.5",
         "babel-plugin-graphql-tag": "^3.3.0",
         "babel-plugin-transform-merge-sibling-variables": "^6.9.4",

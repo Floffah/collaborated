@@ -1684,7 +1684,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/app@workspace:packages/app"
   dependencies:
-    "@types/node": ^15.12.2
+    "@types/node": ^15.12.3
     electron: ^13.1.2
     electron-builder: ^22.11.7
     electron-debug: ^3.2.0
@@ -1697,7 +1697,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/common@workspace:packages/common"
   dependencies:
-    "@types/node": ^15.12.2
+    "@types/node": ^15.12.3
     graphql: ^15.5.0
     typescript: ^4.3.4
   languageName: unknown
@@ -1707,7 +1707,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@collaborated/gql@workspace:packages/gql"
   dependencies:
-    "@types/node": ^15.12.2
+    "@types/node": ^15.12.3
     graphql: ^15.5.0
     graphql-subscriptions: ^1.2.1
     typescript: ^4.3.4
@@ -1723,7 +1723,7 @@ __metadata:
     "@apollo/client": ^3.3.20
     "@babel/plugin-transform-reserved-words": ^7.14.5
     "@collaborated/common": 0.0.1
-    "@types/node": ^15.12.2
+    "@types/node": ^15.12.3
     "@types/ws": ^7.4.5
     apollo-link-error: ^1.1.13
     axios: ^0.21.1
@@ -1752,7 +1752,7 @@ __metadata:
     "@octokit/types": ^6.16.4
     "@types/debug": ^4.1.5
     "@types/iarna__toml": ^2.0.1
-    "@types/node": ^15.12.2
+    "@types/node": ^15.12.3
     chalk: ^4.1.1
     commander: ^7.2.0
     debug: ^4.3.1
@@ -1774,7 +1774,7 @@ __metadata:
     "@prisma/client": ^2.25.0
     "@types/debug": ^4.1.5
     "@types/ioredis": ^4.26.4
-    "@types/node": ^15.12.2
+    "@types/node": ^15.12.3
     "@types/ws": ^7.4.5
     chalk: ^4.1.1
     crypto-random-string: ~4.0.0
@@ -1816,7 +1816,7 @@ __metadata:
     "@storybook/addons": ^6.2.9
     "@storybook/react": ^6.2.9
     "@storybook/theming": ^6.2.9
-    "@types/node": ^15.12.2
+    "@types/node": ^15.12.3
     "@types/react": ^17.0.11
     "@types/react-dom": ^17.0.8
     "@types/styled-components": ^5.1.10
@@ -1841,11 +1841,11 @@ __metadata:
     prisma: ^2.25.0
     react: ^17.0.2
     react-dom: ^17.0.2
-    react-hotkeys-hook: ^3.3.1
+    react-hotkeys-hook: ^3.3.2
     react-is: ^17.0.2
     react-popper: ^2.2.5
     react-redux: ^7.2.4
-    react-tsparticles: ^1.28.2
+    react-tsparticles: ^1.29.0
     redux: ^4.1.0
     redux-devtools-extension: ^2.13.9
     storybook-mobile: ^0.1.32
@@ -5510,7 +5510,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^15.12.2":
+"@types/node@npm:*, @types/node@npm:^15.12.3":
   version: 15.12.3
   resolution: "@types/node@npm:15.12.3"
   checksum: 1e7a4f5675416f4dd61a7c16a8754272d0772bec070c1737e848598dad5c4a04fd3d249aab2b456c0f66fbbe8eb0e831ae5d2a4873385fee33ccd4935a53d300
@@ -20065,7 +20065,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-hotkeys-hook@npm:^3.3.1":
+"react-hotkeys-hook@npm:^3.3.2":
   version: 3.3.2
   resolution: "react-hotkeys-hook@npm:3.3.2"
   dependencies:
@@ -20290,16 +20290,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-tsparticles@npm:^1.28.2":
-  version: 1.28.2
-  resolution: "react-tsparticles@npm:1.28.2"
+"react-tsparticles@npm:^1.29.0":
+  version: 1.29.0
+  resolution: "react-tsparticles@npm:1.29.0"
   dependencies:
     fast-deep-equal: ^3.1.3
-    tslib: ^2.2.0
-    tsparticles: ^1.28.2
+    tslib: ^2.3.0
+    tsparticles: ^1.29.0
   peerDependencies:
     react: ">=16"
-  checksum: 4e988d699acc65ba0e6102a558e24ca2213c834db4adc5578a8e0e78de755b6645623ebc29fe371322753b35f5df9d214ba1332d762887830baa6f3609f56a22
+  checksum: c479acf04168427db786b1d65cca391293276ef506e3076adced00f172fdaaf0e1fc379b94ad362b6f131035e0d464c10af70641c8b976d5a955a60131ae8187
   languageName: node
   linkType: hard
 
@@ -23388,22 +23388,22 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0":
   version: 2.3.0
   resolution: "tslib@npm:2.3.0"
   checksum: 7b4fc9feff0f704743c3760f5d8d708f6417fac6458159e63df3a6b1100f0736e3b99edb9fe370f274ad15160a1f49ff05cb49402534c818ff552c48e38c3e6e
   languageName: node
   linkType: hard
 
-"tsparticles@npm:^1.28.2":
-  version: 1.28.2
-  resolution: "tsparticles@npm:1.28.2"
+"tsparticles@npm:^1.29.0":
+  version: 1.29.0
+  resolution: "tsparticles@npm:1.29.0"
   dependencies:
     pathseg: ^1.2.0
   dependenciesMeta:
     pathseg:
       optional: true
-  checksum: 4c79cae218e10ad4f0075ddd12b0e96cefed1a76121f148b4b3261ef8be1013af3674e004a9105ac0b1c35d079dcccad16ab4522940412104f469a5d0544fdd3
+  checksum: 81a5cf52a8cf0af6698b60c51b7ac94cfe15c786c55fc4038389dc20811425dbc5a917750b0d044fa1f963c3d6c11c97d0511e3bc15658b8b8d144593b2309a8
   languageName: node
   linkType: hard
 
