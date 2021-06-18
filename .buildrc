@@ -45,10 +45,19 @@
             ]
         },
         {
-            "id": "prisma",
+            "id": "prisma-generate",
             "type": "custom",
             "package": "web",
             "command": "prisma generate",
+            "runInEnvironments": [
+                "prod"
+            ]
+        },
+        {
+            "id": "prisma-deploy",
+            "type": "custom",
+            "package": "web",
+            "command": "prisma migrate deploy",
             "runInEnvironments": [
                 "prod"
             ]
