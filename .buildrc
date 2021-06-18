@@ -36,6 +36,24 @@
             ]
         },
         {
+            "id": "gql",
+            "type": "typescript",
+            "package": "gql",
+            "runInEnvironments": [
+                "dev",
+                "prod"
+            ]
+        },
+        {
+            "id": "prisma",
+            "type": "custom",
+            "package": "web",
+            "command": "prisma generate",
+            "runInEnvironments": [
+                "prod"
+            ]
+        },
+        {
             "id": "web",
             "type": "next",
             "package": "web",
@@ -43,15 +61,6 @@
             "runInEnvironments": [
                 "prod",
                 "dev"
-            ]
-        },
-        {
-            "id": "prisma",
-            "type": "custom",
-            "package": "server",
-            "command": "prisma generate",
-            "runInEnvironments": [
-                "prod"
             ]
         },
         {
@@ -81,15 +90,6 @@
             "dontUsePackagePrefix": true,
             "runInEnvironments": [
                 "dev"
-            ]
-        },
-        {
-            "id": "gql",
-            "type": "typescript",
-            "package": "gql",
-            "runInEnvironments": [
-                "dev",
-                "prod"
             ]
         },
         {

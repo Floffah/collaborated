@@ -43,8 +43,6 @@ run `yarn build` for more information
 
 - `master` - This is where all pull requests and edits should be sent to. Can be tested
   at https://master.capp.floffah.dev
-- `beta` - Every time master is at a point where it needs to be tested in "production" but without breaking anything,
-  master will be merged into beta. Can be tested at https://beta.capp.floffah.dev
 - `production` - This is the production branch that vercel pushes to https://capp.floffah.dev
 
 ### Packages
@@ -69,8 +67,9 @@ run `yarn build` for more information
 For docs and the component library clone the repo and start storybook in the web package. Documentation will be moved
 elsewhere once needed but is not a priority<br/>
 [Production deployment](https://capp.floffah.dev) <br/>
-[Preview (beta) deployment](https://beta.capp.floffah.dev) <br/>
+[Production API](https://capp.floffah.dev/api/graphql) <br/>
 [Preview (master) deployment](https://master.capp.floffah.dev) <br/>
+[Preview (master) API](https://master.capp.floffah.dev/api/graphql) <br/>
 [Discord](https://discord.gg/tTfksMfb3z)
 
 ## Todo
