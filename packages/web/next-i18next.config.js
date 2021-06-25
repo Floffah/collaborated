@@ -1,4 +1,4 @@
-const locales = ["en"];
+const locales = ["en", "el", "es", "fr"];
 
 module.exports = {
     ns: ["common", "errors", "login", "seo"],
@@ -8,10 +8,7 @@ module.exports = {
     },
     defaultNS: "common",
     preload: locales,
-    localePath:
-        typeof window === "undefined"
-            ? "public/static/locales"
-            : "static/locales",
+    localePath: typeof window === "undefined" ? "public/static/locales" : "static/locales",
     cleanCode: true,
     fallbackNS: ["common", "errors", "seo"],
     fallbackLng: "en",
