@@ -4,7 +4,7 @@
     "extensions": {
         "endpoints": {
             "Local Schema": {
-                "url": "http://localhost/v1/graphql",
+                "url": "http://localhost:3000/api/graphql",
                 "headers": {
                     "user-agent": "JS GraphQL"
                 },
