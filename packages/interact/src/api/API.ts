@@ -172,7 +172,8 @@ export default class API {
             this.apiurl = `http://${this.client.host}/api/graphql`;
         else this.apiurl = `https://${this.client.host}/api/graphql`;
 
-        this.wsurl = this.apiurl.replace(/^https?/, "ws");
+        if (this.apiurl.startsWith("https")) this.wsurl = this.apiurl.replace(/^https?/, "wss");
+        else this.wsurl = this.apiurl.replace(/^https?/, "ws");
 
         this.errorLink = onError((e) => {
             if (e.graphQLErrors) {
