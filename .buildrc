@@ -7,14 +7,6 @@
     ],
     "commands": [
         {
-            "id": "lint",
-            "type": "custom",
-            "common": "eslint .",
-            "runInEnvironments": [
-                "prod"
-            ]
-        },
-        {
             "id": "common",
             "type": "typescript",
             "package": "common",
