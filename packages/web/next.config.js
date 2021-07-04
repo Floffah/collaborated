@@ -16,4 +16,7 @@ module.exports = tm({
     future: {
         modern: true,
     },
+    eslint: {
+        ignoreDuringBuilds: true, // it is ran as a script during building the whole project as next doesnt pick up the eslintignore file to ignore the nexus typgen file.
+    },
 });

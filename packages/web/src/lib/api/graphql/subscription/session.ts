@@ -46,7 +46,6 @@ export const SessionFields = (t: SubscriptionBuilder) => {
     t.field("sessionStateChange", {
         type: StateChangeEnum,
         description: "Updated when the current session changes state. Most commonly used to check for the ready state",
-        resolve: (data) => data,
         subscribe: withTypedFilter(
             filterContext((c) => c.ps.asyncIterator(SubscriptionType.sessionStateChange), true, true),
             withValidFilterData(
@@ -65,6 +64,7 @@ export const SessionFields = (t: SubscriptionBuilder) => {
                 false,
             ),
         ),
+        resolve: (data: any) => data,
     });
 };
 

@@ -12,7 +12,7 @@ import {
     subscriptionExchange,
     TypedDocumentNode,
 } from "urql";
-import { DocumentNode, printError } from "graphql";
+import { DocumentNode } from "graphql";
 import { pipe, subscribe } from "wonka";
 
 export type AuthOptions = UserAuthOptions | BotAuthOptions;

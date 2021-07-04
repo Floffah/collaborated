@@ -13,3 +13,4 @@ _build/
 assets
 priv
 packages/web/src/lib/api/typegen.ts
+storybook-dist

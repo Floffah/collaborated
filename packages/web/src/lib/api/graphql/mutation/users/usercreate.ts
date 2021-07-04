@@ -16,7 +16,7 @@ export const UserCreateFields = (t: ObjectDefinitionBlock<"Mutation">) => {
             queryArgs(a, ["username", "password", "email"]);
             await withLimit(LimitType.CreateUser, c);
 
-            await c.db.user.create({
+            const u = await c.db.user.create({
                 data: {
                     client: {
                         create: {
@@ -28,6 +28,8 @@ export const UserCreateFields = (t: ObjectDefinitionBlock<"Mutation">) => {
                     email: a.email,
                 },
             });
+
+            return !!u;
         },
     });
 };
