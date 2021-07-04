@@ -1,5 +1,10 @@
-import { buildObject } from "@collaborated/gql";
 import { SessionFields } from "./subscription/session";
-import { QueryContext } from "../../util/types";
+import { subscriptionType } from "nexus";
 
-export const subscription = buildObject<any, QueryContext>("RootSubscribtion; Root subscribtion", [...SessionFields]);
+// export const subscription = buildObject<any, QueryContext>("RootSubscribtion; Root subscribtion", [...SessionFields]);
+
+export const subscription = subscriptionType({
+    definition: (t) => {
+        SessionFields(t);
+    },
+});

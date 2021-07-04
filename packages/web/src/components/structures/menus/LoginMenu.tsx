@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { createRef, useContext, useState } from "react";
+import React, { createRef, useContext, useEffect, useState } from "react";
 
 import { ButtonContainer, LoginBody, LoginHeader, LoginMenuContainer, Reminder } from "./LoginMenu.styles";
 import TextInput from "../../input/TextInput";
@@ -20,8 +20,25 @@ export const LoginMenu: React.FC = (_p) => {
     const uref = createRef<HTMLInputElement>();
     const pref = createRef<HTMLInputElement>();
     const bref = createRef<HTMLButtonElement>();
-    const c = useContext(ClientContext);
-    const r = useRouter();
+    const client = useContext(ClientContext);
+    const router = useRouter();
+
+    useEffect(() => {
+        const progressListener = (p: number) => {
+            console.log(`Login progress: ${p * 100}%`);
+        };
+        const readyListener = () => {
+            router.push("/dash");
+        };
+
+        client.client.on("loginprogress", progressListener);
+        client.client.on("ready", readyListener);
+
+        return () => {
+            client.client.removeListener("loginprogress", progressListener);
+            client.client.removeListener("ready", readyListener);
+        };
+    });
 
     const login = async () => {
         let either = false;
@@ -36,18 +53,13 @@ export const LoginMenu: React.FC = (_p) => {
         if (either) return;
         if (!uref.current || !pref.current) return; // this is for typescript's sake
         setIsConn(true);
-        c.client.on("loginprogress", (p) => {
-            console.log(`Login progress: ${p * 100}%`);
-        });
-        c.client.on("ready", () => {
-            r.push("/dash");
-        });
         try {
-            await c.client.login({
+            await client.client.login({
                 email: uref.current.value,
                 password: pref.current.value,
             });
         } catch (e) {
+            console.log(e);
             if (e.message.includes("Invalid auth")) {
                 setUerr(true);
                 setPerr(true);

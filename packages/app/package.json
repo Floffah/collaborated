@@ -5,11 +5,11 @@
   "main": "./dist/index.js",
   "description": "Collaborated desktop application",
   "devDependencies": {
-    "@types/node": "^15.12.3",
-    "electron": "^13.1.2",
+    "@types/node": "^16.0.0",
+    "electron": "^13.1.5",
     "electron-builder": "^22.11.7",
     "electron-debug": "^3.2.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "source-map-support": "^0.5.19"

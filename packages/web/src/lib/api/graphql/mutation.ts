@@ -1,6 +1,10 @@
-import { buildObject } from "@collaborated/gql";
+import { mutationType } from "nexus";
 import { AuthFields } from "./mutation/auth";
 import { UserCreateFields } from "./mutation/users/usercreate";
-import { QueryContext } from "../../util/types";
 
-export const mutation = buildObject<any, QueryContext>("RootMutation; Root mutation", () => [...AuthFields, ...UserCreateFields]);
+export const mutation = mutationType({
+    definition: (t) => {
+        AuthFields(t);
+        UserCreateFields(t);
+    },
+});

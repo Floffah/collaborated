@@ -1,25 +1,19 @@
 import { Client } from "../core/Client";
-import { getMainDefinition } from "@apollo/client/utilities";
-import { WebSocketLink } from "@apollo/client/link/ws";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import ws from "ws";
 import chalk from "chalk";
 import { printQuery } from "../util/queries";
-import gql from "graphql-tag";
-import { onError } from "@apollo/client/link/error";
 import {
-    ApolloClient,
-    ApolloLink,
-    concat,
-    DocumentNode,
-    HttpLink,
-    InMemoryCache,
-    MutationOptions,
-    NormalizedCacheObject,
-    QueryOptions,
-    split,
+    Client as URQLClient,
+    createClient,
+    defaultExchanges,
+    gql,
+    OperationContext,
+    subscriptionExchange,
     TypedDocumentNode,
-} from "@apollo/client/core";
+} from "urql";
+import { DocumentNode, printError } from "graphql";
+import { pipe, subscribe } from "wonka";
 
 export type AuthOptions = UserAuthOptions | BotAuthOptions;
 
@@ -34,15 +28,16 @@ export interface BotAuthOptions {
 
 export default class API {
     client: Client;
-
-    authLink: ApolloLink;
-    httpLink: ApolloLink;
-    subLink: WebSocketLink;
     subClient: SubscriptionClient;
-    splitLink: ApolloLink;
-    errorLink: ApolloLink;
-    cache: InMemoryCache;
-    apollo: ApolloClient<NormalizedCacheObject>;
+    urql: URQLClient;
+
+    // authLink: ApolloLink;
+    // httpLink: ApolloLink;
+    // subLink: WebSocketLink;
+    // splitLink: ApolloLink;
+    // errorLink: ApolloLink;
+    // cache: InMemoryCache;
+    // apollo: ApolloClient<NormalizedCacheObject>;
 
     apiurl: string;
     wsurl: string;
@@ -87,6 +82,14 @@ export default class API {
             this.details.refresh = deets.data.getTokens.refresh;
         }
         this.startEvents();
+        if (this.details.access && this.details.refresh) {
+            this.client.authenticated = true;
+            this.client.emit("ready");
+        } else {
+            throw new Error(
+                "There were no present access or refresh tokens after the authentication process and got this far so something went very wrong. Developers check sentry or the vercel serverless logs",
+            );
+        }
     }
 
     startEvents() {
@@ -95,9 +98,13 @@ export default class API {
                 sessionStateChange
             }
         `);
-        s.subscribe((data) => {
-            if (data.data.sessionStateChange === "EXPIRE") {
-                this.refresh();
+        s.subscribe((data: any) => {
+            console.log(data);
+
+            if (data && data.data) {
+                if (data.data.sessionStateChange === "EXPIRE") {
+                    this.refresh();
+                }
             }
         });
     }
@@ -126,14 +133,11 @@ export default class API {
     async mutate<Var extends Record<any, any>>(
         mutation: DocumentNode | TypedDocumentNode<any, Var>,
         variables?: Var,
-        opts?: MutationOptions<any, Var>,
+        context?: Partial<OperationContext>,
     ) {
         this.client._debug(() => chalk`{blue MUTATE} {gray ${printQuery(mutation)}}`);
-        const m = await this.apollo.mutate({
-            mutation,
-            variables,
-            ...opts,
-        });
+        const m = await this.urql.mutation(mutation, variables, context).toPromise();
+        if (m.error) throw m.error;
         this.client._debug(() => chalk`{green MUTATE} {gray ${JSON.stringify(m.data)}}`);
         return m;
     }
@@ -141,14 +145,11 @@ export default class API {
     async query<Var extends Record<any, any>>(
         query: DocumentNode | TypedDocumentNode<any, Var>,
         variables?: Var,
-        opts?: QueryOptions<any, Var>,
+        context?: Partial<OperationContext>,
     ) {
         this.client._debug(() => chalk`{blue QUERY} {gray ${printQuery(query)}}`);
-        const m = await this.apollo.query({
-            query,
-            variables,
-            ...opts,
-        });
+        const m = await this.urql.query(query, variables, context).toPromise();
+        if (m.error) throw m.error;
         this.client._debug(() => chalk`{green QUERY} {gray ${JSON.stringify(m.data)}}`);
         return m;
     }
@@ -156,131 +157,74 @@ export default class API {
     subscribe<Var extends Record<any, any>>(
         subscription: DocumentNode | TypedDocumentNode<any, Var>,
         variables?: Var,
-        opts?: MutationOptions<any, Var>,
+        context?: Partial<OperationContext>,
     ) {
         this.client._debug(() => chalk`{green SUBSCRIBE} {gray ${printQuery(subscription)}}`);
-        return this.apollo.subscribe({
-            query: subscription,
-            variables,
-            ...opts,
-        });
+        const sub = this.urql.subscription(subscription, variables, context);
+        return {
+            subscribe: (...args: Parameters<typeof subscribe>) => {
+                return pipe(sub, subscribe(...args));
+            },
+        };
     }
 
     async init() {
         //const data = await axios.get("http://" + this.client.host);
-        if (this.client.host === "localhost:3000" || !this.client.opts.useHttps)
+        if (this.client.host === "localhost:3000" || !this.client.opts.useHttps) {
             this.apiurl = `http://${this.client.host}/api/graphql`;
-        else this.apiurl = `https://${this.client.host}/api/graphql`;
+        } else {
+            this.apiurl = `https://${this.client.host}/api/graphql`;
+        }
 
-        if (this.apiurl.startsWith("https")) this.wsurl = this.apiurl.replace(/^https?/, "wss");
-        else this.wsurl = this.apiurl.replace(/^https?/, "ws");
+        if (this.apiurl.startsWith("https")) {
+            this.wsurl = this.apiurl.replace(/^https?/, "wss");
+        } else {
+            this.wsurl = this.apiurl.replace(/^https?/, "ws");
+        }
 
-        this.errorLink = onError((e) => {
-            if (e.graphQLErrors) {
-                for (const err of e.graphQLErrors) {
-                    console.log(`[GraphQL Error] ${err.message}; ${err.locations}; ${err.path}`);
-                }
-            }
-        });
+        this.subClient = new SubscriptionClient(
+            this.wsurl,
+            {
+                reconnect: true,
+                reconnectionAttempts: 3,
+                timeout: 3000,
+                connectionParams: () => {
+                    if (this.authstatus === "bot") {
+                        return {
+                            capp_auth: `TOKEN ${this.details.token}`,
+                        };
+                    } else if (this.authstatus === "user") {
+                        return {
+                            capp_auth: `ACCESS ${this.details.access}`,
+                        };
+                    } else {
+                        return {};
+                    }
+                },
+            },
+            typeof document !== "undefined" ? WebSocket : ws,
+        );
+        this.urql = createClient({
+            url: this.apiurl,
+            fetchOptions: () => {
+                const opts: RequestInit = {};
 
-        if (this.client.opts.method === "rest" || this.client.opts.method === "auto") {
-            this.authLink = new ApolloLink((op, next) => {
                 if (this.authstatus === "bot" && typeof this.details.token !== "undefined") {
-                    op.setContext({
-                        headers: {
-                            CAPP_AUTH: `TOKEN ${this.details.token}`,
-                        },
-                    });
+                    opts.headers = {};
+                    opts.headers["CAPP_AUTH"] = `TOKEN ${this.details.token}`;
                 } else if (this.authstatus === "user" && typeof this.details.access !== "undefined") {
-                    op.setContext({
-                        headers: {
-                            CAPP_AUTH: `ACCESS ${this.details.access}`,
-                        },
-                    });
+                    opts.headers = {};
+                    opts.headers["CAPP_AUTH"] = `ACCESS ${this.details.access}`;
                 }
 
-                return next(op);
-            });
-
-            this.httpLink = new HttpLink({
-                uri: this.apiurl,
-            });
-        }
-
-        if (this.client.opts.method === "ws" || this.client.opts.method === "auto") {
-            // this.subClient = new SubscriptionClient(
-            //     this.wsurl,
-            //     {
-            //         reconnect: true,
-            //         inactivityTimeout: 10000,
-            //         timeout: 30000,
-            //         reconnectionAttempts: 3,
-            //         connectionParams: () => {
-            //             if (this.authstatus === "bot") {
-            //                 return {
-            //                     capp_auth: `TOKEN ${this.details.token}`,
-            //                 };
-            //             } else if (this.authstatus === "user") {
-            //                 return {
-            //                     capp_auth: `ACCESS ${this.details.access}`,
-            //                 };
-            //             } else {
-            //                 return {};
-            //             }
-            //         },
-            //     },
-            //     typeof window !== "undefined" ? WebSocket : ws,
-            // );
-            this.subLink = new WebSocketLink({
-                webSocketImpl: typeof window !== "undefined" ? WebSocket : ws,
-                uri: this.wsurl,
-                options: {
-                    reconnect: true,
-                    reconnectionAttempts: 3,
-                    timeout: 3000,
-                    connectionParams: () => {
-                        if (this.authstatus === "bot") {
-                            return {
-                                capp_auth: `TOKEN ${this.details.token}`,
-                            };
-                        } else if (this.authstatus === "user") {
-                            return {
-                                capp_auth: `ACCESS ${this.details.access}`,
-                            };
-                        } else {
-                            return {};
-                        }
-                    },
-                },
-            });
-        }
-
-        if (this.client.opts.method === "auto") {
-            this.splitLink = split(
-                (q: QueryOptions) => {
-                    const def = getMainDefinition(q.query);
-                    return def.kind === "OperationDefinition" && def.operation === "subscription";
-                },
-                this.subLink,
-                this.httpLink,
-            );
-        }
-
-        let finalLink;
-        if (this.client.opts.method === "auto") {
-            finalLink = this.splitLink;
-        } else if (this.client.opts.method === "rest") {
-            finalLink = concat(this.authLink, this.httpLink);
-        } else if (this.client.opts.method === "ws") {
-            finalLink = this.subLink;
-        }
-
-        if (!finalLink) throw "Something went horribly wrong when creating links";
-
-        this.cache = new InMemoryCache();
-        this.apollo = new ApolloClient({
-            link: finalLink,
-            cache: this.cache,
+                return opts;
+            },
+            exchanges: [
+                ...defaultExchanges,
+                subscriptionExchange({
+                    forwardSubscription: (op) => this.subClient.request(op),
+                }),
+            ],
         });
     }
 }

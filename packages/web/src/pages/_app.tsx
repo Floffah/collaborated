@@ -13,7 +13,7 @@ import i18nconfig from "../../next-i18next.config";
 
 const App: React.FC<AppProps> = (p) => {
     const s = useStore(p.pageProps.initialState);
-    const [c, setc] = useState(new WebClient());
+    const [c, setc] = useState(typeof window !== "undefined" ? new WebClient() : (null as unknown as WebClient));
     const ts = useTranslation("seo").t;
 
     useHotkeys(
@@ -21,10 +21,7 @@ const App: React.FC<AppProps> = (p) => {
         (e) => {
             e.preventDefault();
             c.placeholder = !s.getState().mode.preview;
-            sessionStorage.setItem(
-                "preview",
-                !s.getState().mode.preview ? "true" : "false",
-            );
+            sessionStorage.setItem("preview", !s.getState().mode.preview ? "true" : "false");
             setc(c);
             s.dispatch({
                 type: ActionType.PreviewToggle,
@@ -48,8 +45,7 @@ const App: React.FC<AppProps> = (p) => {
                     description: ts("description"),
                     images: [
                         {
-                            url:
-                                "https://raw.githubusercontent.com/Floffah/collaborated/master/brand/collaborated(3.1).png",
+                            url: "https://raw.githubusercontent.com/Floffah/collaborated/master/brand/collaborated(3.1).png",
                         },
                     ],
                     site_name: "Collaborated",

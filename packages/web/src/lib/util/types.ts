@@ -20,6 +20,7 @@ export interface BaseQueryContext {
     user?: User;
     bot?: BotUser;
     auth: "user" | "bot" | "none";
+    connectionParamsError?: boolean;
 }
 
 export interface UserQueryContext extends BaseQueryContext {

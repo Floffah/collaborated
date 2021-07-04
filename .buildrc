@@ -17,8 +17,10 @@
         },
         {
             "id": "interact",
-            "type": "typescript",
+            "type": "custom",
             "package": "interact",
+            "command": "tsup --minify",
+            "devcommand": "tsup --watch",
             "runInEnvironments": [
                 "prod",
                 "dev"

@@ -1,7 +1,7 @@
 import ax, { AxiosInstance } from "axios";
 import events from "events";
+import { gql } from "urql";
 import API, { AuthOptions } from "../api/API";
-import gql from "graphql-tag";
 
 interface ClientOptions {
     /**
@@ -54,13 +54,16 @@ export class Client extends events.EventEmitter {
         this.opts = {
             debug: false,
             overrideHost: undefined,
-            useHttps: true,
+            useHttps: typeof window !== "undefined" ? window.location.protocol === "https:" : true,
             method: "auto",
             ...opts,
         };
         if (!opts.placeholder) {
             if (typeof window !== "undefined") {
-                this.host = this.opts.overrideHost ?? window.location.hostname; // to support localhost in dev, master.capp.floffah.dev in preview, and capp.floffah.dev in production automatically
+                this.host =
+                    this.opts.overrideHost ??
+                    window.location.hostname +
+                        (window.location.port && window.location.port !== "" ? ":" + window.location.port : ""); // to support localhost in dev, master.capp.floffah.dev in preview, and capp.floffah.dev in production automatically
             } else {
                 this.host = this.opts.overrideHost ?? "capp.floffah.dev";
             }

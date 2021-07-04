@@ -1,23 +1,29 @@
-import { buildArgument, buildField, buildObject, LiteralTypeFields } from "@collaborated/gql";
-import { GraphQLNonNull, GraphQLString } from "graphql";
-import { QueryContext } from "../../../util/types";
 import { queryArgs } from "../../../util/validation";
 import { generateUserTokens } from "../../../util/tokens";
 import { UserInputError } from "apollo-server-micro";
+import { ObjectDefinitionBlock } from "nexus/dist/definitions/objectType";
+import { nonNull, objectType, stringArg } from "nexus";
 
-export const AuthDetails = buildObject<any, QueryContext>("AuthDetails; Post-authentication details", () => [
-    buildField("access; The main access code or the current session", GraphQLString),
-    buildField(
-        "refresh; The refresh code that should be used to generate a new access code after the current session has ended",
-        GraphQLString,
-    ),
-]);
+export const AuthDetails = objectType({
+    name: "AuthDetails",
+    description: "Post-authentication details",
+    definition: (t) => {
+        t.string("access", { description: "The main access code or the current session" });
+        t.string("refresh", {
+            description: "The refresh code that should be used to generate a new access code after the current session has ended",
+        });
+    },
+});
 
-export const AuthFields: LiteralTypeFields<any, QueryContext> = [
-    buildField(
-        "getTokens; (USER) Generate new tokens to authenticate with",
-        AuthDetails,
-        async (_s, a, c) => {
+export const AuthFields = (t: ObjectDefinitionBlock<"Mutation">) => {
+    t.field("getTokens", {
+        description: "(USER) Generate new tokens to authenticate with",
+        type: AuthDetails,
+        args: {
+            email: nonNull(stringArg({ description: "Email to authenticate with" })),
+            password: nonNull(stringArg({ description: "Password to authenticate with" })),
+        },
+        resolve: async (_s, a, c) => {
             queryArgs(a, ["email", "password"]);
 
             const user = await c.db.user.findFirst({
@@ -42,15 +48,16 @@ export const AuthFields: LiteralTypeFields<any, QueryContext> = [
 
             return tokens;
         },
-        [
-            buildArgument("email; Email to authenticate with", GraphQLNonNull(GraphQLString)),
-            buildArgument("password; Password to authenticate with", GraphQLNonNull(GraphQLString)),
-        ],
-    ),
-    buildField(
-        "refresh; (USER) Refresh your access token",
-        AuthDetails,
-        async (_s, a, c) => {
+    });
+
+    t.field("refresh", {
+        type: AuthDetails,
+        description: "(USER) Refresh your access token",
+        args: {
+            refresh: nonNull(stringArg({ description: "Your refresh token" })),
+            access: nonNull(stringArg({ description: "Your access token. Must pass this as well for security purposes" })),
+        },
+        resolve: async (_s, a, c) => {
             queryArgs(a, ["refresh", "access"]);
 
             const user = await c.db.user.findFirst({
@@ -78,12 +85,5 @@ export const AuthFields: LiteralTypeFields<any, QueryContext> = [
                 refresh: tokens.refresh,
             };
         },
-        [
-            buildArgument("refresh; Your refresh token", GraphQLNonNull(GraphQLString)),
-            buildArgument(
-                "access; Your access token. Must pass this as well for security purposes",
-                GraphQLNonNull(GraphQLString),
-            ),
-        ],
-    ),
-];
+    });
+};

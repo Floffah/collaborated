@@ -1,20 +1,28 @@
 import { QueryContext, SubscriptionType } from "./types";
 import { minutes } from "./time";
 import { publishData } from "./subscription";
-import { StateChangeEnum } from "../api/graphql/subscription/session";
+// import { StateChangeEnum } from "../api/graphql/subscription/session";
 import { AuthenticationError, UserInputError } from "apollo-server-micro";
 import SessionError from "../api/errors/SessionError";
 
 export function userValidation(context: QueryContext, noinvalidate?: boolean) {
-    if (context.auth === "none")
-        throw new AuthenticationError("Not authenticated; Must defined CAPP_AUTH; see docs/server/api.md#authentication");
+    if (context.auth === "none") {
+        if (context.connectionParamsError) {
+            throw new AuthenticationError(
+                "Connection params error during socket connection, could not warn client before proceeding.",
+            );
+        } else {
+            throw new AuthenticationError("Not authenticated; Must defined CAPP_AUTH; see docs/server/api.md#authentication");
+        }
+    }
+
     if (!noinvalidate && context.auth === "user" && context.user) {
         if (!context.user.expired && context.user.lastAccess.getTime() < Date.now() - minutes(20)) {
             context.ps.publish(
                 SubscriptionType.sessionStateChange,
                 publishData(
                     {
-                        sessionStateChange: StateChangeEnum.EXPIRE,
+                        sessionStateChange: "EXPIRE",
                     },
                     {
                         id: 1,

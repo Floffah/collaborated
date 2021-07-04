@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { UserInputError } from "apollo-server-micro";
 
 // params is usually either request headers or subscription connection params
-export async function getClientContext(db: PrismaClient, params: any, fallbackparams?: any) {
+export async function getClientContext(db: PrismaClient, params: any, fallbackparams?: any, isSubscription?: boolean) {
     const def = {
         auth: "none",
     };
@@ -37,7 +37,14 @@ export async function getClientContext(db: PrismaClient, params: any, fallbackpa
                 auth: "user",
                 user,
             };
-        } else throw new UserInputError("Invalid access code");
+        } else {
+            if (isSubscription) {
+                return {
+                    auth: "none",
+                    connectionParamsError: true,
+                };
+            } else throw new UserInputError("Invalid access code");
+        }
     } else if (fulltoken.startsWith("TOKEN ")) {
         const token = fulltoken.replace("TOKEN ", "");
         const bot = await db.botUser.findFirst({
@@ -50,7 +57,14 @@ export async function getClientContext(db: PrismaClient, params: any, fallbackpa
                 auth: "bot",
                 bot,
             };
-        } else throw new UserInputError("Invalid token");
+        } else {
+            if (isSubscription) {
+                return {
+                    auth: "none",
+                    connectionParamsError: true,
+                };
+            } else throw new UserInputError("Invalid token");
+        }
     }
     return def;
 }

@@ -5,26 +5,26 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "dependencies": {
-        "@apollo/client": "^3.3.20",
         "@collaborated/common": "0.0.1",
-        "apollo-link-error": "^1.1.13",
         "axios": "^0.21.1",
         "bufferutil": "^4.0.3",
         "chalk": "^4.1.1",
         "cheerio": "^1.0.0-rc.10",
         "cross-fetch": "^3.1.4",
-        "graphql": "^15.5.0",
-        "graphql-tag": "^2.12.4",
+        "graphql": "^15.5.1",
         "subscriptions-transport-ws": "^0.9.19",
+        "urql": "^2.0.4",
         "utf-8-validate": "^5.0.5",
-        "ws": "^7.5.0"
+        "wonka": "^4.0.15",
+        "ws": "^7.5.2"
     },
     "devDependencies": {
         "@babel/plugin-transform-reserved-words": "^7.14.5",
-        "@types/node": "^15.12.3",
-        "@types/ws": "^7.4.5",
+        "@types/node": "^16.0.0",
+        "@types/ws": "^7.4.6",
         "babel-plugin-graphql-tag": "^3.3.0",
         "babel-plugin-transform-merge-sibling-variables": "^6.9.4",
-        "typescript": "^4.3.4"
+        "tsup": "^4.12.0",
+        "typescript": "^4.3.5"
     }
 }
